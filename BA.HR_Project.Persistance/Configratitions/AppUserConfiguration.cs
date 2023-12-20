@@ -55,15 +55,27 @@ namespace BA.HR_Project.Persistance.Configurations
                 AccessFailedCount = 3,
                 LockoutEnabled = false,
                 IsTurkishCitizen = true,
-                PhoneNumber ="0",
+                PhoneNumber = "0",
                 PhoneNumberConfirmed = true,
-                TwoFactorEnabled=false,
-                
+                TwoFactorEnabled = false,
+
 
                 AdressId = "SeedAdress1",
                 DepartmentId = "SeedDepartment1",
                 CompanyId = "SeedCompany1"
             });
+
+
+
+
+            //builder.HasData(new AppUser(true)
+            //{
+
+
+
+            //});
+
+
         }
     }
 }

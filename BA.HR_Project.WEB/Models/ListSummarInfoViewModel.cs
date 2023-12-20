@@ -14,8 +14,8 @@ namespace BA.HR_Project.WEB.Models
         public string PhoneNumber { get; set; }
         public int CompanyId { get; set; }
         public int DepantmentId { get; set; }
-        public Company Company { get; set; }
-        public Department Department { get; set; }
-        public Adress Adress { get; set; }
+        public string CompanyName { get; set; }
+        public string DepartmentName { get; set; }
+        public List<Adress> Adresses { get; set; }
     }
 }

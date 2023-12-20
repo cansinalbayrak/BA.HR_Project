@@ -12,6 +12,13 @@ namespace BA.HR_Project.Domain.Entities
     {
         private string? _identityNo;
         private string? _passportNo;
+
+
+        public AppUser()
+        {
+
+        }
+
         public AppUser(bool isTurkishCitizen)
         {
             IsTurkishCitizen = isTurkishCitizen;
