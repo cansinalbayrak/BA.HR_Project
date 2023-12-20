@@ -39,7 +39,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+//app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseStaticFiles();
 
 app.UseRouting();

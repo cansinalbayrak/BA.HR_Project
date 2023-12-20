@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+@model LoginUserViewModel
+
+
+<div class="login-form login-form-left">
+	<div class="agile-row">
+		<h2>Sign In Here</h2>
+		<div class="login-agileits-top">
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control">
+                <span asp-validation-for="Email"></span>
+                <br>
+                <label asp-for="Password" class="form-label"></label>
+                <input type="password" class="password" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password"></span>
+                <input type="submit" style="width : 30%; margin-left:auto; margin-right: auto; display: block" value="Sign In">
+			</form>
+		</div>
+
+	</div>
+</div>

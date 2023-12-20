@@ -4,6 +4,7 @@ using BA.HR_Project.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BA.HR_Project.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231220205432_MigSeedData")]
+    partial class MigSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,8 +93,8 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "61e34c72-e6b3-4e88-bd7f-90638748d285",
-                            ConcurrencyStamp = "598a15c6-73f5-46c1-b2bf-5f1390a454a7",
+                            Id = "b67c49c4-df88-4839-ac1b-e08c72fd2231",
+                            ConcurrencyStamp = "c8313012-1bb4-4aed-a9c7-c83a360857e0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -232,12 +234,12 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "90c12eaa-07ea-4f41-b327-673d4ded387e",
+                            Id = "e70375c3-5412-427c-9bfc-befc1acdd1e9",
                             AccessFailedCount = 0,
                             AdressId = "SeedAdress1",
-                            BirthDate = new DateTime(2023, 12, 21, 0, 1, 57, 610, DateTimeKind.Local).AddTicks(1566),
+                            BirthDate = new DateTime(2023, 12, 20, 23, 54, 31, 768, DateTimeKind.Local).AddTicks(7823),
                             CompanyId = "SeedCompany1",
-                            ConcurrencyStamp = "78586396-6496-4c14-89b5-87851a630605",
+                            ConcurrencyStamp = "9c88130a-9bbd-4990-85ec-8ece37fa8250",
                             DepartmentId = "SeedDepartment1",
                             Email = "admin@bilgeadam.com",
                             EmailConfirmed = true,
@@ -246,10 +248,9 @@ namespace BA.HR_Project.Persistance.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@BILGEADAM.COM",
                             NormalizedUserName = "ADMIN@BILGEADAM.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOkdsmlmT8+pNyAh+2p/ENaQ1JZBLgZUODk69MQR5uZYBH10cInAdzJnCcdsu//aGg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF6hYO0k3UC8lUBC/MG/r56df4Yhf6FcR6lmPMOWSVltgTAjkDOl6CSTHWQPVky07A==",
                             PhoneNumber = "0",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ba4b3aba-e3f7-4a0d-bf2d-6769f2500007",
                             Surname = "Bilgeadam",
                             TwoFactorEnabled = false,
                             UserName = "admin@bilgeadam.com"

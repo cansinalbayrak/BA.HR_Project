@@ -107,6 +107,8 @@
             </div>
         </div>
     </div>
+
+
         @*  <div class="swiper-slide">
     <div class="slide-inner" style="background-image:url('mexant/assets/images/slide-03.jpg')">
     <div class="container">
@@ -129,11 +131,22 @@
     </div>
     </div>
     </div>  *@
+
+
 </div>
     </div>
 <div class="swiper-button-next swiper-button-white"></div>
 <div class="swiper-button-prev swiper-button-white"></div>
   </div>
+
+
+  <div>
+    class="container">
+    <main role="main" class="pb-3">
+            @RenderBody()
+    </main>
+</div>
+
 
 <!-- ***** Main Banner Area End ***** -->
     @* <section class="humanresource" id="humanresource">
@@ -559,12 +572,7 @@
 <script src="~/js/site.js" asp-append-version="true"></script>
 
 
-<div>
-    class="container">
-    <main role="main" class="pb-3">
-            @RenderBody()
-    </main>
-</div>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -33,37 +33,36 @@ namespace BA.HR_Project.Persistance.Configurations
             builder.Property(x => x.Email).HasMaxLength(50).IsRequired();
             builder.HasIndex(x => x.Email).IsUnique();
 
-            var hasher = new PasswordHasher<AppUser>();
+            
 
             var adminRoleID = Guid.NewGuid().ToString();
 
 
-            builder.HasData(new
+            var seedAdmin = new AppUser
             {
                 Id = Guid.NewGuid().ToString(),
                 UserName = "admin@bilgeadam.com",
                 BirthDate = DateTime.Now,
                 NormalizedUserName = "ADMIN@BILGEADAM.COM",
+                IsTurkishCitizen = true,
+                PhoneNumber = "0",
                 Email = "admin@bilgeadam.com",
                 NormalizedEmail = "ADMIN@BILGEADAM.COM",
                 EmailConfirmed = true,
-                PasswordHash = "Admin",
-                SecurityStamp = string.Empty,
-                ConcurrencyStamp = Guid.NewGuid().ToString(),
                 Name = "Admin",
                 Surname = "Bilgeadam",
-                AccessFailedCount = 3,
-                LockoutEnabled = false,
-                IsTurkishCitizen = true,
-                PhoneNumber = "0",
-                PhoneNumberConfirmed = true,
-                TwoFactorEnabled = false,
-
+                SecurityStamp = Guid.NewGuid().ToString(),
 
                 AdressId = "SeedAdress1",
                 DepartmentId = "SeedDepartment1",
                 CompanyId = "SeedCompany1"
-            });
+            };
+
+            var hasher = new PasswordHasher<AppUser>();
+            seedAdmin.PasswordHash = hasher.HashPassword(seedAdmin, "Admin");
+
+            builder.HasData(seedAdmin);
+            
 
 
 
