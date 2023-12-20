@@ -19,11 +19,7 @@ namespace BA.HR_Project.WEB.Models
         public string? IdentityNumber { get; set; }
         public string? PassportNumber { get; set; }
         public string CompanyName { get; set; }
-        public string DepantmentName { get; set; }
-        public string City { get; set; }
-        public string District { get; set; }
-        public string Street { get; set; }
-        public string ZipCode { get; set; }
-        public string AppUserId { get; set; }
+        public string DepartmentName { get; set; }
+        public List<Adress> Adresses { get; set; }
     }
 }
