@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using BA.HR_Project.Application.DTOs;
+using BA.HR_Project.Domain.Entities;
+using BA.HR_Project.Infrasturucture.RequestResponse;
+using BA.HR_Project.WEB.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BA.HR_Project.WEB.Controllers
 {
@@ -29,12 +35,12 @@ namespace BA.HR_Project.WEB.Controllers
 
                 var user = await _userManager.FindByEmailAsync(dto.Email);
                 var result = await _signInManager.PasswordSignInAsync(user, dto.Password, false, false);
-
-                if (result.IsSuccess)
+                
+                if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                ViewBag.LoginMessage = result.Message;
+                
                 return View(vm);
             }
             return View(vm);
