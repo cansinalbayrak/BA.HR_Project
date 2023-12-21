@@ -18,6 +18,7 @@
 	</ItemGroup>
 	
   <ItemGroup>
+    <ProjectReference Include="..\BA.HR_Project.Commons\BA.HR_Project.Commons.csproj" />
     <ProjectReference Include="..\BA.HR_Project.Infrastructure\BA.HR_Project.Infrastructure.csproj" />
     <ProjectReference Include="..\BA.HR_Project.Persistance\BA.HR_Project.Persistance.csproj" />
   </ItemGroup>

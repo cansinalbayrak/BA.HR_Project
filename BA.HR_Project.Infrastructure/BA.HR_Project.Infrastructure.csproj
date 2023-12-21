@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BA.HR_Project.Application\BA.HR_Project.Application.csproj" />
+    <ProjectReference Include="..\BA.HR_Project.Commons\BA.HR_Project.Commons.csproj" />
   </ItemGroup>
 
 </Project>

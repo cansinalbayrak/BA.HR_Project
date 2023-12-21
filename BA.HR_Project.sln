@@ -11,15 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{DC07F591-B78F-468C-90AD-FCF3741CB173}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA.HR_Project.Domain", "BA.HR_Project.Domain\BA.HR_Project.Domain.csproj", "{A027F5A2-CE7A-4FC9-A2D4-44A0C4C7CC61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA.HR_Project.Domain", "BA.HR_Project.Domain\BA.HR_Project.Domain.csproj", "{A027F5A2-CE7A-4FC9-A2D4-44A0C4C7CC61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA.HR_Project.Application", "BA.HR_Project.Application\BA.HR_Project.Application.csproj", "{D8FC279B-352A-49CF-A9D5-3AB1234070E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA.HR_Project.Application", "BA.HR_Project.Application\BA.HR_Project.Application.csproj", "{D8FC279B-352A-49CF-A9D5-3AB1234070E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA.HR_Project.Infrastructure", "BA.HR_Project.Infrastructure\BA.HR_Project.Infrastructure.csproj", "{E82E80FD-1867-47AC-9B76-920E9F0096DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA.HR_Project.Infrastructure", "BA.HR_Project.Infrastructure\BA.HR_Project.Infrastructure.csproj", "{E82E80FD-1867-47AC-9B76-920E9F0096DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA.HR_Project.Persistance", "BA.HR_Project.Persistance\BA.HR_Project.Persistance.csproj", "{A0D28736-79CF-42D7-B027-01D61A5F08C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA.HR_Project.Persistance", "BA.HR_Project.Persistance\BA.HR_Project.Persistance.csproj", "{A0D28736-79CF-42D7-B027-01D61A5F08C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA.HR_Project.WEB", "BA.HR_Project.WEB\BA.HR_Project.WEB.csproj", "{EE767829-4B68-4272-9F02-19505AF4FC7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA.HR_Project.WEB", "BA.HR_Project.WEB\BA.HR_Project.WEB.csproj", "{EE767829-4B68-4272-9F02-19505AF4FC7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{32389919-A282-4218-97FC-F14CF7C5FB3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA.HR_Project.Commons", "BA.HR_Project.Commons\BA.HR_Project.Commons.csproj", "{723E1D2D-3A91-40CD-B4BD-FAA569169ADE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,10 @@ Global
 		{EE767829-4B68-4272-9F02-19505AF4FC7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE767829-4B68-4272-9F02-19505AF4FC7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE767829-4B68-4272-9F02-19505AF4FC7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{723E1D2D-3A91-40CD-B4BD-FAA569169ADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{723E1D2D-3A91-40CD-B4BD-FAA569169ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{723E1D2D-3A91-40CD-B4BD-FAA569169ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{723E1D2D-3A91-40CD-B4BD-FAA569169ADE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{E82E80FD-1867-47AC-9B76-920E9F0096DC} = {EABA6C79-F249-4ADF-A25B-3B5C501AB094}
 		{A0D28736-79CF-42D7-B027-01D61A5F08C0} = {EABA6C79-F249-4ADF-A25B-3B5C501AB094}
 		{EE767829-4B68-4272-9F02-19505AF4FC7B} = {DC07F591-B78F-468C-90AD-FCF3741CB173}
+		{723E1D2D-3A91-40CD-B4BD-FAA569169ADE} = {32389919-A282-4218-97FC-F14CF7C5FB3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E6CDAF06-7DAF-4D12-AFBF-5E36F15957F9}
