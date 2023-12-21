@@ -7,6 +7,7 @@ using System;
 using BA.HR_Project.Domain.Entities;
 using BA.HR_Project.Persistance.Context;
 using BA.HR_Project.Persistance.Extensions;
+using BA.HR_Project.Infrastructure.Extension;
 using BA.HR_Project.Application.Extentios;
 using System.Reflection;
 
@@ -24,8 +25,11 @@ builder.Services.AddControllersWithViews();
 
 //}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
+
 builder.Services.AddCoreDepecenies(Assembly.GetExecutingAssembly());
 builder.Services.AddPersistanceDependencies(builder.Configuration.GetConnectionString("SqlConn"));
+builder.Services.AddInfrastructureDependencies();
+
 
 var app = builder.Build();
 
