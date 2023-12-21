@@ -20,11 +20,11 @@ namespace BA.HR_Project.WEB.Mapping
            .ReverseMap();
             CreateMap<DepartmentDto, DepartmentViewModel>()
            .ReverseMap();
-            CreateMap<AppUserDto, ListSummaryInfoDto>()
+            CreateMap<AppUserDto, ListSummarInfoViewModel>()
            .ReverseMap();
-            CreateMap<AppUserDto, UpdateUserProfile>()
+            CreateMap<AppUserDto, UpdateUserProfileViewModel>()
            .ReverseMap();
-            CreateMap<LoginUserDto, AppUserDto>()
+            CreateMap<LoginUserViewModel, LoginUserDto>()
            .ReverseMap();
         }
     }
