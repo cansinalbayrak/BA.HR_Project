@@ -45,5 +45,6 @@ namespace BA.HR_Project.WEB.Models
                 return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
             }
 
+        }
     }
 }

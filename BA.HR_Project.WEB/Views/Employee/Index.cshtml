@@ -10,37 +10,34 @@
         <h5 class="card-title">User Information</h5>
 
         <dl class="row">
-            <dt class="col-sm-3">Id:</dt>
-            <dd class="col-sm-9">@Model.Id</dd>
+            <dt style="display:none" class="col-sm-3">Id:</dt>
+            <dd style="display:none" class="col-sm-9">@Model.Id</dd>
 
             <dt class="col-sm-3">Name:</dt>
-            <dd class="col-sm-9">@Model.Name</dd>
+            <dd class="col-sm-9">@Model.Name @Model.SecondName</dd>
 
-            <dt class="col-sm-3">SecondName:</dt>
-            <dd class="col-sm-9">@Model.SecondName</dd>
+            
 
             <dt class="col-sm-3">SurName:</dt>
-            <dd class="col-sm-9">@Model.Surname</dd>
+            <dd class="col-sm-9">@Model.Surname @Model.SecondSurname</dd>
 
-            <dt class="col-sm-3">SecondSurName:</dt>
-            <dd class="col-sm-9">@Model.SecondSurname</dd>
+            
 
             <dt class="col-sm-3">ProfilePhotoPath:</dt>
             <dd class="col-sm-9">@Model.PhotoPath</dd>
-
             <dt class="col-sm-3">CompanyName:</dt>
-            <dd class="col-sm-9">@Model.Company.Name</dd>
+            <dd class="col-sm-9">@ViewBag.CompanyName</dd>
 
             <dt class="col-sm-3">DepartmentName:</dt>
-            <dd class="col-sm-9">@Model.Department.Name</dd>
+            <dd class="col-sm-9">@ViewBag.DepartmentName</dd>
 
             <dt class="col-sm-3">Address:</dt>
-            <dd class="col-sm-9">@Model.Adress</dd>
+            <dd class="col-sm-9">@ViewBag.AllAdress</dd>
         </dl>
 
         <div class="row">
             <div class="col-sm-6">
-                <a href="#" class="btn btn-danger btn-block">Detail</a>
+                <a asp-controller="Employee" asp-action="Detail" class="btn btn-danger btn-block">Detail</a>
             </div>
             <div class="col-sm-6">
                 <a href="#" class="btn btn-warning btn-block">Update</a>

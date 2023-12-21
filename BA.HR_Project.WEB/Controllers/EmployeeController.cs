@@ -39,9 +39,12 @@ namespace BA.HR_Project.WEB.Controllers
             var adress = await _adressManager.Get(true, x => x.Id == userdto.AdressId);
 
             var userViewModels = _mapper.Map<ListSummarInfoViewModel>(userdto);
-            ViewBag.Department = department.Context;
-            ViewBag.Company = company.Context;
-            ViewBag.Adress = adress.Context;
+            ViewBag.DepartmentName = department.Context.Name;
+            ViewBag.CompanyName = company.Context.Name;
+
+            string AllAdress = adress.Context.City + " " + adress.Context.District + " " + adress.Context.ZipCode;
+
+            ViewBag.AllAdress = AllAdress;
             return View(userViewModels);
         }
 
