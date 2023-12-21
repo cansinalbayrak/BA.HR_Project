@@ -5,38 +5,45 @@
 
 @model ListSummarInfoViewModel
 
-<div>
-    <label> Id :</label>
-    <label>@Model.Id</label>
-    <br>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">User Information</h5>
 
-    <label>Name:</label>
-    <label>@Model.Name</label>
-    <br>
+        <dl class="row">
+            <dt class="col-sm-3">Id:</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
 
-    <label>SecondName:</label>
-    <label>@Model.SecondName</label>
-    <br>
+            <dt class="col-sm-3">Name:</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
 
-    <label>SurName:</label>
-    <label>@Model.Surname</label>
-    <br>
+            <dt class="col-sm-3">SecondName:</dt>
+            <dd class="col-sm-9">@Model.SecondName</dd>
 
-    <label>SecondSurName:</label>
-    <label>@Model.SecondSurname</label>
-    <br>
+            <dt class="col-sm-3">SurName:</dt>
+            <dd class="col-sm-9">@Model.Surname</dd>
 
-    <label>ProfilePhotoPath:</label>
-    <label>@Model.PhotoPath</label>
-    <br>
+            <dt class="col-sm-3">SecondSurName:</dt>
+            <dd class="col-sm-9">@Model.SecondSurname</dd>
 
-    <label>ComanyName:</label>
-    <label>@Model.Company.Name</label>
-    <br>
+            <dt class="col-sm-3">ProfilePhotoPath:</dt>
+            <dd class="col-sm-9">@Model.PhotoPath</dd>
 
-    <label>DepartmanName:</label>
-    <label>@Model.Department.Name</label>
-    <br>
+            <dt class="col-sm-3">CompanyName:</dt>
+            <dd class="col-sm-9">@Model.Company.Name</dd>
 
-    <label>Adress:</label>
-    <label>@Model.Adress</label>
+            <dt class="col-sm-3">DepartmentName:</dt>
+            <dd class="col-sm-9">@Model.Department.Name</dd>
+
+            <dt class="col-sm-3">Address:</dt>
+            <dd class="col-sm-9">@Model.Adress</dd>
+        </dl>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="#" class="btn btn-danger btn-block">Detail</a>
+            </div>
+            <div class="col-sm-6">
+                <a href="#" class="btn btn-warning btn-block">Update</a>
+            </div>
+        </div>
+    </div>
