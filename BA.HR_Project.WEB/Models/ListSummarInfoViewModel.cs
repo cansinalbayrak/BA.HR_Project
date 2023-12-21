@@ -12,10 +12,21 @@ namespace BA.HR_Project.WEB.Models
         public string? PhotoPath { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public int CompanyId { get; set; }
-        public int DepantmentId { get; set; }
-        public string CompanyName { get; set; }
-        public string DepartmentName { get; set; }
-        public List<Adress> Adresses { get; set; }
+        public CompanyViewModel Company { get; set; }
+        public DepartmentViewModel Department { get; set; }
+        public Adress Adress { get; set; }
+
+        public string GetAddress()
+        {
+            return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
+        }
+        public string GetCompany()
+        {
+            return Company.Name;
+        }
+        public string GetDepartment()
+        {
+            return Department.Name;
+        }
     }
 }
