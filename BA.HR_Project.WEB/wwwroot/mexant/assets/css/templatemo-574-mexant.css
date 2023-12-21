@@ -316,7 +316,7 @@ header
   letter-spacing: 1px;
 }
 
-.header-area .main-nav .nav li:last-child a {
+/*.header-area .main-nav .nav li:last-child a {
   font-size: 14px;
   color: #fff;
   background-color: #43ba7f;
@@ -329,11 +329,11 @@ header
   line-height: 25px;
   letter-spacing: 0.5px;
   transition: all .3s;
-}
+}*/
 
-.header-area .main-nav .nav li:last-child a:hover {
+/*.header-area .main-nav .nav li:last-child a:hover {
   color: #fff;
-}
+}*/
 
 .header-area .main-nav .nav li.has-sub ul.sub-menu li:last-child a,
 .background-header .main-nav .nav li.has-sub ul.sub-menu li:last-child a {
