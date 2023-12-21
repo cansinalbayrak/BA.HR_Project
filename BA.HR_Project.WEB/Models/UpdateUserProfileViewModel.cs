@@ -9,10 +9,10 @@ namespace BA.HR_Project.WEB.Models
         public string PhoneNumber { get; set; }
         public string CompanyId { get; set; }
         public string DepantmentId { get; set; }
-        public Adress Adress { get; set; }
-        public string GetAddress()
-        {
-            return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
-        }
+        public AdressViewModel Adress { get; set; }
+        //public string GetAddress()
+        //{
+        //    return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
+        //}
     }
 }

@@ -16,7 +16,7 @@ namespace BA.HR_Project.WEB.Models
         public string DepantmentId { get; set; }
         public CompanyViewModel Company { get; set; }
         public DepartmentViewModel Department { get; set; }
-        public Adress Adress { get; set; }
+        public AdressViewModel Adress { get; set; }
 
         //public string GetAddress()
         //{

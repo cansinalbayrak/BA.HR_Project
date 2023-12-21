@@ -26,6 +26,8 @@ namespace BA.HR_Project.WEB.Mapping
            .ReverseMap();
             CreateMap<LoginUserViewModel, LoginUserDto>()
            .ReverseMap();
+            CreateMap<AppUserDto, ListDetailInfoViewModel>()
+         .ReverseMap();
         }
     }
 }
