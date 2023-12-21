@@ -3,56 +3,40 @@
  }
 
 
-@model List<ListSummarInfoViewModel>
+@model ListSummarInfoViewModel
 
+<div>
+    <label> Id :</label>
+    <label>@Model.Id</label>
+    <br>
 
-<table class="table-light">
+    <label>Name:</label>
+    <label>@Model.Name</label>
+    <br>
 
-    <thead>
-    <th>PHOTO</th>
-    <th>ID</th>
-    <th>NAME</th>
-    <th>SECONDNAME</th>
-    <th>SURNAME</th>
-    <th>SECONDSURNAME</th>
-    <th>EMAİL</th>
-    <th>PHONENUMBER</th>
-    <th>COMPANYNAME</th>
-    <th>DEPARTMANTNAME</th>
-    <th>ADRESS</th>
-    <th>PROGRESS</th>
+    <label>SecondName:</label>
+    <label>@Model.SecondName</label>
+    <br>
 
+    <label>SurName:</label>
+    <label>@Model.Surname</label>
+    <br>
 
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.PhotoPath</td>
-                <td>@item.Id</td>
-                <td>@item.Name</td>
-                <td>@item.SecondName</td>
-                <td>@item.Surname</td>
-                <td>@item.Surname</td>
-                <td>@item.Email</td>
-                <td>@item.PhoneNumber</td>
-                <td>@item.CompanyName</td>
-                <td>@item.DepartmentName</td>
-                <td>@item.Adresses.</td>
-                <td>
+    <label>SecondSurName:</label>
+    <label>@Model.SecondSurname</label>
+    <br>
 
-                    <button class="btn-warning" href="/Update/@item.Id">Update</button> |
-                    <button class="btn btn-info" href="/Detail/@item.Id">Detail</button>
-                </td>
+    <label>ProfilePhotoPath:</label>
+    <label>@Model.PhotoPath</label>
+    <br>
 
+    <label>ComanyName:</label>
+    <label>@Model.Company.Name</label>
+    <br>
 
-            </tr>
+    <label>DepartmanName:</label>
+    <label>@Model.Department.Name</label>
+    <br>
 
-        }
-
-    </tbody>
-
-
-
-
-</table>
+    <label>Adress:</label>
+    <label>@Model.Adress</label>
