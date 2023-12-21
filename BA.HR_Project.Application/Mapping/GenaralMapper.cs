@@ -22,14 +22,15 @@ namespace BA.HR_Project.Application.Mapping
             CreateMap<CompanyDto, Company>()
            .ReverseMap();
             CreateMap<DepartmentDto, Department>()
-            .ReverseMap();
+           .ReverseMap();
             CreateMap<AppUser, ListSummaryInfoDto>()
-                .ReverseMap();
+           .ReverseMap();
             CreateMap<AppUser, UpdateUserProfile>()
-            .ReverseMap();
+           .ReverseMap();
             CreateMap<LoginUserDto, AppUser>()
-                .ReverseMap();
-            
+           .ReverseMap();
+           
+
         }
     }
 }
