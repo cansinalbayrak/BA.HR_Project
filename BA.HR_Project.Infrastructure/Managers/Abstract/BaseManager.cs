@@ -88,9 +88,10 @@ namespace BA.HR_Project.Infrasturucture.Managers.Abstract
             try
             {
                 var entity = _mapper.Map<T>(dto);
-                _uow.GetRepository<T>().UpdateAsync(entity);
-                _uow.SaveChanges();
-                return Response.Success("Updating was successful.");
+                //await _uow.GetRepository<T>().UpdateAsync(entity);
+                _uow.GetRepository<T>().Update(entity);
+                await _uow.SaveChanges();
+                 return Response.Success("Updating was successful.");
             }
             catch
             {

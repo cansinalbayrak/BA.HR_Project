@@ -88,6 +88,8 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateUserProfileViewModel vm)
         {
+            ModelState.Remove("AdressId");
+                
             ModelState.Remove("Id");
             ModelState.Remove("CompanyId");
             ModelState.Remove("DepantmentId");

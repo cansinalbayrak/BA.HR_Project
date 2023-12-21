@@ -20,7 +20,7 @@ namespace BA.HR_Project.Persistance.UnitOfWork
             _context = context;
             
         }
-        public async Task SaveChanges()
+        public  async Task SaveChanges()
         {
             await _context.SaveChangesAsync();
         }
