@@ -5,6 +5,9 @@
     <div class="card-body">
         <h5 class="card-title">User Information</h5>
 
+        <label class="col-sm-9"><img style="float:left; max-width: 10%; height: auto;" src="@Model.PhotoPath"></label>
+        <br>
+
         <label>Name:</label>
         <label>@Model.Name</label>
         <br>
@@ -19,11 +22,6 @@
 
         <label>SecondSurName:</label>
         <label>@Model.SecondSurname</label>
-        <br>
-
-
-        <label class="col-sm-3">Photo:</label>
-        <label class="col-sm-9"><img src="@Model.PhotoPath"></label>
         <br>
 
         <label>BirthDate:</label>
