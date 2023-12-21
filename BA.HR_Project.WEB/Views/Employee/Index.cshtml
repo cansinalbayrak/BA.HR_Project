@@ -1,0 +1,55 @@
+﻿
+
+@model List<ListSummarInfoViewModel>
+
+
+<table class="table-light">
+    
+    <thead>
+        <th>PHOTO</th>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>SECONDNAME</th>
+        <th>SURNAME</th>
+        <th>SECONDSURNAME</th>
+        <th>EMAİL</th>
+        <th>PHONENUMBER</th>
+        <th>COMPANYNAME</th>
+        <th>DEPARTMANTNAME</th>
+        <th>ADRESS</th>
+        <th>PROGRESS</th>
+        
+       
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PhotoPath</td>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.SecondName</td>
+                <td>@item.Surname</td>
+                <td>@item.Surname</td>
+                <td>@item.Email</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.CompanyName</td>
+                <td>@item.DepartmentName</td>
+                <td>@item.Adresses.</td>
+                <td>
+                    
+                    <button class="btn-warning"  href="/Update/@item.Id">Update</button> |
+                    <button class="btn btn-info" href="/Detail/@item.Id">Detail</button>
+                </td>
+
+
+            </tr>
+
+        }
+
+    </tbody>
+
+
+
+
+</table>
