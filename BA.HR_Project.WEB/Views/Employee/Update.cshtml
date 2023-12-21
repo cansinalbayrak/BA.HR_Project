@@ -14,8 +14,20 @@
     <input type="hidden" asp-for="Id" />
 
     <div class="form-group">
-        <label asp-for="Adress"></label>
-        <input asp-for="Adress" class="form-control" />
+        <label asp-for="Adress.City"></label>
+        <input asp-for="Adress.City" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Adress.Street"></label>
+        <input asp-for="Adress.Street" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Adress.District"></label>
+        <input asp-for="Adress.District" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Adress.ZipCode"></label>
+        <input asp-for="Adress.ZipCode" class="form-control" />
     </div>
 
     <div class="form-group">
@@ -28,4 +40,5 @@
         <input type="file" name="PhotoFile" class="form-control-file" />
         <img src="@Model.PhotoPath" alt="Current Photo" class="mt-2" style="max-width: 150px;" />
     </div>
+    <input type="submit" value="Update">
     </form>

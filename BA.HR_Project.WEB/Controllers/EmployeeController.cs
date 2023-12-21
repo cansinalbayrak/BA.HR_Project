@@ -73,24 +73,40 @@ namespace BA.HR_Project.WEB.Controllers
         public async Task<IActionResult> Update()
         {
             var userId = _userManager.GetUserId(User);
-            var userdto = await _appUserManager.Get(true, x => x.Id == userId);
-            var userViewModels = _mapper.Map<UpdateUserProfileViewModel>(userdto.Context);
+            var GetuserdtoAction = await _appUserManager.Get(true, x => x.Id == userId);
+            var userdto = GetuserdtoAction.Context;
+            var addressId = userdto.AdressId; 
+            var addressAction = await _adressManager.Get(true, x => x.Id == addressId);
+            var address = addressAction.Context;
+
+            userdto.Adress = address;
+
+            var userViewModels = _mapper.Map<UpdateUserProfileViewModel>(userdto);
+            
             return View(userViewModels);
         }
         [HttpPost]
         public async Task<IActionResult> Update(UpdateUserProfileViewModel vm)
         {
+            ModelState.Remove("Id");
+            ModelState.Remove("CompanyId");
+            ModelState.Remove("DepantmentId");
             if (ModelState.IsValid)
             {
                 var updateUserDto = _mapper.Map<AppUserDto>(vm);
-                
+
+                var updateAddressAction = await _adressManager.Update(updateUserDto.Adress);
+                if (!updateAddressAction.IsSuccess)
+                {
+                    return RedirectToAction("Update");
+                }
+
                 await _appUserManager.Update(updateUserDto);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Employee");
             }
 
             return RedirectToAction("Index", "Home");
-
         }
     }
 }
