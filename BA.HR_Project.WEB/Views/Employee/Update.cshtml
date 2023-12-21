@@ -14,7 +14,7 @@
 <form asp-action="Update" method="post" enctype="multipart/form-data">
 
     <input type="hidden" asp-for="Id" />
-
+    <img style="float:left; max-width: 10%; height: auto;" src="@Model.PhotoPath" alt="Current Photo" class="mt-2" style="max-width: 150px;" />
 
 
 
@@ -29,8 +29,8 @@
 
     <div class="form-group">
         <label asp-for="PhotoPath"></label>
-        <input type="file" name="PhotoFile" class="form-control-file" />
-        <img src="@Model.PhotoPath" alt="Current Photo" class="mt-2" style="max-width: 150px;" />
+        <input type="file" asp-for="Photo" class="form-control-file" />
+        
     </div>
     <input type="submit" value="Update">
 </form>
