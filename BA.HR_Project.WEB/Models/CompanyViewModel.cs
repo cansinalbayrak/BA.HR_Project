@@ -7,6 +7,6 @@ namespace BA.HR_Project.WEB.Models
         public string Name { get; set; }
         public string LogoPath { get; set; }
 
-        public AppUserViewModel AppUser { get; set; }
+        public List<AppUserViewModel> AppUsers { get; set; }
     }
 }
