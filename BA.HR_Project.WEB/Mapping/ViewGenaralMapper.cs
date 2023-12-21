@@ -10,8 +10,6 @@ namespace BA.HR_Project.WEB.Mapping
     {
         public ViewGenaralMapper()
         {
-            CreateMap<AdressDto, AdressViewModel>()
-           .ReverseMap();
             CreateMap<AppRoleDto, AppRoleViewModel>()
            .ReverseMap();
             CreateMap<AppUserDto, AppUserViewModel>()

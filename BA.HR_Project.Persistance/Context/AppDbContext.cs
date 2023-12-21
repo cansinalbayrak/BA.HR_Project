@@ -14,7 +14,6 @@ namespace BA.HR_Project.Persistance.Context
     public class AppDbContext: IdentityDbContext<AppUser, AppRole, string>
     {
         public DbSet<Company> Companies { get; set; }
-        public DbSet<Adress> Adresses { get; set; }
         public DbSet<Department> Departments { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> option) : base(option)
         {

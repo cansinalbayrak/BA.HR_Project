@@ -14,7 +14,6 @@ namespace BA.HR_Project.Infrastructure.Extension
     {
         public static  void AddInfrastructureDependencies(this IServiceCollection services) 
         {
-            services.AddScoped<IAdressService, AdressManager>();
             services.AddScoped<IAppRoleService, AppRoleManager>();
             services.AddScoped<IAppUserService, AppUserManager>();
             services.AddScoped<ICompanyService, CompanyManager>();

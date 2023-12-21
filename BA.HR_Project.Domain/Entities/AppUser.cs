@@ -32,6 +32,7 @@ namespace BA.HR_Project.Domain.Entities
         public string? BirthPlace { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public string Adress { get; set; }
         public int? Salary { get; set; }
         public bool IsActive
         {
@@ -71,13 +72,10 @@ namespace BA.HR_Project.Domain.Entities
         }
         public string CompanyId { get; set; }
         public string DepartmentId { get; set; }
-        public string AdressId { get; set; }
 
         #region NavProp
         public Company Company { get; set; }
         public Department Department { get; set; }
-        public Adress Adress { get; set; }
-
         #endregion
 
 

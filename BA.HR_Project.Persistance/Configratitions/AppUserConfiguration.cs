@@ -14,10 +14,6 @@ namespace BA.HR_Project.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
-            builder
-                .HasOne(x => x.Adress)
-                .WithOne(x => x.AppUser)
-                .HasForeignKey<AppUser>(x => x.AdressId);
 
             builder
                 .HasOne(x => x.Company)
@@ -32,6 +28,7 @@ namespace BA.HR_Project.Persistance.Configurations
             builder.Property(x => x.BirthPlace).HasMaxLength(50);
             builder.Property(x => x.Email).HasMaxLength(50).IsRequired();
             builder.HasIndex(x => x.Email).IsUnique();
+            builder.Property(x=>x.Adress).HasMaxLength(80).IsRequired();
 
             
 
@@ -52,8 +49,7 @@ namespace BA.HR_Project.Persistance.Configurations
                 Name = "Admin",
                 Surname = "Bilgeadam",
                 SecurityStamp = Guid.NewGuid().ToString(),
-
-                AdressId = "SeedAdress1",
+                Adress = "Ankara",
                 DepartmentId = "SeedDepartment1",
                 CompanyId = "SeedCompany1"
             };
@@ -65,14 +61,6 @@ namespace BA.HR_Project.Persistance.Configurations
             
 
 
-
-
-            //builder.HasData(new AppUser(true)
-            //{
-
-
-
-            //});
 
 
         }

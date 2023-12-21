@@ -22,46 +22,6 @@ namespace BA.HR_Project.Persistance.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BA.HR_Project.Domain.Entities.Adress", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("District")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Adresses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "SeedAdress1",
-                            City = "Ankara",
-                            District = "Çankaya",
-                            Street = "KüçükEsat",
-                            ZipCode = "06100"
-                        });
-                });
-
             modelBuilder.Entity("BA.HR_Project.Domain.Entities.AppRole", b =>
                 {
                     b.Property<string>("Id")
@@ -91,8 +51,8 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "61e34c72-e6b3-4e88-bd7f-90638748d285",
-                            ConcurrencyStamp = "598a15c6-73f5-46c1-b2bf-5f1390a454a7",
+                            Id = "84134fac-7537-4400-b414-d54183bf3df5",
+                            ConcurrencyStamp = "b931f781-7a83-4fac-9399-6726d5ee6feb",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -106,9 +66,10 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("AdressId")
+                    b.Property<string>("Adress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
@@ -209,9 +170,6 @@ namespace BA.HR_Project.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdressId")
-                        .IsUnique();
-
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("DepartmentId");
@@ -232,12 +190,12 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "90c12eaa-07ea-4f41-b327-673d4ded387e",
+                            Id = "0d81d411-5340-4117-9aa5-868b8f6a19bb",
                             AccessFailedCount = 0,
-                            AdressId = "SeedAdress1",
-                            BirthDate = new DateTime(2023, 12, 21, 0, 1, 57, 610, DateTimeKind.Local).AddTicks(1566),
+                            Adress = "Ankara",
+                            BirthDate = new DateTime(2023, 12, 22, 0, 45, 40, 200, DateTimeKind.Local).AddTicks(9786),
                             CompanyId = "SeedCompany1",
-                            ConcurrencyStamp = "78586396-6496-4c14-89b5-87851a630605",
+                            ConcurrencyStamp = "e33236d1-c7b6-42b2-84ec-af491b6b3e37",
                             DepartmentId = "SeedDepartment1",
                             Email = "admin@bilgeadam.com",
                             EmailConfirmed = true,
@@ -246,10 +204,10 @@ namespace BA.HR_Project.Persistance.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@BILGEADAM.COM",
                             NormalizedUserName = "ADMIN@BILGEADAM.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOkdsmlmT8+pNyAh+2p/ENaQ1JZBLgZUODk69MQR5uZYBH10cInAdzJnCcdsu//aGg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMAasIxL23nGv1IhimTUckFGaHwRBEb7DWem/PYA/Ul1iI+DP3EKE15L5VkdQ7HV7Q==",
                             PhoneNumber = "0",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ba4b3aba-e3f7-4a0d-bf2d-6769f2500007",
+                            SecurityStamp = "50280b53-8971-423a-b39e-5e340df1bfe3",
                             Surname = "Bilgeadam",
                             TwoFactorEnabled = false,
                             UserName = "admin@bilgeadam.com"
@@ -413,12 +371,6 @@ namespace BA.HR_Project.Persistance.Migrations
 
             modelBuilder.Entity("BA.HR_Project.Domain.Entities.AppUser", b =>
                 {
-                    b.HasOne("BA.HR_Project.Domain.Entities.Adress", "Adress")
-                        .WithOne("AppUser")
-                        .HasForeignKey("BA.HR_Project.Domain.Entities.AppUser", "AdressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BA.HR_Project.Domain.Entities.Company", "Company")
                         .WithMany("AppUsers")
                         .HasForeignKey("CompanyId")
@@ -430,8 +382,6 @@ namespace BA.HR_Project.Persistance.Migrations
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Adress");
 
                     b.Navigation("Company");
 
@@ -486,12 +436,6 @@ namespace BA.HR_Project.Persistance.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BA.HR_Project.Domain.Entities.Adress", b =>
-                {
-                    b.Navigation("AppUser")
                         .IsRequired();
                 });
 

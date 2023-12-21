@@ -14,21 +14,8 @@ namespace BA.HR_Project.WEB.Models
         public string PhoneNumber { get; set; }
         public string CompanyId { get; set; }
         public string DepantmentId { get; set; }
+        public string Adress { get; set; }
         public CompanyViewModel Company { get; set; }
         public DepartmentViewModel Department { get; set; }
-        public AdressViewModel Adress { get; set; }
-
-        //public string GetAddress()
-        //{
-        //    return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
-        //}
-        //public string GetCompany()
-        //{
-        //    return Company.Name;
-        //}
-        //public string GetDepartment()
-        //{
-        //    return Department.Name;
-        //}
     }
 }

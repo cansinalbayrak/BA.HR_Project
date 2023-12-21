@@ -5,25 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BA.HR_Project.Persistance.Migrations
 {
-    public partial class MigInit : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Adresses",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    District = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ZipCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Adresses", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -98,13 +83,13 @@ namespace BA.HR_Project.Persistance.Migrations
                     BirthPlace = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Adress = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     Salary = table.Column<int>(type: "int", nullable: true),
                     IsTurkishCitizen = table.Column<bool>(type: "bit", nullable: false),
                     IdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PassportNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CompanyId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DepartmentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AdressId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -123,12 +108,6 @@ namespace BA.HR_Project.Persistance.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Adresses_AdressId",
-                        column: x => x.AdressId,
-                        principalTable: "Adresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Companies_CompanyId",
                         column: x => x.CompanyId,
@@ -229,14 +208,9 @@ namespace BA.HR_Project.Persistance.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Adresses",
-                columns: new[] { "Id", "City", "District", "Street", "ZipCode" },
-                values: new object[] { "SeedAdress1", "Ankara", "Çankaya", "KüçükEsat", "06100" });
-
-            migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "ae05658c-ba71-4905-a0f2-78b1e6bf9962", "ab7a2143-d092-46e6-bc71-9dacbdb33d55", "Admin", "ADMIN" });
+                values: new object[] { "84134fac-7537-4400-b414-d54183bf3df5", "b931f781-7a83-4fac-9399-6726d5ee6feb", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Companies",
@@ -250,8 +224,8 @@ namespace BA.HR_Project.Persistance.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "AdressId", "BirthDate", "BirthPlace", "CompanyId", "ConcurrencyStamp", "DepartmentId", "Email", "EmailConfirmed", "EndDate", "IdentityNumber", "IsTurkishCitizen", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PassportNumber", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "Salary", "SecondName", "SecondSurname", "SecurityStamp", "StartDate", "Surname", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "db7dfc41-56b4-416e-97a1-eed3713618cd", 3, "SeedAdress1", new DateTime(2023, 12, 20, 17, 8, 49, 76, DateTimeKind.Local).AddTicks(4208), null, "SeedCompany1", "89d214d8-ed5c-44ac-9092-ef284b05f60c", "SeedDepartment1", "admin@bilgeadam.com", true, null, null, true, false, null, "Admin", "ADMIN@BILGEADAM.COM", "ADMIN@BILGEADAM.COM", null, "Admin", "0", true, null, null, null, null, "", null, "Bilgeadam", false, "admin@bilgeadam.com" });
+                columns: new[] { "Id", "AccessFailedCount", "Adress", "BirthDate", "BirthPlace", "CompanyId", "ConcurrencyStamp", "DepartmentId", "Email", "EmailConfirmed", "EndDate", "IdentityNumber", "IsTurkishCitizen", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PassportNumber", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "Salary", "SecondName", "SecondSurname", "SecurityStamp", "StartDate", "Surname", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "0d81d411-5340-4117-9aa5-868b8f6a19bb", 0, "Ankara", new DateTime(2023, 12, 22, 0, 45, 40, 200, DateTimeKind.Local).AddTicks(9786), null, "SeedCompany1", "e33236d1-c7b6-42b2-84ec-af491b6b3e37", "SeedDepartment1", "admin@bilgeadam.com", true, null, null, true, false, null, "Admin", "ADMIN@BILGEADAM.COM", "ADMIN@BILGEADAM.COM", null, "AQAAAAEAACcQAAAAEMAasIxL23nGv1IhimTUckFGaHwRBEb7DWem/PYA/Ul1iI+DP3EKE15L5VkdQ7HV7Q==", "0", false, null, null, null, null, "50280b53-8971-423a-b39e-5e340df1bfe3", null, "Bilgeadam", false, "admin@bilgeadam.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -284,12 +258,6 @@ namespace BA.HR_Project.Persistance.Migrations
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_AdressId",
-                table: "AspNetUsers",
-                column: "AdressId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_CompanyId",
@@ -337,9 +305,6 @@ namespace BA.HR_Project.Persistance.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Adresses");
 
             migrationBuilder.DropTable(
                 name: "Companies");

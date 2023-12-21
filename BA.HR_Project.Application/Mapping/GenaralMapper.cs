@@ -13,8 +13,6 @@ namespace BA.HR_Project.Application.Mapping
     {
         public GenaralMapper()
         {
-            CreateMap<AdressDto, Adress>()
-           .ReverseMap();
             CreateMap<AppRoleDto, AppRole>()
            .ReverseMap();
             CreateMap<AppUserDto, AppUser>()

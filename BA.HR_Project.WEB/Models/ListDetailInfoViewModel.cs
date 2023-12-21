@@ -22,31 +22,10 @@ namespace BA.HR_Project.WEB.Models
         public string? PassportNumber { get; set; }
         public string CompanyId { get; set; }
         public string DepartmentId { get; set; }
-        public string AdressId { get; set; }
         public CompanyViewModel Company { get; set; }
         public DepartmentViewModel Department { get; set; }
-        public AdressViewModel Adress { get; set; }
+        public string Adress { get; set; }
 
-        //public string GetAddress()
-        //{
-        //    return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
-        //}
-        //public string GetCompany()
-        //{
-        //    return Company.Name;
-        //}
-        //public string GetDepartment()
-        //{
-        //    return Department.Name;
-        //}
-
-        //public string GetAddress
-        //{
-        //    get
-        //    {
-        //        return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
-        //    }
-
-        //}
+        
     }
 }

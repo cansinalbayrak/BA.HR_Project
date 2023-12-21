@@ -26,12 +26,11 @@ namespace BA.HR_Project.WEB.Models
 
         public string CompanyId { get; set; }
         public string DepartmentId { get; set; }
-        public string AdressId { get; set; }
 
 
         public CompanyViewModel Company { get; set; }
         public DepartmentViewModel Department { get; set; }
-        public AdressDto Adress { get; set; }
+        public string Adress { get; set; }
 
     }
 
