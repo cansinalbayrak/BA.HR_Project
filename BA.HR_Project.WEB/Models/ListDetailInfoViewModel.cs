@@ -25,10 +25,10 @@ namespace BA.HR_Project.WEB.Models
         public DepartmentViewModel Department { get; set; }
         public Adress Adress { get; set; }
 
-        public string GetAddress()
-        {
-            return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
-        }
+        //public string GetAddress()
+        //{
+        //    return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
+        //}
         public string GetCompany()
         {
             return Company.Name;
@@ -37,6 +37,13 @@ namespace BA.HR_Project.WEB.Models
         {
             return Department.Name;
         }
+
+        public string GetAddress
+        {
+            get
+            {
+                return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
+            }
 
     }
 }
