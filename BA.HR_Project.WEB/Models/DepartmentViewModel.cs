@@ -6,6 +6,6 @@ namespace BA.HR_Project.WEB.Models
     {
         public string Name { get; set; }
 
-        public AppUserViewModel AppUsers { get; set; }
+        public List<AppUserViewModel> AppUsers { get; set; }
     }
 }

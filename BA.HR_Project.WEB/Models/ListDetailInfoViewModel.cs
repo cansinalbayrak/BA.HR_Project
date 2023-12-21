@@ -19,6 +19,8 @@ namespace BA.HR_Project.WEB.Models
         public bool IsTurkishCitizen { get; set; }
         public string? IdentityNumber { get; set; }
         public string? PassportNumber { get; set; }
+        public string CompanyId { get; set; }
+        public string DepantmentId { get; set; }
         public CompanyViewModel Company { get; set; }
         public DepartmentViewModel Department { get; set; }
         public Adress Adress { get; set; }

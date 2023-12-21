@@ -7,6 +7,8 @@ namespace BA.HR_Project.WEB.Models
         public string Id { get; set; }
         public string? PhotoPath { get; set; }
         public string PhoneNumber { get; set; }
+        public string CompanyId { get; set; }
+        public string DepantmentId { get; set; }
         public Adress Adress { get; set; }
         public string GetAddress()
         {
