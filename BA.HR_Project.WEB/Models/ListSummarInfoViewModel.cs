@@ -18,17 +18,17 @@ namespace BA.HR_Project.WEB.Models
         public DepartmentViewModel Department { get; set; }
         public Adress Adress { get; set; }
 
-        public string GetAddress()
-        {
-            return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
-        }
-        public string GetCompany()
-        {
-            return Company.Name;
-        }
-        public string GetDepartment()
-        {
-            return Department.Name;
-        }
+        //public string GetAddress()
+        //{
+        //    return Adress.City + " , " + Adress.Street + " , " + Adress.ZipCode;
+        //}
+        //public string GetCompany()
+        //{
+        //    return Company.Name;
+        //}
+        //public string GetDepartment()
+        //{
+        //    return Department.Name;
+        //}
     }
 }
