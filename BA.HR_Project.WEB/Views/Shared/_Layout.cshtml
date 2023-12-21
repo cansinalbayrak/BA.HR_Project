@@ -33,8 +33,14 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                         <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                        <li class="scroll-to-section"><a href="#humanresource">Human Resource</a></li>
-                        <li class="scroll-to-section"><a href="#about">About</a></li>
+                       
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="scroll-to-section"> <a asp-controller="Employee" asp-action="Index">Profile</a></li>
+                            <li class="scroll-to-section"> <a asp-controller="Employee" asp-action="Detail">Detail</a></li>
+                            <li class="scroll-to-section"><a asp-controller="Employee" asp-action="Update">Update</a></li>
+
+                        }
                         <li class="has-sub">
                             <a href="javascript:void(0)">Pages</a>
                             <ul class="sub-menu">
@@ -45,27 +51,27 @@
                         </li>
                         @*  <li class="scroll-to-section"><a href="#testimonials">Testimonials</a></li>  *@
                         @*<style>
-                            
-                            .button-like {
-                                display: inline-block;
-                                padding: 10px 20px;
-                                font-size: 16px;
-                                text-align: center;
-                                text-decoration: none;
-                                cursor: pointer;
-                                border: 1px solid #3498db;
-                                border-radius: 5px;
-                                color: green;
-                                background-color: #3498db;
-                                justify-content : center
-                                
-                            }
 
-                                
-                                .button-like:hover {
-                                    background-color: #2980b9;
-                                    border-color: #2980b9;
-                                }*@
+        .button-like {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            color: green;
+            background-color: #3498db;
+            justify-content : center
+
+        }
+
+
+            .button-like:hover {
+                background-color: #2980b9;
+                border-color: #2980b9;
+            }*@
                         </style>
 
                         <li><a href="Account/Login" class="btn-success">SignIn</a></li>

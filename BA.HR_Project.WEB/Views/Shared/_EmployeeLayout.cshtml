@@ -47,24 +47,31 @@
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="index.html">Home</a></li>
-                            <li class="scroll-to-section"><a href="index.html">Human Resource</a></li>
-                            <li class="scroll-to-section"><span><a href="index.html">About</a></span></li>
+                            
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="scroll-to-section"> <a asp-controller="Employee" asp-action="Index">Profile</a></li>
+                                <li class="scroll-to-section"> <a asp-controller="Employee" asp-action="Detail">Detail</a></li>
+                                <li class="scroll-to-section"><a asp-controller="Employee" asp-action="Update">Update</a></li>
+
+                            }
                             @*  <li class="has-sub">
-                                    <a href="javascript:void(0)">Pages</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="about-us.html">About Us</a></li>
-                                        <li><a href="our-services.html">Our Services</a></li>
-                                        <li><a href="contact-us.html">Contact Us</a></li>
-                                    </ul>
-                                </li> *@
+            <a href="javascript:void(0)">Pages</a>
+            <ul class="sub-menu">
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="our-services.html">Our Services</a></li>
+                <li><a href="contact-us.html">Contact Us</a></li>
+            </ul>
+        </li> *@
                             @*  <li class="scroll-to-section"><a href="index.html">Testimonials</a></li>
-                                <li><a href="contact-us.html">Contact Support</a></li>  *@
+        <li><a href="contact-us.html">Contact Support</a></li>  *@
                             @*  </ul>  *@
                             @* <a class='menu-trigger'>
-                                    <span>Menu</span>
-                                </a> *@
+            <span>Menu</span>
+        </a> *@
                             <!-- ***** Menu End ***** -->
-                    </nav>
+</nav>
                 </div>
             </div>
         </div>
