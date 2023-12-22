@@ -12,15 +12,13 @@
 
 
 
-<br>
-<br>
 <form asp-controller="Employee" asp-action="Update" method="post" enctype="multipart/form-data">
 
     <input type="hidden" asp-for="Id" />
 
 
 
-    <div class="form-group" style="margin-top=50px">
+    <div class="mb-3" >
         <label class="col-form-label text-warning" asp-for="PhoneNumber">Phone Number</label>
         <input asp-for="PhoneNumber" class="form-control" type="number" placeholder="Phone Number" />
     </div>
@@ -35,7 +33,7 @@
    
 
     <div class="form-group">
-        <img style="float:left; max-width: 10%; height: auto;" src="@Model.PhotoPath" alt="Current Photo" class="mt-2" style="max-width: 150px;" />
+        <img style="float:inherit; max-width: 10%; height: auto;" src="@Model.PhotoPath" alt="Current Photo" class="mt-2" style="max-width: 150px;" />
        
         <label asp-for="Photo"></label>
         <input type="file" asp-for="Photo" class="form-control-file text-light" />
