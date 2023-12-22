@@ -6,25 +6,17 @@
 @model LoginUserViewModel
 
 
-   
-
-    
-
-
-<form asp-action="Login" method="post">
+<form>
     <div class="mb-3">
-        <label  asp-for="Email" class="form-label text-warning">Email:</label><br>
-        <input type="email" asp-for="Email" placeholder="Email">
-
+        <label asp-for="Email" class="form-label text-warning">Email Address</label><br>
+        <input type="email" class="form-control" asp-for="Email" placeholder="Email"><br>
+        <div <span asp-validation-for="Email"></span></div>
     </div>
     <div class="mb-3">
-        <label asp-for="Password" class="form-label text-warning">Password:</label><br>
-        <input type="password" asp-for="Password" placeholder="Password">
+        <label asp-for="Password" class="form-label text-warning">Password</label><br>
+        <input type="password" class="form-control" asp-for="Password" placeholder="Password"><br>
     </div>
-
-
-    <button type="submit" class="btn btn-success">Giriş Yap</button>
-
+    <button type="submit" class="btn btn-success">LogIn</button>
 </form>
 
 
