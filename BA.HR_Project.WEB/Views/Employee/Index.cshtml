@@ -5,45 +5,32 @@
 
 @model ListSummarInfoViewModel
 
-<div class="card">
+
+
+      
+
+<div class="card" style="width: 18rem; margin-left:600px ">
+    <label  class="col-sm-9"><img style="float:inherit; margin-top : 15px; margin-left:75px; max-width: 50%; height: auto;" src="@Model.PhotoPath"></label>
+    <br>
+    @*<img  src="@Model.PhotoPath" class="card-img-overlay" alt="...">**@
+
     <div class="card-body">
+
         <h5 class="card-title">User Information</h5>
-
-       
-        <dd class="col-sm-9"><img style="float:left; max-width: 10%; height: auto;" src="@Model.PhotoPath"></dd>
-
-
-        <dl class="row">
-            <dt style="display:none" class="col-sm-3">Id:</dt>
-            <dd style="display:none" class="col-sm-9">@Model.Id</dd>
-
-            <dt class="col-sm-3">Name:</dt>
-            <dd class="col-sm-9">@Model.Name @Model.SecondName</dd>
-
-            
-
-            <dt class="col-sm-3">SurName:</dt>
-            <dd class="col-sm-9">@Model.Surname @Model.SecondSurname</dd>
-
-            
-
-
-            <dt class="col-sm-3">CompanyName:</dt>
-            <dd class="col-sm-9">@ViewBag.CompanyName</dd>
-
-            <dt class="col-sm-3">DepartmentName:</dt>
-            <dd class="col-sm-9">@ViewBag.DepartmentName</dd>
-
-            <dt class="col-sm-3">Address:</dt>
-            <dd class="col-sm-9">@Model.Adress</dd>
-        </dl>
-
-        <div class="row">
-            <div class="col-sm-6">
-                <a asp-controller="Employee" asp-action="Detail" class="btn btn-danger btn-block">Detail</a>
-            </div>
-            <div class="col-sm-6">
-                <a asp-controller="Employee" asp-action="Update" class="btn btn-warning btn-block">Update</a>
-            </div>
-        </div>
     </div>
+    <ul class="list-group list-group-flush">
+
+    <dt style="display:none" class="col-sm-3">Id:</dt>
+    <dd style="display:none" class="col-sm-9">@Model.Id</dd>
+
+    <li class="list-group-item"<label>Name: </label>@Model.Name @Model.SecondName</li>
+    <li class="list-group-item"<label>Surname: </label>@Model.Surname @Model.SecondSurname</li>
+    <li class="list-group-item"<label>Department Name: </label>@ViewBag.DepartmentName</li>
+    <li class="list-group-item"<label>Address: </label>@Model.Adress</li>
+
+    </ul>
+    <div class="card-body">
+        <a asp-controller="Employee" asp-action="Detail" class="btn btn-danger btn-block">Detail</a>
+        <a asp-controller="Employee" asp-action="Update" class="btn btn-warning btn-block">Update</a>
+    </div>
+</div>
