@@ -33,7 +33,7 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                         <li class="scroll-to-section"><a asp-controller="Home" asp-action="Index" class="active">Home</a></li>
-                       
+
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="scroll-to-section"> <a asp-controller="Employee" asp-action="Index">Profile</a></li>
@@ -73,8 +73,14 @@
                 border-color: #2980b9;
             }*@
                         </style>
+                        @if (!User.Identity.IsAuthenticated)
 
-                        <li><a href="Account/Login" class="btn-success">SignIn</a></li>
+                        {  <li><a href="Account/Login" class="btn-success">SignIn</a></li>}
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a asp-controller="Account" asp-action="LogOut" class="btn-danger">SignOut</a></li>
+}
 
                     </ul>
                     <a class='menu-trigger'>
@@ -108,9 +114,9 @@
                                     <div class="green-button">
                                         <a href="Account/Login">SIGN IN</a>
                                     </div>
-                                    <div class="orange-button">
+                                    @*<div class="orange-button">
                                         <a href="#">REGISTER</a>
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
                         </div>
