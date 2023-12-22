@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.WEB.Models;
+using BA.HR_Project.WEB.HelperMethods;
 
 namespace BA.HR_Project.WEB.Controllers
 {
@@ -77,6 +78,10 @@ namespace BA.HR_Project.WEB.Controllers
             ModelState.Remove("Id");
             ModelState.Remove("CompanyId");
             ModelState.Remove("DepantmentId");
+
+            var photoPath =await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
+            vm.PhotoPath = photoPath;
+
             if (ModelState.IsValid)
             {
                 var updateUserDto = _mapper.Map<AppUserDto>(vm);

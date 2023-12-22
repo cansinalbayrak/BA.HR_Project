@@ -4,7 +4,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - InsanKaynaklarıProjesi.WEB</title>
+    <title>HR</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/InsanKaynaklarıProjesi.WEB.styles.css" asp-append-version="true" />
@@ -32,7 +32,7 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                        <li class="scroll-to-section"><a asp-controller="Home" asp-action="Index" class="active">Home</a></li>
                        
                         @if (User.Identity.IsAuthenticated)
                         {

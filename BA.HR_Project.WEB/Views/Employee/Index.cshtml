@@ -9,6 +9,10 @@
     <div class="card-body">
         <h5 class="card-title">User Information</h5>
 
+       
+        <dd class="col-sm-9"><img style="float:left; max-width: 10%; height: auto;" src="@Model.PhotoPath"></dd>
+
+
         <dl class="row">
             <dt style="display:none" class="col-sm-3">Id:</dt>
             <dd style="display:none" class="col-sm-9">@Model.Id</dd>
@@ -23,8 +27,7 @@
 
             
 
-            <dt class="col-sm-3">Photo:</dt>
-            <dd class="col-sm-9"><img src="@Model.PhotoPath"></dd>
+
             <dt class="col-sm-3">CompanyName:</dt>
             <dd class="col-sm-9">@ViewBag.CompanyName</dd>
 
