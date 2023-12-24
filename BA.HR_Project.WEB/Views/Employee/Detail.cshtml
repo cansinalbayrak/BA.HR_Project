@@ -1,75 +1,78 @@
-﻿@{Layout = "_EmployeeLayout";  }
+﻿@{Layout = "_EmployeeLayout"; }
 @model ListDetailInfoViewModel
 
 
-
-<div class="card" style="width: 18rem; margin-left: 600px ">
-    <label class="col-sm-9"><img style="float: inherit; margin-top: 15px; margin-left: 75px; max-width: 50%; height: auto; " src="@Model.PhotoPath"></label>
-    <br>
-    <div class="card-body">
-        <h5 class="card-title">User Information</h5>
-        <label>Name:</label>
-        <label>@Model.Name</label>
-        <br>
-        @if (Model.SecondName != null)
-        {<label>SecondName:</label>
-            <label>@Model.SecondName</label>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <label class="col-sm-9"><img style="float: inherit; margin-top: 15px; margin-left: 75px; max-width: 50%; height: auto; " src="@Model.PhotoPath"></label>
             <br>
-        }
+            <div class="card-body">
+                <h5 class="card-title">User Information</h5>
+                <label>Name:</label>
+                <label>@Model.Name</label>
+                <br>
+                @if (Model.SecondName != null)
+                {<label>SecondName:</label>
+                    <label>@Model.SecondName</label>
+                    <br>
+                }
 
-        <label>SurName:</label>
-        <label>@Model.Surname</label>
-        <br>
-        @if (Model.SecondSurname != null)
-        {<label>SecondSurName:</label>
-            <label>@Model.SecondSurname</label>
-            <br>
-        }
+                <label>SurName:</label>
+                <label>@Model.Surname</label>
+                <br>
+                @if (Model.SecondSurname != null)
+                {<label>SecondSurName:</label>
+                    <label>@Model.SecondSurname</label>
+                    <br>
+                }
 
-        <label>BirthDate:</label>
-        <label>@Model.BirthDate</label>
-        <br>
+                <label>BirthDate:</label>
+                <label>@Model.BirthDate</label>
+                <br>
 
-        <label>JobStartDate:</label>
-        <label>@Model.StartDate</label>
-        <br>
-        @if (Model.EndDate != null && Model.EndDate < DateTime.Now)
-        {<label>JobEndDate:</label>
-            <label>@Model.EndDate</label>
-            <br>
-        }
+                <label>JobStartDate:</label>
+                <label>@Model.StartDate</label>
+                <br>
+                @if (Model.EndDate != null && Model.EndDate < DateTime.Now)
+                {<label>JobEndDate:</label>
+                    <label>@Model.EndDate</label>
+                    <br>
+                }
 
-        <label>CurrentWorking:</label>
-        <label>@Model.IsActive</label>
-        <br>
-        <label>IsTurksh:</label>
-        <label>@Model.IsTurkishCitizen</label>
-        <br>
-        @if (Model.IsTurkishCitizen == true)
-        {
-            <label>IdentityNo:</label>
-            <label>@Model.IdentityNumber</label>
-            <br>
+                <label>CurrentWorking:</label>
+                <label>@Model.IsActive</label>
+                <br>
+                <label>IsTurksh:</label>
+                <label>@Model.IsTurkishCitizen</label>
+                <br>
+                @if (Model.IsTurkishCitizen == true)
+                {
+                    <label>IdentityNo:</label>
+                    <label>@Model.IdentityNumber</label>
+                    <br>
 
-        }
-         @if(Model.IsTurkishCitizen != true) 
-        {
-        <label>PasaportNo:</label>
-        <label>@Model.PassportNumber</label>
-        <br>
-        }
+                }
+                @if (Model.IsTurkishCitizen != true)
+                {
+                    <label>PasaportNo:</label>
+                    <label>@Model.PassportNumber</label>
+                    <br>
+                }
 
-        <label>ComanyName:</label>
-        <label>@ViewBag.CompanyName</label>
-        <br>
+                <label>ComanyName:</label>
+                <label>@ViewBag.CompanyName</label>
+                <br>
 
-        <label>DepartmanName:</label>
-        <label>@ViewBag.DepartmentName</label>
-        <br>
+                <label>DepartmanName:</label>
+                <label>@ViewBag.DepartmentName</label>
+                <br>
 
-        <label>Adress:</label>
-        <label>@Model.Adress</label>
+                <label>Adress:</label>
+                <label>@Model.Adress</label>
 
+            </div>
+        </div>
     </div>
-    </div>
+</div>
 </div>

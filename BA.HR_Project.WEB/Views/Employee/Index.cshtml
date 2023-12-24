@@ -1,36 +1,39 @@
 ﻿@{
     Layout = "_EmployeeLayout";
- }
+}
 
 
 @model ListSummarInfoViewModel
 
 
 
-      
 
-<div class="card" style="width: 18rem; margin-left:600px ">
-    <label  class="col-sm-9"><img style="float:inherit; margin-top : 15px; margin-left:75px; max-width: 50%; height: auto;" src="@Model.PhotoPath"></label>
-    <br>
-    @*<img  src="@Model.PhotoPath" class="card-img-overlay" alt="...">**@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card" style="width: 18rem;  ">
+            <label class="col-sm-9"><img style="float:inherit; margin-top : 15px; margin-left:75px; max-width: 50%; height: auto;" src="@Model.PhotoPath"></label>
+            <br>
+            @*<img  src="@Model.PhotoPath" class="card-img-overlay" alt="...">**@
 
-    <div class="card-body">
+            <div class="card-body">
 
-        <h5 class="card-title">User Information</h5>
-    </div>
-    <ul class="list-group list-group-flush">
+                <h5 class="card-title">User Information</h5>
+            </div>
+            <ul class="list-group list-group-flush">
 
-    <dt style="display:none" class="col-sm-3">Id:</dt>
-    <dd style="display:none" class="col-sm-9">@Model.Id</dd>
+            <dt style="display:none" class="col-sm-3">Id:</dt>
+            <dd style="display:none" class="col-sm-9">@Model.Id</dd>
 
-    <li class="list-group-item"<label>Name: </label>@Model.Name @Model.SecondName</li>
-    <li class="list-group-item"<label>Surname: </label>@Model.Surname @Model.SecondSurname</li>
-    <li class="list-group-item"<label>Department Name: </label>@ViewBag.DepartmentName</li>
-    <li class="list-group-item"<label>Address: </label>@Model.Adress</li>
+            <li class="list-group-item"<label>Name: </label>@Model.Name @Model.SecondName</li>
+            <li class="list-group-item"<label>Surname: </label>@Model.Surname @Model.SecondSurname</li>
+            <li class="list-group-item"<label>Department Name: </label>@ViewBag.DepartmentName</li>
+            <li class="list-group-item"<label>Address: </label>@Model.Adress</li>
 
-    </ul>
-    <div class="card-body">
-        <a asp-controller="Employee" asp-action="Detail" class="btn btn-danger btn-block">Detail</a>
-        <a asp-controller="Employee" asp-action="Update" class="btn btn-warning btn-block">Update</a>
+            </ul>
+            <div class="card-body">
+                <a asp-controller="Employee" asp-action="Detail" class="btn btn-danger btn-block">Detail</a>
+                <a asp-controller="Employee" asp-action="Update" class="btn btn-warning btn-block">Update</a>
+            </div>
+        </div>
     </div>
 </div>
