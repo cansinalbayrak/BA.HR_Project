@@ -15,7 +15,10 @@ namespace BA.HR_Project.WEB.Models
         public string CompanyId { get; set; }
         public string DepantmentId { get; set; }
         public string Adress { get; set; }
+        public string ExistingPhotoPath { get; set; }
+        public FileDetails ExistingPhoto { get; set; }
         public CompanyViewModel Company { get; set; }
         public DepartmentViewModel Department { get; set; }
+
     }
 }

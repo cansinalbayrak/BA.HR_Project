@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.WEB.Models;
 using BA.HR_Project.WEB.HelperMethods;
+using BA.HR_Project.WEB.ModelValidators;
 
 namespace BA.HR_Project.WEB.Controllers
 {
@@ -74,6 +75,19 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateUserProfileViewModel vm)
         {
+            var validator = new UpdateUserProfileViewModelValidator();
+            var validationResult = await validator.ValidateAsync(vm);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                return View(vm);
+            }
+
             ModelState.Remove("AdressId");
             ModelState.Remove("Id");
             ModelState.Remove("CompanyId");

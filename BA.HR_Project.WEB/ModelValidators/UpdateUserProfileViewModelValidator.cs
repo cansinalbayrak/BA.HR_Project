@@ -8,8 +8,15 @@ namespace BA.HR_Project.WEB.ModelValidators
         public UpdateUserProfileViewModelValidator()
         {
             RuleFor(x => x.PhoneNumber)
-               .NotEmpty().WithMessage("IdentityNumber must be provided")
-               .Matches("^[0-9]{10}$").WithMessage("PhoneNumber must be a 11-digit numeric value");
+           .NotEmpty().WithMessage("PhoneNumber must be provided")
+           .Matches("^[0-9]{10}$").WithMessage("PhoneNumber must be a 10-digit numeric value");
+
+            RuleFor(x => x.Adress)
+                .NotEmpty().WithMessage("Address must be provided");
+
+            RuleFor(x => x.Photo)
+                .NotEmpty().WithMessage("Photo must be provided");
+
         }
     }
 }

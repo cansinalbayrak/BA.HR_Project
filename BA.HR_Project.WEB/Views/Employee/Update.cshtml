@@ -1,8 +1,8 @@
-﻿
+﻿@using System.IO;
 @{
     Layout = "_EmployeeLayout";
     //ViewData["Title"] = "Update";
-
+     // System.IO ekledik
 }
 
 
@@ -13,33 +13,34 @@
 
 
 <form asp-controller="Employee" asp-action="Update" method="post" enctype="multipart/form-data">
-
     <input type="hidden" asp-for="Id" />
 
-
-
-    <div class="mb-3" >
+    <div class="mb-3">
         <label class="col-form-label text-warning" asp-for="PhoneNumber">Phone Number</label>
         <input asp-for="PhoneNumber" class="form-control" type="number" placeholder="Phone Number" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label class="col-form-label text-warning" asp-for="Adress">Address</label>
         <input asp-for="Adress" class="form-control" type="text" placeholder="Address" />
+        <span asp-validation-for="Adress" class="text-danger"></span>
         <br>
         <br>
-
     </div>
-
-   
 
     <div class="form-group">
-        <img style="float:inherit; max-width: 10%; height: auto;" src="@Model.PhotoPath" alt="Current Photo" class="mt-2" style="max-width: 150px;" />
-       
+        @if (!string.IsNullOrWhiteSpace(Model.PhotoPath) || !string.IsNullOrWhiteSpace(Model.ExistingPhotoPath))
+        {
+            <img src="@(!string.IsNullOrWhiteSpace(Model.PhotoPath) ? Model.PhotoPath : Model.ExistingPhotoPath)" alt="Current Photo" class="mt-2" style="max-width: 150px;" />
+            <small class="text-muted">Current Photo: @(string.IsNullOrWhiteSpace(Model.PhotoPath) ? Model.ExistingPhotoPath : "Photo Path Select")</small>
+        }
+
         <label asp-for="Photo"></label>
         <input type="file" asp-for="Photo" class="form-control-file text-light" />
+        <span asp-validation-for="Photo" class="text-danger"></span>
     </div>
+
     <button type="submit" class="btn-warning">Update</button>
-
 </form>
-
 
