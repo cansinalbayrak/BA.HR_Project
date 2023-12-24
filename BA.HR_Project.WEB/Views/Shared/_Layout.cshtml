@@ -34,13 +34,13 @@
                     <ul class="nav">
                         <li class="scroll-to-section"><a asp-controller="Home" asp-action="Index" class="active">Home</a></li>
 
-                        @if (User.Identity.IsAuthenticated)
-                        {
+                            @if (User.Identity.IsAuthenticated)
+                            {
                             <li class="scroll-to-section"> <a asp-controller="Employee" asp-action="Index">Profile</a></li>
                             <li class="scroll-to-section"> <a asp-controller="Employee" asp-action="Detail">Detail</a></li>
                             <li class="scroll-to-section"><a asp-controller="Employee" asp-action="Update">Update</a></li>
 
-                        }
+                            }
                         <li class="has-sub">
                             <a href="javascript:void(0)">Pages</a>
                             <ul class="sub-menu">
@@ -49,16 +49,18 @@
                                 <li><a href="contact-us.html">Contact Us</a></li>
                             </ul>
                         </li>
-                        @*  <li class="scroll-to-section"><a href="#testimonials">Testimonials</a></li>  *@
+                            @*  <li class="scroll-to-section"><a href="#testimonials">Testimonials</a></li>  *@
 
-                        @if (!User.Identity.IsAuthenticated)
+                            @if (!User.Identity.IsAuthenticated)
 
-                        {  <li><a href="Account/Login" class="btn-success">SignIn</a></li>}
+                            {
+                            <li><a href="Account/Login" class="btn-success">SignIn</a></li>
+                            }
 
-                        @if (User.Identity.IsAuthenticated)
-                        {
+                            @if (User.Identity.IsAuthenticated)
+                            {
                             <li><a asp-controller="Account" asp-action="LogOut" class="btn-danger">SignOut</a></li>
-}
+                            }
 
                     </ul>
                     <a class='menu-trigger'>
@@ -92,8 +94,8 @@
                                     <div class="green-button">
                                         <a href="Account/Login">SIGN IN</a>
                                     </div>
-                                    @*<div class="orange-button">
-                                        <a href="#">REGISTER</a>
+                                        @*<div class="orange-button">
+                                    <a href="#">REGISTER</a>
                                     </div>*@
                                 </div>
                             </div>
@@ -129,13 +131,13 @@
 
 
 <div class="container" style="background-color: rgb(24,29,48) !important;">
-    
-    <main role="main"  >
+
+    <main role="main">
             @RenderBody()
     </main>
 </div>
 
-@* 
+    @*
 <section class="calculator">
     <div class="container">
         <div class="row">
@@ -193,7 +195,7 @@
     </div>
 </section>
  *@
-@* 
+    @*
 <section class="testimonials" id="testimonials">
     <div class="container">
         <div class="row">
@@ -238,7 +240,7 @@
     </div>
 </section>
  *@
-@* 
+    @*
 <section class="partners">
     <div class="container">
         <div class="row">
@@ -281,9 +283,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <p>
-                    Copyright © 2022 Mexant Co., Ltd. All Rights Reserved.
-
-                    <br>Designed by <a title="CSS Templates" rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a> Distributed By <a title="CSS Templates" rel="sponsored" href="https://themewagons.com" target="_blank">ThemeWagon</a>
+                    Copyright © 2023 ANK-14 Group-2 All Rights Reserved.
                 </p>
             </div>
         </div>
