@@ -37,7 +37,7 @@
         }
 
         <label asp-for="Photo"></label>
-        <input type="file" asp-for="Photo" class="form-control-file text-light" />
+        <input accept=".jpeg,.jpg,.png" type="file" asp-for="Photo" class="form-control-file text-light" />
         <span asp-validation-for="Photo" class="text-danger"></span>
     </div>
 
