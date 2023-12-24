@@ -15,8 +15,20 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .NotEmpty().WithMessage("Address must be provided");
 
             RuleFor(x => x.Photo)
-                .NotEmpty().WithMessage("Photo must be provided");
+        .Must((model, photo) =>
+        {
+            if (model.Photo != null)
+            {
+                // Eğer yeni bir fotoğraf yüklenmişse uzantısını kontrol et
+                var allowedExtensions = new[] { ".jpeg", ".jpg", ".png" };
+                var fileExtension = Path.GetExtension(model.Photo.FileName).ToLowerInvariant();
+                return allowedExtensions.Contains(fileExtension);
+            }
 
+            // Eğer yeni bir fotoğraf yüklenmemişse, ancak mevcut bir fotoğraf varsa geçerli kabul et
+            return !string.IsNullOrWhiteSpace(model.ExistingPhotoPath);
+        })
+        .WithMessage("Photo must be in .jpeg, .jpg, or .png format");
         }
     }
 }
