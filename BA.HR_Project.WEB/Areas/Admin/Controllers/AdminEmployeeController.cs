@@ -13,14 +13,14 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
     [Area("Admin")]
     [Authorize]
 
-    public class EmployeeController : Controller
+    public class AdminEmployeeController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IAppUserService _appUserManager;
         private readonly ICompanyService _companyManager;
         private readonly IDepartmentService _departmentManager;
         private readonly IMapper _mapper;
-        public EmployeeController(UserManager<AppUser> userManager, IAppUserService appUserManager, ICompanyService companyManager, IDepartmentService departmentManager, IMapper mapper)
+        public AdminEmployeeController(UserManager<AppUser> userManager, IAppUserService appUserManager, ICompanyService companyManager, IDepartmentService departmentManager, IMapper mapper)
         {
             _userManager = userManager;
             _appUserManager = appUserManager;
