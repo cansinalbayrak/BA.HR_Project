@@ -73,6 +73,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Abstract
             try
             {
                 var entity = _mapper.Map<T>(dto);
+                
                 _uow.GetRepository<T>().InsertAsync(entity);
                 _uow.SaveChanges();
                 return Response.Success("Insertion was successful.");
