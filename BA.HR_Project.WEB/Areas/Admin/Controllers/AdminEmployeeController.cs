@@ -120,7 +120,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             if (ModelState.IsValid) 
             {
               var updateUser = _mapper.Map<AppUserDto>(updateuser);
-                await _appUserManager.UpdateV2(updateUser);
+                await _appUserManager.UpdateAppUser(updateUser);
                 return RedirectToAction("Index");
             }
             return View();

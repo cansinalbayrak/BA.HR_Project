@@ -106,7 +106,7 @@ namespace BA.HR_Project.WEB.Controllers
             if (ModelState.IsValid)
             {
                 var updateUserDto = _mapper.Map<AppUserDto>(vm);
-                await _appUserManager.UpdateV2(updateUserDto);
+                await _appUserManager.UpdateAppUser(updateUserDto);
                 return RedirectToAction("Index", "Employee");
             }
             return View(vm);

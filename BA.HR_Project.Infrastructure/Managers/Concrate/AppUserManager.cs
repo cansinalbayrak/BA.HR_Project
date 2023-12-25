@@ -21,7 +21,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             _userManager = userManager;
         }
 
-        public async Task UpdateV2(AppUserDto user)
+        public async Task UpdateAppUser(AppUserDto user)
         {
             var entity = await _userManager.FindByIdAsync(user.Id);
 

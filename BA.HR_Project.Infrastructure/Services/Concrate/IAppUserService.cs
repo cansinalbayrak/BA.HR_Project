@@ -11,6 +11,6 @@ namespace BA.HR_Project.Infrasturucture.Services.Concrate
 {
     public interface IAppUserService : IService<AppUser,AppUserDto>
     {
-        Task UpdateV2(AppUserDto user);
+        Task UpdateAppUser(AppUserDto user);
     }
 }
