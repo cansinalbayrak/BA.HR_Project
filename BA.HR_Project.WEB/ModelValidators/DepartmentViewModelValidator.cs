@@ -7,7 +7,7 @@ namespace BA.HR_Project.WEB.ModelValidators
 	{
         public DepartmentViewModelValidator()
         {
-            
-        }
+			RuleFor(x => x.Name).NotEmpty().WithMessage("Name must be provided");
+		}
     }
 }
