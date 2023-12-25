@@ -127,48 +127,48 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 
         public async Task<IActionResult> UpdateEmployee()
         {
+            var userId = _userManager.GetUserId(User);
+            var updateUserAction = await _appUserManager.Get(true, u => u.Id == userId);
+            var user = updateUserAction.Context;
+
+            var userViewModel = _mapper.Map<AppUserViewModel>(user);
 
 
 
 
 
-
-
-
-
-
-            return View();
+            return View(userViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> UpdateEmployee(AppUserViewModel vm)
         {
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             return View();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         }
