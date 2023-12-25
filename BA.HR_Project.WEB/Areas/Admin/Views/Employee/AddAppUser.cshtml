@@ -1,0 +1,113 @@
+﻿@using System.IO;
+@using BA.HR_Project.WEB
+@using BA.HR_Project.WEB.Models
+@using BA.HR_Project.Infrasturucture.RequestResponse;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model AppUserViewModel
+
+<div class="container">
+
+
+    <form asp-controller="Employee" asp-action="AddEmployee" method="post">
+        
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="Name">Name</label>
+            <input asp-for="Name" class="form-control" type="text" placeholder="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="SecondName">Name</label>
+            <input asp-for="SecondName" class="form-control" type="text" placeholder="SecondName" />
+            <span asp-validation-for="SecondName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="Surname">Surname</label>
+            <input asp-for="Surname" class="form-control" type="text" placeholder="Surname" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="SecondSurname">SecondSurname</label>
+            <input asp-for="SecondSurname" class="form-control" type="text" placeholder="SecondSurname" />
+            <span asp-validation-for="SecondSurname" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="BirthDate">BirthDate</label>
+            <input asp-for="BirthDate" class="form-control" type="date" placeholder="BirthDate" />
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="BirthPlace">BirthPlace</label>
+            <input asp-for="BirthPlace" class="form-control" type="text" placeholder="BirthPlace" />
+            <span asp-validation-for="BirthPlace" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="StartDate">StartDate</label>
+            <input asp-for="StartDate" class="form-control" type="date" placeholder="StartDate" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="EndDate">EndDate</label>
+            <input asp-for="EndDate" class="form-control" type="date" placeholder="EndDate" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="Salary">Salary</label>
+            <input asp-for="Salary" class="form-control" type="number" placeholder="Salary" />
+            <span asp-validation-for="Salary" class="text-danger"></span>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="IsActive">WorkingStatus</label>
+            <input asp-for="IsActive" class="form-control" type="checkbox" placeholder="WorkingStatus" />
+            <span asp-validation-for="IsActive" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="IsTurkishCitizen">IsTurkishCitizen</label>
+            <input asp-for="IsTurkishCitizen" class="form-control" type="checkbox" placeholder="IsTurkishCitizen" />
+            <span asp-validation-for="IsTurkishCitizen" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="IdentityNumber">IdentityNumber</label>
+            <input asp-for="IdentityNumber" class="form-control" type="text" placeholder="IdentityNumber" />
+            <span asp-validation-for="IdentityNumber" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="PassportNumber">PassportNumber</label>
+            <input asp-for="PassportNumber" class="form-control" type="text" placeholder="PassportNumber" />
+            <span asp-validation-for="PassportNumber" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="Adress">Adress</label>
+            <input asp-for="Adress" class="form-control" type="text" placeholder="Adress" />
+            <span asp-validation-for="Adress" class="text-danger"></span>
+        </div>
+
+        @* TODO!!!
+            -Company ve Departman ID Hard Code olarak Controllerda gömüldü
+            Bunlar için ek olarak departman ve Company olusturulan bir sayfa yapılmalı
+            Ardundan ComboBox ile burdan seçileblinir.
+        *@
+
+
+        <button type="submit" class="btn-warning">Add Employee</button>
+    </form>
+
+
+</div>
+
