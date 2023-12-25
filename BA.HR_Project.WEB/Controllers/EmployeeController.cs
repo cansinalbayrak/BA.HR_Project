@@ -28,6 +28,8 @@ namespace BA.HR_Project.WEB.Controllers
         }
         public async Task<IActionResult> Index()
         {
+
+
             var userId = _userManager.GetUserId(User);
             var GetuserdtoAction = await _appUserManager.Get(true, x => x.Id == userId);
             var userdto = GetuserdtoAction.Context;

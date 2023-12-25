@@ -34,6 +34,8 @@ namespace BA.HR_Project.WEB.Controllers
                 var dto = _mapper.Map<LoginUserDto>(vm);
 
                 var user = await _userManager.FindByEmailAsync(dto.Email);
+                await _signInManager.SignOutAsync();
+
                 var result = await _signInManager.PasswordSignInAsync(user, dto.Password, false, false);
                 
                 if (result.Succeeded)
