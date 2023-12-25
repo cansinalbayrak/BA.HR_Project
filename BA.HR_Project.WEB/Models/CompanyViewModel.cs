@@ -4,6 +4,7 @@ namespace BA.HR_Project.WEB.Models
 {
     public class CompanyViewModel
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string LogoPath { get; set; }
 

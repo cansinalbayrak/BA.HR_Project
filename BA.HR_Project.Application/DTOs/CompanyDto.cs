@@ -9,7 +9,7 @@ namespace BA.HR_Project.Application.DTOs
 {
     public class CompanyDto : IDTO
     {
-
+        public string Id { get; set; }
         public string Name { get; set; }
         public string LogoPath { get; set; }
 
