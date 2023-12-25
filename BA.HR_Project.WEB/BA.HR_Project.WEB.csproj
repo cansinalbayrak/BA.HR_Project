@@ -23,5 +23,9 @@
     <ProjectReference Include="..\BA.HR_Project.Infrastructure\BA.HR_Project.Infrastructure.csproj" />
     <ProjectReference Include="..\BA.HR_Project.Persistance\BA.HR_Project.Persistance.csproj" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Shared\" />
+  </ItemGroup>
 
 </Project>
