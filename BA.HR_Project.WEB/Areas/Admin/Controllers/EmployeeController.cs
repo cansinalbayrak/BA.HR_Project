@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Entities;
 using BA.HR_Project.Infrasturucture.Services.Concrate;
 using BA.HR_Project.WEB.Models;
+using BA.HR_Project.WEB.ModelValidators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -142,14 +144,31 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateEmployee(AppUserViewModel vm)
         {
+            var validator = new AppUserViewModelValidator();
+            var validationResult = await validator.ValidateAsync(vm);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+
+                }
+                return View(vm);
+            }
+
+
 
            
 
 
-
-
-
-
+            if (ModelState.IsValid) 
+            {
+              var updateUser = _mapper.Map<AppUserDto>(vm);
+                await _appUserManager.UpdateV2(updateUser);
+                return RedirectToAction("Index");
+            }
+            return View();
 
 
 
