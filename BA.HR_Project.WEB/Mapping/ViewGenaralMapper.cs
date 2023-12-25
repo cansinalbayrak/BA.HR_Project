@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Entities;
+using BA.HR_Project.WEB.Areas.Admin.Models;
 using BA.HR_Project.WEB.Models;
 using Microsoft.AspNetCore.Components;
 
@@ -27,6 +28,8 @@ namespace BA.HR_Project.WEB.Mapping
             CreateMap<AppUserDto, ListDetailInfoViewModel>()
          .ReverseMap();
             CreateMap<AppUserDto, ListEmployeeViewModel>()
+         .ReverseMap();
+            CreateMap<AppUserDto, AppUserUpdateViewModel>()
          .ReverseMap();
         }
     }

@@ -1,6 +1,13 @@
-﻿namespace BA.HR_Project.WEB.Areas.Admin.Models
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BA.HR_Project.Application.DTOs
 {
-    public class AppUserUpdateViewModel
+    public class AppUserUpdateDto
     {
         public string Id { get; set; }
         public string Name { get; set; }
