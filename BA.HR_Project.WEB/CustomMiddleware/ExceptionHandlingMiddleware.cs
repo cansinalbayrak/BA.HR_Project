@@ -1,4 +1,7 @@
-﻿namespace BA.HR_Project.WEB.CustomMiddleware
+﻿using BA.HR_Project.Infrasturucture.RequestResponse;
+using Microsoft.AspNetCore.Identity;
+
+namespace BA.HR_Project.WEB.CustomMiddleware
 {
     public class ExceptionHandlingMiddleware
     {
@@ -8,6 +11,7 @@
         {
             _requestDelegate = requestDelegate;
         }
+
         public async Task Invoke(HttpContext context)
         {
             try
@@ -17,8 +21,16 @@
             catch (Exception ex)
             {
                 context.Response.StatusCode = 500;
-                context.Items["Exception"] = "Some Error Occured. You are redirected to Home Index";
-                context.Response.Redirect("/Home/Index");
+
+                var response = new Response
+                {
+                    IsSuccess = false,
+                    Message = "Some Error Occured.",
+                    Errors = new List<IdentityError> { new IdentityError { Description = ex.Message } }
+                };
+
+                context.Items["Exception"] = response;
+                context.Response.Redirect("/Home/Error");
             }
         }
     }
