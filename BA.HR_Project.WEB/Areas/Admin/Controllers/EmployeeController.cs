@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Entities;
 using BA.HR_Project.Infrasturucture.Services.Concrate;
 using BA.HR_Project.WEB.Models;
@@ -92,36 +93,15 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddEmployee(AppUserViewModel vm)
         {
-            return View();
+            var newAppuser = _mapper.Map<AppUserDto>(vm);
+            newAppuser.Id = Guid.NewGuid().ToString();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            var InsertAction = _appUserManager.Insert(newAppuser);
+            //if (InsertAction.IsSuccess)
+            //{
+            //    return View();
+            //}
+            return RedirectToAction("ListEmployee");
         }
 
 
