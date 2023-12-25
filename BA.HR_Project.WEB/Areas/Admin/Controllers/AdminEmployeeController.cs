@@ -7,6 +7,7 @@ using BA.HR_Project.WEB.ModelValidators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 {
@@ -28,17 +29,21 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             _departmentManager = departmentManager;
             _mapper = mapper;
         }
-
+        [HttpGet("/Admin/Employee/Index")]
         public IActionResult Index()
         {
             return View();
         }
 
-
-
-
+  
+        [HttpGet("/Admin/Employee/ListEmployee")]
         public async Task<IActionResult> ListEmployee()
         {
+            var users = await _userManager.Users.Include(x=>x.Company).Include(x=>x.Department).ToListAsync();
+            var usersDto = _mapper.Map<List<AppUserDto>>(users);
+            var usersvm = _mapper.Map<List<ListEmployeeViewModel>>(usersDto);
+
+            return View(usersvm);
 
 
 
@@ -60,12 +65,6 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 
 
 
-
-
-
-
-
-            return View();
         }
 
 

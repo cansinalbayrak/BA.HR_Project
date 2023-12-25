@@ -58,7 +58,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Abstract
         {
             try
             {
-                var entities = _uow.GetRepository<T>().GetAllAsync(true);
+                var entities = await _uow.GetRepository<T>().GetAllAsync(true);
                 var dtos = _mapper.Map<List<TDto>>(entities);
                 return Response<IEnumerable<TDto>>.Success(dtos, "Acquirement was successful.");
             }

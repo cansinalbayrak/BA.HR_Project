@@ -9,6 +9,7 @@ namespace BA.HR_Project.Application.DTOs
 {
     public class DepartmentDto : IDTO
     {
+        public string Id { get; set; }
         public string Name { get; set; }
 
         public List<AppUserDto> AppUsers { get; set; }
