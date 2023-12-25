@@ -38,19 +38,18 @@ namespace BA.HR_Project.WEB.Controllers
         }
 
         [HttpGet]
-        public IActionResult Worning()
+        public IActionResult Warning()
         {
             var exception = HttpContext.Items["Exception"] as Response;
             return View(exception);
         }
 
         [HttpPost]
-        public IActionResult Worning(Response response)
+        public IActionResult Warning(Response response)
         {
-            // Burada POST işlemleri gerçekleştirilebilir.
-            // Örneğin, loglama veya başka bir işlem yapılabilir.
+            
 
-            return RedirectToAction("Index"); // Veya başka bir sayfaya yönlendirme yapılabilir.
+            return RedirectToAction("Index");
         }
     }
 }

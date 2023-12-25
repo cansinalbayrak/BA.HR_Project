@@ -1,0 +1,21 @@
+﻿@model Response
+
+@{
+    ViewData["Title"] = "Warning";
+}
+
+<h1 class="text-danger">Warning</h1>
+@if (Model != null)
+{
+    <p>@Model.Message</p>
+
+    @if (Model.Errors != null && Model.Errors.Any())
+    {
+        <ul>
+            @foreach (var error in Model.Errors)
+            {
+                <li>@error.Description</li>
+            }
+        </ul>
+    }
+}
