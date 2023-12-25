@@ -2,7 +2,7 @@
 
 namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class AdminHomeController : Controller
     {
         public IActionResult Index()
         {
