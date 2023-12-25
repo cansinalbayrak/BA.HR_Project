@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 {
@@ -54,30 +55,26 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddEmployee(AppUserViewModel vm)
         {
-            var user = new AppUser();
-            var createUserAction = await _userManager.CreateAsync(user);
-            
-
+            var newUser = new AppUser();
             var userDto = _mapper.Map<AppUserDto>(vm);
-            user = _mapper.Map<AppUser>(userDto);
+            newUser = _mapper.Map<AppUser>(userDto);
 
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser != null)
+            {
+                newUser.CompanyId = currentUser.CompanyId;
+                newUser.DepartmentId = currentUser.DepartmentId;
+            }
 
+            newUser.Email = newUser.Name + "." + newUser.Surname + "@bilgeadamboost.com";
 
-            user.CompanyId = "SeedCompany1";
-            var relatedCompany= await _companyManager.Get(true, c => c.Id == user.Id);
-            user.Company = relatedCompany.Context;
+            newUser.PhotoPath = "duzenle.jpg";
+            newUser.UserName = newUser.Email;
+            newUser.Id = Guid.NewGuid().ToString();
 
-            user.DepartmentId = "SeedDepartment1";
-            var relatedDepartmant = await _departmentManager.Get(true, d => d.Id == user.DepartmentId);
-            user.Department = relatedDepartmant.Context;
-
-            user.Email = user.Name + "." + user.Surname + "@bilgeadamboost.com";
-
-            user.PhoneNumber = "1234567890";
-            user.PhotoPath = "duzenle.jpg";
-
-            var InsertAction = await _appUserManager.Insert(newAppuser);
-            if (InsertAction.IsSuccess)
+            
+            var createUserAction = await _userManager.CreateAsync(newUser, "Pw.1234");
+            if (createUserAction.Succeeded)
             {
                 return RedirectToAction("ListEmployee");
             }
