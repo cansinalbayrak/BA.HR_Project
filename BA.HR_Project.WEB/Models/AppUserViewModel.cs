@@ -14,6 +14,7 @@ namespace BA.HR_Project.WEB.Models
         public string Surname { get; set; }
         public string? SecondSurname { get; set; }
         public string? PhotoPath { get; set; }
+        public string PhoneNumber { get; set; }
         public DateTime? BirthDate { get; set; }
         public string? BirthPlace { get; set; }
         public DateTime? StartDate { get; set; }

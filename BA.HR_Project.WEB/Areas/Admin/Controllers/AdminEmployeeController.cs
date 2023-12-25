@@ -55,22 +55,25 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddEmployee(AppUserViewModel vm)
         {
-            var user = new AppUser();
+            var newUser = new AppUser();
             var userDto = _mapper.Map<AppUserDto>(vm);
-            user = _mapper.Map<AppUser>(userDto);
+            newUser = _mapper.Map<AppUser>(userDto);
 
-            user.CompanyId = "SeedCompany1";
-            user.DepartmentId = "SeedDepartment1";
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser != null)
+            {
+                newUser.CompanyId = currentUser.CompanyId;
+                newUser.DepartmentId = currentUser.DepartmentId;
+            }
 
-            user.Email = user.Name + "." + user.Surname + "@bilgeadamboost.com";
+            newUser.Email = newUser.Name + "." + newUser.Surname + "@bilgeadamboost.com";
 
-            user.PhoneNumber = "1234567890";
-            user.PhotoPath = "duzenle.jpg";
-            user.UserName = user.Email;
-            user.Id = Guid.NewGuid().ToString();
+            newUser.PhotoPath = "duzenle.jpg";
+            newUser.UserName = newUser.Email;
+            newUser.Id = Guid.NewGuid().ToString();
 
             
-            var createUserAction = await _userManager.CreateAsync(user,"Alp.1234");
+            var createUserAction = await _userManager.CreateAsync(newUser, "Pw.1234");
             if (createUserAction.Succeeded)
             {
                 return RedirectToAction("ListEmployee");

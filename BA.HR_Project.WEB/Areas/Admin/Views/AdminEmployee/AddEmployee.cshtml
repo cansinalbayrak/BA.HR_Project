@@ -19,7 +19,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="col-form-label text-warning" asp-for="SecondName">Name</label>
+            <label class="col-form-label text-warning" asp-for="SecondName">SecondName</label>
             <input asp-for="SecondName" class="form-control" type="text" placeholder="SecondName" />
             <span asp-validation-for="SecondName" class="text-danger"></span>
         </div>
@@ -96,6 +96,12 @@
             <label class="col-form-label text-warning" asp-for="Adress">Adress</label>
             <input asp-for="Adress" class="form-control" type="text" placeholder="Adress" />
             <span asp-validation-for="Adress" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="PhoneNumber">PhoneNumber</label>
+            <input asp-for="PhoneNumber" class="form-control" type="number" placeholder="PhoneNumber" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
 
         @* TODO!!!
