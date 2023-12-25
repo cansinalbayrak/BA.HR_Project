@@ -7,6 +7,7 @@ namespace BA.HR_Project.WEB.Models
         private string? _identityNo;
         private string? _passportNo;
 
+        public string Id { get; set; }
         public string Name { get; set; }
         public string? SecondName { get; set; }
         public string Surname { get; set; }
