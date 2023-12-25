@@ -31,8 +31,10 @@ namespace BA.HR_Project.WEB.Controllers
 
 
             var userId = _userManager.GetUserId(User);
-            var GetuserdtoAction = await _appUserManager.Get(true, x => x.Id == userId);
-            var userdto = GetuserdtoAction.Context;
+            //var GetuserdtoAction = await _appUserManager.Get(true, x => x.Id == userId);
+            //var userdto = GetuserdtoAction.Context;
+            var user = await _userManager.FindByIdAsync(userId);
+            var userdto = _mapper.Map<AppUserDto>(user);
 
             var departmentId = userdto.DepartmentId;
             var companyId = userdto.CompanyId;
@@ -49,9 +51,12 @@ namespace BA.HR_Project.WEB.Controllers
         public async Task<IActionResult> Detail()
         {
             var userId = _userManager.GetUserId(User);
-            var GetuserdtoAction = await _appUserManager.Get(true, x => x.Id == userId);
-            var userdto = GetuserdtoAction.Context;
-           
+            //var GetuserdtoAction = await _appUserManager.Get(true, x => x.Id == userId);
+            //var userdto = GetuserdtoAction.Context;
+
+            var user = await _userManager.FindByIdAsync(userId);
+            var userdto = _mapper.Map<AppUserDto>(user);
+
             var departmentId = userdto.DepartmentId;
             var companyId = userdto.CompanyId;
             var company = await _companyManager.Get(true, x => x.Id == companyId);
