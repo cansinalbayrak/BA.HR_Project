@@ -33,6 +33,23 @@ builder.Services.AddInfrastructureDependencies();
 
 var app = builder.Build();
 
+
+using (var scope = app.Services.CreateScope())
+{
+
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+    var RoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+
+
+    await RoleManager.CreateAsync(new() { Id=Guid.NewGuid().ToString() ,Name = "Admin" });
+    await RoleManager.CreateAsync(new() { Id = Guid.NewGuid().ToString(),Name = "Employee" });
+
+
+    var adminUser = await userManager.FindByEmailAsync("admin@bilgeadam.com");
+    await userManager.AddToRoleAsync(adminUser, "Admin");
+}
+
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -43,7 +60,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+//app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseStaticFiles();
 
 app.UseRouting();

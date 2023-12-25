@@ -36,7 +36,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         }
 
   
-        [HttpGet("/Admin/Employee/ListEmployee")]
+        [HttpGet()]
         public async Task<IActionResult> ListEmployee()
         {
             var users = await _userManager.Users.Include(x=>x.Company).Include(x=>x.Department).ToListAsync();
@@ -44,64 +44,25 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var usersvm = _mapper.Map<List<ListEmployeeViewModel>>(usersDto);
 
             return View(usersvm);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
 
         public async Task<IActionResult> AddEmployee()
         {
 
-
-
-
-
-
-
-
-
-
-
-
             return View();
         }
-
-
-
-
-
         [HttpPost]
         public async Task<IActionResult> AddEmployee(AppUserViewModel vm)
         {
             var newAppuser = _mapper.Map<AppUserDto>(vm);
             newAppuser.Id = Guid.NewGuid().ToString();
 
-            var InsertAction = _appUserManager.Insert(newAppuser);
-            //if (InsertAction.IsSuccess)
-            //{
-            //    return View();
-            //}
-            return RedirectToAction("ListEmployee");
+            var InsertAction = await _appUserManager.Insert(newAppuser);
+            if (InsertAction.IsSuccess)
+            {
+                return RedirectToAction("ListEmployee");
+            }
+            return RedirectToAction("Warning","Home");
         }
 
 
@@ -112,10 +73,6 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var user = updateUserAction.Context;
 
             var userViewModel = _mapper.Map<AppUserViewModel>(user);
-
-
-
-
 
             return View(userViewModel);
         }
@@ -134,12 +91,6 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
                 }
                 return View(vm);
             }
-
-
-
-           
-
-
             if (ModelState.IsValid) 
             {
               var updateUser = _mapper.Map<AppUserDto>(vm);
@@ -147,27 +98,6 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            return View();
-
-
         }
 
 
@@ -176,36 +106,6 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         public async Task<IActionResult> DetailsEmployee()
         {
             return View();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         }

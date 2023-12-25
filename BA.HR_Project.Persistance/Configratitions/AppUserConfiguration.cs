@@ -32,7 +32,6 @@ namespace BA.HR_Project.Persistance.Configurations
 
             
 
-            var adminRoleID = Guid.NewGuid().ToString();
 
 
             var seedAdmin = new AppUser

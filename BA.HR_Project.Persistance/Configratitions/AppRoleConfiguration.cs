@@ -15,12 +15,7 @@ namespace BA.HR_Project.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<AppRole> builder)
         {
-            builder.HasData(new IdentityRole
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Admin",
-                NormalizedName = "ADMIN"
-            });
+            
         }
     }
 }
