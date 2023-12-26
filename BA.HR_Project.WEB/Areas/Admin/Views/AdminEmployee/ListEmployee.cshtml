@@ -1,4 +1,7 @@
-﻿@using BA.HR_Project.WEB.Models
+﻿
+@using BA.HR_Project.WEB
+@using BA.HR_Project.WEB.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<ListEmployeeViewModel>
 
 <style>
@@ -37,6 +40,7 @@
         background-color: #2ecc71;
         color: white;
         padding: 10px 15px;
+        text-decoration: none;
         border-radius: 5px; 
         transition: background-color 0.3s;
     }
@@ -77,11 +81,15 @@
                 <td>@user.Company.Name</td>
                 <td>@user.Department.Name</td>
                 <td class="actions-btns">
-                    <a asp-area="Admin" asp-controller="Employee" asp-action="UpdateEmployee" class="btn btn-detail">Detail</a>
-                    <a asp-area="Admin" asp-controller="Employee" asp-action="DetailsEmployee" class="btn btn-update">Update</a>
+                    <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="UpdateEmployee" class="btn btn-update">Update</a>
+                    <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="DetailsEmployee" asp-route-id="@user.Id" class="btn btn-detail">Detail</a>
                 </td>
+
             </tr>
+
         }
     </tbody>
 </table>
+
+
 

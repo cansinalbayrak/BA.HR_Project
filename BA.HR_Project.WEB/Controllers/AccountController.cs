@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Entities;
+using BA.HR_Project.Infrastructure.Services.Abstract;
 using BA.HR_Project.Infrasturucture.RequestResponse;
 using BA.HR_Project.WEB.Models;
 using Microsoft.AspNetCore.Identity;
@@ -10,15 +11,13 @@ namespace BA.HR_Project.WEB.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
 
-        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IMapper mapper)
+        public AccountController(IAccountService accountService, IMapper mapper)
         {
             _mapper = mapper;
-            _signInManager = signInManager; 
-            _userManager = userManager;
+            _accountService = accountService;
         }
 
         public IActionResult LogIn()
@@ -32,17 +31,13 @@ namespace BA.HR_Project.WEB.Controllers
             if (ModelState.IsValid)
             {
                 var dto = _mapper.Map<LoginUserDto>(vm);
+                var result = await _accountService.LogInAsync(dto);
 
-                var user = await _userManager.FindByEmailAsync(dto.Email);
-                await _signInManager.SignOutAsync();
-
-                var result = await _signInManager.PasswordSignInAsync(user, dto.Password, false, false);
-                
-                if (result.Succeeded)
+                if (result.IsSuccess)
                 {
                     return RedirectToAction("Index", "Employee");
                 }
-                
+
                 return View(vm);
             }
             return View(vm);
@@ -50,7 +45,7 @@ namespace BA.HR_Project.WEB.Controllers
 
         public async Task<IActionResult> LogOut()
         {
-            await _signInManager.SignOutAsync();
+            await _accountService.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
         }
