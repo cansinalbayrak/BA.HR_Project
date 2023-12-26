@@ -30,7 +30,9 @@ namespace BA.HR_Project.Application.Mapping
             CreateMap<ListDetailInfoDto, AppUser>()
            .ReverseMap();
             CreateMap<AppUser, AppUserUpdateDto>()
-         .ReverseMap();
+           .ReverseMap();
+
+            CreateMap<AppUser, AppUserUpdateForEmployeeDto>().ReverseMap();
 
         }
     }
