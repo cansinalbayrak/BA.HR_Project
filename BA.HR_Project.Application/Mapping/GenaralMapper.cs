@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BA.HR_Project.Application.Mapping
 {
-    public class GenaralMapper:Profile
+    public class GenaralMapper : Profile
     {
         public GenaralMapper()
         {
@@ -30,7 +30,12 @@ namespace BA.HR_Project.Application.Mapping
             CreateMap<ListDetailInfoDto, AppUser>()
            .ReverseMap();
             CreateMap<AppUser, AppUserUpdateDto>()
-         .ReverseMap();
+           .ReverseMap();
+
+            CreateMap<AppUser, AppUserUpdateForEmployeeDto>().ReverseMap();
+
+            CreateMap<AppUser, AppUser>()
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
         }
     }

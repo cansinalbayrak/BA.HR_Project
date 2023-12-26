@@ -26,11 +26,14 @@ namespace BA.HR_Project.WEB.Mapping
             CreateMap<LoginUserViewModel, LoginUserDto>()
            .ReverseMap();
             CreateMap<AppUserDto, ListDetailInfoViewModel>()
-         .ReverseMap();
+            .ReverseMap();
             CreateMap<AppUserDto, ListEmployeeViewModel>()
-         .ReverseMap();
+            .ReverseMap();
             CreateMap<AppUserUpdateDto, AppUserUpdateViewModel>()
-         .ReverseMap();
+            .ReverseMap();
+
+            CreateMap<AppUserUpdateForEmployeeDto, AppUserUpdateForEmployeeVM>()
+            .ReverseMap();
         }
     }
 }

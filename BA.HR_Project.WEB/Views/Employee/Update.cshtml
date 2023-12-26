@@ -6,7 +6,7 @@
 }
 
 
-@model UpdateUserProfileViewModel
+@model AppUserUpdateForEmployeeVM
 @*<h1>Update</h1>*@
 
 
@@ -38,7 +38,7 @@
         }
 
         <label asp-for="Photo"></label>
-        <input accept=".jpeg,.jpg,.png" type="file" asp-for="Photo" class="form-control-file text-light" />
+        <input accept=".jpeg,.jpg,.png" type="file" asp-for="Photo" class="form-control-file text-light" value="@Model.Photo" />
         <span asp-validation-for="Photo" class="text-danger"></span>
     </div>
 

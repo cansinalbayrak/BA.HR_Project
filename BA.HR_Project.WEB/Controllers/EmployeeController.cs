@@ -71,51 +71,52 @@ namespace BA.HR_Project.WEB.Controllers
         }
         public async Task<IActionResult> Update()
         {
-            var userId = _userManager.GetUserId(User);
-            var GetuserdtoAction = await _appUserManager.Get(true, x => x.Id == userId);
-            var userdto = GetuserdtoAction.Context;
+            AppUser user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                var userDto = _mapper.Map<AppUserUpdateForEmployeeDto>(user);
+                var userVM = _mapper.Map<AppUserUpdateForEmployeeVM>(userDto);
 
-            var userViewModels = _mapper.Map<UpdateUserProfileViewModel>(userdto);
-            
-            return View(userViewModels);
+                return View(userVM);
+            }
+            return View();
+            //var userId = _userManager.GetUserId(User);
+            //var GetuserdtoAction = await _appUserManager.Get(true, x => x.Id == userId);
+            //var userdto = GetuserdtoAction.Context;
+
+            //var userViewModels = _mapper.Map<UpdateUserProfileViewModel>(userdto);
+
+            //return View(userViewModels);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(UpdateUserProfileViewModel vm)
+        public async Task<IActionResult> Update(AppUserUpdateForEmployeeVM vm)
         {
-            var validator = new UpdateUserProfileViewModelValidator();
-            var validationResult = await validator.ValidateAsync(vm);
+            //var validator = new UpdateUserProfileViewModelValidator();
+            //var validationResult = await validator.ValidateAsync(vm);
 
-            if (!validationResult.IsValid)
-            {
-                foreach (var error in validationResult.Errors)
-                {
-                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                }
+            //if (!validationResult.IsValid)
+            //{
+            //    foreach (var error in validationResult.Errors)
+            //    {
+            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            //    }
 
-                return View(vm);
-            }
-
-            ModelState.Remove("AdressId");
-            ModelState.Remove("Id");
-            ModelState.Remove("CompanyId");
-            ModelState.Remove("DepantmentId");
+            //    return View(vm);
+            //}
 
             var photoPath =await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
             vm.PhotoPath = photoPath;
 
-            var userDto = _mapper.Map<AppUserDto>(vm);
-            var user = _mapper.Map<AppUser>(userDto);
+            var userNewPropsDto = _mapper.Map<AppUserUpdateForEmployeeDto>(vm);
+            var userNewProps = _mapper.Map<AppUser>(userNewPropsDto);
+            var user = await _userManager.GetUserAsync(User);
+            _mapper.Map(userNewProps,user);
             var updateAction = await _userManager.UpdateAsync(user);
-
 
             if (updateAction.Succeeded)
             {
-                if (ModelState.IsValid)
-                {
-                    return RedirectToAction("Index", "Employee");
-                }
+                return RedirectToAction("Index", "Employee");
             }
-            
             return View(vm);
         }
     }
