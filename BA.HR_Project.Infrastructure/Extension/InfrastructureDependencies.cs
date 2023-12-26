@@ -1,4 +1,6 @@
-﻿using BA.HR_Project.Infrasturucture.Managers.Concrate;
+﻿using BA.HR_Project.Infrastructure.Managers.Abstract;
+using BA.HR_Project.Infrastructure.Services.Abstract;
+using BA.HR_Project.Infrasturucture.Managers.Concrate;
 using BA.HR_Project.Infrasturucture.Services.Concrate;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -18,6 +20,7 @@ namespace BA.HR_Project.Infrastructure.Extension
             services.AddScoped<IAppUserService, AppUserManager>();
             services.AddScoped<ICompanyService, CompanyManager>();
             services.AddScoped<IDepartmentService, DepartmentManager>();
+            services.AddScoped<IAccountService, AccountManager>();
         }
     }
 }

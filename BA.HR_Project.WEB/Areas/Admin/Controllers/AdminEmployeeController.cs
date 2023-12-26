@@ -133,10 +133,21 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 
 
 
-        public async Task<IActionResult> DetailsEmployee()
+        public async Task<IActionResult> DetailsEmployee(string id)
         {
-            return View();
+            var user = await _userManager.FindByIdAsync(id);
+            var userdto = _mapper.Map<AppUserDto>(user);
 
+            var departmentId = userdto.DepartmentId;
+            var companyId = userdto.CompanyId;
+            var company = await _companyManager.Get(true, x => x.Id == companyId);
+            var department = await _departmentManager.Get(true, x => x.Id == departmentId);
+
+            var userViewModels = _mapper.Map<ListDetailInfoViewModel>(userdto);
+            ViewBag.DepartmentName = department.Context.Name;
+            ViewBag.CompanyName = company.Context.Name;
+
+            return View(userViewModels);
 
         }
 
