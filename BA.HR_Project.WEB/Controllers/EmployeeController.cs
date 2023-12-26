@@ -76,6 +76,7 @@ namespace BA.HR_Project.WEB.Controllers
             {
                 var userDto = _mapper.Map<AppUserUpdateForEmployeeDto>(user);
                 var userVM = _mapper.Map<AppUserUpdateForEmployeeVM>(userDto);
+
                 return View(userVM);
             }
             return View();
@@ -106,23 +107,15 @@ namespace BA.HR_Project.WEB.Controllers
             var photoPath =await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
             vm.PhotoPath = photoPath;
 
-            AppUser user = await _userManager.GetUserAsync(User);
-            if (user != null)
+            var userNewPropsDto = _mapper.Map<AppUserUpdateForEmployeeDto>(vm);
+            var userNewProps = _mapper.Map<AppUser>(userNewPropsDto);
+            var user = await _userManager.GetUserAsync(User);
+            _mapper.Map(userNewProps,user);
+            var updateAction = await _userManager.UpdateAsync(user);
+
+            if (updateAction.Succeeded)
             {
-                //var userDto = _mapper.Map<AppUserUpdateForEmployeeDto>(vm);
-
-                user.Adress = vm.Adress;
-                user.PhoneNumber = vm.PhoneNumber;
-                user.PhotoPath = vm.PhotoPath;
-
-                //user = _mapper.Map<AppUser>(userDto);
-                var updateAction = await _userManager.UpdateAsync(user);
-
-                if (updateAction.Succeeded)
-                {
-                    return RedirectToAction("Index", "Employee");
-                }
-
+                return RedirectToAction("Index", "Employee");
             }
             return View(vm);
         }
