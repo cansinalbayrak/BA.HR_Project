@@ -10,7 +10,7 @@
 <div class="container">
 
 
-    <form asp-controller="Employee" asp-action="Update" method="post" enctype="multipart/form-data">
+    <form asp-controller="AdminEmployee" asp-action="UpdateEmployee" method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="Id" />
 
         <div class="mb-3">
@@ -19,7 +19,7 @@
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="col-form-label text-warning" asp-for="SecondName">Name</label>
+            <label class="col-form-label text-warning" asp-for="SecondName">SecondName</label>
             <input asp-for="SecondName" class="form-control" type="text" placeholder="Second Name" />
             <span asp-validation-for="SecondName" class="text-danger"></span>
         </div>
@@ -77,23 +77,27 @@
             <input asp-for="IsTurkishCitizen" class="form-control" type="checkbox" placeholder="IsTurkishCitizen" />
             <span asp-validation-for="IsTurkishCitizen" class="text-danger"></span>
         </div>
-        @if (@ViewBag.Citizien == true)
-        {
-            <div class="mb-3">
-                <label class="col-form-label text-warning" asp-for="IdentityNumber">Identity Number</label>
-                <input asp-for="IdentityNumber" class="form-control" type="text" placeholder="Identity Number" />
-                <span asp-validation-for="IdentityNumber" class="text-danger"></span>
-            </div>
-        }
-        @if (@ViewBag.Citizien != true)
-        {
-            <div class="mb-3">
-                <label class="col-form-label text-warning" asp-for="PassportNumber">Passport Number</label>
-                <input asp-for="PassportNumber" class="form-control" type="text" placeholder="Passport Number" />
-                <span asp-validation-for="PassportNumber" class="text-danger"></span>
-            </div>
+        @{
+            if (ViewBag.Citizien == true)
+            {
+                <div class="mb-3">
+                    <label class="col-form-label text-warning" asp-for="IdentityNumber">Identity Number</label>
+                    <input asp-for="IdentityNumber" class="form-control" type="text" placeholder="Identity Number" />
+                    <span asp-validation-for="IdentityNumber" class="text-danger"></span>
+                </div>
+            }
+            if (ViewBag.Citizien != true)
+            {
+                <div class="mb-3">
+                    <label class="col-form-label text-warning" asp-for="PassportNumber">Passport Number</label>
+                    <input asp-for="PassportNumber" class="form-control" type="text" placeholder="Passport Number" />
+                    <span asp-validation-for="PassportNumber" class="text-danger"></span>
+                </div>
 
-            // departman ve şirket yapılacak
+
+
+            }
+
         }
 
         <div class="mb-3">
