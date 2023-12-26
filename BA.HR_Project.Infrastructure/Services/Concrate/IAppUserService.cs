@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BA.HR_Project.Infrasturucture.Services.Concrate
 {
-    public interface IAppUserService : IService<AppUser,AppUserDto>
+    public interface IAppUserService : IService<AppUser,IDTO>
     {
         Task UpdateAppUser(AppUserDto user);
     }

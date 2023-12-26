@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 {
-    public class AppUserManager : BaseManager<AppUser, AppUserDto>, IAppUserService
+    public class AppUserManager : BaseManager<AppUser, IDTO>, IAppUserService
     {
         private readonly UserManager<AppUser> _userManager;
         public AppUserManager(IMapper mapper, IUow uow, UserManager<AppUser> userManager) : base(mapper, uow)
