@@ -70,7 +70,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 
             newUser.Email = newUser.Name + "." + newUser.Surname + "@bilgeadamboost.com";
 
-            newUser.PhotoPath = "duzenle.jpg";
+            newUser.PhotoPath = "~/mexant/assets/images/Default.jpg";
             newUser.UserName = newUser.Email;
             newUser.Id = Guid.NewGuid().ToString();
 
