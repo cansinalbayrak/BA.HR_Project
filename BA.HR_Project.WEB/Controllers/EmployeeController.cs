@@ -59,7 +59,7 @@ namespace BA.HR_Project.WEB.Controllers
 
             var departmentId = userdto.DepartmentId;
             var companyId = userdto.CompanyId;
-            var company = await _companyManager.Get(true, x => x.Id == companyId);
+            var company = await _companyManager.Get(true, x => x.Id == companyId);  
             var department = await _departmentManager.Get(true, x => x.Id == departmentId);
 
             var userViewModels = _mapper.Map<ListDetailInfoViewModel>(userdto);
@@ -103,12 +103,19 @@ namespace BA.HR_Project.WEB.Controllers
             var photoPath =await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
             vm.PhotoPath = photoPath;
 
-            if (ModelState.IsValid)
+            var userDto = _mapper.Map<AppUserDto>(vm);
+            var user = _mapper.Map<AppUser>(userDto);
+            var updateAction = await _userManager.UpdateAsync(user);
+
+
+            if (updateAction.Succeeded)
             {
-                var updateUserDto = _mapper.Map<AppUserDto>(vm);
-                await _appUserManager.UpdateAppUser(updateUserDto);
-                return RedirectToAction("Index", "Employee");
+                if (ModelState.IsValid)
+                {
+                    return RedirectToAction("Index", "Employee");
+                }
             }
+            
             return View(vm);
         }
     }
