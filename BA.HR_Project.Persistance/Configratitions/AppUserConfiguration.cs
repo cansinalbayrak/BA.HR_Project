@@ -50,8 +50,9 @@ namespace BA.HR_Project.Persistance.Configurations
                 SecurityStamp = Guid.NewGuid().ToString(),
                 Adress = "Ankara",
                 DepartmentId = "SeedDepartment1",
-                CompanyId = "SeedCompany1"
-            };
+                CompanyId = "SeedCompany1",
+                PhotoPath = "~/mexant/assets/images/Default.jpg"
+        };
 
             var hasher = new PasswordHasher<AppUser>();
             seedAdmin.PasswordHash = hasher.HashPassword(seedAdmin, "Admin");
