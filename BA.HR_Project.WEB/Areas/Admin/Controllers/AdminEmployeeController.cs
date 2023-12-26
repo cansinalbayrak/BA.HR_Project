@@ -93,7 +93,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             //var updateUserAction = await _appUserManager.Get(true, u => u.Id == userId);
             //var user = updateUserAction.Context;
 
-            var userdto = _mapper.Map<AppUserDto>(user);
+            var userdto = _mapper.Map<AppUserUpdateDto>(user);
             var userViewModel = _mapper.Map<AppUserUpdateViewModel>(userdto);
 
             ViewBag.Citizien = user.IsTurkishCitizen;
@@ -117,14 +117,15 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             //    }
             //    return View(vm);
             //}
-            ModelState.Remove("AdressId");
-            ModelState.Remove("Id");
-            ModelState.Remove("CompanyId");
-            ModelState.Remove("DepantmentId");
+            //ModelState.Remove("AdressId");
+            //ModelState.Remove("Id");
+            //ModelState.Remove("CompanyId");
+            //ModelState.Remove("DepantmentId");
             if (ModelState.IsValid) 
             {
-              var updateUser = _mapper.Map<AppUserDto>(vm);
-                await _appUserManager.Update(updateUser);
+              var updateUserDto = _mapper.Map<AppUserUpdateDto>(vm);
+                await _appUserManager.Update(updateUserDto);
+                //await _appUserManager.Update(updateUser);
                 return RedirectToAction("ListEmployee");
             }
             return View();

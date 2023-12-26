@@ -29,7 +29,7 @@ namespace BA.HR_Project.WEB.Mapping
          .ReverseMap();
             CreateMap<AppUserDto, ListEmployeeViewModel>()
          .ReverseMap();
-            CreateMap<AppUserDto, AppUserUpdateViewModel>()
+            CreateMap<AppUserUpdateDto, AppUserUpdateViewModel>()
          .ReverseMap();
         }
     }

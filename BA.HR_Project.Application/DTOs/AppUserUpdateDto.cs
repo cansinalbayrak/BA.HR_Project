@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BA.HR_Project.Application.DTOs
 {
-    public class AppUserUpdateDto
+    public class AppUserUpdateDto : IDTO
     {
         public string Id { get; set; }
         public string Name { get; set; }
