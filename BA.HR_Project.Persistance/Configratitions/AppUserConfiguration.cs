@@ -51,7 +51,7 @@ namespace BA.HR_Project.Persistance.Configurations
                 Adress = "Ankara",
                 DepartmentId = "SeedDepartment1",
                 CompanyId = "SeedCompany1",
-                PhotoPath = "~/mexant/assets/images/Default.jpg"
+                PhotoPath = "/mexant/assets/images/Default.jpg"
         };
 
             var hasher = new PasswordHasher<AppUser>();
