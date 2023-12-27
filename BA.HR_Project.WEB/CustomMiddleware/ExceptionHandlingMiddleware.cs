@@ -41,12 +41,14 @@ namespace BA.HR_Project.WEB.CustomMiddleware
 
             if (statusCode >= 400 && statusCode < 500)
             {
-                // 400-404 hataları
-                context.Response.Redirect("/Home/Warning");
+               
+                context.Response.StatusCode = 200; 
+                context.Response.WriteAsync("Some Error Occurred. You will be redirected to the warning page shortly.");
+               
             }
             else if (statusCode == 500)
             {
-                // 500 hataları
+               
                 context.Response.Redirect("/Home/Error");
             }
         }

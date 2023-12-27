@@ -10,14 +10,14 @@
     <div class="mb-3">
         <label asp-for="Email" class="form-label text-warning">Email Address</label><br>
         <input type="email" class="form-control" asp-for="Email" placeholder="Email"><br>
-        <div <span asp-validation-for="Email"></span></div>
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Password" class="form-label text-warning">Password</label><br>
         <input type="password" class="form-control" asp-for="Password" placeholder="Password"><br>
-        <div <span asp-validation-for="Password"></span></div>
+        <span asp-validation-for="Password" class="text-danger"></span>
     </div>
-    <button  type="submit" class="btn btn-success">LogIn</button>
+    <button type="submit" class="btn btn-success">LogIn</button>
 </form>
 
 

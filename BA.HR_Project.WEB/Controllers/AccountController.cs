@@ -4,6 +4,7 @@ using BA.HR_Project.Domain.Entities;
 using BA.HR_Project.Infrastructure.Services.Abstract;
 using BA.HR_Project.Infrasturucture.RequestResponse;
 using BA.HR_Project.WEB.Models;
+using BA.HR_Project.WEB.ModelValidators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,19 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> LogIn(LoginUserViewModel vm)
         {
+            var validator = new LoginViewModelValidator();
+            var validationResult = await validator.ValidateAsync(vm);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                return View(vm);
+            }
+
             if (ModelState.IsValid)
             {
                 var dto = _mapper.Map<LoginUserDto>(vm);
@@ -40,6 +54,7 @@ namespace BA.HR_Project.WEB.Controllers
 
                 return View(vm);
             }
+
             return View(vm);
         }
 
@@ -49,5 +64,6 @@ namespace BA.HR_Project.WEB.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
     }
 }

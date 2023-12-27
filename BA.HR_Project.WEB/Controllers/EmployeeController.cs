@@ -56,7 +56,7 @@ namespace BA.HR_Project.WEB.Controllers
 
             var departmentId = userdto.DepartmentId;
             var companyId = userdto.CompanyId;
-            var company = await _companyManager.Get(true, x => x.Id == companyId);  
+            var company = await _companyManager.Get(true, x => x.Id == companyId);
             var department = await _departmentManager.Get(true, x => x.Id == departmentId);
 
             var userViewModels = _mapper.Map<ListDetailInfoViewModel>(userdto);
@@ -82,26 +82,26 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(AppUserUpdateForEmployeeVM vm)
         {
-            //var validator = new UpdateUserProfileViewModelValidator();
-            //var validationResult = await validator.ValidateAsync(vm);
+            var validator = new AppUserUpdateForEmployeeVMValidator();
+            var validationResult = await validator.ValidateAsync(vm);
 
-            //if (!validationResult.IsValid)
-            //{
-            //    foreach (var error in validationResult.Errors)
-            //    {
-            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            //    }
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
 
-            //    return View(vm);
-            //}
+                return View(vm);
+            }
 
-            var photoPath =await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
+            var photoPath = await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
             vm.PhotoPath = photoPath;
 
             var userNewPropsDto = _mapper.Map<AppUserUpdateForEmployeeDto>(vm);
             var userNewProps = _mapper.Map<AppUser>(userNewPropsDto);
             var user = await _userManager.GetUserAsync(User);
-            _mapper.Map(userNewProps,user);
+            _mapper.Map(userNewProps, user);
             var updateAction = await _userManager.UpdateAsync(user);
 
             if (updateAction.Succeeded)
@@ -110,5 +110,7 @@ namespace BA.HR_Project.WEB.Controllers
             }
             return View(vm);
         }
+
+
     }
 }
