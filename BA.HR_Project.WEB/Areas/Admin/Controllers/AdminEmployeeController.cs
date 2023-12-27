@@ -108,18 +108,18 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateEmployee(AppUserUpdateForAdminVM vm)
         {
 
-            //var validator = new AppUserViewModelValidator();
-            //var validationResult = await validator.ValidateAsync(updateuser);
+            var validator = new AppUserUpdateForAdminVMValidator();
+            var validationResult = await validator.ValidateAsync(vm);
 
-            //if (!validationResult.IsValid)
-            //{
-            //    foreach (var error in validationResult.Errors)
-            //    {
-            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
 
-            //    }
-            //    return View(vm);
-            //}
+                return View(vm);
+            }
 
 
             var updateUserDto = _mapper.Map<AppUserUpdateForAdminDto>(vm);

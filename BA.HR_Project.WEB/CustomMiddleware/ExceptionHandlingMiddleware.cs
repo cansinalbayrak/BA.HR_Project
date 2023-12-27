@@ -5,56 +5,49 @@ namespace BA.HR_Project.WEB.CustomMiddleware
 {
     public class ExceptionHandlingMiddleware
     {
-        private readonly RequestDelegate _requestDelegate;
+        private readonly RequestDelegate _next;
 
-        public ExceptionHandlingMiddleware(RequestDelegate requestDelegate)
+        public ExceptionHandlingMiddleware(RequestDelegate next)
         {
-            _requestDelegate = requestDelegate;
+            _next = next;
         }
 
         public async Task Invoke(HttpContext context)
         {
             try
             {
-                await _requestDelegate(context);
+                await _next(context);
             }
             catch (Exception ex)
             {
-                context.Response.StatusCode = 500;
-
-                var response = new Response
-                {
-                    IsSuccess = false,
-                    Message = "Some Error Occurred.",
-                    Errors = new List<IdentityError> { new IdentityError { Description = ex.Message } }
-                };
-
-                context.Items["Exception"] = response;
-
-                if (context.Response.StatusCode >= 400 && context.Response.StatusCode < 500)
-                {
-                    context.Response.Redirect("/Home/Warning");
-                }
-                else
-                {
-                    context.Response.Redirect("/Home/Error");
-                }
+                HandleException(context, ex);
             }
+        }
 
-            // Sign In sırasındaki hata kontrolü
-            if (context.Request.Path == "/Home/Account/Login" && context.Response.StatusCode == 404)
+        private void HandleException(HttpContext context, Exception ex)
+        {
+            context.Response.StatusCode = 500;
+
+            var response = new Response
             {
-                context.Response.StatusCode = 500;
+                IsSuccess = false,
+                Message = "Some Error Occurred.",
+                Errors = new List<IdentityError> { new IdentityError { Description = ex.Message } }
+            };
 
-                var response = new Response
-                {
-                    IsSuccess = false,
-                    Message = "Some Error Occurred during Sign In.",
-                    Errors = new List<IdentityError> { new IdentityError { Description = "Sign In Error" } }
-                };
+            context.Items["Exception"] = response;
 
-                context.Items["Exception"] = response;
+            var statusCode = context.Response.StatusCode;
+
+            if (statusCode >= 400 && statusCode < 500)
+            {
+                // 400-404 hataları
                 context.Response.Redirect("/Home/Warning");
+            }
+            else if (statusCode == 500)
+            {
+                // 500 hataları
+                context.Response.Redirect("/Home/Error");
             }
         }
     }

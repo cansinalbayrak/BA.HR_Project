@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace BA.HR_Project.WEB.ModelValidators
 {
-    public class AppUserUpdateViewModelValidator : AbstractValidator<AppUserUpdateViewModel>
+    public class AppUserUpdateForAdminVMValidator : AbstractValidator<AppUserUpdateForAdminVM>
     {
-        public AppUserUpdateViewModelValidator()
+        public AppUserUpdateForAdminVMValidator()
         {
             RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Name must be provided")
@@ -27,7 +27,7 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .Matches(@"^\d{10}$").WithMessage("Phone Number must contain 10 digits");
 
             RuleFor(x => x.BirthDate)
-                .Must(BeAtLeast15YearsOld).WithMessage("Birth Date must be at least 15 years ago");
+          .Must(BeAtLeast15YearsOld).WithMessage("Birth Date must be at least 15 years ago");
 
             RuleFor(x => x.Salary)
                 .GreaterThanOrEqualTo(0).WithMessage("Salary cannot be negative");
@@ -37,17 +37,12 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .MaximumLength(80).WithMessage("Adress cannot be more than 80 characters");
         }
 
-        private bool BeAtLeast15YearsOld(DateTime? birthDate)
+        private bool BeAtLeast15YearsOld(DateTime birthDate)
         {
-            if (!birthDate.HasValue)
-            {
-                return false;
-            }
-
             var today = DateTime.Today;
-            var age = today.Year - birthDate.Value.Year;
+            var age = today.Year - birthDate.Year;
 
-            if (birthDate.Value.Date > today.AddYears(-age))
+            if (birthDate.Date > today.AddYears(-age))
             {
                 age--;
             }
