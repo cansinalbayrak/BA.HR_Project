@@ -39,7 +39,7 @@ namespace BA.HR_Project.WEB.CustomMiddleware
 
             var statusCode = context.Response.StatusCode;
 
-            if (statusCode >= 400 && statusCode < 500)
+            if (statusCode >= 300 && statusCode < 500)
             {
                
                 context.Response.StatusCode = 200; 

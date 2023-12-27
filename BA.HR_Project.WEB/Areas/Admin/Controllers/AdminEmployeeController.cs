@@ -79,7 +79,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 
             if (!validationResult.IsValid)
             {
-              
+
                 foreach (var error in validationResult.Errors)
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
@@ -98,9 +98,24 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
                 newUser.CompanyId = currentUser.CompanyId;
                 newUser.DepartmentId = currentUser.DepartmentId;
             }
-
-            newUser.Email = newUser.Name + "." + newUser.Surname + "@bilgeadamboost.com";
-
+            string mail= newUser.Name + "." + newUser.Surname + "@bilgeadamboost.com";
+            
+            
+            if (await _userManager.FindByEmailAsync(mail) != null)
+            {
+                string emailPrefix = newUser.Name[0].ToString().ToLower();
+                newUser.Email = $"{emailPrefix}.{newUser.Surname}@bilgeadamboost.com";
+                if(await _userManager.FindByEmailAsync(newUser.Email) != null)
+                {
+                    string emailPrefix2 = newUser.Surname[0].ToString().ToLower();
+                    newUser.Email = $"{newUser.Name}.{emailPrefix2}@bilgeadamboost.com";
+                }
+            }
+            else
+            {
+                newUser.Email = mail;
+            }
+            
             newUser.PhotoPath = "/mexant/assets/images/Default.jpg";
             newUser.UserName = newUser.Email;
             newUser.Id = Guid.NewGuid().ToString();
