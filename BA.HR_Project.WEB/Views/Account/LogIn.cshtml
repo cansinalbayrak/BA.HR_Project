@@ -5,8 +5,8 @@
 
 @model LoginUserViewModel
 
-
-<form asp-controller="Account" asp-action="Login" method="post">
+<div class="container">
+  <form asp-controller="Account" asp-action="Login" method="post">
     <div class="mb-3">
         <label asp-for="Email" class="form-label text-warning">Email Address</label><br>
         <input type="email" class="form-control" asp-for="Email" placeholder="Email"><br>
@@ -18,7 +18,8 @@
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-success">LogIn</button>
-</form>
+  </form>
+ </div>
 
 
 
