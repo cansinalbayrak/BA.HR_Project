@@ -4,26 +4,37 @@
     {
         public static async Task<string> SaveImageFile(IFormFile imageFile)
         {
-            //var fileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
-            //var imagePath = Path.Combine("wwwroot", "images", fileName);
+            if (imageFile == null || imageFile.Length == 0)
+            {
+                // Eğer dosya seçilmediyse veya dosyanın uzunluğu sıfırsa null dönebilir veya hata mesajı gönderebilirsiniz.
+                return null;
+            }
 
-            //using (var stream = new FileStream(imagePath, FileMode.Create))
-            //{
-            //    await imageFile.CopyToAsync(stream);
-            //}
-            //return "/images/" + fileName;
+            try
+            {
+                string imageExtension = Path.GetExtension(imageFile.FileName);
 
-            string imageExtension = Path.GetExtension(imageFile.FileName);
+                // Yeni bir dosya adı oluşturun
+                string imageName = Guid.NewGuid().ToString("N") + imageExtension;
 
-            string imageName = Guid.NewGuid() + imageExtension;
+                // Dosyanın kaydedileceği yol
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "mexant", "assets", "images", imageName);
 
-            string path = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/mexant/assets/images/{imageName}");
+                // Dosyayı oluşturulan yola kaydedin
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                }
 
-            using var stream = new FileStream(path, FileMode.Create);
-
-            await imageFile.CopyToAsync(stream);
-
-            return $"/mexant/assets/images/{imageName}";
+                // Kaydedilen dosyanın yolunu döndürün
+                return "/mexant/assets/images/" + imageName;
+            }
+            catch (Exception ex)
+            {
+                // Hata durumunda loglama veya uygun bir işlem yapabilirsiniz.
+                // Hata durumunda null dönebilir veya isteğe bağlı olarak bir hata mesajı dönebilirsiniz.
+                return null;
+            }
         }
     }
 }
