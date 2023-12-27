@@ -1,14 +1,77 @@
 ﻿
-@* 
-<style>
-    body {
-        background-image: url('backgroundImage.jpg');
-        background-size: cover; /* Resmin tüm sayfayı kaplamasını sağlar */
-        background-repeat: no-repeat; /* Resmin tekrarlanmasını engeller */
-        background-attachment: fixed; /* Arka planın kaydırma sırasında sabit kalmasını sağlar */
-    }
-</style> *@
 
-<h6>
-    Welcome @ViewBag.Welcome !!!
-</h6>
+<div class="container">
+
+    <div class="row">
+
+    <div class ="col" >
+
+            <h1 class="text-light" style="margin-top:50%">
+            Welcome @ViewBag.Welcome !!!
+        </h1>
+
+    </div>
+
+
+    <div class="col">
+
+
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="@ViewBag.Company.LogoPath" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">General Info</h5>
+                <p class="card-text">
+                    General information about the company and employee lists are given here.
+                    Please click the "List" button to see the employee list.
+                </p>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Employee Count: @ViewBag.UserCount</li>
+                <p>Company:</p>
+                <li class="list-group-item">
+
+                    @if (ViewBag.Company != null)
+                    {
+                        <p>@ViewBag.Company.Name</p>
+                    }
+                    else
+                    {
+                        <p>No company available</p>
+                    }
+
+                </li>
+                <p>Departments:</p>
+                <li class="list-group-item">
+
+                    @if (ViewBag.Departments != null)
+                    {
+                        <ul>
+                            @foreach (var department in ViewBag.Departments)
+                            {
+                                <li>@department.Name</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>No departments available</p>
+                    }
+
+                </li>
+
+            </ul>
+            <div class="card-body">
+                <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee" class="card-link">List</a>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    </div>
+
+
+</div>
+
