@@ -19,7 +19,7 @@ using NuGet.Packaging.Signing;
 namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles =("Admin"))]
+    [Authorize(Roles = ("Admin"))]
 
     public class AdminEmployeeController : Controller
     {
@@ -125,12 +125,16 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         {
             var user = await _userManager.FindByIdAsync(Id);
 
-            var userdto = _mapper.Map<AppUserUpdateForAdminDto>(user);
-            var userViewModel = _mapper.Map<AppUserUpdateForAdminVM>(userdto);
+            if (user != null)
+            {
+                var userdto = _mapper.Map<AppUserUpdateForAdminDto>(user);
+                var userViewModel = _mapper.Map<AppUserUpdateForAdminVM>(userdto);
 
-            ViewBag.Citizien = user.IsTurkishCitizen;
+                ViewBag.Citizien = user.IsTurkishCitizen;
 
-            return View(userViewModel);
+                return View(userViewModel);
+            }
+            return RedirectToAction("ListEmployee");
         }
         [HttpPost]
         public async Task<IActionResult> UpdateEmployee(AppUserUpdateForAdminVM vm)
@@ -171,18 +175,24 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         public async Task<IActionResult> DetailsEmployee(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            var userdto = _mapper.Map<AppUserDto>(user);
 
-            var departmentId = userdto.DepartmentId;
-            var companyId = userdto.CompanyId;
-            var company = await _companyManager.Get(true, x => x.Id == companyId);
-            var department = await _departmentManager.Get(true, x => x.Id == departmentId);
+            if (user != null)
+            {
+                var userdto = _mapper.Map<AppUserDto>(user);
 
-            var userViewModels = _mapper.Map<ListDetailInfoViewModel>(userdto);
-            ViewBag.DepartmentName = department.Context.Name;
-            ViewBag.CompanyName = company.Context.Name;
+                var departmentId = userdto.DepartmentId;
+                var companyId = userdto.CompanyId;
+                var company = await _companyManager.Get(true, x => x.Id == companyId);
+                var department = await _departmentManager.Get(true, x => x.Id == departmentId);
 
-            return View(userViewModels);
+                var userViewModels = _mapper.Map<ListDetailInfoViewModel>(userdto);
+                ViewBag.DepartmentName = department.Context.Name;
+                ViewBag.CompanyName = company.Context.Name;
+
+                return View(userViewModels);
+            }
+            return RedirectToAction("ListEmployee");
+            
 
         }
         private string EmailChangePasswordLinkGenerator(string token, string UserID)
