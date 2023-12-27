@@ -11,6 +11,7 @@
         public string PhoneNumber { get; set; }
         public string? PhotoPath { get; set; }
         public IFormFile Photo { get; set; }
+        public string ExistingPhotoPath { get; set; } 
         public DateTime? BirthDate { get; set; }
         public string? BirthPlace { get; set; }
         public DateTime? StartDate { get; set; }
