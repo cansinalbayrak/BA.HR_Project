@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Entities;
+using BA.HR_Project.Infrastructure.Services.Abstract;
 using BA.HR_Project.Infrasturucture.Services.Concrate;
 using BA.HR_Project.WEB.Areas.Admin.Models;
 using BA.HR_Project.WEB.Models;
@@ -9,6 +10,8 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using NuGet.Packaging.Signing;
@@ -26,16 +29,19 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         private readonly ICompanyService _companyManager;
         private readonly IDepartmentService _departmentManager;
         private readonly IMapper _mapper;
-
-
-
-        public AdminEmployeeController(UserManager<AppUser> userManager, IAppUserService appUserManager, ICompanyService companyManager, IDepartmentService departmentManager, IMapper mapper)
+        private readonly IUrlHelperFactory _urlHelperFactory;
+        private readonly IActionContextAccessor _actionContextAccessor;
+        private readonly IEmailService _emailService;
+        public AdminEmployeeController(UserManager<AppUser> userManager, IAppUserService appUserManager, ICompanyService companyManager, IDepartmentService departmentManager, IMapper mapper, IEmailService emailService = null, IActionContextAccessor actionContextAccessor = null, IUrlHelperFactory urlHelperFactory = null)
         {
             _userManager = userManager;
             _appUserManager = appUserManager;
             _companyManager = companyManager;
             _departmentManager = departmentManager;
             _mapper = mapper;
+            _emailService = emailService;
+            _actionContextAccessor = actionContextAccessor;
+            _urlHelperFactory = urlHelperFactory;
         }
         [HttpGet("/Admin/Employee/Index")]
         public IActionResult Index()
@@ -99,6 +105,14 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 
             if (createUserAction.Succeeded && AddRoleAction.Succeeded)
             {
+
+                var resgisteredUser = await _userManager.FindByEmailAsync(newUser.Email);
+                var token = await _userManager.GeneratePasswordResetTokenAsync(newUser);
+                var userId = newUser.Id;
+
+                var url = EmailChangePasswordLinkGenerator(token, userId);
+                var html = GenerateChangePasswordEmail(url);
+                _emailService.SendEmail(newUser.Email, "Change Password", html);
                 return RedirectToAction("ListEmployee");
             }
 
@@ -169,6 +183,27 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             ViewBag.CompanyName = company.Context.Name;
 
             return View(userViewModels);
+
+        }
+        private string EmailChangePasswordLinkGenerator(string token, string UserID)
+        {
+            var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
+            return urlHelper.Action("ResetPassword", "User", new { token, UserID }, "https");
+
+        }
+
+        private string GenerateChangePasswordEmail(string url)
+        {
+            var html = $@"<html><head></head>
+
+                    <body>
+                    <h2>Welcome to BilgeAdam Technology</2>
+                     <p> We are happy to see you among us. You are registered by BilgeAdam Technology.Please click the link to referesh your password.</p>
+                     <a href ={url}>Click</a>
+                     </html>";
+
+
+            return html;
 
         }
 
