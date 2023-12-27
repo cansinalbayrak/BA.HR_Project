@@ -81,7 +81,7 @@
                 <td>@user.Company.Name</td>
                 <td>@user.Department.Name</td>
                 <td class="actions-btns">
-                    <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="UpdateEmployee" class="btn btn-update">Update</a>
+                    <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="UpdateEmployee" asp-route-id="@user.Id" class="btn btn-update">Update</a>
                     <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="DetailsEmployee" asp-route-id="@user.Id" class="btn btn-detail">Detail</a>
                 </td>
 

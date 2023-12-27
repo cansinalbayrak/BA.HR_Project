@@ -5,7 +5,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 
-@model BA.HR_Project.WEB.Areas.Admin.Models.AppUserUpdateViewModel
+@model AppUserUpdateForAdminVM
 
 <div class="container">
 
@@ -14,20 +14,23 @@
         <input type="hidden" asp-for="Id" />
 
         <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="Email">Email</label>
+            <input asp-for="Email" class="form-control" type="text" placeholder="Email" />
+            <span asp-validation-for="SecondName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="Name">Name</label>
             <input asp-for="Name" class="form-control" type="text" placeholder="Name" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="SecondName">SecondName</label>
             <input asp-for="SecondName" class="form-control" type="text" placeholder="Second Name" />
             <span asp-validation-for="SecondName" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label class="col-form-label text-warning" asp-for="Email">Email</label>
-            <input asp-for="Email" class="form-control" type="text" placeholder="Email" />
-            <span asp-validation-for="SecondName" class="text-danger"></span>
-        </div>
+
         <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="Surname">Surname</label>
             <input asp-for="Surname" class="form-control" type="text" placeholder="Surname" />
@@ -40,11 +43,13 @@
             <span asp-validation-for="SecondSurname" class="text-danger"></span>
 
         </div>
+
         <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="BirthDate">Birth Date</label>
             <input asp-for="BirthDate" class="form-control" type="date" placeholder="Birth Date" />
             <span asp-validation-for="BirthDate" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="BirthPlace">Birth Place</label>
             <input asp-for="BirthPlace" class="form-control" type="text" placeholder="Birth Place" />
@@ -56,16 +61,19 @@
             <input asp-for="StartDate" class="form-control" type="date" placeholder="Start Date" />
             <span asp-validation-for="StartDate" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="EndDate">End Daate</label>
             <input asp-for="EndDate" class="form-control" type="date" placeholder="End Data" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="Salary">Salary</label>
             <input asp-for="Salary" class="form-control" type="number" placeholder="Salary" />
             <span asp-validation-for="Salary" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="IsActive">WorkingStatus</label>
             <input asp-for="IsActive" class="form-control" type="checkbox" placeholder="WorkingStatus" />
@@ -105,26 +113,12 @@
             <input asp-for="Adress" class="form-control" type="text" placeholder="Adress" />
             <span asp-validation-for="Adress" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="PhoneNumber">Phone Number</label>
             <input asp-for="PhoneNumber" class="form-control" type="text" placeholder="Phone Number" />
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            @*@if (!string.IsNullOrWhiteSpace(Model.PhotoPath) || !string.IsNullOrWhiteSpace(Model.ExistingPhotoPath))
-            {
-                <img src="@(!string.IsNullOrWhiteSpace(Model.PhotoPath) ? Model.PhotoPath : Model.ExistingPhotoPath)" alt="Current Photo" class="mt-2" style="max-width: 150px;" />
-                <small class="text-muted">Current Photo: @(string.IsNullOrWhiteSpace(Model.PhotoPath) ? Model.ExistingPhotoPath : "Photo Path Select")</small>
-            }*@
-
-            <label asp-for="Photo"></label>
-            <input accept=".jpeg,.jpg,.png" type="file" asp-for="Photo" class="form-control-file text-light" />
-            <span asp-validation-for="Photo" class="text-danger"></span>
-        </div>
-
-
-
-
 
 
         <button type="submit" class="btn-warning">Update</button>

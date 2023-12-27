@@ -8,6 +8,8 @@ namespace BA.HR_Project.Application.DTOs
 {
     public class AppUserUpdateForAdminDto : IDTO
     {
+        public string Id { get; set; }
+        public string Email { get; set; }
         public string Name { get; set; }
         public string SecondName { get; set; }
         public string Surname { get; set; }

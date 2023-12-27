@@ -16,15 +16,19 @@ using NuGet.Packaging.Signing;
 namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles =("Admin"))]
 
     public class AdminEmployeeController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
+
         private readonly IAppUserService _appUserManager;
         private readonly ICompanyService _companyManager;
         private readonly IDepartmentService _departmentManager;
         private readonly IMapper _mapper;
+
+
+
         public AdminEmployeeController(UserManager<AppUser> userManager, IAppUserService appUserManager, ICompanyService companyManager, IDepartmentService departmentManager, IMapper mapper)
         {
             _userManager = userManager;
@@ -39,11 +43,11 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             return View();
         }
 
-  
+
         [HttpGet()]
         public async Task<IActionResult> ListEmployee()
         {
-            var users = await _userManager.Users.Include(x=>x.Company).Include(x=>x.Department).ToListAsync();
+            var users = await _userManager.Users.Include(x => x.Company).Include(x => x.Department).ToListAsync();
             var usersDto = _mapper.Map<List<AppUserDto>>(users);
             var usersvm = _mapper.Map<List<ListEmployeeViewModel>>(usersDto);
 
@@ -75,36 +79,35 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             newUser.UserName = newUser.Email;
             newUser.Id = Guid.NewGuid().ToString();
 
-            
+
             var createUserAction = await _userManager.CreateAsync(newUser, "Pw.1234");
-            if (createUserAction.Succeeded)
+            var AddRoleAction = await _userManager.AddToRoleAsync(newUser, "Employee");
+
+            if (createUserAction.Succeeded && AddRoleAction.Succeeded)
             {
                 return RedirectToAction("ListEmployee");
             }
-            return RedirectToAction("Warning","Home");
+
+
+            return RedirectToAction("Warning", "Home");
         }
 
 
-        public async Task<IActionResult> UpdateEmployee()
+        public async Task<IActionResult> UpdateEmployee(string Id)
         {
-            var userId = _userManager.GetUserId(User);
-            var user = await _userManager.FindByIdAsync(userId);
-            //var appUserUpdateDto = user;
-            //var updateUserAction = await _appUserManager.Get(true, u => u.Id == userId);
-            //var user = updateUserAction.Context;
+            var user = await _userManager.FindByIdAsync(Id);
 
-            var userdto = _mapper.Map<AppUserUpdateDto>(user);
-            var userViewModel = _mapper.Map<AppUserUpdateViewModel>(userdto);
+            var userdto = _mapper.Map<AppUserUpdateForAdminDto>(user);
+            var userViewModel = _mapper.Map<AppUserUpdateForAdminVM>(userdto);
 
             ViewBag.Citizien = user.IsTurkishCitizen;
 
             return View(userViewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateEmployee(AppUserUpdateViewModel vm)
+        public async Task<IActionResult> UpdateEmployee(AppUserUpdateForAdminVM vm)
         {
-            var photoPath = await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
-            vm.PhotoPath = photoPath;
+
             //var validator = new AppUserViewModelValidator();
             //var validationResult = await validator.ValidateAsync(updateuser);
 
@@ -117,17 +120,20 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             //    }
             //    return View(vm);
             //}
-            //ModelState.Remove("AdressId");
-            //ModelState.Remove("Id");
-            //ModelState.Remove("CompanyId");
-            //ModelState.Remove("DepantmentId");
-            if (ModelState.IsValid) 
+
+
+            var updateUserDto = _mapper.Map<AppUserUpdateForAdminDto>(vm);
+            var userNewProps = _mapper.Map<AppUser>(updateUserDto);
+            var user = await _userManager.FindByIdAsync(vm.Id);
+
+            _mapper.Map(userNewProps, user);
+            var UpdateAction = await _userManager.UpdateAsync(user);
+
+            if (UpdateAction.Succeeded)
             {
-              var updateUserDto = _mapper.Map<AppUserUpdateDto>(vm);
-                await _appUserManager.Update(updateUserDto);
-                //await _appUserManager.Update(updateUser);
                 return RedirectToAction("ListEmployee");
             }
+
             return View();
         }
 
