@@ -1,57 +1,5 @@
-﻿@using BA.HR_Project.WEB.Models
+﻿
 @model ListDetailInfoViewModel
-
-
-@* 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Photo Path</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>BirthDate</th>
-            <th>Birth Place</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Is Active</th>
-            <th>Is Turkish Citizen</th>
-            <th>Identity/Passport Number</th>
-            <th>Company Name</th>
-            <th>Department Name</th>
-            <th>Address</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                <img src="@Model.PhotoPath" alt="User Photo" />
-            </td>
-            <td>@Model.Name @Model.SecondName</td>
-            <td>@Model.Surname @Model.SecondSurname</td>
-            <td>@Model.BirthDate.ToString()</td>
-            <td>@Model.BirthPlace</td>
-            <td>@Model.StartDate.ToString()</td>
-            <td>@Model.EndDate.ToString()</td>
-            <td>@(Model.IsActive ? "Yes" : "No")</td>
-            <td>@(Model.IsTurkishCitizen ? "Yes" : "No")</td>
-            <td>
-                @if (Model.IsTurkishCitizen)
-                {
-                    @Model.IdentityNumber
-                }
-                else
-                {
-                    @Model.PassportNumber
-                }
-            </td>
-            <td>@ViewBag.CompanyName</td>
-            <td>@ViewBag.DepartmentName</td>
-            <td>@Model.Adress</td>
-        </tr>
-    </tbody>
-</table>
- *@
-
 
 <style>
     body {
