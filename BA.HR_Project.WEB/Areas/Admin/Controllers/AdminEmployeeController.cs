@@ -68,8 +68,14 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddEmployee(AppUserViewModel vm)
         {
+            if (vm.PhotoPath ==null)
+            {
+                vm.PhotoPath = "/mexant/assets/images/Default.jpg";
+            }
+
             var validator = new AppUserViewModelValidator(); 
             var validationResult = await validator.ValidateAsync(vm); 
+
 
             if (!validationResult.IsValid)
             {
@@ -107,7 +113,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             {
 
                 var resgisteredUser = await _userManager.FindByEmailAsync(newUser.Email);
-                var token = await _userManager.GeneratePasswordResetTokenAsync(newUser);
+                var token = await _userManager.GeneratePasswordResetTokenAsync(resgisteredUser);
                 var userId = newUser.Id;
 
                 var url = EmailChangePasswordLinkGenerator(token, userId);

@@ -11,6 +11,8 @@ using BA.HR_Project.Infrastructure.Extension;
 using BA.HR_Project.Application.Extentios;
 using System.Reflection;
 using BA.HR_Project.Application.Email;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,8 +34,10 @@ builder.Services.AddPersistanceDependencies(builder.Configuration.GetConnectionS
 builder.Services.AddInfrastructureDependencies();
 
 builder.Services.Configure<EmailOption>(builder.Configuration.GetSection("EmailOption"));
+builder.Services.AddSingleton<IUrlHelperFactory, UrlHelperFactory>();
+builder.Services.AddSingleton<IActionContextAccessor,ActionContextAccessor>();
 
-var app = builder.Build();
+var app = builder.Build(); 
 
 
 using (var scope = app.Services.CreateScope())
