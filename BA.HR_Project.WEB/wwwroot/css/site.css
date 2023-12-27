@@ -1,4 +1,4 @@
-html {
+﻿html {
   font-size: 14px;
 }
 
@@ -14,5 +14,9 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-image: url('/images/backgroundImage.jpg');
+    background-size: cover; /* Resmin tüm sayfayı kaplamasını sağlar */
+    background-repeat: no-repeat; /* Resmin tekrarlanmasını engeller */
+    background-attachment: fixed; /* Arka planın kaydırma sırasında sabit kalmasını sağlar */
 }
