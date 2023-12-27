@@ -10,13 +10,14 @@
     table {
         width: 80%;
         margin: auto;
-        border-collapse: collapse;
+/*         border-collapse: collapse; */
         text-align: center;
     }
 
     th, td {
-        border: 2px solid #B0C4DE;
+/*         border: 2px solid #B0C4DE; */
         vertical-align: middle;
+        color:white;
     }
 
     th {
@@ -43,7 +44,8 @@
             <th>End Date</th>
             <th>Is Active</th>
             <th>Is Turkish Citizen</th>
-            <th>Identity/Passport Number</th>
+            <th>Identity Number</th>
+            <th>Passport Number</th>
             <th>Company Name</th>
             <th>Department Name</th>
             <th>Address</th>
@@ -63,15 +65,12 @@
             <td>@(Model.IsActive ? "Yes" : "No")</td>
             <td>@(Model.IsTurkishCitizen ? "Yes" : "No")</td>
             <td>
-                @if (Model.IsTurkishCitizen)
-                {
-                    @Model.IdentityNumber
-                }
-                else
-                {
-                    @Model.PassportNumber
-                }
+                @Model.IdentityNumber
             </td>
+                
+
+            
+            <td>@Model.PassportNumber</td>
             <td>@ViewBag.CompanyName</td>
             <td>@ViewBag.DepartmentName</td>
             <td>@Model.Adress</td>
