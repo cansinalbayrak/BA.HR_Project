@@ -22,6 +22,7 @@ namespace BA.HR_Project.Infrastructure.Extension
             services.AddScoped<IDepartmentService, DepartmentManager>();
             services.AddScoped<IAccountService, AccountManager>();
             services.AddScoped<IEmailService, EmailManager>();
+
         }
     }
 }

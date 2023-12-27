@@ -10,6 +10,7 @@ using BA.HR_Project.Persistance.Extensions;
 using BA.HR_Project.Infrastructure.Extension;
 using BA.HR_Project.Application.Extentios;
 using System.Reflection;
+using BA.HR_Project.Application.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ builder.Services.AddCoreDepecenies(Assembly.GetExecutingAssembly());
 builder.Services.AddPersistanceDependencies(builder.Configuration.GetConnectionString("SqlConn"));
 builder.Services.AddInfrastructureDependencies();
 
+builder.Services.Configure<EmailOption>(builder.Configuration.GetSection("EmailOption"));
 
 var app = builder.Build();
 

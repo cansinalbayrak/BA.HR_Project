@@ -7,16 +7,17 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace BA.HR_Project.Infrastructure.Managers.Abstract
 {
-    internal class EmailManager : IEmailService
+    public class EmailManager : IEmailService
     {
         private readonly EmailOption _option;
 
-        public EmailManager(EmailOption option)
+        public EmailManager(IOptions<EmailOption> option)
         {
-            _option = option;
+            _option = option.Value;
         }
 
         public void SendEmail(string reciverEmailAdress, string subject, string mailBody)
@@ -43,9 +44,6 @@ namespace BA.HR_Project.Infrastructure.Managers.Abstract
                 mailMassage.IsBodyHtml = true;
 
                 smtpClient.Send(mailMassage);
-
-
-
 
             }
             catch (Exception)
