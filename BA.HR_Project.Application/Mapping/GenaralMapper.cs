@@ -34,6 +34,8 @@ namespace BA.HR_Project.Application.Mapping
 
             CreateMap<AppUser, AppUserUpdateForEmployeeDto>().ReverseMap();
 
+            CreateMap<AppUser, AppUserUpdateForAdminDto>().ReverseMap();
+
             CreateMap<AppUser, AppUser>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
