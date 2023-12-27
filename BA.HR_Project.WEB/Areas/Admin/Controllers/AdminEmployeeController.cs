@@ -62,6 +62,20 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddEmployee(AppUserViewModel vm)
         {
+            var validator = new AppUserViewModelValidator(); 
+            var validationResult = await validator.ValidateAsync(vm); 
+
+            if (!validationResult.IsValid)
+            {
+              
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                return View(vm);
+            }
+
             var newUser = new AppUser();
             var userDto = _mapper.Map<AppUserDto>(vm);
             newUser = _mapper.Map<AppUser>(userDto);

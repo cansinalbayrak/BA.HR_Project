@@ -35,6 +35,7 @@ namespace BA.HR_Project.WEB.ModelValidators
             RuleFor(x => x.Adress)
                 .NotEmpty().WithMessage("Adress must be provided")
                 .MaximumLength(80).WithMessage("Adress cannot be more than 80 characters");
+
         }
 
         private bool BeAtLeast15YearsOld(DateTime birthDate)
