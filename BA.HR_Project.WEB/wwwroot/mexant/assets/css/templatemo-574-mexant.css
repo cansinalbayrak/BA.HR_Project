@@ -121,8 +121,8 @@ global styles
 */
 html,
 body {
-  background: #fff;
-  font-family: 'Poppins', sans-serif;
+    background: rgb(20,23,38);
+    font-family: 'Poppins', sans-serif;
 }
 
 ::selection {
