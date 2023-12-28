@@ -98,14 +98,13 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
                 newUser.CompanyId = currentUser.CompanyId;
                 newUser.DepartmentId = currentUser.DepartmentId;
             }
-            string mail= newUser.Name + "." + newUser.Surname + "@bilgeadamboost.com";
-            
-            
+
+            string mail = newUser.Name + "." + newUser.Surname + "@bilgeadamboost.com";
             if (await _userManager.FindByEmailAsync(mail) != null)
             {
                 string emailPrefix = newUser.Name[0].ToString().ToLower();
                 newUser.Email = $"{emailPrefix}.{newUser.Surname}@bilgeadamboost.com";
-                if(await _userManager.FindByEmailAsync(newUser.Email) != null)
+                if (await _userManager.FindByEmailAsync(newUser.Email) != null)
                 {
                     string emailPrefix2 = newUser.Surname[0].ToString().ToLower();
                     newUser.Email = $"{newUser.Name}.{emailPrefix2}@bilgeadamboost.com";
@@ -115,7 +114,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             {
                 newUser.Email = mail;
             }
-            
+
             newUser.PhotoPath = "/mexant/assets/images/Default.jpg";
             newUser.UserName = newUser.Email;
             newUser.Id = Guid.NewGuid().ToString();
@@ -124,17 +123,23 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var createUserAction = await _userManager.CreateAsync(newUser, "Pw.1234");
             var AddRoleAction = await _userManager.AddToRoleAsync(newUser, "Employee");
 
+            
+
+
+            
+
             if (createUserAction.Succeeded && AddRoleAction.Succeeded)
             {
 
                 var resgisteredUser = await _userManager.FindByEmailAsync(newUser.Email);
-                var tokenProvider = "ChangePassword";
-                var purpose = "Changes";
-                var token = await _userManager.GenerateUserTokenAsync(resgisteredUser,tokenProvider,purpose);
+                //var tokenProvider = "ChangePassword";
+                //var purpose = "Changes";
+                var token = await _userManager.GeneratePasswordResetTokenAsync(resgisteredUser);
                 var userId = newUser.Id;
 
                 var url = EmailChangePasswordLinkGenerator(token, userId);
-                var html = GenerateChangePasswordEmail(url,newUser.Email,"Pw.1234");
+                var html = GenerateChangePasswordEmail(url, newUser.Email,"Pw.1234");
+
                 _emailService.SendEmail(newUser.Email, "Change Password", html);
                 return RedirectToAction("ListEmployee");
             }
@@ -221,7 +226,10 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         private string EmailChangePasswordLinkGenerator(string token, string newUserId)
         {
             var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
-            return urlHelper.Action("UpdatePassword", "Account", new { token, newUserId }, "https");
+
+
+            return urlHelper.Action("UpdatePassword", "Account", new { area="" ,token, newUserId}, "https");
+            return urlHelper.Action();
 
         }
 

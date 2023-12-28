@@ -79,7 +79,7 @@ app.UseExceptionHandler(errorApp =>
 
 app.UseStatusCodePagesWithRedirects("/Home/Warning/{0}");
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+//app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseStaticFiles();
 
 app.UseRouting();
