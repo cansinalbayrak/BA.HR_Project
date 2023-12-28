@@ -1,0 +1,22 @@
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-image: url('/images/backgroundImage.jpg');
+    background-size: cover; /* Resmin tüm sayfayı kaplamasını sağlar */
+    background-repeat: no-repeat; /* Resmin tekrarlanmasını engeller */
+    background-attachment: fixed; /* Arka planın kaydırma sırasında sabit kalmasını sağlar */
+}
