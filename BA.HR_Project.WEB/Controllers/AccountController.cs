@@ -91,6 +91,24 @@ namespace BA.HR_Project.WEB.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        public async Task<IActionResult> UpdatePassword(AppUserUpdatePasswordViewModel uppasvm) 
+        {
+            var user = await _userManager.FindByIdAsync(uppasvm.Id);
+            var control = await _userManager.CheckPasswordAsync(user, uppasvm.OldPassword);
+            if (control)
+            {
+                var updatePassword = await _userManager.ChangePasswordAsync(user, uppasvm.OldPassword, uppasvm.NewPassword);
 
+                if (updatePassword.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+
+                }
+                return View(uppasvm);
+            }
+
+            return View(uppasvm);
+
+        }
     }
 }
