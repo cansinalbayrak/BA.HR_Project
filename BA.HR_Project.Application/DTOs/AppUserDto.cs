@@ -9,8 +9,6 @@ namespace BA.HR_Project.Application.DTOs
 {
     public class AppUserDto : IDTO
     {
-        private string? _identityNo;
-        private string? _passportNo;
         public string Id { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
