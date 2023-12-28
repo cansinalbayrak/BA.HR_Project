@@ -4,75 +4,53 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="card" style="width: 18rem;">
-            <label class="col-sm-9"><img style="float: inherit; margin-top: 15px; margin-left: 75px; max-width: 50%; height: auto; " src="@Model.PhotoPath"></label>
+        <div class="card" style="width: 40rem;height:auto;background-color:transparent; border: 1px none #96CBFF  ">
+            <label class="col-sm-9"><img style="float: inherit; margin-top: 15px; margin-left: 150px; max-width: 50%; height: auto; " src="@Model.PhotoPath"></label>
             <br>
-            <div class="card-body">
-                <h5 class="card-title">User Information</h5>
-                <label>Name:</label>
-                <label>@Model.Name</label>
-                <br>
-                @if (Model.SecondName != null)
-                {<label>SecondName:</label>
-                    <label>@Model.SecondName</label>
-                    <br>
-                }
+            <div class="card-body" style="border-block-end: 3px solid #FF6910;">
+                <h5 class="card-title text-light"><strong>User Detail Information</strong></h5>
+            </div>
 
-                <label>SurName:</label>
-                <label>@Model.Surname</label>
-                <br>
-                @if (Model.SecondSurname != null)
-                {<label>SecondSurName:</label>
-                    <label>@Model.SecondSurname</label>
-                    <br>
-                }
 
-                <label>BirthDate:</label>
-                <label>@Model.BirthDate</label>
-                <br>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">
+                    Name: <label>
+                        @Model.Name
 
-                <label>JobStartDate:</label>
-                <label>@Model.StartDate</label>
-                <br>
+                        @if (Model.SecondName != null)
+                        {
+                                @Model.SecondName
+                        }
+                </label></li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">
+                    SurName: <label>
+                        @Model.Surname
+                        @if (Model.SecondSurname != null)
+                        {
+                            @Model.SecondSurname
+                        }
+                </label></li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">BirthDate: <label>@Model.BirthDate</label></li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">JobStartDate: <label>@Model.StartDate</label></li>
                 @if (Model.EndDate != null && Model.EndDate < DateTime.Now)
-                {<label>JobEndDate:</label>
-                    <label>@Model.EndDate</label>
-                    <br>
+                {
+                    <li style="background-color:transparent; border-block-end: 1px solid #96CBFF ">JobEndDate:  <label>@Model.EndDate</label></li>
                 }
-
-                <label>CurrentWorking:</label>
-                <label>@Model.IsActive</label>
-                <br>
-                <label>IsTurksh:</label>
-                <label>@Model.IsTurkishCitizen</label>
-                <br>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">CurrentWorking:  <label>@Model.IsActive</label></li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">IsTurksh: <label>@Model.IsTurkishCitizen</label></li>
                 @if (Model.IsTurkishCitizen == true)
                 {
-                    <label>IdentityNo:</label>
-                    <label>@Model.IdentityNumber</label>
-                    <br>
-
+                    <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">IdentityNo: <label>@Model.IdentityNumber</label></li>
                 }
                 @if (Model.IsTurkishCitizen != true)
                 {
-                    <label>PasaportNo:</label>
-                    <label>@Model.PassportNumber</label>
-                    <br>
+                    <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">PasaportNo:  <label>@Model.PassportNumber</label></li>
                 }
-
-                <label>ComanyName:</label>
-                <label>@ViewBag.CompanyName</label>
-                <br>
-
-                <label>DepartmanName:</label>
-                <label>@ViewBag.DepartmentName</label>
-                <br>
-
-                <label>Adress:</label>
-                <label>@Model.Adress</label>
-
-            </div>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">ComanyName: <label>@ViewBag.CompanyName</label></li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">DepartmanName: <label>@ViewBag.DepartmentName</label></li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">Adress: <label>@Model.Adress</label></li>
+           
         </div>
     </div>
 </div>
-</div>
+

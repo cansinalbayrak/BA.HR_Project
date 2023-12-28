@@ -1,38 +1,34 @@
 ﻿@{
     Layout = "_EmployeeLayout";
 }
-
-
 @model ListSummarInfoViewModel
-
-
-
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="card" style="width: 18rem;  ">
-            <label class="col-sm-9"><img style="float:inherit; margin-top : 15px; margin-left:75px; max-width: 50%; height: auto;" src="@Model.PhotoPath"></label>
+        <div class="card" style="width: 40rem;height:auto;background-color:transparent; border: 1px none #96CBFF  ">
+            <label class="col-sm-9"><img style="float:inherit; margin-top : 15px; margin-left:150px; max-width: 50%; height: auto;" src="@Model.PhotoPath"></label>
             <br>
-            @*<img  src="@Model.PhotoPath" class="card-img-overlay" alt="...">**@
 
-            <div class="card-body">
+            <div class="card-body" style="border-block-end: 3px solid #FF6910; ">
 
-                <h5 class="card-title">User Information</h5>
+                <h5 class="card-title text-light"><strong>User Information</strong></h5>
             </div>
-            <ul class="list-group list-group-flush">
+
+
+            <ul class="list-group list-group-flush" >
 
             <dt style="display:none" class="col-sm-3">Id:</dt>
             <dd style="display:none" class="col-sm-9">@Model.Id</dd>
 
-            <li class="list-group-item"<label>Name: </label>@Model.Name @Model.SecondName</li>
-            <li class="list-group-item"<label>Surname: </label>@Model.Surname @Model.SecondSurname</li>
-            <li class="list-group-item"<label>Department Name: </label>@ViewBag.DepartmentName</li>
-            <li class="list-group-item"<label>Address: </label>@Model.Adress</li>
+            <li style="background-color:transparent; border-block-end: 1px solid #96CBFF " class="list-group-item text-light"<label><strong >Name:</strong> </label>@Model.Name @Model.SecondName</li>
+            <li style="background-color:transparent; border-block-end: 1px solid #96CBFF" class="list-group-item text-light"<label><strong>Surname:</strong> </label>@Model.Surname @Model.SecondSurname</li>
+            <li style="background-color:transparent; border-block-end: 1px solid #96CBFF" class="list-group-item text-light"<label><strong>Department Name:</strong> </label>@ViewBag.DepartmentName</li>
+            <li style="background-color:transparent; border-block-end: 1px solid #96CBFF" class="list-group-item text-light"<label><strong>Address:</strong> </label>@Model.Adress</li>
 
             </ul>
             <div class="card-body">
-                <a asp-controller="Employee" asp-action="Detail" class="btn btn-danger btn-block">Detail</a>
-                <a asp-controller="Employee" asp-action="Update" class="btn btn-warning btn-block">Update</a>
+                <a asp-controller="Employee" asp-action="Detail" class="btn  btn-block" style="background-color:#5ABDFF;border:3px solid  #96CBFF ">Detail</a>
+                <a asp-controller="Employee" asp-action="Update" class="btn  btn-block text-light" style="background-color:#006BA3; border:3px solid #0089C1">Update</a>
             </div>
         </div>
     </div>
