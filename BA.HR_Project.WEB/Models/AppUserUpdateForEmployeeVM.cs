@@ -10,6 +10,8 @@
         public IFormFile? Photo { get; set; }
         public string ExistingPhotoPath { get; set; }
         public FileDetails ExistingPhoto { get; set; }
+        public bool RemovePhoto { get; set; }
+        public bool UseExistingPhoto { get; set; }
 
     }
     public class FileDetails
