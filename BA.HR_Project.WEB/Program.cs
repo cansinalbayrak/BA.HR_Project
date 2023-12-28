@@ -73,11 +73,11 @@ app.UseExceptionHandler(errorApp =>
 		context.Response.StatusCode = 500;
 		context.Response.ContentType = "text/html";
 
-		await context.Response.WriteAsync("<script>window.location='/Home/Warning';</script>");
+		await context.Response.WriteAsync("<script>window.location='/Error/Warning';</script>");
 	});
 });
 
-app.UseStatusCodePagesWithRedirects("/Home/Warning/{0}");
+app.UseStatusCodePagesWithRedirects("/Error/Warning/{0}");
 
 //app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseStaticFiles();

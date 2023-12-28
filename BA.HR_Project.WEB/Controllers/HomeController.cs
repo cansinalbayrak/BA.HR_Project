@@ -37,12 +37,7 @@ namespace BA.HR_Project.WEB.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpGet]
-        public IActionResult Warning()
-        {
-            var exception = HttpContext.Items["Exception"] as Response;
-            return View(exception);
-        }
+        
 
        
     }
