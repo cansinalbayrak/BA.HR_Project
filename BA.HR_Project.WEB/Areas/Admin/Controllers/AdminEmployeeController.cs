@@ -128,7 +128,9 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             {
 
                 var resgisteredUser = await _userManager.FindByEmailAsync(newUser.Email);
-                var token = await _userManager.GeneratePasswordResetTokenAsync(resgisteredUser);
+                var tokenProvider = "ChangePassword";
+                var purpose = "Changes";
+                var token = await _userManager.GenerateUserTokenAsync(resgisteredUser,tokenProvider,purpose);
                 var userId = newUser.Id;
 
                 var url = EmailChangePasswordLinkGenerator(token, userId);
@@ -216,10 +218,10 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             
 
         }
-        private string EmailChangePasswordLinkGenerator(string token, string UserID)
+        private string EmailChangePasswordLinkGenerator(string token, string newUserId)
         {
             var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
-            return urlHelper.Action("ResetPassword", "User", new { token, UserID }, "https");
+            return urlHelper.Action("UpdatePassword", "Account", new { token, newUserId }, "https");
 
         }
 
@@ -229,7 +231,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 
                     <body>
                     <h2>Welcome to BilgeAdam Technology</2>
-                     <p> We are happy to see you among us. You are registered by BilgeAdam Technology.Please click the link to referesh your password.</p>
+                     <p> We are happy to see you among us. You are registered by BilgeAdam Technology.Please,firstly you click the link after than you must be Login to refresh your password.</p>
                      <p>Your Login informations:</p><br>
                      <p>Email: {newUserEmail}</p> <br>
                      <p>Password: {newUserPw}</p><br>
