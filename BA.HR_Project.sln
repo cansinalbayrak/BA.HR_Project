@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA.HR_Project.WEB", "BA.HR_
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{32389919-A282-4218-97FC-F14CF7C5FB3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA.HR_Project.Commons", "BA.HR_Project.Commons\BA.HR_Project.Commons.csproj", "{723E1D2D-3A91-40CD-B4BD-FAA569169ADE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BA.HR_Project.Commons", "BA.HR_Project.Commons\BA.HR_Project.Commons.csproj", "{723E1D2D-3A91-40CD-B4BD-FAA569169ADE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
