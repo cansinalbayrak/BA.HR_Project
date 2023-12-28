@@ -64,7 +64,8 @@
                                                     <li class="scroll-to-section"> <a asp-controller="Employee" asp-action="Index">Profile</a></li>
                                                     <li class="scroll-to-section"> <a asp-controller="Employee" asp-action="Detail">Detail</a></li>
                                                     <li class="scroll-to-section"><a asp-controller="Employee" asp-action="Update">Update</a></li>
-                                                    <li><a asp-controller="Account" asp-action="LogOut" class="btn-danger">SignOut</a></li>
+                                                    <li><a asp-controller="Account" asp-action="LogOut" class="btn-danger text-decoration-underline" style="background-color:transparent;">SignOut</a></li>
+                                                    <li><a class="text-lowercase  text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
                                                 }
 
 
