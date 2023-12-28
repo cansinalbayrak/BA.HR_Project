@@ -44,30 +44,38 @@
                             <li class="scroll-to-section"><a asp-controller="Employee" asp-action="Update">Update</a></li>
 
                             }
-                        @* <li class="has-sub">
-                            <a href="javascript:void(0)">Pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="our-services.html">Our Services</a></li>
-                                <li><a href="contact-us.html">Contact Us</a></li>
-                            </ul>
-                        </li> *@
-                            @*  <li class="scroll-to-section"><a href="#testimonials">Testimonials</a></li>  *@
-
                             @if (!User.Identity.IsAuthenticated)
 
                             {
                             <li><a href="Account/Login" class="btn-success text-decoration-underline" style="background-color:transparent;">LogIn</a></li>
                             }
-
                             @if (User.Identity.IsAuthenticated)
                             {
                                 
                             <li><a asp-controller="Account" asp-action="LogOut" class="btn-danger text-decoration-underline" style="background-color:transparent;">SignOut</a></li>
-                            <li><a class="text-lowercase  text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
+                            
+                              
+                            }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                          
                                 
+                                @if(User.IsInRole("Admin"))
+                                {
+                                
+                                   
+                                    <li class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Admin Side </li>
+                                    <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                                        <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Home</a></li>
+                                        <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
+                                        <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
+                                    </ul>
+
+                                }
+                            <li><a class="text-lowercase  text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
                             
                             }
+                            
             
                     </ul>
                    

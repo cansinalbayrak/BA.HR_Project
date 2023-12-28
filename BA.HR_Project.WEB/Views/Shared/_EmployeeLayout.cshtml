@@ -50,11 +50,6 @@
 <body style="position: center; background-color: rgb(20,23,38) " !important>
     <!-- ***** Header Area Start ***** -->
 
-    <header class="header-area header-sticky">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <!-- ***** Header Area Start ***** -->
                         <header class="header-area header-sticky">
@@ -67,7 +62,7 @@
                                                 if (User.Identity.IsAuthenticated)
                                                 {
                                                     <a asp-controller="Home" asp-action="Index" class="logo">
-                                                        <img style="height:100px" src="~/mexant/assets/images/akademilogo-yatay.webp" alt="">
+                                                        <img style="height:auto" src="~/mexant/assets/images/akademilogo-yatay.webp" alt="">
                                                     </a>
                                                 }
                                             }
@@ -82,10 +77,26 @@
                                                     <li class="scroll-to-section"> <a asp-controller="Employee" asp-action="Detail">Detail</a></li>
                                                     <li class="scroll-to-section"><a asp-controller="Employee" asp-action="Update">Update</a></li>
                                                     <li><a asp-controller="Account" asp-action="LogOut" class="btn-danger text-decoration-underline" style="background-color:transparent;">SignOut</a></li>
-                                                    <li><a class="text-lowercase  text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
+                                                    
                                                 }
 
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
 
+
+                                                    @* @if (User.IsInRole("Admin"))
+                                                    {
+                                                        <li class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Admin Side </li>
+                                                        <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                                                            <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Home</a></li>
+                                                            <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
+                                                            <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
+                                                        </ul>
+
+                                                    } *@
+                                                    <li><a class="text-lowercase  text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
+
+                                                }
 
                                             </ul>
 
@@ -99,11 +110,6 @@
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
 
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
     <!-- ***** Header Area End ***** -->
 
 
