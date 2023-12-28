@@ -93,7 +93,7 @@ namespace BA.HR_Project.WEB.Controllers
         }
         public async Task<IActionResult> UpdatePassword(AppUserUpdatePasswordViewModel uppasvm) 
         {
-            var user = await _userManager.FindByIdAsync(uppasvm.ıd);
+            var user = await _userManager.FindByIdAsync(uppasvm.Id);
             var control = await _userManager.CheckPasswordAsync(user, uppasvm.OldPassword);
             if (control)
             {
