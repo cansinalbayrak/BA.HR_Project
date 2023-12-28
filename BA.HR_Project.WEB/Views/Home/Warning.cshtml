@@ -1,24 +1,13 @@
 ﻿@model Response
 
-@{
-    ViewData["Title"] = "Warning";
-}
+    <title>Warning</title>
+    <!-- Your head content here -->
 
-<h1 class="text-danger">Warning</h1>
-<p>@Model.Message</p>
 
-@if (Model.Errors != null && Model.Errors.Any())
-{
-    <ul>
-        @foreach (var error in Model.Errors)
-        {
-            <li>@error.Description</li>
-        }
-    </ul>
-}
 
-<form asp-controller="Home" asp-action="Warning" method="post">
-    <!-- Eğer POST işlemleri için form elemanları ekleyecekseniz burada ekleyebilirsiniz -->
-    <!-- Örneğin: <input asp-for="SomeProperty" /> -->
-    <button type="submit">Submit</button>
-</form>
+    <div style="text-align: center; margin-top: 20px;">
+        <h1>Warning Page</h1>
+        <p style="color: red;">Page not found.</p>
+        <p style="color: red;">An unexpected error occurred.</p>
+        </div>
+

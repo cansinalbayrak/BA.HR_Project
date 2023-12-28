@@ -68,15 +68,16 @@ app.UseHttpsRedirection();
 
 app.UseExceptionHandler(errorApp =>
 {
-    errorApp.Run(async context =>
-    {
-        context.Response.StatusCode = 500;
-        context.Response.ContentType = "text/html";
+	errorApp.Run(async context =>
+	{
+		context.Response.StatusCode = 500;
+		context.Response.ContentType = "text/html";
 
-        await context.Response.WriteAsync("<script>window.location='/Home/Warning';</script>");
-    });
+		await context.Response.WriteAsync("<script>window.location='/Home/Warning';</script>");
+	});
 });
-app.UseStatusCodePagesWithRedirects("/Home/Error/{0}");
+
+app.UseStatusCodePagesWithRedirects("/Home/Warning/{0}");
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseStaticFiles();

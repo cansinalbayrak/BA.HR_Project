@@ -135,8 +135,8 @@
 					<span asp-validation-for="Password" class="text-danger"></span>
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customControlInline">
-								<label class="custom-control-label text-dark" for="customControlInline">Remember me</label>
+							<input type="checkbox" class="custom-control-input" asp-for="RememberMe" />
+							<label class="custom-control-label text-dark" asp-for="RememberMe">Remember me</label>
 							</div>
 						</div>
 					<div class="text-danger">

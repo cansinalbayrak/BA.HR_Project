@@ -44,12 +44,6 @@ namespace BA.HR_Project.WEB.Controllers
             return View(exception);
         }
 
-        [HttpPost]
-        public IActionResult Warning(Response response)
-        {
-            
-
-            return RedirectToAction("Index");
-        }
+       
     }
 }
