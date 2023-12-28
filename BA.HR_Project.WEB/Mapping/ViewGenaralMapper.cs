@@ -37,6 +37,9 @@ namespace BA.HR_Project.WEB.Mapping
 
             CreateMap<AppUserUpdateForAdminDto, AppUserUpdateForAdminVM>()
             .ReverseMap();
+
+            CreateMap<AppUserUpdatePasswordViewModel, AppUserUpdatePasswordDto>()
+                .ReverseMap();
         }
     }
 }
