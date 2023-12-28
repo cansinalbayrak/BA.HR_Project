@@ -58,22 +58,20 @@
                             }
                             @if (User.Identity.IsAuthenticated)
                             {
-                          
-                                
-                                @if(User.IsInRole("Admin"))
+
+
+                                @if (User.IsInRole("Admin"))
                                 {
-                                
-                                   
-                                    <li class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Admin Side </li>
-                                    <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                                        <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Home</a></li>
-                                        <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
-                                        <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
-                                    </ul>
+                                <li class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Admin Side </li>
+                                <ul style="background-color:#141726; color:white;" class="dropdown-menu " aria-labelledby="navbarDropdown">
+                                    <li class="scroll-to-section"> <a style="background-color:#141726; color:white;" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Home</a></li>
+                                    <li class="scroll-to-section"> <a style="background-color:#141726; color:white;" asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
+                                    <li class="scroll-to-section"> <a style="background-color:#141726; color:white;" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
+                                </ul>
 
                                 }
                             <li><a class="text-lowercase  text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
-                            
+
                             }
                             
             

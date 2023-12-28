@@ -84,16 +84,16 @@
                                                 {
 
 
-                                                    @* @if (User.IsInRole("Admin"))
+                                                    @if (User.IsInRole("Admin"))
                                                     {
-                                                        <li class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Admin Side </li>
-                                                        <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                                                            <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Home</a></li>
-                                                            <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
-                                                            <li class="scroll-to-section"> <a asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
+                                    <li  class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Admin Side </li>
+                                    <ul style="background-color:#141726; color:white;" class="dropdown-menu " aria-labelledby="navbarDropdown">
+                                        <li class="scroll-to-section"> <a style="background-color:#141726; color:white;" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Home</a></li>
+                                        <li class="scroll-to-section"> <a style="background-color:#141726; color:white;" asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
+                                        <li class="scroll-to-section"> <a style="background-color:#141726; color:white;" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
                                                         </ul>
 
-                                                    } *@
+                                                    }
                                                     <li><a class="text-lowercase  text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
 
                                                 }
@@ -149,7 +149,7 @@
 
     <!-- Scripts -->
     <!-- Bootstrap core JavaScript -->
-    <script src="~/mexant/vendor/jquery/jquery.min.js"></script>
+     <script src="~/mexant/vendor/jquery/jquery.min.js"></script>
     <script src="~/mexant/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <script src="~/mexant/assets/js/isotope.min.js"></script>
@@ -157,8 +157,13 @@
 
     <script src="~/mexant/assets/js/tabs.js"></script>
     <script src="~/mexant/assets/js/swiper.js"></script>
-    <script src="~/mexant/assets/js/custom.js"></script>
-    <script>
+    <script src="~/mexant/assets/js/custom.js"></script> 
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @* <script>
         var interleaveOffset = 0.5;
 
         var swiperOptions = {
@@ -200,8 +205,8 @@
             }
         }
 
-        var swiper = new Swiper(".swiper-container", swiperOptions);
-    </script>
+         var swiper = new Swiper(".swiper-container", swiperOptions);
+    </script> *@
 
 </body>
 </html>

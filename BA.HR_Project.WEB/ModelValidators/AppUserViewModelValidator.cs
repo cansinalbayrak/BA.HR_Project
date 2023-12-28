@@ -18,7 +18,7 @@ namespace BA.HR_Project.WEB.ModelValidators
         .WithMessage("Surname cannot be empty and cannot contain Turkish characters");
             RuleFor(x => x.PhotoPath).NotEmpty().WithMessage("PhotoPath must be provided");
 			RuleFor(x => x.BirthDate).NotEmpty().WithMessage("BirthDate must be provided");
-			RuleFor(x => x.BirthPlace).NotEmpty().WithMessage("BirthPlace must be provided");
+            RuleFor(x => x.BirthPlace).NotEmpty().WithMessage("BirthPlace must be provided");
 			RuleFor(x => x.StartDate).NotEmpty().WithMessage("StartDate must be provided");
 			RuleFor(x => x.IdentityNumber)
 				.NotEmpty().WithMessage("IdentityNumber must be provided")
@@ -30,6 +30,6 @@ namespace BA.HR_Project.WEB.ModelValidators
        
             return text.Any(char.IsLetter) && text.Any(ch => "çğıiİıöşüÇĞİIÖŞÜ".Contains(ch));
         }
-
+      
     }
 }
