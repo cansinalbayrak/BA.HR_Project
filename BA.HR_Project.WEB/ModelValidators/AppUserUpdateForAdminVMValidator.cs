@@ -16,7 +16,9 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .MaximumLength(30).WithMessage("Second Name cannot be more than 30 characters");
 
             RuleFor(x => x.Email)
-           .Must(BeValidEmail).WithMessage("Invalid email address format. It should end with @bilgeadamboost.com");
+     .NotEmpty().WithMessage("Email must be provided")
+     .Must(BeValidEmail).WithMessage("Invalid email address format. It should end with @bilgeadamboost.com")
+     .Must(email => !ContainsTurkishCharacter(email)).WithMessage("Email cannot contain Turkish characters");
 
             RuleFor(x => x.Surname)
                 .NotEmpty().WithMessage("Surname must be provided")
@@ -53,6 +55,10 @@ namespace BA.HR_Project.WEB.ModelValidators
         private bool BeValidEmail(string email)
         {
             return email?.ToLowerInvariant().EndsWith("@bilgeadamboost.com") == true;
+        }
+        private bool ContainsTurkishCharacter(string text)
+        {
+            return text.Any(ch => "çğıiİıöşüÇĞİIÖŞÜ".Contains(ch));
         }
     }
 }

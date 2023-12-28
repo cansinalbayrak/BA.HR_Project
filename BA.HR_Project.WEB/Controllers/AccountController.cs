@@ -108,6 +108,20 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdatePassword(AppUserUpdatePasswordViewModel uppasvm)
         {
+
+            var validator = new AppUserUpdatePasswordViewModelValidator();
+            var validationResult = await validator.ValidateAsync(uppasvm);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                return View(uppasvm);
+            }
+
             var user = await _userManager.FindByIdAsync(uppasvm.Id);
             var control = await _userManager.CheckPasswordAsync(user, uppasvm.OldPassword);
             if (control)
