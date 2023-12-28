@@ -33,10 +33,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">ListEmployee</a>
                         </li>
+
+                        <li class="nav-item dropdown customNavbar">
+                            <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Employe Side </a>
+                             <ul class="dropdown-menu customNavbar" aria-labelledby="navbarDropdown">
+                                 <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Employee" asp-action="Index">Profile</a></li>
+                                 <li class="scroll-to-section"> <a class="customNavbar"asp-area="" asp-controller="Employee" asp-action="Detail">Detail</a></li>
+                                 <li class="scroll-to-section"> <a class="customNavbar"asp-area=""asp-controller="Employee" asp-action="Update">Update</a></li>
+                             </ul>
+
+
+                        </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                                                    <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="LogOut" class="nav-link text-light">SignOut</a></li>
-                                                        <li class="nav-item"><a class="nav-link text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
+                                 <li class="nav-item"><a class="nav-link text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
+                                 <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="LogOut" class="nav-link text-light">SignOut</a></li>
                         }
                     </ul>
                 </div>
