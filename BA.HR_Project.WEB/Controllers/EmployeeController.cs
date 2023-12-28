@@ -91,7 +91,8 @@ namespace BA.HR_Project.WEB.Controllers
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
-
+                var us = await _userManager.GetUserAsync(User);
+                vm.PhotoPath = us.PhotoPath;  
                 return View(vm);
             }
 

@@ -15,9 +15,15 @@ namespace BA.HR_Project.WEB.ModelValidators
             RuleFor(x => x.Adress)
                 .NotEmpty().WithMessage("Adress must be provided")
                 .MaximumLength(80).WithMessage("Adress cannot be more than 80 characters");
+            When(x => !x.UseExistingPhoto, () =>
+            {
+                RuleFor(x => x.Photo)
+                    .NotEmpty().WithMessage("File must be provided or Choose This Photo");
+            });
+       
 
         }
 
-      
+
     }
 }

@@ -54,6 +54,7 @@ namespace BA.HR_Project.WEB.Controllers
                 {
                     return RedirectToAction("AfterLogin", "Account");
                 }
+                ModelState.AddModelError(string.Empty, "Invalid email or password");
 
                 return View(vm);
             }
