@@ -94,11 +94,9 @@ namespace BA.HR_Project.WEB.Controllers
         }
 
 
-        public async Task<IActionResult> UpdatePassword(string url) 
+        public async Task<IActionResult> UpdatePassword(string token, string newUserId) 
         {
-            string Id = url.Split("newUserId=")[1];
-
-            var user = await _userManager.FindByIdAsync(Id);
+            var user = await _userManager.FindByIdAsync(newUserId);
             var UserDto = _mapper.Map<AppUserUpdatePasswordDto>(user);
             var UserVM = _mapper.Map<AppUserUpdatePasswordViewModel>(UserDto);
 
