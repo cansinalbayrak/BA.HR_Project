@@ -17,8 +17,8 @@ namespace BA.HR_Project.WEB.ModelValidators
 
             RuleFor(x => x.Email)
      .NotEmpty().WithMessage("Email must be provided")
-     .Must(BeValidEmail).WithMessage("Invalid email address format. It should end with @bilgeadamboost.com")
-     .Must(email => !ContainsTurkishCharacter(email)).WithMessage("Email cannot contain Turkish characters");
+     .Must(BeValidEmail).WithMessage("Invalid email address format. It should end with @bilgeadamboost.com");
+     
 
             RuleFor(x => x.Surname)
                 .NotEmpty().WithMessage("Surname must be provided")
@@ -28,7 +28,7 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .NotEmpty().WithMessage("Phone Number must be provided")
                 .Matches(@"^\d{10}$").WithMessage("Phone Number must contain 10 digits");
 
-            RuleFor(x => x.BirthDate)
+            RuleFor(x => x.BirthDate).NotNull().WithMessage("BirthDate must be provided")
           .Must(BeAtLeast15YearsOld).WithMessage("Birth Date must be at least 15 years ago");
 
             RuleFor(x => x.Salary)
@@ -37,6 +37,12 @@ namespace BA.HR_Project.WEB.ModelValidators
             RuleFor(x => x.Adress)
                 .NotEmpty().WithMessage("Adress must be provided")
                 .MaximumLength(80).WithMessage("Adress cannot be more than 80 characters");
+            RuleFor(x => x.Salary).NotEmpty().WithMessage("Salary must be provided");
+            RuleFor(x => x.BirthPlace)
+               .NotEmpty().WithMessage("BirthPlace must be provided");
+            RuleFor(x => x.EndDate)
+               .Must((model, endDate) => endDate == null || endDate > model.StartDate)
+               .WithMessage("EndDate must be null or greater than StartDate");
 
         }
 

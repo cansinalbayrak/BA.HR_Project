@@ -15,15 +15,24 @@ namespace BA.HR_Project.WEB.ModelValidators
             RuleFor(x => x.Adress)
                 .NotEmpty().WithMessage("Adress must be provided")
                 .MaximumLength(80).WithMessage("Adress cannot be more than 80 characters");
-            When(x => !x.UseExistingPhoto, () =>
-            {
-                RuleFor(x => x.Photo)
-                    .NotEmpty().WithMessage("File must be provided or Choose This Photo");
-            });
-       
+            RuleFor(x => x.Photo)
+             .Must((model, file) => file != null || model.UseExistingPhoto)
+             .WithMessage("File must be provided or Choose This Photo")
+             .When(x => !x.UseExistingPhoto);
+
+            RuleFor(x => x.Photo)
+                .Must(file => file == null || IsAllowedImageFile(file))
+                .WithMessage("Invalid file format. Please choose a valid image file (jpeg or jpg).")
+                .When(x => !x.UseExistingPhoto);
+
 
         }
-
+        private bool IsAllowedImageFile(IFormFile file)
+        {
+            var allowedExtensions = new[] { ".jpg", ".jpeg" };
+            var extension = Path.GetExtension(file.FileName)?.ToLowerInvariant();
+            return !string.IsNullOrEmpty(extension) && allowedExtensions.Contains(extension);
+        }
 
     }
 }
