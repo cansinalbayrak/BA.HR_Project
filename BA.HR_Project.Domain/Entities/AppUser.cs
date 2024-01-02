@@ -34,6 +34,7 @@ namespace BA.HR_Project.Domain.Entities
         public string? PassportNumber { get; set; }
         public string CompanyId { get; set; }
         public string DepartmentId { get; set; }
+        public IEnumerable<Expense> Expenses { get; set; }
 
         #region NavProp
         public Company Company { get; set; }
