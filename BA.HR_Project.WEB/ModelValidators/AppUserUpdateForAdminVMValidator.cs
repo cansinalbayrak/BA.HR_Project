@@ -15,9 +15,9 @@ namespace BA.HR_Project.WEB.ModelValidators
             RuleFor(x => x.SecondName)
                 .MaximumLength(30).WithMessage("Second Name cannot be more than 30 characters");
 
-            RuleFor(x => x.Email)
-     .NotEmpty().WithMessage("Email must be provided")
-     .Must(BeValidEmail).WithMessage("Invalid email address format. It should end with @bilgeadamboost.com");
+     //       RuleFor(x => x.Email)
+     //.NotEmpty().WithMessage("Email must be provided")
+     //.Must(BeValidEmail).WithMessage("Invalid email address format. It should end with @bilgeadamboost.com");
      
 
             RuleFor(x => x.Surname)

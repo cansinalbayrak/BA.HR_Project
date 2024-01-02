@@ -3,8 +3,8 @@ using FluentValidation;
 
 namespace BA.HR_Project.WEB.ModelValidators
 {
-	public class AppUserViewModelValidator: AbstractValidator<AppUserViewModel>
-	{
+    public class AppUserViewModelValidator : AbstractValidator<AppUserViewModel>
+    {
 
         public AppUserViewModelValidator()
         {
@@ -37,17 +37,21 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .Must((model, endDate) => endDate == null || endDate > model.StartDate)
                 .WithMessage("EndDate must be null or greater than StartDate");
 
-            RuleFor(x => x.IsTurkishCitizen)
-    .Must((model, isTurkishCitizen) => !isTurkishCitizen || IsValidTurkishIdentityNumberOrTcNo(model.IdentityNumber, isTurkishCitizen))
-    .WithMessage("Invalid Turkish Identity Number or T.C. should be true");
+    //        RuleFor(x => x.IsTurkishCitizen)
+    //.Must((model, isTurkishCitizen) => !isTurkishCitizen || IsValidTurkishIdentityNumberOrTcNo(model.IdentityNumber, isTurkishCitizen))
+    //.WithMessage("Invalid Turkish Identity Number or T.C. should be true");
+
             RuleFor(x => x.PhoneNumber)
     .NotEmpty().WithMessage("PhoneNumber must be provided")
     .Matches("^[0-9]{10}$").WithMessage("PhoneNumber must be a 10-digit numeric value");
+
             RuleFor(x => x.Salary)
     .NotNull().WithMessage("Salary must be provided")
     .NotEmpty().WithMessage("Salary must be provided");
+
             RuleFor(x => x.Salary)
               .GreaterThanOrEqualTo(0).WithMessage("Salary cannot be negative");
+
             RuleFor(x => x.Adress)
                 .NotEmpty().WithMessage("Adress must be provided")
                 .MaximumLength(80).WithMessage("Adress cannot be more than 80 characters");
@@ -65,7 +69,7 @@ namespace BA.HR_Project.WEB.ModelValidators
         {
             if (!isTurkishCitizen)
             {
-                return true; 
+                return true;
             }
 
             if (string.IsNullOrEmpty(identityNumber) || identityNumber.Length != 11)
@@ -104,6 +108,6 @@ namespace BA.HR_Project.WEB.ModelValidators
             return age >= 15;
         }
 
-       
+
     }
 }
