@@ -51,7 +51,7 @@ using (var scope = app.Services.CreateScope())
     await RoleManager.CreateAsync(new() { Id = Guid.NewGuid().ToString(),Name = "Employee" });
 
 
-    var adminUser = await userManager.FindByEmailAsync("admin@bilgeadam.com");
+    var adminUser = await userManager.FindByEmailAsync("admin@bilgeadamboost.com");
     await userManager.AddToRoleAsync(adminUser, "Admin");
 }
 

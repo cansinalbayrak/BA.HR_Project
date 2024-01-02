@@ -29,19 +29,14 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         private readonly ICompanyService _companyManager;
         private readonly IDepartmentService _departmentManager;
         private readonly IMapper _mapper;
-        private readonly IUrlHelperFactory _urlHelperFactory;
-        private readonly IActionContextAccessor _actionContextAccessor;
-        private readonly IEmailService _emailService;
-        public AdminEmployeeController(UserManager<AppUser> userManager, IAppUserService appUserManager, ICompanyService companyManager, IDepartmentService departmentManager, IMapper mapper, IEmailService emailService = null, IActionContextAccessor actionContextAccessor = null, IUrlHelperFactory urlHelperFactory = null)
+
+        public AdminEmployeeController(UserManager<AppUser> userManager, IAppUserService appUserManager, ICompanyService companyManager, IDepartmentService departmentManager, IMapper mapper)
         {
             _userManager = userManager;
             _appUserManager = appUserManager;
             _companyManager = companyManager;
             _departmentManager = departmentManager;
             _mapper = mapper;
-            _emailService = emailService;
-            _actionContextAccessor = actionContextAccessor;
-            _urlHelperFactory = urlHelperFactory;
         }
         [HttpGet("/Admin/Employee/Index")]
         public IActionResult Index()
@@ -65,6 +60,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> AddEmployee(AppUserViewModel vm)
         {
@@ -76,78 +72,24 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var validator = new AppUserViewModelValidator(); 
             var validationResult = await validator.ValidateAsync(vm); 
 
-
             if (!validationResult.IsValid)
             {
-
                 foreach (var error in validationResult.Errors)
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
-
                 return View(vm);
             }
 
-            var newUser = new AppUser();
             var userDto = _mapper.Map<AppUserDto>(vm);
-            newUser = _mapper.Map<AppUser>(userDto);
+            var newUser = await _appUserManager.AddAppUser(userDto, User);
 
-            var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser != null)
+            if (newUser != null)
             {
-                newUser.CompanyId = currentUser.CompanyId;
-                newUser.DepartmentId = currentUser.DepartmentId;
-            }
-
-            string mail = newUser.Name + "." + newUser.Surname + "@bilgeadamboost.com";
-            if (await _userManager.FindByEmailAsync(mail) != null)
-            {
-                string emailPrefix = newUser.Name[0].ToString().ToLower();
-                newUser.Email = $"{emailPrefix}.{newUser.Surname}@bilgeadamboost.com";
-                if (await _userManager.FindByEmailAsync(newUser.Email) != null)
-                {
-                    string emailPrefix2 = newUser.Surname[0].ToString().ToLower();
-                    newUser.Email = $"{newUser.Name}.{emailPrefix2}@bilgeadamboost.com";
-                }
-            }
-            else
-            {
-                newUser.Email = mail;
-            }
-
-            newUser.PhotoPath = "/mexant/assets/images/Default.jpg";
-            newUser.UserName = newUser.Email;
-            newUser.Id = Guid.NewGuid().ToString();
-
-
-            var createUserAction = await _userManager.CreateAsync(newUser, "Pw.1234");
-            var AddRoleAction = await _userManager.AddToRoleAsync(newUser, "Employee");
-
-            
-
-
-            
-
-            if (createUserAction.Succeeded && AddRoleAction.Succeeded)
-            {
-
-                var resgisteredUser = await _userManager.FindByEmailAsync(newUser.Email);
-                //var tokenProvider = "ChangePassword";
-                //var purpose = "Changes";
-                var token = await _userManager.GeneratePasswordResetTokenAsync(resgisteredUser);
-                var userId = newUser.Id;
-
-                var url = EmailChangePasswordLinkGenerator(token, userId);
-                var html = GenerateChangePasswordEmail(url, newUser.Email,"Pw.1234");
-
-                _emailService.SendEmail(newUser.Email, "Change Password", html);
                 return RedirectToAction("ListEmployee");
             }
-
-
             return RedirectToAction("Warning", "Home");
         }
-
 
         public async Task<IActionResult> UpdateEmployee(string Id)
         {
@@ -184,21 +126,17 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 
             var updateUserDto = _mapper.Map<AppUserUpdateForAdminDto>(vm);
             var userNewProps = _mapper.Map<AppUser>(updateUserDto);
-            var user = await _userManager.FindByIdAsync(vm.Id);
 
-            _mapper.Map(userNewProps, user);
-            var UpdateAction = await _userManager.UpdateAsync(user);
+            var data = await _appUserManager.UpdateAppUser(userNewProps);
 
-            if (UpdateAction.Succeeded)
+
+            if (data != null)
             {
                 return RedirectToAction("ListEmployee");
             }
 
             return View();
         }
-
-
-
 
         public async Task<IActionResult> DetailsEmployee(string id)
         {
@@ -220,37 +158,8 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
                 return View(userViewModels);
             }
             return RedirectToAction("ListEmployee");
-            
 
         }
-        private string EmailChangePasswordLinkGenerator(string token, string newUserId)
-        {
-            var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
-
-
-            return urlHelper.Action("UpdatePassword", "Account", new { area="" ,token, newUserId}, "https");
-            return urlHelper.Action();
-
-        }
-
-        private string GenerateChangePasswordEmail(string url,string newUserEmail,string newUserPw)
-        {
-            var html = $@"<html><head></head>
-
-                    <body>
-                    <h2>Welcome to BilgeAdam Technology</2>
-                     <p> We are happy to see you among us. You are registered by BilgeAdam Technology.Please,firstly you click the link after than you must be Login to refresh your password.</p>
-                     <p>Your Login informations:</p><br>
-                     <p>Email: {newUserEmail}</p> <br>
-                     <p>Password: {newUserPw}</p><br>
-                     <a href ={url}>Click</a>
-                     </html>";
-
-
-            return html;
-
-        }
-
 
     }
 }

@@ -101,11 +101,10 @@ namespace BA.HR_Project.WEB.Controllers
 
             var userNewPropsDto = _mapper.Map<AppUserUpdateForEmployeeDto>(vm);
             var userNewProps = _mapper.Map<AppUser>(userNewPropsDto);
-            var user = await _userManager.GetUserAsync(User);
-            _mapper.Map(userNewProps, user);
-            var updateAction = await _userManager.UpdateAsync(user);
 
-            if (updateAction.Succeeded)
+            var newUser = await _appUserManager.UpdateAppUser(userNewProps);
+            
+            if (newUser != null)
             {
                 return RedirectToAction("Index", "Employee");
             }
