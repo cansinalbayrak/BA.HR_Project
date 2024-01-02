@@ -222,28 +222,28 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a6fc32e2-6d64-4794-9bde-633503ed28e2",
+                            Id = "7539dc6b-686a-41ba-8561-d78e63d6269e",
                             AccessFailedCount = 0,
                             Adress = "Ankara",
-                            BirthDate = new DateTime(2024, 1, 2, 14, 40, 49, 722, DateTimeKind.Local).AddTicks(5800),
+                            BirthDate = new DateTime(2024, 1, 2, 14, 59, 41, 15, DateTimeKind.Local).AddTicks(2071),
                             CompanyId = "SeedCompany1",
-                            ConcurrencyStamp = "29ac9545-d9ab-4e73-8a1e-4a795f6789ff",
+                            ConcurrencyStamp = "6db8d165-a863-4ad8-8837-d6234c7b4767",
                             DepartmentId = "SeedDepartment1",
-                            Email = "admin@bilgeadam.com",
+                            Email = "admin.bilgeadam@bilgeadamboost.com",
                             EmailConfirmed = true,
                             IsTurkishCitizen = true,
                             LockoutEnabled = false,
                             Name = "Admin",
-                            NormalizedEmail = "ADMIN@BILGEADAMBOOST.COM",
-                            NormalizedUserName = "ADMIN@BILGEADAMBOOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOU/FrJLQAfwiFbFufV2hdn6oGXMH5vX4nEFp7tAa3xQjk5SNOfC7++rYkcEKW6U/A==",
+                            NormalizedEmail = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
+                            NormalizedUserName = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAygbmbuKuzP9MqG4nZQLvJWG40r7TFXIfW6Rf4jHSzj/tzPqJZawFX6gs/hlOosiA==",
                             PhoneNumber = "0",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/mexant/assets/images/Default.jpg",
-                            SecurityStamp = "19801291-f740-4e35-a8c1-decb46881a5c",
+                            SecurityStamp = "758dfd50-c3bc-4d70-8493-9d52effef133",
                             Surname = "Bilgeadam",
                             TwoFactorEnabled = false,
-                            UserName = "admin@bilgeadamboost.com"
+                            UserName = "admin.bilgeadam@bilgeadamboost.com"
                         });
                 });
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BA.HR_Project.Persistance.Migrations
 {
-    public partial class first : Migration
+    public partial class Mig1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -123,6 +123,32 @@ namespace BA.HR_Project.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Advances",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AdvanceType = table.Column<int>(type: "int", nullable: false),
+                    ConfirmStatus = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    RemainingAmount = table.Column<int>(type: "int", nullable: true),
+                    RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ResponseDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Currency = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Advances", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Advances_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -207,10 +233,55 @@ namespace BA.HR_Project.Persistance.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "84134fac-7537-4400-b414-d54183bf3df5", "b931f781-7a83-4fac-9399-6726d5ee6feb", "Admin", "ADMIN" });
+            migrationBuilder.CreateTable(
+                name: "Expenses",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RequestNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RequestPrice = table.Column<float>(type: "real", nullable: false),
+                    ExpenseMaxPrice = table.Column<float>(type: "real", nullable: false),
+                    ExpenseMinPrice = table.Column<float>(type: "real", nullable: false),
+                    RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReplyDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConfirmStatus = table.Column<int>(type: "int", nullable: false),
+                    Currency = table.Column<int>(type: "int", nullable: false),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Expenses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Expenses_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExpenseTypes",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ExpenseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MainPrice = table.Column<float>(type: "real", nullable: false),
+                    MinFactor = table.Column<float>(type: "real", nullable: false),
+                    MaxFactor = table.Column<float>(type: "real", nullable: false),
+                    ExpenseId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExpenseTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExpenseTypes_Expenses_ExpenseId",
+                        column: x => x.ExpenseId,
+                        principalTable: "Expenses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.InsertData(
                 table: "Companies",
@@ -225,7 +296,12 @@ namespace BA.HR_Project.Persistance.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Adress", "BirthDate", "BirthPlace", "CompanyId", "ConcurrencyStamp", "DepartmentId", "Email", "EmailConfirmed", "EndDate", "IdentityNumber", "IsTurkishCitizen", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PassportNumber", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "Salary", "SecondName", "SecondSurname", "SecurityStamp", "StartDate", "Surname", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "0d81d411-5340-4117-9aa5-868b8f6a19bb", 0, "Ankara", new DateTime(2023, 12, 22, 0, 45, 40, 200, DateTimeKind.Local).AddTicks(9786), null, "SeedCompany1", "e33236d1-c7b6-42b2-84ec-af491b6b3e37", "SeedDepartment1", "admin@bilgeadam.com", true, null, null, true, false, null, "Admin", "ADMIN@BILGEADAM.COM", "ADMIN@BILGEADAM.COM", null, "AQAAAAEAACcQAAAAEMAasIxL23nGv1IhimTUckFGaHwRBEb7DWem/PYA/Ul1iI+DP3EKE15L5VkdQ7HV7Q==", "0", false, null, null, null, null, "50280b53-8971-423a-b39e-5e340df1bfe3", null, "Bilgeadam", false, "admin@bilgeadam.com" });
+                values: new object[] { "7539dc6b-686a-41ba-8561-d78e63d6269e", 0, "Ankara", new DateTime(2024, 1, 2, 14, 59, 41, 15, DateTimeKind.Local).AddTicks(2071), null, "SeedCompany1", "6db8d165-a863-4ad8-8837-d6234c7b4767", "SeedDepartment1", "admin.bilgeadam@bilgeadamboost.com", true, null, null, true, false, null, "Admin", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", null, "AQAAAAEAACcQAAAAEAygbmbuKuzP9MqG4nZQLvJWG40r7TFXIfW6Rf4jHSzj/tzPqJZawFX6gs/hlOosiA==", "0", false, "/mexant/assets/images/Default.jpg", null, null, null, "758dfd50-c3bc-4d70-8493-9d52effef133", null, "Bilgeadam", false, "admin.bilgeadam@bilgeadamboost.com" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Advances_AppUserId",
+                table: "Advances",
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -281,10 +357,24 @@ namespace BA.HR_Project.Persistance.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Expenses_AppUserId",
+                table: "Expenses",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExpenseTypes_ExpenseId",
+                table: "ExpenseTypes",
+                column: "ExpenseId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Advances");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -301,7 +391,13 @@ namespace BA.HR_Project.Persistance.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ExpenseTypes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Expenses");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

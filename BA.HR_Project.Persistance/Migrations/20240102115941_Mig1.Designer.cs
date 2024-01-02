@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BA.HR_Project.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231225212205_mig1")]
-    partial class mig1
+    [Migration("20240102115941_Mig1")]
+    partial class Mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,47 @@ namespace BA.HR_Project.Persistance.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("BA.HR_Project.Domain.Entities.Advance", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AdvanceType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ConfirmStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int?>("RemainingAmount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ResponseDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Advances");
+                });
 
             modelBuilder.Entity("BA.HR_Project.Domain.Entities.AppRole", b =>
                 {
@@ -183,27 +224,28 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3cb27d1f-b73c-4738-b461-deb907dd291c",
+                            Id = "7539dc6b-686a-41ba-8561-d78e63d6269e",
                             AccessFailedCount = 0,
                             Adress = "Ankara",
-                            BirthDate = new DateTime(2023, 12, 26, 0, 22, 5, 340, DateTimeKind.Local).AddTicks(9208),
+                            BirthDate = new DateTime(2024, 1, 2, 14, 59, 41, 15, DateTimeKind.Local).AddTicks(2071),
                             CompanyId = "SeedCompany1",
-                            ConcurrencyStamp = "4b37579f-a200-4b82-9b82-7f4d74906fa7",
+                            ConcurrencyStamp = "6db8d165-a863-4ad8-8837-d6234c7b4767",
                             DepartmentId = "SeedDepartment1",
-                            Email = "admin@bilgeadam.com",
+                            Email = "admin.bilgeadam@bilgeadamboost.com",
                             EmailConfirmed = true,
                             IsTurkishCitizen = true,
                             LockoutEnabled = false,
                             Name = "Admin",
-                            NormalizedEmail = "ADMIN@BILGEADAM.COM",
-                            NormalizedUserName = "ADMIN@BILGEADAM.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOZbkzMUt5G14mGQDR3nC7DNIkeYeL+FluabtQFgV3EImRadj+44U6Me9ZJnU33sYA==",
+                            NormalizedEmail = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
+                            NormalizedUserName = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAygbmbuKuzP9MqG4nZQLvJWG40r7TFXIfW6Rf4jHSzj/tzPqJZawFX6gs/hlOosiA==",
                             PhoneNumber = "0",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3ad7e110-a09a-4fcb-a4e1-c2f1723d94a0",
+                            PhotoPath = "/mexant/assets/images/Default.jpg",
+                            SecurityStamp = "758dfd50-c3bc-4d70-8493-9d52effef133",
                             Surname = "Bilgeadam",
                             TwoFactorEnabled = false,
-                            UserName = "admin@bilgeadam.com"
+                            UserName = "admin.bilgeadam@bilgeadamboost.com"
                         });
                 });
 
@@ -254,6 +296,83 @@ namespace BA.HR_Project.Persistance.Migrations
                             Id = "SeedDepartment1",
                             Name = "BoostAkademi"
                         });
+                });
+
+            modelBuilder.Entity("BA.HR_Project.Domain.Entities.Expense", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ConfirmStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<float>("ExpenseMaxPrice")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ExpenseMinPrice")
+                        .HasColumnType("real");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ReplyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RequestNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("RequestPrice")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Expenses");
+                });
+
+            modelBuilder.Entity("BA.HR_Project.Domain.Entities.ExpenseType", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ExpenseId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ExpenseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("MainPrice")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MaxFactor")
+                        .HasColumnType("real");
+
+                    b.Property<float>("MinFactor")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExpenseId")
+                        .IsUnique();
+
+                    b.ToTable("ExpenseTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -362,6 +481,17 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BA.HR_Project.Domain.Entities.Advance", b =>
+                {
+                    b.HasOne("BA.HR_Project.Domain.Entities.AppUser", "AppUser")
+                        .WithMany("Advances")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("BA.HR_Project.Domain.Entities.AppUser", b =>
                 {
                     b.HasOne("BA.HR_Project.Domain.Entities.Company", "Company")
@@ -379,6 +509,28 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("BA.HR_Project.Domain.Entities.Expense", b =>
+                {
+                    b.HasOne("BA.HR_Project.Domain.Entities.AppUser", "AppUser")
+                        .WithMany("Expenses")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("BA.HR_Project.Domain.Entities.ExpenseType", b =>
+                {
+                    b.HasOne("BA.HR_Project.Domain.Entities.Expense", "Expense")
+                        .WithOne("ExpenseType")
+                        .HasForeignKey("BA.HR_Project.Domain.Entities.ExpenseType", "ExpenseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Expense");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -432,6 +584,13 @@ namespace BA.HR_Project.Persistance.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BA.HR_Project.Domain.Entities.AppUser", b =>
+                {
+                    b.Navigation("Advances");
+
+                    b.Navigation("Expenses");
+                });
+
             modelBuilder.Entity("BA.HR_Project.Domain.Entities.Company", b =>
                 {
                     b.Navigation("AppUsers");
@@ -440,6 +599,11 @@ namespace BA.HR_Project.Persistance.Migrations
             modelBuilder.Entity("BA.HR_Project.Domain.Entities.Department", b =>
                 {
                     b.Navigation("AppUsers");
+                });
+
+            modelBuilder.Entity("BA.HR_Project.Domain.Entities.Expense", b =>
+                {
+                    b.Navigation("ExpenseType");
                 });
 #pragma warning restore 612, 618
         }
