@@ -40,6 +40,11 @@ namespace BA.HR_Project.WEB.Mapping
 
             CreateMap<AppUserUpdatePasswordViewModel, AppUserUpdatePasswordDto>()
                 .ReverseMap();
+
+
+
+            CreateMap<DayOffViewModel, DayOffDto>()
+               .ReverseMap();
         }
     }
 }
