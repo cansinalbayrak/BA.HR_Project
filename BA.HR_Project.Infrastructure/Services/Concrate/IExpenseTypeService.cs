@@ -11,8 +11,8 @@ namespace BA.HR_Project.Infrastructure.Services.Concrate
 {
     public interface IExpenseTypeService : IService<ExpenseType, ExpenseTypeDto>
     {
-        Task<float> CalculateMaxPrice(float mainPrice, float maxFactor);
-        Task<float> CalculateMinPrice(float mainPrice, float minFactor);
+        Task<float> CalculateMaxPrice(ExpenseType expenseType);
+        Task<float> CalculateMinPrice(ExpenseType expenseType);
 
     }
 }
