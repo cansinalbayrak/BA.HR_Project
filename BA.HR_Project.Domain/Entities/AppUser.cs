@@ -10,6 +10,10 @@ namespace BA.HR_Project.Domain.Entities
 {
     public class AppUser:IdentityUser<string> , IEntity
     {
+        public AppUser()
+        {
+            Advances = new();
+        }
         public string Name { get; set; }
         public string? SecondName { get; set; }
         public string Surname { get; set; }
@@ -38,6 +42,7 @@ namespace BA.HR_Project.Domain.Entities
         #region NavProp
         public Company Company { get; set; }
         public Department Department { get; set; }
+        public List<Advance> Advances { get; set; }
         #endregion
 
 

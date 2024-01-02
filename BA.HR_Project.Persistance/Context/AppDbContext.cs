@@ -15,6 +15,7 @@ namespace BA.HR_Project.Persistance.Context
     {
         public DbSet<Company> Companies { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Advance> Advances { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> option) : base(option)
         {
 
