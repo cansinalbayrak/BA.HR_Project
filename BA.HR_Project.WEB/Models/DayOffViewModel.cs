@@ -1,5 +1,4 @@
 ﻿using BA.HR_Project.Application.DTOs;
-using BA.HR_Project.Domain.Entities;
 using BA.HR_Project.Domain.Enums;
 
 namespace BA.HR_Project.WEB.Models
@@ -11,7 +10,7 @@ namespace BA.HR_Project.WEB.Models
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
         public DateTime? RequestDate { get; set; }
-        public DateTime DayCount { get; set; }
+        public float? DayCount { get; set; }
         public ConfirmStatus? ConfirmStatus { get; set; }
         public Gender Gender { get; set; }
         public DateTime? ResponseDate { get; set; }
