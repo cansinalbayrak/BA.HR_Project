@@ -49,13 +49,7 @@
                             {
                             <li><a href="Account/Login" class="btn-success text-decoration-underline" style="background-color:transparent;">LogIn</a></li>
                             }
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                
-                            <li><a asp-controller="Account" asp-action="LogOut" class="btn-danger text-decoration-underline" style="background-color:transparent;">SignOut</a></li>
                             
-                              
-                            }
                             @if (User.Identity.IsAuthenticated)
                             {
 
@@ -71,6 +65,13 @@
 
                                 }
                             <li><a class="text-lowercase  text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
+
+                            }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+
+                            <li><a asp-controller="Account" asp-action="LogOut" class="btn-danger text-decoration-underline" style="background-color:transparent;">SignOut</a></li>
+
 
                             }
                             
