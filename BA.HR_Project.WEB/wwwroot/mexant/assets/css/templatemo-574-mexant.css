@@ -797,8 +797,8 @@ banner
 /*
 ---------------------------------------------
 services
----------------------------------------------
-*/ 
+---------------------------------------------*/
+ 
 
 section.services {
   margin-top: 90px;
@@ -832,11 +832,11 @@ section.services {
 
 
 
-/*
+
 ---------------------------------------------
 cta
 ---------------------------------------------
-*/
+
 
 section.simple-cta {
   background-image: url(../images/cta-bg.jpg);
@@ -1163,8 +1163,8 @@ section.testimonials .section-heading {
 /* 
 ---------------------------------------------
 partners
---------------------------------------------- 
-*/
+---------------------------------------------*/ 
+
 
 section.partners {
   background-color: #212741;
@@ -1213,23 +1213,23 @@ page heading
 */
 
 .page-heading {
-  background-image: url(../images/heading-bg.jpg);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding: 215px 0px 120px 0px;
-  text-align: center;
+    background-image: url(../images/slide-03.jpg);
+    background-position: center center;
+   /* background-repeat: no-repeat;*/
+    background-size: cover;
+    padding: 215px 0px 120px 0px;
+    text-align: center;
 }
 
-.page-heading h2 {
+/*.page-heading h2 {
   font-size: 56px;
   color: #fff;
   font-weight: 700;
-}
+}*/
 
 .page-heading .div-dec {
   width: 80px;
-  height: 6px;
+  height: 200px;
   border-radius: 3px;
   background-color: #fff;
   margin: 20px auto 0 auto;
@@ -1240,8 +1240,8 @@ page heading
 /* 
 ---------------------------------------------
 about us page
---------------------------------------------- 
-*/
+---------------------------------------------*/ 
+
 
 section.top-section .left-image img {
   border-radius: 10px;
@@ -1351,8 +1351,8 @@ section.what-we-do {
 /* 
 ---------------------------------------------
 services page
---------------------------------------------- 
-*/
+---------------------------------------------*/ 
+
 
 .main-services .service-item {
   margin-bottom: 60px;
