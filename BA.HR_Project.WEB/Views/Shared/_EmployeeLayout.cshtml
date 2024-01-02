@@ -24,6 +24,14 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
 
     <style>
+        body {
+            margin-bottom: 60px;
+            background-image: url('/images/backgroundImage.jpg');
+            background-size: cover; /* Resmin tüm sayfayı kaplamasını sağlar */
+            background-repeat: no-repeat; /* Resmin tekrarlanmasını engeller */
+            background-attachment: fixed; /* Arka planın kaydırma sırasında sabit kalmasını sağlar */
+        }
+
         footer {
             position: fixed;
             left: 0;
@@ -112,8 +120,8 @@
 
     <!-- ***** Header Area End ***** -->
 
-
-    <div class="page-heading" style="height: 180vh">
+    
+     <div class="page-heading" style="height:100%">
 
         <div class="container">
             <div class="row">
@@ -131,7 +139,8 @@
                 </div>
             </div>
         </div>
-    </div>
+     </div>
+    
 
     <footer class="footer">
         <div class="container">
@@ -163,7 +172,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @* <script>
+     <script>
         var interleaveOffset = 0.5;
 
         var swiperOptions = {
@@ -206,7 +215,7 @@
         }
 
          var swiper = new Swiper(".swiper-container", swiperOptions);
-    </script> *@
+    </script> 
 
 </body>
 </html>
