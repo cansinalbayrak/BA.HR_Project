@@ -1,5 +1,7 @@
 ﻿using BA.HR_Project.Infrastructure.Managers.Abstract;
+using BA.HR_Project.Infrastructure.Managers.Concrate;
 using BA.HR_Project.Infrastructure.Services.Abstract;
+using BA.HR_Project.Infrastructure.Services.Concrate;
 using BA.HR_Project.Infrasturucture.Managers.Concrate;
 using BA.HR_Project.Infrasturucture.Services.Concrate;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,10 @@ namespace BA.HR_Project.Infrastructure.Extension
             services.AddScoped<IDepartmentService, DepartmentManager>();
             services.AddScoped<IAccountService, AccountManager>();
             services.AddScoped<IEmailService, EmailManager>();
+
+
+
+            services.AddScoped<IDayOffService, DayOffManager>();
 
         }
     }
