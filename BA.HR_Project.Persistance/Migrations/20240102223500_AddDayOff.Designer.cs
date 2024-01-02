@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BA.HR_Project.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240102133259_AddDayOff")]
+    [Migration("20240102223500_AddDayOff")]
     partial class AddDayOff
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,9 +48,6 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
-
-                    b.Property<int?>("RemainingAmount")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
@@ -224,12 +221,12 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "abbcc463-11c1-4e99-aee9-f403a307f6d3",
+                            Id = "6d48c72c-c73e-4caf-a7f7-158b31cf84db",
                             AccessFailedCount = 0,
                             Adress = "Ankara",
-                            BirthDate = new DateTime(2024, 1, 2, 16, 32, 59, 307, DateTimeKind.Local).AddTicks(2927),
+                            BirthDate = new DateTime(2024, 1, 3, 1, 35, 0, 465, DateTimeKind.Local).AddTicks(3910),
                             CompanyId = "SeedCompany1",
-                            ConcurrencyStamp = "dc5e644d-954d-4785-a323-ae658bebcd12",
+                            ConcurrencyStamp = "8a495d66-4837-4730-8a55-03c665a2fd6c",
                             DepartmentId = "SeedDepartment1",
                             Email = "admin.bilgeadam@bilgeadamboost.com",
                             EmailConfirmed = true,
@@ -238,11 +235,11 @@ namespace BA.HR_Project.Persistance.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
                             NormalizedUserName = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHqhZIi0Zv/VJybotPW2L0R1u8WAqKk74KfYdBR0xJvUQ3L5m+GsmauyjsyQePm99g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGQg60bOyUbgUWIKqT2fJ62WMK7X8anNgH5KSp3oLJmnQAjAynxGNJP+bkYCrGBynw==",
                             PhoneNumber = "0",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/mexant/assets/images/Default.jpg",
-                            SecurityStamp = "2aa9c3a2-d2eb-4d34-8d37-573066b8d037",
+                            SecurityStamp = "e896a24a-f34b-4b56-bcb9-723178872f29",
                             Surname = "Bilgeadam",
                             TwoFactorEnabled = false,
                             UserName = "admin.bilgeadam@bilgeadamboost.com"
@@ -288,8 +285,8 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.Property<int>("ConfirmStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DayCount")
-                        .HasColumnType("datetime2");
+                    b.Property<float?>("DayCount")
+                        .HasColumnType("real");
 
                     b.Property<int>("DayOffType")
                         .HasColumnType("int");
@@ -317,7 +314,7 @@ namespace BA.HR_Project.Persistance.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("DayOff");
+                    b.ToTable("DayOffs");
                 });
 
             modelBuilder.Entity("BA.HR_Project.Domain.Entities.Department", b =>
@@ -357,12 +354,6 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.Property<int>("Currency")
                         .HasColumnType("int");
 
-                    b.Property<float>("ExpenseMaxPrice")
-                        .HasColumnType("real");
-
-                    b.Property<float>("ExpenseMinPrice")
-                        .HasColumnType("real");
-
                     b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
 
@@ -397,6 +388,12 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.Property<string>("ExpenseId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<float>("ExpenseMaxPrice")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ExpenseMinPrice")
+                        .HasColumnType("real");
 
                     b.Property<string>("ExpenseName")
                         .IsRequired()

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BA.HR_Project.Persistance.Migrations
 {
-    public partial class Mig1 : Migration
+    public partial class AddDayOff : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -130,7 +130,6 @@ namespace BA.HR_Project.Persistance.Migrations
                     AdvanceType = table.Column<int>(type: "int", nullable: false),
                     ConfirmStatus = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false),
-                    RemainingAmount = table.Column<int>(type: "int", nullable: true),
                     RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ResponseDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Currency = table.Column<int>(type: "int", nullable: false),
@@ -234,14 +233,39 @@ namespace BA.HR_Project.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DayOffs",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FinishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DayCount = table.Column<float>(type: "real", nullable: true),
+                    ConfirmStatus = table.Column<int>(type: "int", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    ResponseDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DayOffType = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DayOffs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DayOffs_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Expenses",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RequestNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RequestPrice = table.Column<float>(type: "real", nullable: false),
-                    ExpenseMaxPrice = table.Column<float>(type: "real", nullable: false),
-                    ExpenseMinPrice = table.Column<float>(type: "real", nullable: false),
                     RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReplyDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -270,6 +294,8 @@ namespace BA.HR_Project.Persistance.Migrations
                     MainPrice = table.Column<float>(type: "real", nullable: false),
                     MinFactor = table.Column<float>(type: "real", nullable: false),
                     MaxFactor = table.Column<float>(type: "real", nullable: false),
+                    ExpenseMaxPrice = table.Column<float>(type: "real", nullable: false),
+                    ExpenseMinPrice = table.Column<float>(type: "real", nullable: false),
                     ExpenseId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -296,7 +322,7 @@ namespace BA.HR_Project.Persistance.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Adress", "BirthDate", "BirthPlace", "CompanyId", "ConcurrencyStamp", "DepartmentId", "Email", "EmailConfirmed", "EndDate", "IdentityNumber", "IsTurkishCitizen", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PassportNumber", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "Salary", "SecondName", "SecondSurname", "SecurityStamp", "StartDate", "Surname", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "7539dc6b-686a-41ba-8561-d78e63d6269e", 0, "Ankara", new DateTime(2024, 1, 2, 14, 59, 41, 15, DateTimeKind.Local).AddTicks(2071), null, "SeedCompany1", "6db8d165-a863-4ad8-8837-d6234c7b4767", "SeedDepartment1", "admin.bilgeadam@bilgeadamboost.com", true, null, null, true, false, null, "Admin", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", null, "AQAAAAEAACcQAAAAEAygbmbuKuzP9MqG4nZQLvJWG40r7TFXIfW6Rf4jHSzj/tzPqJZawFX6gs/hlOosiA==", "0", false, "/mexant/assets/images/Default.jpg", null, null, null, "758dfd50-c3bc-4d70-8493-9d52effef133", null, "Bilgeadam", false, "admin.bilgeadam@bilgeadamboost.com" });
+                values: new object[] { "6d48c72c-c73e-4caf-a7f7-158b31cf84db", 0, "Ankara", new DateTime(2024, 1, 3, 1, 35, 0, 465, DateTimeKind.Local).AddTicks(3910), null, "SeedCompany1", "8a495d66-4837-4730-8a55-03c665a2fd6c", "SeedDepartment1", "admin.bilgeadam@bilgeadamboost.com", true, null, null, true, false, null, "Admin", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", null, "AQAAAAEAACcQAAAAEGQg60bOyUbgUWIKqT2fJ62WMK7X8anNgH5KSp3oLJmnQAjAynxGNJP+bkYCrGBynw==", "0", false, "/mexant/assets/images/Default.jpg", null, null, null, "e896a24a-f34b-4b56-bcb9-723178872f29", null, "Bilgeadam", false, "admin.bilgeadam@bilgeadamboost.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Advances_AppUserId",
@@ -359,6 +385,11 @@ namespace BA.HR_Project.Persistance.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DayOffs_AppUserId",
+                table: "DayOffs",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Expenses_AppUserId",
                 table: "Expenses",
                 column: "AppUserId");
@@ -389,6 +420,9 @@ namespace BA.HR_Project.Persistance.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "DayOffs");
 
             migrationBuilder.DropTable(
                 name: "ExpenseTypes");

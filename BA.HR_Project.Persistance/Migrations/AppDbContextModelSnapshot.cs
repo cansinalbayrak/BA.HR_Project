@@ -219,12 +219,12 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e61de148-9b2a-4358-b28e-0d04e3ab6331",
+                            Id = "6d48c72c-c73e-4caf-a7f7-158b31cf84db",
                             AccessFailedCount = 0,
                             Adress = "Ankara",
-                            BirthDate = new DateTime(2024, 1, 3, 1, 12, 46, 632, DateTimeKind.Local).AddTicks(99),
+                            BirthDate = new DateTime(2024, 1, 3, 1, 35, 0, 465, DateTimeKind.Local).AddTicks(3910),
                             CompanyId = "SeedCompany1",
-                            ConcurrencyStamp = "5085d05d-4d2e-4bfd-9fd7-e722846f4d31",
+                            ConcurrencyStamp = "8a495d66-4837-4730-8a55-03c665a2fd6c",
                             DepartmentId = "SeedDepartment1",
                             Email = "admin.bilgeadam@bilgeadamboost.com",
                             EmailConfirmed = true,
@@ -233,11 +233,11 @@ namespace BA.HR_Project.Persistance.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
                             NormalizedUserName = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFsUNdEwYkA1h8r2eP3XRoFGoihk2BRjKZaZJkU2c+gGlI2SuBZyVNyB4wRYivDTFQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGQg60bOyUbgUWIKqT2fJ62WMK7X8anNgH5KSp3oLJmnQAjAynxGNJP+bkYCrGBynw==",
                             PhoneNumber = "0",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/mexant/assets/images/Default.jpg",
-                            SecurityStamp = "5ca42047-9b2b-4aa7-abf9-1e8e44359321",
+                            SecurityStamp = "e896a24a-f34b-4b56-bcb9-723178872f29",
                             Surname = "Bilgeadam",
                             TwoFactorEnabled = false,
                             UserName = "admin.bilgeadam@bilgeadamboost.com"
@@ -283,8 +283,8 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.Property<int>("ConfirmStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DayCount")
-                        .HasColumnType("datetime2");
+                    b.Property<float?>("DayCount")
+                        .HasColumnType("real");
 
                     b.Property<int>("DayOffType")
                         .HasColumnType("int");
