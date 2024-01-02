@@ -46,15 +46,15 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
                 newUser.DepartmentId = currentUser.DepartmentId;
             }
 
-            string mail = newUser.Name + "." + newUser.Surname + "@bilgeadamboost.com";
+            string mail = newUser.Name + newUser.SecondName + "." + newUser.Surname + newUser.SecondSurname + "@bilgeadamboost.com";
             if (await _userManager.FindByEmailAsync(mail) != null)
             {
                 string emailPrefix = newUser.Name[0].ToString().ToLower();
-                newUser.Email = $"{emailPrefix}.{newUser.Surname}@bilgeadamboost.com";
+                newUser.Email = $"{emailPrefix + newUser.SecondSurname}.{newUser.Surname + newUser.SecondSurname}@bilgeadamboost.com";
                 if (await _userManager.FindByEmailAsync(newUser.Email) != null)
                 {
                     string emailPrefix2 = newUser.Surname[0].ToString().ToLower();
-                    newUser.Email = $"{newUser.Name}.{emailPrefix2}@bilgeadamboost.com";
+                    newUser.Email = $"{newUser.Name + newUser.SecondName}.{emailPrefix2 + newUser.SecondSurname}@bilgeadamboost.com";
                 }
             }
             else
