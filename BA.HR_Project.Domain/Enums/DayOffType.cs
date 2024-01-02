@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BA.HR_Project.Domain.Entities
+namespace BA.HR_Project.Domain.Enums
 {
     public enum DayOffType
     {
         AnnualDayOff = 0,                 // YillikIzin,
-        WeeklyDayOff=1,                   // HaftaTatili,
+        WeeklyDayOff = 1,                   // HaftaTatili,
         MaternityDayOff = 2,              // DogumIzni,
         PregnancyCheckupDayOff = 3,       // GebelikKontrolIzni,
         BreastfeedingDayOff = 4,          // SutIzni,
@@ -19,7 +19,7 @@ namespace BA.HR_Project.Domain.Entities
         MarriageDayOff = 8,               // EvlilikIzni,
         ExcuseDayOff = 9,                 // MazeretIzni,
         AccompanyingDayOff = 10,          // RefakatIzni
-        SoldierLeave =11,
+        SoldierLeave = 11,
 
     }
 }

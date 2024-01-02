@@ -20,7 +20,7 @@ namespace BA.HR_Project.Domain.Entities
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
         public DateTime RequestDate { get; set; }
-        public DateTime DayCount { get; set; }
+        public float? DayCount { get; set; }
         public ConfirmStatus ConfirmStatus { get; set; } = ConfirmStatus.Waiting;
         public Gender Gender { get; set; }
         public DateTime? ResponseDate { get; set; }

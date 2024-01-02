@@ -1,0 +1,63 @@
+﻿@model DayOffViewModel
+@{
+    Layout = "_EmployeeLayout";
+}
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="StartDate"></label>
+        <input asp-for="StartDate" class="form-control" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Gender">Gender</label>
+        <select asp-for="Gender" class="form-control">
+            <option value="@((int)Gender.Male)">Male</option>
+            <option value="@((int)Gender.Female)">Female</option>
+        </select>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DayOffType">Day Off Type</label>
+        <select asp-for="DayOffType" class="form-control">
+            <option value="@((int)DayOffType.AnnualDayOff)">Annual Day Off</option>
+            <option value="@((int)DayOffType.WeeklyDayOff)">Weekly Day Off</option>
+            <option value="@((int)DayOffType.MaternityDayOff)">Maternity Day Off</option>
+            <option value="@((int)DayOffType.PregnancyCheckupDayOff)">Pregnancy Checkup Day Off</option>
+            <option value="@((int)DayOffType.BreastfeedingDayOff)">Breastfeeding Day Off</option>
+            <option value="@((int)DayOffType.PaternityDayOff)">Paternity Day Off</option>
+            <option value="@((int)DayOffType.BereavementDayOff)">Bereavement Day Off</option>
+            <option value="@((int)DayOffType.JobSearchDayOff)">Job Search Day Off</option>
+            <option value="@((int)DayOffType.MarriageDayOff)">Marriage Day Off</option>
+            <option value="@((int)DayOffType.ExcuseDayOff)">Excuse Day Off</option>
+            <option value="@((int)DayOffType.AccompanyingDayOff)">Accompanying Day Off</option>
+            <option value="@((int)DayOffType.SoldierLeave)">Soldier Leave</option>
+        </select>
+        <span asp-validation-for="DayOffType" class="text-danger"></span>
+    </div>
+
+   @* <div class="form-group">
+        <label asp-for="FinishDate "></label>
+        <input asp-for="FinishDate " class="form-control" />
+        <span asp-validation-for="FinishDate" class="text-danger"></span>
+    </div>*@
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
