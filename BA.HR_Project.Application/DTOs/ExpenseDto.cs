@@ -12,8 +12,7 @@ namespace BA.HR_Project.Application.DTOs
         public string Id { get; set; }
         public string RequestNumber { get; set; }
         public float RequestPrice { get; set; }
-        public float ExpenseMaxPrice { get; set; }
-        public float ExpenseMinPrice { get; set; }
+       
         public DateTime RequestDate { get; set; }
         public DateTime? ReplyDate { get; set; }
         public string? PhotoPath { get; set; }

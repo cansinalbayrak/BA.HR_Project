@@ -4,6 +4,7 @@ using BA.HR_Project.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BA.HR_Project.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240102133259_AddDayOff")]
+    partial class AddDayOff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,12 +224,12 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c7345270-d778-4904-afa4-010c770d5936",
+                            Id = "abbcc463-11c1-4e99-aee9-f403a307f6d3",
                             AccessFailedCount = 0,
                             Adress = "Ankara",
-                            BirthDate = new DateTime(2024, 1, 2, 17, 26, 33, 792, DateTimeKind.Local).AddTicks(2841),
+                            BirthDate = new DateTime(2024, 1, 2, 16, 32, 59, 307, DateTimeKind.Local).AddTicks(2927),
                             CompanyId = "SeedCompany1",
-                            ConcurrencyStamp = "40d2aba3-fd61-494e-bef7-5c3f804a3ecb",
+                            ConcurrencyStamp = "dc5e644d-954d-4785-a323-ae658bebcd12",
                             DepartmentId = "SeedDepartment1",
                             Email = "admin.bilgeadam@bilgeadamboost.com",
                             EmailConfirmed = true,
@@ -236,11 +238,11 @@ namespace BA.HR_Project.Persistance.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
                             NormalizedUserName = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDdqSc7wzJyTdff941uIiNjy0s8AZvprpNXL8kB4c7tICOxcqSiiZps7DdN3vb3/kQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHqhZIi0Zv/VJybotPW2L0R1u8WAqKk74KfYdBR0xJvUQ3L5m+GsmauyjsyQePm99g==",
                             PhoneNumber = "0",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/mexant/assets/images/Default.jpg",
-                            SecurityStamp = "a93258eb-783c-4ff5-90a5-90a431b0a063",
+                            SecurityStamp = "2aa9c3a2-d2eb-4d34-8d37-573066b8d037",
                             Surname = "Bilgeadam",
                             TwoFactorEnabled = false,
                             UserName = "admin.bilgeadam@bilgeadamboost.com"
@@ -315,7 +317,7 @@ namespace BA.HR_Project.Persistance.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("DayOffs");
+                    b.ToTable("DayOff");
                 });
 
             modelBuilder.Entity("BA.HR_Project.Domain.Entities.Department", b =>

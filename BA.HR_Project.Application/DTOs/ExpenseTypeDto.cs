@@ -13,5 +13,7 @@ namespace BA.HR_Project.Application.DTOs
         public float MainPrice { get; set; }
         public float MinFactor { get; set; }
         public float MaxFactor { get; set; }
+        public float ExpenseMaxPrice { get; set; }
+        public float ExpenseMinPrice { get; set; }
     }
 }

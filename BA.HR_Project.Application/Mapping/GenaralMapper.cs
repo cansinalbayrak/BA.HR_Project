@@ -44,6 +44,14 @@ namespace BA.HR_Project.Application.Mapping
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             CreateMap<AppUser, AppUserUpdatePasswordDto>().ReverseMap();
+
+
+
+
+
+
+
+            CreateMap<DayOff, DayOffDto>() .ReverseMap();
             CreateMap<AdvanceDto,Advance>()
             .ReverseMap();
         }

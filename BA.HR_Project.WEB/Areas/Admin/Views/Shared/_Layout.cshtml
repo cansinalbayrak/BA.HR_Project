@@ -24,7 +24,7 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
-                        <li class="nav-item">
+@*                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
@@ -32,17 +32,22 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">ListEmployee</a>
-                        </li>
-
+                        </li> *@
                         <li class="nav-item dropdown customNavbar">
-                            <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Employe Side </a>
+                            <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home/Add Employee/List Employee </a>
+                             <ul class="dropdown-menu customNavbar" aria-labelledby="navbarDropdown">
+                                 <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Home</a></li>
+                                 <li class="scroll-to-section"> <a class="customNavbar"asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">AddEmployee</a></li>
+                                 <li class="scroll-to-section"> <a class="customNavbar"asp-area="Admin"asp-controller="AdminEmployee" asp-action="ListEmployee">ListEmployee</a></li>
+                             </ul>
+                        </li>
+                        <li class="nav-item dropdown customNavbar">
+                            <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go to Employee View </a>
                              <ul class="dropdown-menu customNavbar" aria-labelledby="navbarDropdown">
                                  <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Employee" asp-action="Index">Profile</a></li>
                                  <li class="scroll-to-section"> <a class="customNavbar"asp-area="" asp-controller="Employee" asp-action="Detail">Detail</a></li>
                                  <li class="scroll-to-section"> <a class="customNavbar"asp-area=""asp-controller="Employee" asp-action="Update">Update</a></li>
                              </ul>
-
-
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {

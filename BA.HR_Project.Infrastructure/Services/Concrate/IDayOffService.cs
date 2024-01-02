@@ -9,10 +9,7 @@ using System.Threading.Tasks;
 
 namespace BA.HR_Project.Infrastructure.Services.Concrate
 {
-    public interface IExpenseTypeService : IService<ExpenseType, ExpenseTypeDto>
+    public interface IDayOffService : IService<DayOff, DayOffDto>
     {
-        Task<float> CalculateMaxPrice(ExpenseType expenseType);
-        Task<float> CalculateMinPrice(ExpenseType expenseType);
-
     }
 }

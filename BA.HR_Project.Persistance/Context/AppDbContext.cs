@@ -18,6 +18,7 @@ namespace BA.HR_Project.Persistance.Context
         public DbSet<Advance> Advances { get; set; }
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<ExpenseType> ExpenseTypes { get; set; }
+        public DbSet<DayOff> DayOffs { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> option) : base(option)
         {
 

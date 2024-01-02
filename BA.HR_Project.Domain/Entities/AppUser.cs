@@ -44,6 +44,7 @@ namespace BA.HR_Project.Domain.Entities
         public Company Company { get; set; }
         public Department Department { get; set; }
         public List<Advance> Advances { get; set; }
+        public List<DayOff> DayOffs { get; set; }
         #endregion
 
 
