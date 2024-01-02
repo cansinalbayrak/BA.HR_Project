@@ -37,13 +37,13 @@ namespace BA.HR_Project.Persistance.Configurations
             var seedAdmin = new AppUser
             {
                 Id = Guid.NewGuid().ToString(),
-                UserName = "admin@bilgeadam.com",
+                UserName = "admin@bilgeadamboost.com",
                 BirthDate = DateTime.Now,
-                NormalizedUserName = "ADMIN@BILGEADAM.COM",
+                NormalizedUserName = "ADMIN@BILGEADAMBOOST.COM",
                 IsTurkishCitizen = true,
                 PhoneNumber = "0",
                 Email = "admin@bilgeadam.com",
-                NormalizedEmail = "ADMIN@BILGEADAM.COM",
+                NormalizedEmail = "ADMIN@BILGEADAMBOOST.COM",
                 EmailConfirmed = true,
                 Name = "Admin",
                 Surname = "Bilgeadam",
