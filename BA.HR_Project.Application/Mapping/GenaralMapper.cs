@@ -31,6 +31,10 @@ namespace BA.HR_Project.Application.Mapping
            .ReverseMap();
             CreateMap<AppUser, AppUserUpdateDto>()
            .ReverseMap();
+            CreateMap<Expense, ExpenseDto>()
+                .ReverseMap();
+            CreateMap<ExpenseType, ExpenseTypeDto>()
+                .ReverseMap();
 
             CreateMap<AppUser, AppUserUpdateForEmployeeDto>().ReverseMap();
 
