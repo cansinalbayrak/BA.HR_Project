@@ -36,6 +36,7 @@ namespace BA.HR_Project.Application.DTOs
         #region NavProp
         public CompanyDto Company { get; set; }
         public DepartmentDto Department { get; set; }
+        public List<AdvanceDto> Advances { get; set; }
 
         #endregion
 
