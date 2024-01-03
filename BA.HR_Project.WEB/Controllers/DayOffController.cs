@@ -52,13 +52,13 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> DemandDayOff(DayOffViewModel dayOffViewModel)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var userıd =  _userManager.GetUserId(User);
 
-            var AppUserDto = _mapper.Map<AppUserDto>(user);
-            var DayOfViewModelAppUserVM = _mapper.Map<AppUserViewModel>(AppUserDto);
+            //var AppUserDto = _mapper.Map<AppUserDto>(user);
+            //var DayOfViewModelAppUserVM = _mapper.Map<AppUserViewModel>(AppUserDto);
 
-            dayOffViewModel.AppUser = DayOfViewModelAppUserVM;
-            dayOffViewModel.AppUserId = user.Id;
+            //dayOffViewModel.AppUser = DayOfViewModelAppUserVM;
+            dayOffViewModel.AppUserId = userıd;
 
             var DayOffDto = _mapper.Map<DayOffDto>(dayOffViewModel);
             
