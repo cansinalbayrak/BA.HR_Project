@@ -48,17 +48,22 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> RequestExpense(ExpenseViewModel model)
         {
-            var userId = _userManager.FindByIdAsync(model.Id);
-  
+            var userId = _userManager.GetUserId(User);
+            model.AppUserId = userId;
+             
               var ExpenseDto = _mapper.Map<ExpenseDto>(model);
-                var ExpenseAction = _expsenseService.Insert(ExpenseDto);
-                if (ExpenseAction.IsCompletedSuccessfully) 
-                {
-                  return RedirectToAction("Index");
-                }
+            var ExpenseAction = await _expsenseService.RequestExpense(ExpenseDto);
+
+            //var ExpenseAction = await _expsenseService.Insert(ExpenseDto);
+            if (ExpenseAction.IsSuccess)
+            {
+                return RedirectToAction("Index");
+            }
 
 
-            return RedirectToAction ("Index");
+
+
+            return View (model);
         }
 
         
