@@ -18,13 +18,13 @@ namespace BA.HR_Project.Application.DTOs
         public DateTime RequestDate { get; set; }
         public DateTime? ReplyDate { get; set; }
         public IFormFile File { get; set; }
-        public string? PhotoPath { get; set; }
+
         public string? FilePath { get; set; }
         public ConfirmStatus ConfirmStatus { get; set; }
         public Currency Currency { get; set; }
         public ExpenseType? ExpenseType { get; set; }
-
-        public AppUser AppUser { get; set; }
         public string AppUserId { get; set; }
+
+        public AppUserDto AppUser { get; set; }
     }
 }
