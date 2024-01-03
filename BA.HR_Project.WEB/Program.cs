@@ -13,6 +13,8 @@ using System.Reflection;
 using BA.HR_Project.Application.Email;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using BA.HR_Project.Infrastructure.Services.Concrate;
+using BA.HR_Project.Infrastructure.Managers.Concrate;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +38,7 @@ builder.Services.AddInfrastructureDependencies();
 builder.Services.Configure<EmailOption>(builder.Configuration.GetSection("EmailOption"));
 builder.Services.AddSingleton<IUrlHelperFactory, UrlHelperFactory>();
 builder.Services.AddSingleton<IActionContextAccessor,ActionContextAccessor>();
+
 
 var app = builder.Build(); 
 

@@ -17,8 +17,5 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         public ExpenseTypeManager(IMapper mapper, IUow uow) : base(mapper, uow)
         {
         }
-
-        
-
     }
 }

@@ -29,6 +29,9 @@ namespace BA.HR_Project.Infrastructure.Extension
 
             services.AddScoped<IDayOffService, DayOffManager>();
             services.AddScoped<IAdvanceService, AdvanceManager>();
+            services.AddScoped<IExpsenseService, ExpenseManager>();
+            services.AddScoped<IExpenseTypeService, ExpenseTypeManager>();
+            
 
 
         }
