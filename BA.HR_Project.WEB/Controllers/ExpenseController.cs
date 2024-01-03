@@ -18,11 +18,12 @@ namespace BA.HR_Project.WEB.Controllers
 
 
 
-        public ExpenseController(IExpenseTypeService expenseTypeService, IMapper mapper, IExpenseTypeService expenseService, UserManager<AppUser> userManager)
+        public ExpenseController(IExpenseTypeService expenseTypeService, IMapper mapper, UserManager<AppUser> userManager, IExpsenseService expsenseService)
         {
             _expenseTypeService = expenseTypeService;
             _mapper = mapper;
             _userManager = userManager;
+            _expsenseService = expsenseService;
         }
 
         public IActionResult Index()
