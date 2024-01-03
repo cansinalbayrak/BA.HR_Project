@@ -5,13 +5,6 @@ namespace BA.HR_Project.WEB.Models
 {
     public class DayOffViewModel
     {
-        //public DayOffViewModel()
-        //{
-        //    Id = Guid.NewGuid().ToString();
-        //    // Diğer başlangıç değerlerini de burada ayarlayabilirsiniz.
-        //    RequestDate = DateTime.Now;
-        //    ConfirmStatus = ConfirmStatus.Waiting;
-        //}
 
         public string Id { get; set; }
         public string? Description { get; set; }
