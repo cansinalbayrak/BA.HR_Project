@@ -29,4 +29,8 @@ body {
 .customFooter {
     background-color: rgb(20,23,38) !important;
     color: white !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }

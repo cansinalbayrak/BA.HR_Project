@@ -13,7 +13,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3  customNavbar"
 
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="/images/akademilogo-yatay.webp" alt="Logo" style="height: auto;">
                 </a>
 
@@ -30,6 +30,7 @@
                                 <li class="nav-item dropdown customNavbar">
                                     <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Profile </a>
                                     <ul class="dropdown-menu customNavbar" aria-labelledby="navbarDropdown">
+                                       <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Employee" asp-action="Index"> Profile</a></li>
                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Employee" asp-action="Detail">Detail Profile</a></li>
                                        <li class="scroll-to-section"> <a class="customNavbar"asp-area="" asp-controller="Employee" asp-action="Update">Update Profile</a></li>
                                     </ul>

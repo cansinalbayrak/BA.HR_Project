@@ -1,6 +1,6 @@
 ﻿@using System.IO;
 @{
-    Layout = "_EmployeeLayout";
+    Layout = "_LayoutEmployeeSide";
     //ViewData["Title"] = "Update";
      // System.IO ekledik
 }
@@ -10,69 +10,60 @@
 
 
 <div class="container" style="background-color:transparent">
-  
-
-<form asp-controller="Employee" asp-action="Update" method="post" enctype="multipart/form-data">
-    <input type="hidden" asp-for="Id" />
-
-    <div class="mb-3">
-            <label class="col-form-label" asp-for="PhoneNumber" style="color:#FD8D00">Phone Number</label>
-            <input asp-for="PhoneNumber" class="form-control text-light" type="number" placeholder="Phone Number" style="background-color:transparent;" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-            <label class="col-form-label" asp-for="Adress" style="color:#FD8D00" >Address</label>
-            <input asp-for="Adress" class="form-control text-light" type="text" placeholder="Address" style="background-color:transparent;" />
-        <span asp-validation-for="Adress" class="text-danger"></span>
-        <br>
-        <br>
-    </div>
 
 
-        <div class="form-group">
-            <label asp-for="Photo" class="col-form-label" style="color:#FD8D00">Photo</label>
-            
-            @if (!string.IsNullOrEmpty(Model.PhotoPath))
-            {
-               @*  <div class="mb-3">
-                    <img src="@Model.PhotoPath" alt="Current Photo" class="img-thumbnail" style="max-width: 150px; max-height: 150px;" />
+    <form asp-controller="Employee" asp-action="Update" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
 
-                    <label class="form-check-label" style="color: white;">
-                        <input type="checkbox" asp-for="UseExistingPhoto" /> Choose This Photo
-                        <span asp-validation-for="UseExistingPhoto" class="text-danger"></span>
-                    </label>
-                    <input accept=".jpeg,.jpg,.png" type="file" asp-for="Photo" class="form-control-file text-light" />
-                    <span asp-validation-for="Photo" class="text-danger"></span>
-                </div> *@
+        <!-- Ana div yatay olarak düzenleniyor -->
+        <div class="d-flex justify-content-center">
+
+            <!-- Telefon numarası ve adres için iç div -->
+            <div>
                 <div class="mb-3">
-                    <div>
-                        <img src="@Model.PhotoPath" alt="Current Photo" class="img-thumbnail" style="max-width: 150px; max-height: 150px;" />
-                    </div>
-
-                    <div>
-                        <label class="form-check-label" style="color: white;">
-                            <input type="checkbox" asp-for="UseExistingPhoto" /> Choose This Photo
-                            <span asp-validation-for="UseExistingPhoto" class="text-danger"></span>
-                        </label>
-                    </div>
-                    <br />
-
-                    <div style="margin-left:100px">
-                        <input accept=".jpeg,.jpg,.png" type="file" asp-for="Photo" class="form-control-file text-light" />
-                        <span asp-validation-for="Photo" class="text-danger"></span>
-                    </div>
+                    <label class="col-form-label" asp-for="PhoneNumber" style="color:#FD8D00">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="form-control text-light" type="number" placeholder="Phone Number" style="background-color:transparent;" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
 
-            }
+                <div class="mb-3">
+                    <label class="col-form-label" asp-for="Adress" style="color:#FD8D00">Address</label>
+                    <input asp-for="Adress" class="form-control text-light" type="text" placeholder="Address" style="background-color:transparent;" />
+                    <span asp-validation-for="Adress" class="text-danger"></span>
+                </div>
+                <br><br>
+                <button type="submit" class="btn" style="background-color:#FD8D00">Update</button>
+            </div>
 
-            
+            <!-- Fotoğraf için ayrı bir div -->
+            <div class="form-group ms-3">
+                <label asp-for="Photo" class="col-form-label" style="color:#FD8D00">Photo:</label>
 
+                @if (!string.IsNullOrEmpty(Model.PhotoPath))
+                {
+                    <div class="mb-3">
+                        <div>
+                            <img src="@Model.PhotoPath" alt="Current Photo" class="img-thumbnail" style="max-width: 150px; max-height: 150px;" />
+                        </div>
 
+                        <div>
+                            <label class="form-check-label" style="color: white;">
+                                <input type="checkbox" asp-for="UseExistingPhoto" /> Choose This Photo
+                                <span asp-validation-for="UseExistingPhoto" class="text-danger"></span>
+                            </label>
+                        </div>
+                        <br />
+
+                        <div>
+                            <input accept=".jpeg,.jpg,.png" type="file" asp-for="Photo" class="form-control-file text-light" />
+                            <span asp-validation-for="Photo" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
-        <br />
-        <button type="submit" class="btn" style="background-color:#FD8D00">Update</button>
-</form>
+        
+    </form>
    
 
  </div>
