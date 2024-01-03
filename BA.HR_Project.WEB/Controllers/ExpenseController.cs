@@ -33,7 +33,14 @@ namespace BA.HR_Project.WEB.Controllers
         public async Task<IActionResult> RequestExpense() 
         {
             List<ExpenseType> allExpenseTypes = _expenseTypeService.GetAll();
-            ViewBag.ExpenseTypes = allExpenseTypes; 
+            List<string> expenseNames  = new List<string>();
+            for (int i = 0; i < allExpenseTypes.Count; i++)
+            {
+                expenseNames.Add(allExpenseTypes[i].ExpenseName);
+            }
+            
+            ViewBag.ExpenseTypes = expenseNames;
+            
             return View();
 
             
