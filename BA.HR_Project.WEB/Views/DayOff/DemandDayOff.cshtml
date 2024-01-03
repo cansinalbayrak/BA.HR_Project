@@ -3,23 +3,26 @@
     Layout = "_LayoutEmployeeSide";
 }
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "DemandDayOff";
 }
 
-<h1>Create</h1>
+<h1>DemandDayOff</h1>
 
-<form asp-action="Create" method="post">
+<form asp-controller="DayOff" asp-action="DemandDayOff" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group">
-        <label asp-for="StartDate"></label>
-        <input asp-for="StartDate" class="form-control" />
+        <label asp-for="StartDate">Start Date</label>
+        <input asp-for="StartDate" class="form-control" type="date" />
         <span asp-validation-for="StartDate" class="text-danger"></span>
     </div>
-
-
     <div class="form-group">
-        <label asp-for="Description"></label>
+        <label asp-for="FinishDate"></label>
+        <input asp-for="FinishDate" class="form-control" />
+        <span asp-validation-for="FinishDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
@@ -49,11 +52,21 @@
         </select>
         <span asp-validation-for="DayOffType" class="text-danger"></span>
     </div>
-
    @* <div class="form-group">
-        <label asp-for="FinishDate "></label>
-        <input asp-for="FinishDate " class="form-control" />
-        <span asp-validation-for="FinishDate" class="text-danger"></span>
+        <label asp-for="DayOffType">Day Off Type</label>
+        <select asp-for="DayOffType" class="form-control">
+            @foreach (var value in Enum.GetValues(typeof(DayOffType)))
+            {
+                <option value="@value">@Enum.GetName(typeof(DayOffType), value)</option>
+            }
+        </select>
+        <span asp-validation-for="DayOffType" class="text-danger"></span>
+    </div>*@
+    <input asp-for="AppUserId" type="hidden" />
+    @* <div class="form-group">
+    <label asp-for="FinishDate "></label>
+    <input asp-for="FinishDate " class="form-control" />
+    <span asp-validation-for="FinishDate" class="text-danger"></span>
     </div>*@
 
     <div class="form-group">

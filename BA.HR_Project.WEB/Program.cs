@@ -69,20 +69,20 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseExceptionHandler(errorApp =>
-{
-    errorApp.Run(async context =>
-    {
-        context.Response.StatusCode = 500;
-        context.Response.ContentType = "text/html";
+//app.UseExceptionHandler(errorApp =>
+//{
+//    errorApp.Run(async context =>
+//    {
+//        context.Response.StatusCode = 500;
+//        context.Response.ContentType = "text/html";
 
-        await context.Response.WriteAsync("<script>window.location='/Error/Warning';</script>");
-    });
-});
+//        await context.Response.WriteAsync("<script>window.location='/Error/Warning';</script>");
+//    });
+//});
 
-app.UseStatusCodePagesWithRedirects("/Error/Warning/{0}");
+//app.UseStatusCodePagesWithRedirects("/Error/Warning/{0}");
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+//app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseStaticFiles();
 
 app.UseRouting();
