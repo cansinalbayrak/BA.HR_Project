@@ -43,15 +43,15 @@ namespace BA.HR_Project.WEB.Controllers
 
         }
         [HttpGet]
-        public IActionResult DemandDayOff()
+        public async Task<IActionResult> DemandDayOff()
         {
-            var userId = _userManager.GetUserId(User);
-            var user = _userManager.FindByIdAsync(userId).Result;
 
+            var user = await _userManager.GetUserAsync(User);
+            
             // ViewModel oluştur
             var dayOffViewModel = new DayOffViewModel
             {
-                AppUserId = userId,
+                AppUserId = user.Id,
                 // Diğer day off özelliklerini de doldurabilirsiniz
             };
 
@@ -61,10 +61,19 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> DemandDayOff(DayOffViewModel dayOffViewModel)
         {
-            var userId = _userManager.GetUserId(User);
-            dayOffViewModel.AppUserId = userId;
-            var dayOffDto.
+            var user = await _userManager.GetUserAsync(User);
+            
+            var userId = user.Id;
+
+            var AppUserDto = _mapper.Map<AppUserDto>(user);
+            var DayOfViewModelAppUserVM = _mapper.Map<AppUserViewModel>(AppUserDto);
+
+            dayOffViewModel.AppUser = DayOfViewModelAppUserVM;
+            dayOffViewModel.AppUserId = user.Id;
+
             var DayOffDto = _mapper.Map<DayOffDto>(dayOffViewModel);
+            
+
             var createAction = await _dayOffManager.RequestDayOff(DayOffDto);
             if (createAction.IsSuccess)
             {
