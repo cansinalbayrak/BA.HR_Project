@@ -1,0 +1,58 @@
+﻿@{
+	ViewData["Title"] = "DemandAdvance";
+	Layout = "_EmployeeLayout";
+}
+@model AdvanceViewModel
+
+
+<div>
+    <a asp-action="ListAdvance" asp-controller="Advance" class="btn btn-primary">Back to List Advances</a>
+</div> <br />
+
+
+
+@if (ViewBag.ErrorMessages != null)
+{
+    <div class="alert alert-danger">
+        
+           
+            <p>@ViewBag.ErrorMessages</p>
+         
+        
+    </div>
+}
+
+<div class="container">
+
+
+    <form asp-controller="Advance" asp-action="DemandAdvance" method="post">
+
+        <div class="mb-3">
+            <label asp-for="AdvanceType" class="col-form-label text-warning text-light"></label>
+            <select asp-for="AdvanceType" class="form-control" asp-items="@ViewBag.AdvanceType"></select>
+            <span asp-validation-for="AdvanceType" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Currency" class="control-label text-light"></label>
+            <select asp-for="Currency" class="form-control" asp-items="@ViewBag.AdvanceCurrency"></select>
+            <span asp-validation-for="Currency" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning text-light" asp-for="Amount">Amount</label>
+            <input asp-for="Amount" class="form-control" type="number" placeholder="Amount" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="col-form-label text-warning text-light"></label>
+            <textarea asp-for="Description" id="textarea-input" rows="9" placeholder="Please write the reason for your advance request..." class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Demand Advance</button>
+    </form>
+
+</div>
+
+

@@ -39,6 +39,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                     {
                         dto.ConfirmStatus = ConfirmStatus.Waiting;
                         dto.RequestDate = DateTime.Now;
+                        dto.Id = Guid.NewGuid().ToString();
                         await Insert(dto);
                         return Response.Success();
                     }
@@ -49,10 +50,11 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 }
                 else if(dto.Currency == Currency.USD)
                 {
-                    if ((dto.AdvanceType == AdvanceType.Individual && (individualAdvances.Sum(x => x.Amount) + dto.Amount) < (user.Salary/20) * 3) || (dto.AdvanceType == AdvanceType.Institutional && (institutionalAdvances.Sum(x => x.Amount) + dto.Amount) < 10000))
+                    if ((dto.AdvanceType == AdvanceType.Individual && (individualAdvances.Sum(x => x.Amount) + dto.Amount*20) < (user.Salary * 3) || (dto.AdvanceType == AdvanceType.Institutional && (institutionalAdvances.Sum(x => x.Amount) + dto.Amount*20) < 200000)))
                     {
                         dto.ConfirmStatus = ConfirmStatus.Waiting;
                         dto.RequestDate = DateTime.Now;
+                        dto.Id = Guid.NewGuid().ToString();
                         await Insert(dto);
                         return Response.Success();
                     }
@@ -63,10 +65,11 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 }
                 else if (dto.Currency == Currency.EUR)
                 {
-                    if ((dto.AdvanceType == AdvanceType.Individual && (individualAdvances.Sum(x => x.Amount) + dto.Amount) < (user.Salary / 30) * 3) || (dto.AdvanceType == AdvanceType.Institutional && (institutionalAdvances.Sum(x => x.Amount) + dto.Amount) < 6670))
+                    if ((dto.AdvanceType == AdvanceType.Individual && (individualAdvances.Sum(x => x.Amount) + dto.Amount*30) < (user.Salary * 3) || (dto.AdvanceType == AdvanceType.Institutional && (institutionalAdvances.Sum(x => x.Amount) + dto.Amount*30) < 200000)))
                     {
                         dto.ConfirmStatus = ConfirmStatus.Waiting;
                         dto.RequestDate = DateTime.Now;
+                        dto.Id = Guid.NewGuid().ToString();
                         await Insert(dto);
                         return Response.Success();
                     }
@@ -83,7 +86,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         {
             var user = await _userManager.FindByIdAsync(userId);
             var advancesAction = await GetAll();
-            var userAdvances = advancesAction.Context.Where(x=>x.AppUserId == userId).ToList();
+            var userAdvances = advancesAction.Context.Where(x=>x.AppUserId == userId).OrderBy(x=>x.RequestDate).ToList();
             return userAdvances;
         }
     }
