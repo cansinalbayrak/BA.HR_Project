@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Entities;
+using BA.HR_Project.Domain.Enums;
+using BA.HR_Project.Infrastructure.Services.Abstract;
 using BA.HR_Project.Infrastructure.Services.Concrate;
+using BA.HR_Project.Infrasturucture.RequestResponse;
 using BA.HR_Project.Infrasturucture.Services.Concrate;
 using BA.HR_Project.WEB.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BA.HR_Project.WEB.Controllers
 {
@@ -23,45 +27,50 @@ namespace BA.HR_Project.WEB.Controllers
             _dayOffManager = dayOffManager;
             _mapper = mapper;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListDayOff()
         {
+            var UserId = _userManager.GetUserId(User);
+            var userDayOffs = await _dayOffManager.GetAllDayOff(UserId);
+            var waitingDayOffs = userDayOffs.Where(x => x.ConfirmStatus == ConfirmStatus.Waiting).OrderBy(x => x.RequestDate).ToList();
+            var approvedDayOffs = userDayOffs.Where(x => x.ConfirmStatus == ConfirmStatus.Approved).OrderBy(x => x.RequestDate).ToList();
+            var deniedDayOffs = userDayOffs.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).OrderBy(x => x.RequestDate).ToList();
+            var DayOffVm = _mapper.Map<List<DayOffViewModel>>(userDayOffs);
+            ViewBag.WaitingDayOffs = waitingDayOffs;
+            ViewBag.ApprovedDayOffs = approvedDayOffs;
+            ViewBag.DeniedDayOffs = deniedDayOffs;
 
-            //var result = await _dayOffManager.GetAll();
+            return View(DayOffVm);
 
-            //if (result.IsSuccess)
-            //{
-            //    return View(result.Context);
-            //}
-            var userId = _userManager.GetUserId(User);
-            //var usersDto = _mapper.Map<List<AppUserDto>>(users);
-            //var usersvm = _mapper.Map<List<ListEmployeeViewModel>>(usersDto);
-           
-            return View();
         }
-
-        public IActionResult Create()
+        [HttpGet]
+        public async Task<IActionResult> DemandDayOff()
         {
+
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(DayOffViewModel model)
+        public async Task<IActionResult> DemandDayOff(DayOffViewModel dayOffViewModel)
         {
-            if (ModelState.IsValid)
+            var userıd =  _userManager.GetUserId(User);
+
+            //var AppUserDto = _mapper.Map<AppUserDto>(user);
+            //var DayOfViewModelAppUserVM = _mapper.Map<AppUserViewModel>(AppUserDto);
+
+            //dayOffViewModel.AppUser = DayOfViewModelAppUserVM;
+            dayOffViewModel.AppUserId = userıd;
+
+            var DayOffDto = _mapper.Map<DayOffDto>(dayOffViewModel);
+            
+
+            var createAction = await _dayOffManager.RequestDayOff(DayOffDto);
+            if (createAction.IsSuccess)
             {
-                var dayOffDto = _mapper.Map<DayOffDto>(model);
-
-                var result = await _dayOffManager.Insert(dayOffDto);
-
-                if (result.IsSuccess)
-                {
-                    return RedirectToAction("Index"); 
-                }
-
-                return RedirectToAction("Index");
+                return RedirectToAction("ListDayOff");
             }
+            ViewBag.ErrorMessages = createAction.Message;
+            return View(dayOffViewModel);
 
-            return View(model);
         }
 
     }

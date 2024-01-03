@@ -1,4 +1,5 @@
-﻿using BA.HR_Project.Domain.Enums;
+﻿using BA.HR_Project.Domain.Entities;
+using BA.HR_Project.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

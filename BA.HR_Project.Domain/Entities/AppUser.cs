@@ -13,6 +13,7 @@ namespace BA.HR_Project.Domain.Entities
         public AppUser()
         {
             Advances = new();
+            DayOffs = new();
         }
         public string Name { get; set; }
         public string? SecondName { get; set; }

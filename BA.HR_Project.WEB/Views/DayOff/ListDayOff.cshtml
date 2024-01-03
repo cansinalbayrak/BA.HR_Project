@@ -1,12 +1,22 @@
-﻿@model List<DayOffViewModel>
+﻿@{
+    ViewData["Title"] = "ListAdvance";
+    Layout = "_LayoutEmployeeSide";
+}
+
+@model List<DayOffViewModel>
 
 <h2>Day Off Requests</h2>
 
 <table class="table">
     <thead>
         <tr>
+            <th>DayOff Type</th>
             <th>Start Date</th>
             <th>Finish Date</th>
+            <th>Day Count</th>
+            <th>Request Date</th>
+            <th>Response Date</th>
+            <th>Confirm Status</th>
             <th>Description</th>
             <th scope="col" class="text-center">Actions</th>
         </tr>
@@ -15,8 +25,13 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>@item.DayOffType.ToString()</td>
                 <td>@item.StartDate</td>
                 <td>@item.FinishDate</td>
+                <td>@item.DayCount</td>
+                <td>@item.RequestDate</td>
+                <td>@item.ResponseDate</td>
+                <td>@item.ConfirmStatus.ToString()</td>
                 <td>@item.Description</td>
                 <td class="text-center">
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-success me-2">Edit</a>
