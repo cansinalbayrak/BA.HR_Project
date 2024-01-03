@@ -25,14 +25,18 @@ namespace BA.HR_Project.WEB.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var result = await _dayOffManager.GetAll();
 
-            if (result.IsSuccess)
-            {
-                return View(result.Context);
-            }
+            //var result = await _dayOffManager.GetAll();
 
-            return View(result);
+            //if (result.IsSuccess)
+            //{
+            //    return View(result.Context);
+            //}
+            var userId = _userManager.GetUserId(User);
+            //var usersDto = _mapper.Map<List<AppUserDto>>(users);
+            //var usersvm = _mapper.Map<List<ListEmployeeViewModel>>(usersDto);
+           
+            return View();
         }
 
         public IActionResult Create()
