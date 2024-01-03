@@ -28,6 +28,8 @@ namespace BA.HR_Project.Infrastructure.Extension
 
 
             services.AddScoped<IDayOffService, DayOffManager>();
+            services.AddScoped<IAdvanceService, AdvanceManager>();
+
 
         }
     }
