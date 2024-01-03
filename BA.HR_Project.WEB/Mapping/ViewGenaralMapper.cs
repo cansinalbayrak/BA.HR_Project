@@ -45,6 +45,8 @@ namespace BA.HR_Project.WEB.Mapping
 
             CreateMap<DayOffViewModel, DayOffDto>()
                .ReverseMap();
+            CreateMap<AdvanceViewModel, AdvanceDto>()
+               .ReverseMap();
         }
     }
 }
