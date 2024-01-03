@@ -15,12 +15,10 @@ namespace BA.HR_Project.Domain.Entities
         }
         public string Id { get ; set; }
         public string ExpenseName { get; set; }
-        public float MainPrice { get; set; }
-        public float MinFactor { get; set; }
-        public float MaxFactor { get; set; }
-        public float ExpenseMaxPrice { get; set; }
-        public float ExpenseMinPrice { get; set; }
-        public string ExpenseId { get; set; }
-        public Expense Expense { get; set; }
+        
+        public decimal ExpenseMaxPrice { get; set; }
+        public decimal ExpenseMinPrice { get; set; }
+        public string? ExpenseId { get; set; }
+        public Expense? Expense { get; set; }
     }
 }

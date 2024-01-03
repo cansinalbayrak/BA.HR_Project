@@ -1,0 +1,12 @@
+﻿
+
+@model ExpenseViewModel
+
+
+<form asp-controller="Expense" asp-action="RequestExpense" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="ExpenseType">Expense Type</label>
+    </div>
+
+</form>

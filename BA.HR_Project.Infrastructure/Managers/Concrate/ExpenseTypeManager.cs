@@ -18,17 +18,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         {
         }
 
-        public async Task<float> CalculateMaxPrice(ExpenseType expenseType)
-        {
-            float MaxPrice = (expenseType.MainPrice * expenseType.MaxFactor) + expenseType.MainPrice;
-            return MaxPrice;
-        }
-        public async Task<float> CalculateMinPrice(ExpenseType expenseType)
-        {
-            float MinPrice = (expenseType.MainPrice  * expenseType.MinFactor) - expenseType.MainPrice;
-            return MinPrice;
-        }
-
+        
 
     }
 }

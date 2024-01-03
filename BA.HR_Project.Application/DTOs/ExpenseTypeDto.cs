@@ -10,10 +10,8 @@ namespace BA.HR_Project.Application.DTOs
     {
         public string Id { get; set; }
         public string ExpenseName { get; set; }
-        public float MainPrice { get; set; }
-        public float MinFactor { get; set; }
-        public float MaxFactor { get; set; }
-        public float ExpenseMaxPrice { get; set; }
-        public float ExpenseMinPrice { get; set; }
+       
+        public decimal ExpenseMaxPrice { get; set; }
+        public decimal ExpenseMinPrice { get; set; }
     }
 }
