@@ -54,6 +54,8 @@ namespace BA.HR_Project.Application.Mapping
             CreateMap<DayOff, DayOffDto>() .ReverseMap();
             CreateMap<AdvanceDto,Advance>()
             .ReverseMap();
+            CreateMap<ExpenseDto,Expense>() 
+                .ReverseMap();
         }
     }
 }

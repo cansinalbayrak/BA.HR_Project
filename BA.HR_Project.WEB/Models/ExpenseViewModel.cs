@@ -11,6 +11,7 @@ namespace BA.HR_Project.WEB.Models
 
         public DateTime RequestDate { get; set; }
         public DateTime? ReplyDate { get; set; }
+        public IFormFile File { get; set; }
         public string? PhotoPath { get; set; }
         public string? FilePath { get; set; }
         public ConfirmStatus ConfirmStatus { get; set; }

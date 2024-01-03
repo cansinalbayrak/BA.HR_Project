@@ -1,12 +1,40 @@
-﻿
+﻿@using BA.HR_Project.Domain.Entities
 
 @model ExpenseViewModel
 
 
-<form asp-controller="Expense" asp-action="RequestExpense" method="post">
+<form asp-controller="Expense" asp-action="RequestExpense" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="ExpenseType">Expense Type</label>
+        <select asp-for="ExpenseType" class="form-control">
+            <option value="">-- Select Expense Type --</option>
+            @if (TempData.ContainsKey("ExpenseType"))
+            {
+                var expenseTypeValue = TempData["ExpenseType"].ToString();
+                <option value="@expenseTypeValue">@expenseTypeValue</option>
+            }
+        </select>
     </div>
+    <div class="form-group">
+        <label asp-for="Currency">Currency</label>
+        <select asp-for="Currency" class="form-control">
+            <option value="@((int)Currency.USD)">USD</option>
+            <option value="@((int)Currency.EUR)">EURO</option>
+            <option value="@((int)Currency.TRY)">EURO</option>
+        </select>
+        <span asp-validation-for="Currency" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RequestPrice">Request Price</label>
+        <input asp-for="RequestPrice" class="form-control" type="number" placeholder="Request Price"></input>
+        <span asp-validation-for="RequestPrice" class="text-danger"></span>
+
+    </div>
+    <div style="margin-left:100px">
+        <input accept=".jpeg,.jpg,.png,.pdf" type="file" asp-for="File" class="form-control-file text-light" />
+        <span asp-validation-for="File" class="text-danger"></span>
+    </div>
+
 
 </form>
