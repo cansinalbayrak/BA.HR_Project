@@ -12,5 +12,6 @@ namespace BA.HR_Project.Infrastructure.Services.Concrate
     public interface IExpenseTypeService : IService<ExpenseType, ExpenseTypeDto>
     {
         //Task Insert(ExpenseDto expenseDto);
+        List<ExpenseType> GetAll();
     }
 }

@@ -1,4 +1,7 @@
-﻿@using BA.HR_Project.Domain.Entities
+﻿@{
+    Layout = "_LayoutEmployeeSide";
+}
+@using BA.HR_Project.Domain.Entities
 
 @model ExpenseViewModel
 
@@ -9,10 +12,12 @@
         <label asp-for="ExpenseType">Expense Type</label>
         <select asp-for="ExpenseType" class="form-control">
             <option value="">-- Select Expense Type --</option>
-            @if (TempData.ContainsKey("ExpenseType"))
+            @if (ViewBag.ExpenseTypes != null)
             {
-                var expenseTypeValue = TempData["ExpenseType"].ToString();
-                <option value="@expenseTypeValue">@expenseTypeValue</option>
+                foreach (var expenseTypeValue in ViewBag.ExpenseTypes)
+                {
+                    <option value="@expenseTypeValue">@expenseTypeValue</option>
+                }
             }
         </select>
     </div>
@@ -35,6 +40,8 @@
         <input accept=".jpeg,.jpg,.png,.pdf" type="file" asp-for="File" class="form-control-file text-light" />
         <span asp-validation-for="File" class="text-danger"></span>
     </div>
+
+    <button type="submit" class="btn btn-warning">Request Expense</button>
 
 
 </form>
