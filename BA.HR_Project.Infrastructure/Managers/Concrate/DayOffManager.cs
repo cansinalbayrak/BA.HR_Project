@@ -8,6 +8,7 @@ using BA.HR_Project.Infrasturucture.Managers.Abstract;
 using BA.HR_Project.Infrasturucture.RequestResponse;
 using BA.HR_Project.Infrasturucture.Services.Concrate;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

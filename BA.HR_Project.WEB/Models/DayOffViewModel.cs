@@ -25,6 +25,6 @@ namespace BA.HR_Project.WEB.Models
         public string AppUserId { get; set; }
         public DayOffType DayOffType { get; set; }
 
-        public AppUserViewModel AppUser { get; set; } = new AppUserViewModel();
+        public AppUserViewModel AppUser { get; set; }
     }
 }
