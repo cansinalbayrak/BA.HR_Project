@@ -7,41 +7,160 @@
 
 <h2>Day Off Requests</h2>
 
-<table class="table">
+<div>
+    <!-- İzin türlerini ayıran butonlar -->
+    <button id="showWaitingDayOffsButton" class="btn btn-primary">Waiting Day Offs</button>
+    <button id="showApprovedDayOffsButton" class="btn btn-primary">Approved Day Offs</button>
+    <button id="showDeniedDayOffsButton" class="btn btn-primary">Denied Day Offs</button>
+</div> <br />
+
+<!-- Tüm izinleri listeleyecek tablo -->
+<table class="table text-light">
     <thead>
         <tr>
-            <th>DayOff Type</th>
+            <th>Day Off Type</th>
             <th>Start Date</th>
             <th>Finish Date</th>
-            <th>Day Count</th>
             <th>Request Date</th>
-            <th>Response Date</th>
+            <th>Day Count</th>
             <th>Confirm Status</th>
-            <th>Description</th>
-            <th scope="col" class="text-center">Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var dayOff in Model)
         {
             <tr>
-                <td>@item.DayOffType.ToString()</td>
-                <td>@item.StartDate</td>
-                <td>@item.FinishDate</td>
-                <td>@item.DayCount</td>
-                <td>@item.RequestDate</td>
-                <td>@item.ResponseDate</td>
-                <td>@item.ConfirmStatus.ToString()</td>
-                <td>@item.Description</td>
-                <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-success me-2">Edit</a>
-                </td>
+                <td>@dayOff.DayOffType.ToString()</td>
+                <td>@dayOff.StartDate</td>
+                <td>@dayOff.FinishDate</td>
+                <td>@dayOff.RequestDate</td>
+                <td>@dayOff.DayCount</td>
+                <td>@dayOff.ConfirmStatus.ToString()</td>
             </tr>
         }
     </tbody>
 </table>
 
-<div class="text-center">
-    <a asp-action="Create" class="btn btn-primary">Add New</a>
+<!-- Popup içeriği -->
+<div id="dayOffListPopup" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+
+        <!-- Waiting Day Offs -->
+        <h2>Waiting Day Offs</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Day Off Type</th>
+                    <th>Start Date</th>
+                    <th>Finish Date</th>
+                    <th>Request Date</th>
+                    <th>Day Count</th>
+                    <th>Confirm Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dayOff in ViewBag.WaitingDayOffs)
+                {
+                    <tr>
+                        <td>@dayOff.DayOffType.ToString()</td>
+                        <td>@dayOff.StartDate</td>
+                        <td>@dayOff.FinishDate</td>
+                        <td>@dayOff.RequestDate</td>
+                        <td>@dayOff.DayCount</td>
+                        <td>@dayOff.ConfirmStatus.ToString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Approved Day Offs -->
+        <h2>Approved Day Offs</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Day Off Type</th>
+                    <th>Start Date</th>
+                    <th>Finish Date</th>
+                    <th>Request Date</th>
+                    <th>Day Count</th>
+                    <th>Confirm Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dayOff in ViewBag.ApprovedDayOffs)
+                {
+                    <tr>
+                        <td>@dayOff.DayOffType.ToString()</td>
+                        <td>@dayOff.StartDate</td>
+                        <td>@dayOff.FinishDate</td>
+                        <td>@dayOff.RequestDate</td>
+                        <td>@dayOff.DayCount</td>
+                        <td>@dayOff.ConfirmStatus.ToString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Denied Day Offs -->
+        <h2>Denied Day Offs</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Day Off Type</th>
+                    <th>Start Date</th>
+                    <th>Finish Date</th>
+                    <th>Request Date</th>
+                    <th>Day Count</th>
+                    <th>Confirm Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dayOff in ViewBag.DeniedDayOffs)
+                {
+                    <tr>
+                        <td>@dayOff.DayOffType.ToString()</td>
+                        <td>@dayOff.StartDate</td>
+                        <td>@dayOff.FinishDate</td>
+                        <td>@dayOff.RequestDate</td>
+                        <td>@dayOff.DayCount</td>
+                        <td>@dayOff.ConfirmStatus.ToString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<script>
+    // İzin türlerini ayıran butonlara tıklama olayları
+    document.getElementById('showWaitingDayOffsButton').onclick = function () {
+        showDayOffs('Waiting');
+    };
+    document.getElementById('showApprovedDayOffsButton').onclick = function () {
+        showDayOffs('Approved');
+    };
+    document.getElementById('showDeniedDayOffsButton').onclick = function () {
+        showDayOffs('Denied');
+    };
+
+    // Popupı açma
+    function openPopup() {
+        document.getElementById('dayOffListPopup').style.display = 'block';
+    }
+
+    // Popupı kapatma
+    function closePopup() {
+        document.getElementById('dayOffListPopup').style.display = 'none';
+    }
+
+    // İzin türlerine göre tabloyu güncelleme
+    function showDayOffs(status) {
+        openPopup();
+
+        // Tüm tabloları gizle
+        document.querySelectorAll('.table').forEach(function (table) {
+            table.style.display = 'none';
+        });
+
 
