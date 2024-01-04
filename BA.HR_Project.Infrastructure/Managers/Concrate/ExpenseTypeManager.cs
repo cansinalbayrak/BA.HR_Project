@@ -5,6 +5,7 @@ using BA.HR_Project.Domain.Entities;
 using BA.HR_Project.Infrastructure.Services.Concrate;
 using BA.HR_Project.Infrasturucture.Managers.Abstract;
 using BA.HR_Project.Persistance.Context;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,11 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
     public class ExpenseTypeManager : BaseManager<ExpenseType, ExpenseTypeDto>, IExpenseTypeService
     {
         private readonly AppDbContext _context;
-        public ExpenseTypeManager(IMapper mapper, IUow uow, AppDbContext context) : base(mapper, uow)
+        private readonly UserManager<AppUser> _userManager;
+        public ExpenseTypeManager(IMapper mapper, IUow uow, AppDbContext context, UserManager<AppUser> userManager) : base(mapper, uow)
         {
             _context = context;
+            _userManager = userManager;
         }
 
 
@@ -33,17 +36,18 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             return _context.ExpenseTypes.Select(e => new ExpenseTypeCustom { Id = e.Id, Name = (e.ExpenseName + " (" + e.ExpenseMinPrice + " - " + e.ExpenseMaxPrice + ") ") }).ToList();
         }
 
-        public decimal GetMaxPrice(string id)
-        {
-            var maxPrice = _context.ExpenseTypes.Find(id).ExpenseMaxPrice;
-            return maxPrice;
-        }
+        //public decimal GetMaxPrice(string id)
+        //{
+        //    var maxPrice = _context.ExpenseTypes.Find(id).ExpenseMaxPrice;
+        //    return maxPrice;
+        //}
 
-        public decimal GetMinPrice(string id)
-        {
-            var minPrice = _context.ExpenseTypes.Find(id).ExpenseMinPrice;
-            return minPrice; 
-        }
+        //public decimal GetMinPrice(string id)
+        //{
+        //    var minPrice = _context.ExpenseTypes.Find(id).ExpenseMinPrice;
+        //    return minPrice; 
+        //}
+       
     }
 
     public class ExpenseTypeCustom
