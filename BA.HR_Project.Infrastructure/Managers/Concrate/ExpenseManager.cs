@@ -31,18 +31,22 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
 
         public async Task<Response> RequestExpense(ExpenseDto dto)
         {
-            var user = _userManager.FindByIdAsync(dto.Id);
-            dto.RequestNumber = Guid.NewGuid().ToString();
-            dto.Id = Guid.NewGuid().ToString();
-            dto.ConfirmStatus = ConfirmStatus.Waiting;
-            dto.RequestDate = DateTime.Now;
-            var result = await Insert(dto);
-            if (!result.IsSuccess) 
+            if(dto.RequestPrice >= dto.ExpenseType.ExpenseMinPrice && dto.RequestPrice <= dto.ExpenseType.ExpenseMaxPrice)
             {
-                return Response.Failure("Error");
-            
+                var user = _userManager.FindByIdAsync(dto.Id);
+                dto.RequestNumber = Guid.NewGuid().ToString();
+                dto.Id = Guid.NewGuid().ToString();
+                dto.ConfirmStatus = ConfirmStatus.Waiting;
+                dto.RequestDate = DateTime.Now;
+                var result = await Insert(dto);
+                if (!result.IsSuccess)
+                {
+                    return Response.Failure("Error");
+
+                }
+                return Response.Success("Success");
             }
-            return Response.Success("Success");
+            return Response.Failure("Error");
         }
         public async Task<List<ExpenseDto>> GetAllExpenses(string userId)
         {

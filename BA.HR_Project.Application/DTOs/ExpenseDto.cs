@@ -13,7 +13,7 @@ namespace BA.HR_Project.Application.DTOs
     {
         public string Id { get; set; }
         public string RequestNumber { get; set; }
-        public float RequestPrice { get; set; }
+        public decimal RequestPrice { get; set; }
 
         public DateTime RequestDate { get; set; }
         public DateTime? ReplyDate { get; set; }
