@@ -14,6 +14,7 @@ html {
 }
 
 body {
+    /*padding-top: 60px;*/
     margin-bottom: 60px;
     background-image: url('/images/backgroundImage.jpg');
     background-size: cover; /* Resmin tüm sayfayı kaplamasını sağlar */
@@ -22,8 +23,32 @@ body {
 }
 
 .customNavbar {
+    background-color: transparent !important;
+    color: white !important;
+    transition: background-color 0.3s;
+
+    /*position: fixed;*/ /* Navbar'ı üstte sabitler */
+    /*top: 0;*/ /* Üst kenara sıfır piksel uzaklıkta olacak */
+    /*left: 0;*/ /* Sol kenara sıfır piksel uzaklıkta olacak */
+    /*width: 100%;*/ /* Tam genişlik */
+    /*z-index: 1000;*/ /* Diğer içeriklerin üzerinde görünmesini sağlar */
+}
+
+/* Sayfa kaydırıldığında navbarın edineceği sınıf */
+.scrolled-navbar {
     background-color: rgb(20,23,38) !important;
     color: white !important;
+
+    position: fixed; /* Navbar'ı üstte sabitler */
+    top: 0; /* Üst kenara sıfır piksel uzaklıkta olacak */
+    left: 0; /* Sol kenara sıfır piksel uzaklıkta olacak */
+    width: 100%; /* Tam genişlik */
+    z-index: 1000; /* Diğer içeriklerin üzerinde görünmesini sağlar */
+}
+
+.dropboxMenus {
+    background-color: rgb(20,23,38) !important;
+    color:white !important;
 }
 
 .customFooter {
