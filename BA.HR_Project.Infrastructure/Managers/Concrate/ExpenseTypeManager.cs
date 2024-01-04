@@ -47,6 +47,12 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         //    var minPrice = _context.ExpenseTypes.Find(id).ExpenseMinPrice;
         //    return minPrice; 
         //}
+        public string GetName(string id) 
+        {
+          var expenseName = _context.ExpenseTypes.Find(id).ExpenseName;
+            return expenseName;
+        
+        }
        
     }
 

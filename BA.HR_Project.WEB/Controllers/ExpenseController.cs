@@ -79,14 +79,24 @@ namespace BA.HR_Project.WEB.Controllers
 
             var ExpenseDto = _mapper.Map<ExpenseDto>(model);
             var ExpenseAction = await _expsenseService.RequestExpense(ExpenseDto);
+           
 
-            //var ExpenseAction = await _expsenseService.Insert(ExpenseDto);
+           
             if (ExpenseAction.IsSuccess)
             {
                 return RedirectToAction("ExpenseList");
             }
+            //List<ExpenseTypeCustom> allExpenseTypes = _expenseTypeService.GetAllCustomColumn();
+            //var selectedItem = allExpenseTypes.FirstOrDefault();
+            //if (selectedItem != null)
+            //{
+            //    var expenseName = _expenseTypeService.GetName(selectedItem.Id);
+            //    ViewBag.ExpenseName = expenseName;
+                
+                
+               
 
-
+            //}
 
 
             return View(model);

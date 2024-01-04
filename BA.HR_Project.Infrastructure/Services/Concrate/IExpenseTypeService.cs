@@ -15,7 +15,9 @@ namespace BA.HR_Project.Infrastructure.Services.Concrate
         //Task Insert(ExpenseDto expenseDto);
         List<ExpenseType> GetAll();
         List<ExpenseTypeCustom> GetAllCustomColumn();
-    //    decimal GetMinPrice(string id);
-    //    decimal GetMaxPrice(string id);
+        //    decimal GetMinPrice(string id);
+        //    decimal GetMaxPrice(string id);
+        string GetName(string id);
     }
+   
 }
