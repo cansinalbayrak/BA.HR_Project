@@ -27,13 +27,15 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.ExpenseType.ExpenseName</td>
+                <td>@item.ExpenseType</td>
                 <td>@item.RequestPrice</td>
                 <td>@item.Currency.ToString()</td>
                 <td>@item.RequestDate</td>
                 <td>@item.ReplyDate</td>
                 <td>@item.ConfirmStatus.ToString()</td>
-                <td>@item.FilePath</td>
+                <td>
+                    <img src="@item.FilePath" />
+                </td>
 
             </tr>
 
