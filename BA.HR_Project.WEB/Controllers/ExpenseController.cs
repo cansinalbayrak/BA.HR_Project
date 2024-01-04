@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Entities;
+using BA.HR_Project.Domain.Enums;
 using BA.HR_Project.Infrastructure.Managers.Concrate;
 using BA.HR_Project.Infrastructure.Services.Concrate;
 using BA.HR_Project.WEB.Models;
@@ -69,13 +70,30 @@ namespace BA.HR_Project.WEB.Controllers
             //var ExpenseAction = await _expsenseService.Insert(ExpenseDto);
             if (ExpenseAction.IsSuccess)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("");
             }
 
 
 
 
             return View(model);
+        }
+        public async Task<IActionResult> ExpenseList() 
+        {
+            var userId = _userManager.GetUserId(User);
+            var AllExpenseDto = await _expsenseService.GetAllExpenses(userId);
+            var waitingExpenses = AllExpenseDto.Where(e=>e.ConfirmStatus==ConfirmStatus.Waiting).OrderBy(e=>e.RequestDate).ToList();
+            var dinedExpenses = AllExpenseDto.Where(e=>e.ConfirmStatus==ConfirmStatus.Denied).OrderBy(e=>e.RequestDate).ToList();
+            var approvedExpenses = AllExpenseDto.Where(e=>e.ConfirmStatus==ConfirmStatus.Approved).OrderBy(e=>e.RequestDate).ToList();
+
+
+            var expenseVm = _mapper.Map<List<ExpenseViewModel>>(AllExpenseDto);
+            ViewBag.WaitingExpenses= waitingExpenses;
+            ViewBag.DinedExpenses= dinedExpenses;
+            ViewBag.AprroveExpenses= approvedExpenses;
+            return View(expenseVm);
+        
+        
         }
 
 

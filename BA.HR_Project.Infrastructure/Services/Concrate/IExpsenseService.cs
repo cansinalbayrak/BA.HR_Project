@@ -13,6 +13,7 @@ namespace BA.HR_Project.Infrastructure.Services.Concrate
     public interface IExpsenseService : IService<Expense,ExpenseDto>
     {
         Task<Response> RequestExpense(ExpenseDto dto);
+        Task<List<ExpenseDto>> GetAllExpenses(string userId);
 
     }
 }
