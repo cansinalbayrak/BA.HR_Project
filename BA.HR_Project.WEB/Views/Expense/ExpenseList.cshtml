@@ -14,7 +14,7 @@
 <table class="table text-light">
     <thead>
         <tr>
-            <th>Expense Type</th>
+            <th>Expense Name</th>
             <th>Request Price</th>
             <th>Currency</th>
             <th>Request Date</th>
@@ -27,7 +27,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.ExpenseType.ExpenseName.ToString()</td>
+                <td>@item.ExpenseType.ExpenseName</td>
                 <td>@item.RequestPrice</td>
                 <td>@item.Currency.ToString()</td>
                 <td>@item.RequestDate</td>
