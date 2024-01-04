@@ -8,15 +8,17 @@ namespace BA.HR_Project.WEB.ModelValidators
     {
         public AdvanceViewModelValidator()
         {
-             RuleFor(x => x.Amount).NotEmpty().WithMessage("Amount field is required")
+            RuleFor(x => x.Amount).NotEmpty().WithMessage("Amount field is required");
+            RuleFor(x => x.Amount)
                 .Must(BeAnInteger).WithMessage("Please enter number")
                 .GreaterThanOrEqualTo(0).WithMessage("Amount cannot be negative");
             RuleFor(x => x.Description).MaximumLength(150).WithMessage("Description cannot be more than 150 characters");
 
         }
-        private bool BeAnInteger(int value)
+        private bool BeAnInteger(int? value)
         {
             return true;
         }
+
     }
 }
