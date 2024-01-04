@@ -7,6 +7,7 @@ using BA.HR_Project.Infrastructure.Services.Concrate;
 using BA.HR_Project.Infrasturucture.RequestResponse;
 using BA.HR_Project.Infrasturucture.Services.Concrate;
 using BA.HR_Project.WEB.Models;
+using BA.HR_Project.WEB.ModelValidators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -53,15 +54,23 @@ namespace BA.HR_Project.WEB.Controllers
         public async Task<IActionResult> DemandDayOff(DayOffViewModel dayOffViewModel)
         {
             var userıd =  _userManager.GetUserId(User);
-
-            //var AppUserDto = _mapper.Map<AppUserDto>(user);
-            //var DayOfViewModelAppUserVM = _mapper.Map<AppUserViewModel>(AppUserDto);
-
-            //dayOffViewModel.AppUser = DayOfViewModelAppUserVM;
             dayOffViewModel.AppUserId = userıd;
 
             var DayOffDto = _mapper.Map<DayOffDto>(dayOffViewModel);
-            
+
+            //var validator = new DayOffViewModelValidator();
+            //var validationResult = await validator.ValidateAsync(dayOffViewModel);
+
+
+
+            //if (!validationResult.IsValid)
+            //{
+            //    foreach (var error in validationResult.Errors)
+            //    {
+            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            //    }
+            //    return View(dayOffViewModel);
+            //}
 
             var createAction = await _dayOffManager.RequestDayOff(DayOffDto);
             if (createAction.IsSuccess)
