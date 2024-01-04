@@ -5,6 +5,7 @@ using BA.HR_Project.Domain.Enums;
 using BA.HR_Project.Infrastructure.Managers.Concrate;
 using BA.HR_Project.Infrastructure.Services.Concrate;
 using BA.HR_Project.WEB.Models;
+using BA.HR_Project.WEB.ModelValidators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -61,6 +62,18 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> RequestExpense(ExpenseViewModel model)
         {
+            var validator = new ExpenseViewModelValidator();
+            var validationRsult = await validator.ValidateAsync(model);
+
+            if (validationRsult.IsValid)
+            {
+              foreach(var error in validationRsult.Errors) 
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                
+                }
+                return View(model);
+            }
             var userId = _userManager.GetUserId(User);
             model.AppUserId = userId;
 
@@ -70,7 +83,7 @@ namespace BA.HR_Project.WEB.Controllers
             //var ExpenseAction = await _expsenseService.Insert(ExpenseDto);
             if (ExpenseAction.IsSuccess)
             {
-                return RedirectToAction("");
+                return RedirectToAction("ExpenseList");
             }
 
 
