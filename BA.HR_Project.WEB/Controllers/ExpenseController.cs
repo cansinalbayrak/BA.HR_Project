@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Entities;
+using BA.HR_Project.Infrastructure.Managers.Concrate;
 using BA.HR_Project.Infrastructure.Services.Concrate;
 using BA.HR_Project.WEB.Models;
 using Microsoft.AspNetCore.Identity;
@@ -33,14 +34,24 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> RequestExpense()
         {
-            List<ExpenseType> allExpenseTypes = _expenseTypeService.GetAll();
+            List<ExpenseTypeCustom>  allExpenseTypes = _expenseTypeService.GetAllCustomColumn();
             List<string> expenseNames = new List<string>();
             for (int i = 0; i < allExpenseTypes.Count; i++)
             {
-                expenseNames.Add(allExpenseTypes[i].ExpenseName);
+                expenseNames.Add(allExpenseTypes[i].Name);
             }
 
             ViewBag.ExpenseTypes = expenseNames;
+
+            //var selectedItem = allExpenseTypes.FirstOrDefault();
+            //if (selectedItem != null)
+            //{
+            //    var minPrice = _expenseTypeService.GetMinPrice(selectedItem.Id);
+            //    ViewBag.MinPrice = minPrice;
+            //    var maxPrice = _expenseTypeService.GetMaxPrice(selectedItem.Id);
+            //    ViewBag.MaxPrice = maxPrice;
+
+            //}
 
             return View();
 

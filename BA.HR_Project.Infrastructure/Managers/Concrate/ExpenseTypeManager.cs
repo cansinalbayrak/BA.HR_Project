@@ -28,6 +28,27 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             return _context.ExpenseTypes.ToList();
         }
 
+        public List<ExpenseTypeCustom> GetAllCustomColumn()
+        {
+            return _context.ExpenseTypes.Select(e => new ExpenseTypeCustom { Id = e.Id, Name = (e.ExpenseName + " (" + e.ExpenseMinPrice + " - " + e.ExpenseMaxPrice + ") ") }).ToList();
+        }
 
+        public decimal GetMaxPrice(string id)
+        {
+            var maxPrice = _context.ExpenseTypes.Find(id).ExpenseMaxPrice;
+            return maxPrice;
+        }
+
+        public decimal GetMinPrice(string id)
+        {
+            var minPrice = _context.ExpenseTypes.Find(id).ExpenseMinPrice;
+            return minPrice; 
+        }
+    }
+
+    public class ExpenseTypeCustom
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }
