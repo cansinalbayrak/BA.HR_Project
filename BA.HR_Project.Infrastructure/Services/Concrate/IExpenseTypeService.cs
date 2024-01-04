@@ -1,5 +1,6 @@
 ﻿using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Entities;
+using BA.HR_Project.Infrastructure.Managers.Concrate;
 using BA.HR_Project.Infrasturucture.Services.Abstract;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,8 @@ namespace BA.HR_Project.Infrastructure.Services.Concrate
     {
         //Task Insert(ExpenseDto expenseDto);
         List<ExpenseType> GetAll();
+        List<ExpenseTypeCustom> GetAllCustomColumn();
+    //    decimal GetMinPrice(string id);
+    //    decimal GetMaxPrice(string id);
     }
 }

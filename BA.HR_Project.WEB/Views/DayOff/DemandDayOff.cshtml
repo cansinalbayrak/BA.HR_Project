@@ -3,28 +3,31 @@
     Layout = "_LayoutEmployeeSide";
 }
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "DemandDayOff";
 }
 
-<h1>Create</h1>
+<h1>DemandDayOff</h1>
 
-<form asp-action="Create" method="post">
+<form asp-controller="DayOff" asp-action="DemandDayOff" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group">
-        <label asp-for="StartDate"></label>
+        <label asp-for="StartDate" style="color: white;">Start Date</label>
         <input asp-for="StartDate" class="form-control" />
         <span asp-validation-for="StartDate" class="text-danger"></span>
     </div>
-
-
     <div class="form-group">
-        <label asp-for="Description"></label>
+        <label asp-for="FinishDate" style="color: white;">Finish Date</label>
+        <input asp-for="FinishDate" class="form-control" />
+        <span asp-validation-for="FinishDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" style="color: white;">Description</label>
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Gender">Gender</label>
+        <label asp-for="Gender" style="color: white;">Gender</label>
         <select asp-for="Gender" class="form-control">
             <option value="@((int)Gender.Male)">Male</option>
             <option value="@((int)Gender.Female)">Female</option>
@@ -32,7 +35,7 @@
         <span asp-validation-for="Gender" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="DayOffType">Day Off Type</label>
+        <label asp-for="DayOffType" style="color: white;">Day Off Type</label>
         <select asp-for="DayOffType" class="form-control">
             <option value="@((int)DayOffType.AnnualDayOff)">Annual Day Off</option>
             <option value="@((int)DayOffType.WeeklyDayOff)">Weekly Day Off</option>
@@ -49,11 +52,21 @@
         </select>
         <span asp-validation-for="DayOffType" class="text-danger"></span>
     </div>
-
    @* <div class="form-group">
-        <label asp-for="FinishDate "></label>
-        <input asp-for="FinishDate " class="form-control" />
-        <span asp-validation-for="FinishDate" class="text-danger"></span>
+        <label asp-for="DayOffType">Day Off Type</label>
+        <select asp-for="DayOffType" class="form-control">
+            @foreach (var value in Enum.GetValues(typeof(DayOffType)))
+            {
+                <option value="@value">@Enum.GetName(typeof(DayOffType), value)</option>
+            }
+        </select>
+        <span asp-validation-for="DayOffType" class="text-danger"></span>
+    </div>*@
+    <input asp-for="AppUserId" type="hidden" />
+    @* <div class="form-group">
+    <label asp-for="FinishDate "></label>
+    <input asp-for="FinishDate " class="form-control" />
+    <span asp-validation-for="FinishDate" class="text-danger"></span>
     </div>*@
 
     <div class="form-group">

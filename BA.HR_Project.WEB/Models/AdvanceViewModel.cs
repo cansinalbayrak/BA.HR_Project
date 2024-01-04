@@ -8,7 +8,7 @@ namespace BA.HR_Project.WEB.Models
         public string Id { get; set; }
         public AdvanceType AdvanceType { get; set; }
         public ConfirmStatus ConfirmStatus { get; set; }
-        public int Amount { get; set; }
+        public int? Amount { get; set; }
         public DateTime RequestDate { get; set; }
         public DateTime? ResponseDate { get; set; }
         public Currency Currency { get; set; }

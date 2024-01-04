@@ -6,7 +6,9 @@ using BA.HR_Project.Domain.Enums;
 using BA.HR_Project.Infrastructure.Services.Concrate;
 using BA.HR_Project.Infrasturucture.Managers.Abstract;
 using BA.HR_Project.Infrasturucture.RequestResponse;
+using BA.HR_Project.Persistance.Context;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +21,12 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
     public class ExpenseManager : BaseManager<Expense, ExpenseDto>, IExpsenseService
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly AppDbContext _appDbContext;
 
-        public ExpenseManager(IMapper mapper, IUow uow, UserManager<AppUser> userManager) : base(mapper, uow)
+        public ExpenseManager(IMapper mapper, IUow uow, UserManager<AppUser> userManager, AppDbContext appDbContext) : base(mapper, uow)
         {
             _userManager = userManager;
+            _appDbContext = appDbContext;
         }
 
         public async Task<Response> RequestExpense(ExpenseDto dto)
@@ -39,6 +43,15 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             
             }
             return Response.Success("Success");
+        }
+        public async Task<List<ExpenseDto>> GetAllExpenses(string userId)
+        {
+            var user = _userManager.FindByEmailAsync(userId);
+            var expenses = await GetAll();
+            var ExpenseAction = expenses.Context.Where(e=>e.AppUserId== userId).OrderBy(x=>x.RequestDate).ToList();
+            return ExpenseAction;
+
+
         }
     }
 }

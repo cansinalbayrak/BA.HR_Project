@@ -13,6 +13,7 @@ namespace BA.HR_Project.Infrastructure.Services.Concrate
 {
     public interface IDayOffService : IService<DayOff, DayOffDto>
     {
-        public Task<Response> RequestDayOff(AppUserDto userDto, ClaimsPrincipal ClaimUser, DayOffDto dayOffDto);
+        public Task<Response> RequestDayOff( DayOffDto dayOffDto);
+        public  Task<List<DayOffDto>> GetAllDayOff(string userId);
     }
 }
