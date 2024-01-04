@@ -17,7 +17,7 @@ namespace BA.HR_Project.Persistance.Configurations
             {
                 Id="SeedCompany1",
                 Name = "BilgeAdam",
-                LogoPath = "BilgeAdamınLogosunuEkle",
+                LogoPath = "/images/akademilogo-yatay.webp",
 
             });
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
