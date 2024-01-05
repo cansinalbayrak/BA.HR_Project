@@ -33,9 +33,13 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
 
         public async Task<Response> RequestExpense(ExpenseDto dto)
         {
-            //if(dto.RequestPrice >= dto.ExpenseType.ExpenseMinPrice && dto.RequestPrice <= dto.ExpenseType.ExpenseMaxPrice)
-            //{
-                var user = _userManager.FindByIdAsync(dto.Id);
+            var user = _userManager.FindByIdAsync(dto.Id);
+
+            var expenseType = await _expenseTypeService.FindExpenseTypeAsync(dto.ExpenseTypeId);
+
+            if (dto.RequestPrice >= expenseType.ExpenseMinPrice  && dto.RequestPrice <= expenseType.ExpenseMaxPrice)
+            {
+
                 dto.RequestNumber = Guid.NewGuid().ToString();
                 dto.Id = Guid.NewGuid().ToString();
                 dto.ConfirmStatus = ConfirmStatus.Waiting;
@@ -47,8 +51,8 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
 
                 }
                 return Response.Success("Success");
-            //}
-            //return Response.Failure("Error");
+            }
+            return Response.Failure("Error");
         }
         public async Task<List<ExpenseDto>> GetAllExpenses(string userId)
         {

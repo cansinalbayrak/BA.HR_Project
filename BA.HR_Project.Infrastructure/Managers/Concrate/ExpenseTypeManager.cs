@@ -6,6 +6,7 @@ using BA.HR_Project.Infrastructure.Services.Concrate;
 using BA.HR_Project.Infrasturucture.Managers.Abstract;
 using BA.HR_Project.Persistance.Context;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,12 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             _userManager = userManager;
         }
 
+        public async Task<ExpenseType> FindExpenseTypeAsync(string ExpenseTypeId)
+        {
+            var expenseType = await _context.ExpenseTypes.FindAsync(ExpenseTypeId);
 
+            return expenseType;
+        }
 
         public List<ExpenseType> GetAll()
         {

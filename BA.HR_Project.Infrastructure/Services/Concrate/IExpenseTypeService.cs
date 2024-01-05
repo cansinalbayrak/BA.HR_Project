@@ -18,6 +18,7 @@ namespace BA.HR_Project.Infrastructure.Services.Concrate
         //    decimal GetMinPrice(string id);
         //    decimal GetMaxPrice(string id);
         string GetName(string id);
+        Task<ExpenseType> FindExpenseTypeAsync(string ExpenseTypeId);
     }
    
 }
