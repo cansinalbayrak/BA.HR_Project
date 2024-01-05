@@ -30,6 +30,7 @@ namespace BA.HR_Project.Domain.Entities
         public Currency Currency { get; set; }
         public ExpenseType ExpenseType { get; set; }
         public string ExpenseTypeId { get; set; }
+        public string ExpenseName { get; set; }
         public AppUser AppUser { get; set; }
         public string AppUserId { get; set; }
         

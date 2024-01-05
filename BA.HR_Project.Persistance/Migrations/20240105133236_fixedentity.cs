@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BA.HR_Project.Persistance.Migrations
 {
-    public partial class mig_fixedExpense : Migration
+    public partial class fixedentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -286,6 +286,7 @@ namespace BA.HR_Project.Persistance.Migrations
                     ConfirmStatus = table.Column<int>(type: "int", nullable: false),
                     Currency = table.Column<int>(type: "int", nullable: false),
                     ExpenseTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ExpenseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -320,19 +321,19 @@ namespace BA.HR_Project.Persistance.Migrations
                 columns: new[] { "Id", "ExpenseMaxPrice", "ExpenseMinPrice", "ExpenseName" },
                 values: new object[,]
                 {
-                    { "01154ff3-092e-4fb6-8262-e903aad6e27c", 10000m, 1000m, "Marketing and Advertising Expenditures" },
-                    { "03dd8e59-258f-4945-9e06-71542c2952f1", 20000m, 1000m, "Research and Devolopment" },
-                    { "3e18eca1-6ef7-4f1a-99de-ed73cb4078ba", 1000m, 1m, "Others" },
-                    { "81b3c744-c68f-4356-912a-a350acff819f", 15000m, 1000m, "Accomodation" },
-                    { "8f6a1d99-01d6-4e29-87aa-7e77f13e2a67", 5000m, 1000m, "Travel" },
-                    { "e9800262-60e8-42e5-b827-7cb3461eef22", 15000m, 10000m, "Education" },
-                    { "f5cb3e59-e70d-4934-a906-fb161f5e9a61", 4000m, 400m, "Food and Drink" }
+                    { "515dc056-fbcb-4d47-9a04-dcd3c7c25dd1", 15000m, 10000m, "Education" },
+                    { "51d83cb0-a404-4feb-ae6e-1dfaced9680f", 10000m, 1000m, "Marketing and Advertising Expenditures" },
+                    { "9e7f2dd7-7f70-4ff9-84dd-8a7be03ede06", 5000m, 1000m, "Travel" },
+                    { "a17529cd-8f67-4e67-a1b5-1806eeaf4a4f", 15000m, 1000m, "Accomodation" },
+                    { "be8b53f8-fcce-48dd-b82e-c6a7434f1099", 4000m, 400m, "Food and Drink" },
+                    { "e5661765-bc68-4cdb-8d4f-59fc3477e9a2", 20000m, 1000m, "Research and Devolopment" },
+                    { "ea48fb70-8ceb-4763-8118-a9d3d4438b7b", 1000m, 1m, "Others" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Adress", "BirthDate", "BirthPlace", "CompanyId", "ConcurrencyStamp", "DepartmentId", "Email", "EmailConfirmed", "EndDate", "IdentityNumber", "IsTurkishCitizen", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PassportNumber", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "Salary", "SecondName", "SecondSurname", "SecurityStamp", "StartDate", "Surname", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "019195ca-08a3-44c8-88e5-f5ad5c0b786f", 0, "Ankara", new DateTime(2024, 1, 5, 12, 26, 45, 114, DateTimeKind.Local).AddTicks(2639), null, "SeedCompany1", "55860371-b209-47af-9336-5c0fdd3e8b6a", "SeedDepartment1", "admin.bilgeadam@bilgeadamboost.com", true, null, null, true, false, null, "Admin", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", null, "AQAAAAEAACcQAAAAEGPPqulnYdRlwg9dLeh99p9VcbEwA7C17zDeQ6A6DiemRbinO8SxJYCrvYODsq799Q==", "0", false, "/mexant/assets/images/Default.jpg", null, null, null, "5770dcf3-d7ba-49bc-91e0-cacd2bdd66ef", null, "Bilgeadam", false, "admin.bilgeadam@bilgeadamboost.com" });
+                values: new object[] { "4f91f1ef-db8d-4dc1-9ebb-68d1c06e6397", 0, "Ankara", new DateTime(2024, 1, 5, 16, 32, 35, 996, DateTimeKind.Local).AddTicks(9046), null, "SeedCompany1", "66755e66-1dcf-4542-82d0-59f904bb3a81", "SeedDepartment1", "admin.bilgeadam@bilgeadamboost.com", true, null, null, true, false, null, "Admin", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", null, "AQAAAAEAACcQAAAAEP7u+KAL5zwdhB1s1NG7Nz0qI18fSvrkmkDo/I3FifdJr2tvED2VDoF3Iz1Stslyjg==", "0", false, "/mexant/assets/images/Default.jpg", null, null, null, "95193937-4cdb-4742-92b4-42dd56c0f0b6", null, "Bilgeadam", false, "admin.bilgeadam@bilgeadamboost.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Advances_AppUserId",
