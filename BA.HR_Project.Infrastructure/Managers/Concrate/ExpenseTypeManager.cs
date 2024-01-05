@@ -33,7 +33,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
 
         public List<ExpenseTypeCustom> GetAllCustomColumn()
         {
-            return _context.ExpenseTypes.Select(e => new ExpenseTypeCustom { Id = e.Id, Name = (e.ExpenseName + " (" + e.ExpenseMinPrice + " - " + e.ExpenseMaxPrice + ") ") }).ToList();
+            return _context.ExpenseTypes.Select(e => new ExpenseTypeCustom { Id = e.Id, Name = (e.ExpenseName +  " MinReuqestPrice : (" + e.ExpenseMinPrice + " - " + e.ExpenseMaxPrice + ") : MaxRequestPrice ") }).ToList();
         }
 
         //public decimal GetMaxPrice(string id)

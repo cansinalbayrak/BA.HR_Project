@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using NuGet.Packaging.Signing;
+using BA.HR_Project.WEB.HelperMethods;
 
 namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 {
@@ -123,6 +124,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
                 return View(vm);
             }
 
+            
 
             var updateUserDto = _mapper.Map<AppUserUpdateForAdminDto>(vm);
             var userNewProps = _mapper.Map<AppUser>(updateUserDto);

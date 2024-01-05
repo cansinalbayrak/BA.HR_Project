@@ -22,17 +22,19 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly AppDbContext _appDbContext;
+        private readonly IExpenseTypeService _expenseTypeService;
 
-        public ExpenseManager(IMapper mapper, IUow uow, UserManager<AppUser> userManager, AppDbContext appDbContext) : base(mapper, uow)
+        public ExpenseManager(IMapper mapper, IUow uow, UserManager<AppUser> userManager, AppDbContext appDbContext, IExpenseTypeService expenseTypeService) : base(mapper, uow)
         {
             _userManager = userManager;
             _appDbContext = appDbContext;
+            _expenseTypeService = expenseTypeService;
         }
 
         public async Task<Response> RequestExpense(ExpenseDto dto)
         {
-            if(dto.RequestPrice >= dto.ExpenseType.ExpenseMinPrice && dto.RequestPrice <= dto.ExpenseType.ExpenseMaxPrice)
-            {
+            //if(dto.RequestPrice >= dto.ExpenseType.ExpenseMinPrice && dto.RequestPrice <= dto.ExpenseType.ExpenseMaxPrice)
+            //{
                 var user = _userManager.FindByIdAsync(dto.Id);
                 dto.RequestNumber = Guid.NewGuid().ToString();
                 dto.Id = Guid.NewGuid().ToString();
@@ -45,15 +47,17 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
 
                 }
                 return Response.Success("Success");
-            }
-            return Response.Failure("Error");
+            //}
+            //return Response.Failure("Error");
         }
         public async Task<List<ExpenseDto>> GetAllExpenses(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             var expenses = await GetAll();
-            
-            var ExpenseAction = expenses.Context.Where(e=>e.AppUserId== userId).OrderBy(x=>x.RequestDate).ToList();
+            var expenseTypes = _expenseTypeService.GetAllCustomColumn();
+            var ExpenseAction = expenses.Context.AsQueryable().Include(e=>e.ExpenseType).Where(e=>e.AppUserId==userId)
+                .OrderBy(e=>e.RequestDate).ToList();
+            //var ExpenseAction = expenses.Context.Where(e=>e.AppUserId== userId).OrderBy(x=>x.RequestDate).ToList();
             return ExpenseAction;
 
 
