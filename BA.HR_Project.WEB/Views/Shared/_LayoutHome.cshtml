@@ -116,14 +116,19 @@
                                 <p> HELLO! Welcome to our HUMAN RESOURCE website. We offer career planing, education opportunities and more... </p>
                                 <p>This website created to plan human resource period for companies. You can mannage worker performance, education plans and more...When you log in to the website, you can access worker information and you can update about worker information.</p>
                                 <p>We continuing upgrade website...</p>
-                                <div class="buttons">
-                                    <div class="green-button">
-                                        <a href="Account/Login" style="background-color:#FF6910">SIGN IN</a>
-                                    </div>
-                                        @*<div class="orange-button">
+                                    @if (!User.Identity.IsAuthenticated)
+                                    {
+                                    <div class="buttons">
+                                        <div class="green-button">
+                                            <a href="Account/Login" style="background-color:#FF6910">SIGN IN</a>
+                                        </div>
+                                            @*<div class="orange-button">
                                     <a href="#">REGISTER</a>
                                     </div>*@
-                                </div>
+                                    </div>
+                                    }
+
+                               
                             </div>
                         </div>
                     </div>
