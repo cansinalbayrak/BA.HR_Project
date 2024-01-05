@@ -52,6 +52,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         {
             var user = await _userManager.FindByIdAsync(userId);
             var expenses = await GetAll();
+            
             var ExpenseAction = expenses.Context.Where(e=>e.AppUserId== userId).OrderBy(x=>x.RequestDate).ToList();
             return ExpenseAction;
 

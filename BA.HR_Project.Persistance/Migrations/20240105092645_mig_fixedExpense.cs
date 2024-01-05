@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BA.HR_Project.Persistance.Migrations
 {
-    public partial class AddDayOff : Migration
+    public partial class mig_fixedExpense : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,20 @@ namespace BA.HR_Project.Persistance.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Departments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExpenseTypes",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ExpenseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExpenseMaxPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ExpenseMinPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExpenseTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -268,10 +282,10 @@ namespace BA.HR_Project.Persistance.Migrations
                     RequestPrice = table.Column<float>(type: "real", nullable: false),
                     RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReplyDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConfirmStatus = table.Column<int>(type: "int", nullable: false),
                     Currency = table.Column<int>(type: "int", nullable: false),
+                    ExpenseTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -283,28 +297,10 @@ namespace BA.HR_Project.Persistance.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExpenseTypes",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ExpenseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MainPrice = table.Column<float>(type: "real", nullable: false),
-                    MinFactor = table.Column<float>(type: "real", nullable: false),
-                    MaxFactor = table.Column<float>(type: "real", nullable: false),
-                    ExpenseMaxPrice = table.Column<float>(type: "real", nullable: false),
-                    ExpenseMinPrice = table.Column<float>(type: "real", nullable: false),
-                    ExpenseId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExpenseTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExpenseTypes_Expenses_ExpenseId",
-                        column: x => x.ExpenseId,
-                        principalTable: "Expenses",
+                        name: "FK_Expenses_ExpenseTypes_ExpenseTypeId",
+                        column: x => x.ExpenseTypeId,
+                        principalTable: "ExpenseTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -312,7 +308,7 @@ namespace BA.HR_Project.Persistance.Migrations
             migrationBuilder.InsertData(
                 table: "Companies",
                 columns: new[] { "Id", "LogoPath", "Name" },
-                values: new object[] { "SeedCompany1", "BilgeAdamınLogosunuEkle", "BilgeAdam" });
+                values: new object[] { "SeedCompany1", "/images/akademilogo-yatay.webp", "BilgeAdam" });
 
             migrationBuilder.InsertData(
                 table: "Departments",
@@ -320,9 +316,23 @@ namespace BA.HR_Project.Persistance.Migrations
                 values: new object[] { "SeedDepartment1", "BoostAkademi" });
 
             migrationBuilder.InsertData(
+                table: "ExpenseTypes",
+                columns: new[] { "Id", "ExpenseMaxPrice", "ExpenseMinPrice", "ExpenseName" },
+                values: new object[,]
+                {
+                    { "01154ff3-092e-4fb6-8262-e903aad6e27c", 10000m, 1000m, "Marketing and Advertising Expenditures" },
+                    { "03dd8e59-258f-4945-9e06-71542c2952f1", 20000m, 1000m, "Research and Devolopment" },
+                    { "3e18eca1-6ef7-4f1a-99de-ed73cb4078ba", 1000m, 1m, "Others" },
+                    { "81b3c744-c68f-4356-912a-a350acff819f", 15000m, 1000m, "Accomodation" },
+                    { "8f6a1d99-01d6-4e29-87aa-7e77f13e2a67", 5000m, 1000m, "Travel" },
+                    { "e9800262-60e8-42e5-b827-7cb3461eef22", 15000m, 10000m, "Education" },
+                    { "f5cb3e59-e70d-4934-a906-fb161f5e9a61", 4000m, 400m, "Food and Drink" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Adress", "BirthDate", "BirthPlace", "CompanyId", "ConcurrencyStamp", "DepartmentId", "Email", "EmailConfirmed", "EndDate", "IdentityNumber", "IsTurkishCitizen", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PassportNumber", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "Salary", "SecondName", "SecondSurname", "SecurityStamp", "StartDate", "Surname", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "6d48c72c-c73e-4caf-a7f7-158b31cf84db", 0, "Ankara", new DateTime(2024, 1, 3, 1, 35, 0, 465, DateTimeKind.Local).AddTicks(3910), null, "SeedCompany1", "8a495d66-4837-4730-8a55-03c665a2fd6c", "SeedDepartment1", "admin.bilgeadam@bilgeadamboost.com", true, null, null, true, false, null, "Admin", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", null, "AQAAAAEAACcQAAAAEGQg60bOyUbgUWIKqT2fJ62WMK7X8anNgH5KSp3oLJmnQAjAynxGNJP+bkYCrGBynw==", "0", false, "/mexant/assets/images/Default.jpg", null, null, null, "e896a24a-f34b-4b56-bcb9-723178872f29", null, "Bilgeadam", false, "admin.bilgeadam@bilgeadamboost.com" });
+                values: new object[] { "019195ca-08a3-44c8-88e5-f5ad5c0b786f", 0, "Ankara", new DateTime(2024, 1, 5, 12, 26, 45, 114, DateTimeKind.Local).AddTicks(2639), null, "SeedCompany1", "55860371-b209-47af-9336-5c0fdd3e8b6a", "SeedDepartment1", "admin.bilgeadam@bilgeadamboost.com", true, null, null, true, false, null, "Admin", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", null, "AQAAAAEAACcQAAAAEGPPqulnYdRlwg9dLeh99p9VcbEwA7C17zDeQ6A6DiemRbinO8SxJYCrvYODsq799Q==", "0", false, "/mexant/assets/images/Default.jpg", null, null, null, "5770dcf3-d7ba-49bc-91e0-cacd2bdd66ef", null, "Bilgeadam", false, "admin.bilgeadam@bilgeadamboost.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Advances_AppUserId",
@@ -395,9 +405,9 @@ namespace BA.HR_Project.Persistance.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExpenseTypes_ExpenseId",
-                table: "ExpenseTypes",
-                column: "ExpenseId",
+                name: "IX_Expenses_ExpenseTypeId",
+                table: "Expenses",
+                column: "ExpenseTypeId",
                 unique: true);
         }
 
@@ -425,16 +435,16 @@ namespace BA.HR_Project.Persistance.Migrations
                 name: "DayOffs");
 
             migrationBuilder.DropTable(
-                name: "ExpenseTypes");
+                name: "Expenses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Expenses");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "ExpenseTypes");
 
             migrationBuilder.DropTable(
                 name: "Companies");
