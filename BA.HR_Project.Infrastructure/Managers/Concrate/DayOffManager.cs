@@ -40,22 +40,12 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             {
                 return await RequestAnnualDayOff(dayOffDto);
             }
-            else if (dayOffDto.DayOffType == DayOffType.WeeklyDayOff)
-            {
-
-            }
+        
             else if (dayOffDto.DayOffType == DayOffType.MaternityDayOff)
             {
                 return await RequestMaternityDayOff(dayOffDto);
             }
-            else if (dayOffDto.DayOffType == DayOffType.PregnancyCheckupDayOff)
-            {
-
-            }
-            else if (dayOffDto.DayOffType == DayOffType.BreastfeedingDayOff)
-            {
-
-            }
+      
             else if (dayOffDto.DayOffType == DayOffType.PaternityDayOff)
             {
                 return await RequestPaternityDayOff(dayOffDto);
@@ -180,6 +170,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 return Response.Failure("User not found.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(49);
+            dayOffDto.DayCount = 49;
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.RequestDate = DateTime.Now;
             dayOffDto.Id = Guid.NewGuid().ToString();
@@ -197,8 +188,6 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
 
             float annualDayOffTotalCount = annualDayOffs.Sum(d => d.DayCount);
             dayOffDto.DayCount = annualDayOffTotalCount;
-            //var individualDayOff = DayOffs.Context.Where(x => x.AppUserId == dayOffDto.AppUserId && x.DayOffType == DayOffType.ExcuseDayOff && (x.ConfirmStatus == ConfirmStatus.Waiting || x.ConfirmStatus == ConfirmStatus.Approved));
-            //var institutionalDayOffs = DayOffs.Context.Where(x => x.AppUserId == dayOffDto.AppUserId && x.DayOffType == DayOffType.AnnualDayOff && (x.ConfirmStatus == ConfirmStatus.Waiting || x.ConfirmStatus == ConfirmStatus.Approved));
 
             if (user == null)
             {
@@ -221,15 +210,24 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             {
 
 
-              
-                if(dayOffDto.FinishDate> dayOffDto.StartDate.AddDays(14))
+
+                if (dayOffDto.FinishDate > dayOffDto.StartDate.AddDays(14))
                 {
                     return Response.Failure("cannot exceed 14 days.");
                 }
-                else if(dayOffDto.FinishDate <= dayOffDto.StartDate.AddDays(14) && dayOffDto.DayCount<=14)
+
+                else if (dayOffDto.FinishDate <= dayOffDto.StartDate.AddDays(14) && dayOffDto.DayCount<=14)
                 {
                     float dayDifference = (float)(dayOffDto.FinishDate - dayOffDto.StartDate).TotalDays;
                     dayOffDto.DayCount += dayDifference;
+                    if (dayOffDto.FinishDate <= dayOffDto.StartDate.AddDays(14) && dayOffDto.DayCount <= 14)
+                    {
+
+                    }
+                    else
+                    {
+                        return Response.Failure("cannot exceed 14 days.");
+                    }
 
                 }
                 else
@@ -246,6 +244,14 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 {
                     float dayDifference = (float)(dayOffDto.FinishDate - dayOffDto.StartDate).TotalDays;
                     dayOffDto.DayCount += dayDifference;
+                    if (dayOffDto.FinishDate <= dayOffDto.StartDate.AddDays(20) && dayOffDto.DayCount <= 20)
+                    {
+
+                    }
+                    else
+                    {
+                        return Response.Failure("cannot exceed 20 days.");
+                    }
 
                 }
                 else
