@@ -9,10 +9,7 @@ namespace BA.HR_Project.Domain.Enums
     public enum DayOffType
     {
         AnnualDayOff = 0,                 // YillikIzin,
-        WeeklyDayOff = 1,                   // HaftaTatili,
         MaternityDayOff = 2,              // DogumIzni,
-        PregnancyCheckupDayOff = 3,       // GebelikKontrolIzni,
-        BreastfeedingDayOff = 4,          // SutIzni,
         PaternityDayOff = 5,              // BabalikIzni,
         BereavementDayOff = 6,            // OlumIzni,
         JobSearchDayOff = 7,              // YeniIsAramaIzni,
