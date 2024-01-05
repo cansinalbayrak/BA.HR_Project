@@ -9,7 +9,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
-		<PackageReference Include="Fluent.Infrastructure" Version="2.0.0-beta-01" />
 		<PackageReference Include="FluentValidation.ValidatorAttribute" Version="8.6.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.25" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.25">
