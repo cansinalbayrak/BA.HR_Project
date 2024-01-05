@@ -130,6 +130,7 @@ namespace BA.HR_Project.WEB.Controllers
 
                 if (updatePassword.Succeeded)
                 {
+                    await _accountService.SignOutAsync();
                     return RedirectToAction("Index", "Home");
 
                 }

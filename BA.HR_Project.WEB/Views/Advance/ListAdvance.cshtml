@@ -1,223 +1,149 @@
 ﻿@{
-	ViewData["Title"] = "DemandAdvance";
+    ViewData["Title"] = "DemandAdvance";
     Layout = "_LayoutEmployeeSide";
 }
 
 @model List<AdvanceViewModel>
 
-@* 
-<style>
-   
-    .modal {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-    }
-
-    .modal-content {
-        max-width: 600px;
-        width: 100%;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        position: relative;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-    }
-</style>
- *@
-<style>
-    .modal {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-    }
-
-    .modal-content {
-        max-width: 800px;
-        width: 80%;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        position: relative;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-        font-size: 18px;
-        color: #333;
-    }
-
-    
-</style>
-
-
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-<div>
-    <a asp-action="DemandAdvance" asp-controller="Advance" class="btn btn-primary">Demand Advances</a>
-    <!-- diğer tüm avansların popupını açacak buton -->
-    <button id="showAvansListButton" class="btn btn-primary">All Advances</button>
-</div> <br />
+            <div>
+                <a asp-action="DemandAdvance" asp-controller="Advance" class="btn btn-primary">Demand Advances</a>
+                <!-- diğer tüm avansların popupını açacak buton -->
+                <button id="showAvansListButton" class="btn btn-primary">All Advances</button>
+            </div> <br />
 
-<table class="table text-light">
-    <thead>
-        <tr>
-            <th>Advance Type</th>
-            <th>Amount</th>
-            <th>Currency</th>
-            <th>Request Date</th>
-            <th>Response Date</th>
-            <th>Description</th>
-            <th>Confirm Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var advance in Model)
-        {
-            <tr>
-                <td>@advance.AdvanceType.ToString()</td>
-                <td>@advance.Amount</td>
-                <td>@advance.Currency.ToString()</td>
-                <td>@advance.RequestDate</td>
-                <td>@advance.ResponseDate</td>
-                <td>@advance.Description</td>
-                <td>@advance.ConfirmStatus.ToString()</td>
-
-            </tr>
-
-        }
-    </tbody>
-</table>
-
-
-<!-- Popup içeriği -->
-
-<div id="avansListPopup" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closePopup()">&times;</span>
-
-        <h2>Waiting Advances</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Advance Type</th>
-                    <th>Amount</th>
-                    <th>Currency</th>
-                    <th>Request Date</th>
-                    <th>Response Date</th>
-                    <th>Description</th>
-                    <th>Confirm Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var advance in ViewBag.WaitingAdvances)
-                {
+            <table class="table text-light">
+                <thead>
                     <tr>
-                        <td>@advance.AdvanceType.ToString()</td>
-                        <td>@advance.Amount</td>
-                        <td>@advance.Currency.ToString()</td>
-                        <td>@advance.RequestDate</td>
-                        <td>@advance.ResponseDate</td>
-                        <td>@advance.Description</td>
-                        <td>@advance.ConfirmStatus.ToString()</td>
+                        <th>Advance Type</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Request Date</th>
+                        <th>Response Date</th>
+                        <th>Description</th>
+                        <th>Confirm Status</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var advance in Model)
+                    {
+                        <tr>
+                            <td>@advance.AdvanceType.ToString()</td>
+                            <td>@advance.Amount</td>
+                            <td>@advance.Currency.ToString()</td>
+                            <td>@advance.RequestDate</td>
+                            <td>@advance.ResponseDate</td>
+                            <td>@advance.Description</td>
+                            <td>@advance.ConfirmStatus.ToString()</td>
 
-        <h2>Approved Advances</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Advance Type</th>
-                    <th>Amount</th>
-                    <th>Currency</th>
-                    <th>Request Date</th>
-                    <th>Response Date</th>
-                    <th>Description</th>
-                    <th>Confirm Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var advance in ViewBag.ApprovedAdvances)
-                {
-                    <tr>
-                        <td>@advance.AdvanceType.ToString()</td>
-                        <td>@advance.Amount</td>
-                        <td>@advance.Currency.ToString()</td>
-                        <td>@advance.RequestDate</td>
-                        <td>@advance.ResponseDate</td>
-                        <td>@advance.Description</td>
-                        <td>@advance.ConfirmStatus.ToString()</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                        </tr>
 
-        <h2>Denied Advances</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Advance Type</th>
-                    <th>Amount</th>
-                    <th>Currency</th>
-                    <th>Request Date</th>
-                    <th>Response Date</th>
-                    <th>Description</th>
-                    <th>Confirm Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var advance in ViewBag.DeniedAdvances)
-                {
-                    <tr>
-                        <td>@advance.AdvanceType.ToString()</td>
-                        <td>@advance.Amount</td>
-                        <td>@advance.Currency.ToString()</td>
-                        <td>@advance.RequestDate</td>
-                        <td>@advance.ResponseDate</td>
-                        <td>@advance.Description</td>
-                        <td>@advance.ConfirmStatus.ToString()</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                    }
+                </tbody>
+            </table>
+
+
+            <!-- Popup içeriği -->
+
+            <div id="avansListPopup" class="modalC">
+                <div class="modal-contentC">
+                    <span class="closeC" onclick="closePopup()">&times;</span>
+
+                    <h2 class="text-warning text-center"><u>Waiting Advances</u></h2>
+
+                    <table class="table text-light">
+                        <thead>
+                            <tr>
+                                <th>Advance Type</th>
+                                <th>Amount</th>
+                                <th>Currency</th>
+                                <th>Request Date</th>
+                                <th>Response Date</th>
+                                <th>Description</th>
+                                <th>Confirm Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var advance in ViewBag.WaitingAdvances)
+                            {
+                                <tr>
+                                    <td>@advance.AdvanceType.ToString()</td>
+                                    <td>@advance.Amount</td>
+                                    <td>@advance.Currency.ToString()</td>
+                                    <td>@advance.RequestDate</td>
+                                    <td>@advance.ResponseDate</td>
+                                    <td>@advance.Description</td>
+                                    <td>@advance.ConfirmStatus.ToString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br />
+                    <h2 class="text-success text-center "><u>Approved Advances</u></h2>
+
+                    <table class="table text-light">
+                        <thead>
+                            <tr>
+                                <th>Advance Type</th>
+                                <th>Amount</th>
+                                <th>Currency</th>
+                                <th>Request Date</th>
+                                <th>Response Date</th>
+                                <th>Description</th>
+                                <th>Confirm Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var advance in ViewBag.ApprovedAdvances)
+                            {
+                                <tr>
+                                    <td>@advance.AdvanceType.ToString()</td>
+                                    <td>@advance.Amount</td>
+                                    <td>@advance.Currency.ToString()</td>
+                                    <td>@advance.RequestDate</td>
+                                    <td>@advance.ResponseDate</td>
+                                    <td>@advance.Description</td>
+                                    <td>@advance.ConfirmStatus.ToString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br />
+                    <h2 class=" text-center text-danger"><u>Denied Advances</u></h2>
+                    <table class="table text-light">
+                        <thead>
+                            <tr>
+                                <th>Advance Type</th>
+                                <th>Amount</th>
+                                <th>Currency</th>
+                                <th>Request Date</th>
+                                <th>Response Date</th>
+                                <th>Description</th>
+                                <th>Confirm Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var advance in ViewBag.DeniedAdvances)
+                            {
+                                <tr>
+                                    <td>@advance.AdvanceType.ToString()</td>
+                                    <td>@advance.Amount</td>
+                                    <td>@advance.Currency.ToString()</td>
+                                    <td>@advance.RequestDate</td>
+                                    <td>@advance.ResponseDate</td>
+                                    <td>@advance.Description</td>
+                                    <td>@advance.ConfirmStatus.ToString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
-
-</div>
-</div>
 </div>
 
 <script>
