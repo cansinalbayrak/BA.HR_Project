@@ -24,12 +24,12 @@ namespace BA.HR_Project.Domain.Entities
        
         public DateTime RequestDate { get; set; }
         public DateTime? ReplyDate { get; set; }
-        public string? PhotoPath { get; set; }
+       
         public string? FilePath { get; set; }
         public ConfirmStatus ConfirmStatus { get; set; }
         public Currency Currency { get; set; }
-        public ExpenseType? ExpenseType { get; set; }
-
+        public ExpenseType ExpenseType { get; set; }
+        public string ExpenseTypeId { get; set; }
         public AppUser AppUser { get; set; }
         public string AppUserId { get; set; }
         

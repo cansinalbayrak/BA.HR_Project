@@ -11,8 +11,7 @@ namespace BA.HR_Project.Persistance.Configratitions
 
         public void Configure(EntityTypeBuilder<ExpenseType> builder)
         {
-            builder.HasOne(x => x.Expense).WithOne(x => x.ExpenseType)
-                .HasForeignKey<ExpenseType>(x => x.ExpenseId);
+         
             builder.HasData(new
             {
                 Id = Guid.NewGuid().ToString(),

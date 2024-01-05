@@ -219,12 +219,12 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7791e0b1-d720-46c9-a2ed-f4e2ec85770c",
+                            Id = "2c597d75-e5a3-4f21-8c6e-8f3bfb89431a",
                             AccessFailedCount = 0,
                             Adress = "Ankara",
-                            BirthDate = new DateTime(2024, 1, 4, 12, 4, 4, 567, DateTimeKind.Local).AddTicks(613),
+                            BirthDate = new DateTime(2024, 1, 5, 11, 46, 13, 665, DateTimeKind.Local).AddTicks(3045),
                             CompanyId = "SeedCompany1",
-                            ConcurrencyStamp = "370a5269-bf77-4a16-8d8b-54bcfcf36acd",
+                            ConcurrencyStamp = "f14943b0-02b5-4f1a-9502-7cdf5262f5ba",
                             DepartmentId = "SeedDepartment1",
                             Email = "admin.bilgeadam@bilgeadamboost.com",
                             EmailConfirmed = true,
@@ -233,11 +233,11 @@ namespace BA.HR_Project.Persistance.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
                             NormalizedUserName = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOHo7TYj+0z+PHc2wV78YyeAzArXuISNBodSSUen/uc7Ki5QonRTBPNDEVVtktypxg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDBUrRpzv0hhw7Veq+YSOmHn2ASXBfFhj8LW1+v64zTrqzrFiDhiiQvtmeCvGbzngQ==",
                             PhoneNumber = "0",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/mexant/assets/images/Default.jpg",
-                            SecurityStamp = "9110e39d-6768-4440-8b8f-f2a983f84a62",
+                            SecurityStamp = "d6a522e7-90ff-4883-8b4e-08cf156f8266",
                             Surname = "Bilgeadam",
                             TwoFactorEnabled = false,
                             UserName = "admin.bilgeadam@bilgeadamboost.com"
@@ -352,6 +352,10 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.Property<int>("Currency")
                         .HasColumnType("int");
 
+                    b.Property<string>("ExpenseTypeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
 
@@ -375,15 +379,15 @@ namespace BA.HR_Project.Persistance.Migrations
 
                     b.HasIndex("AppUserId");
 
+                    b.HasIndex("ExpenseTypeId")
+                        .IsUnique();
+
                     b.ToTable("Expenses");
                 });
 
             modelBuilder.Entity("BA.HR_Project.Domain.Entities.ExpenseType", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ExpenseId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("ExpenseMaxPrice")
@@ -398,58 +402,54 @@ namespace BA.HR_Project.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExpenseId")
-                        .IsUnique()
-                        .HasFilter("[ExpenseId] IS NOT NULL");
-
                     b.ToTable("ExpenseTypes");
 
                     b.HasData(
                         new
                         {
-                            Id = "2961b4cd-428a-4f59-9b04-418d4c9c8f51",
+                            Id = "991cc37d-2cfb-41ec-9f20-042142bbdc4d",
                             ExpenseMaxPrice = 10000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Marketing and Advertising Expenditures"
                         },
                         new
                         {
-                            Id = "472747c6-7188-4407-8af0-cf85febfa7c8",
+                            Id = "06faa1ab-b64c-46ae-9011-eb4e2ef0dc11",
                             ExpenseMaxPrice = 15000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Accomodation"
                         },
                         new
                         {
-                            Id = "99fe3fc5-5786-466a-bfe0-b826d94be4d8",
+                            Id = "4f6f5f52-0020-42c4-be49-6f5d40eb8f73",
                             ExpenseMaxPrice = 5000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Travel"
                         },
                         new
                         {
-                            Id = "01dbce41-a2a0-4908-8567-3d0c6759bffc",
+                            Id = "ba24356b-444d-47dc-be26-1ab8463d87be",
                             ExpenseMaxPrice = 4000m,
                             ExpenseMinPrice = 400m,
                             ExpenseName = "Food and Drink"
                         },
                         new
                         {
-                            Id = "83824ce5-3697-4909-86ec-1f9d2d269e9c",
+                            Id = "ba834967-c3af-4283-bcf1-571191247045",
                             ExpenseMaxPrice = 15000m,
                             ExpenseMinPrice = 10000m,
                             ExpenseName = "Education"
                         },
                         new
                         {
-                            Id = "e92a46d8-352f-40ff-8e0a-1241b7f3810f",
+                            Id = "1776b108-bb42-4c45-8d0d-c351e50c29c3",
                             ExpenseMaxPrice = 20000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Research and Devolopment"
                         },
                         new
                         {
-                            Id = "c1f98b23-b007-491f-8462-d3d7fab9bb1e",
+                            Id = "41c453d3-0d88-4bcb-b98f-84ae786feb21",
                             ExpenseMaxPrice = 1000m,
                             ExpenseMinPrice = 1m,
                             ExpenseName = "Others"
@@ -611,16 +611,15 @@ namespace BA.HR_Project.Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BA.HR_Project.Domain.Entities.ExpenseType", "ExpenseType")
+                        .WithOne("Expense")
+                        .HasForeignKey("BA.HR_Project.Domain.Entities.Expense", "ExpenseTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AppUser");
-                });
 
-            modelBuilder.Entity("BA.HR_Project.Domain.Entities.ExpenseType", b =>
-                {
-                    b.HasOne("BA.HR_Project.Domain.Entities.Expense", "Expense")
-                        .WithOne("ExpenseType")
-                        .HasForeignKey("BA.HR_Project.Domain.Entities.ExpenseType", "ExpenseId");
-
-                    b.Navigation("Expense");
+                    b.Navigation("ExpenseType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -693,9 +692,9 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.Navigation("AppUsers");
                 });
 
-            modelBuilder.Entity("BA.HR_Project.Domain.Entities.Expense", b =>
+            modelBuilder.Entity("BA.HR_Project.Domain.Entities.ExpenseType", b =>
                 {
-                    b.Navigation("ExpenseType");
+                    b.Navigation("Expense");
                 });
 #pragma warning restore 612, 618
         }
