@@ -148,10 +148,17 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         {
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
             var DayOffs = await GetAll();
+            var annualDayOffs = DayOffs.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
+                                            d.StartDate.Year == DateTime.Now.Year && d.AppUserId == user.Id);
+            // var userdayoff = await Get(true, x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender == Gender.Female);
+            var userDayoff = DayOffs.Context.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender == Gender.Female).FirstOrDefault();
+
+           
             if (user == null)
             {
                 return Response.Failure("User not found.");
             }
+
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(49);
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.RequestDate = DateTime.Now;
@@ -185,7 +192,12 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var DayOffss = await GetAll();
             var annualDayOffs = DayOffss.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
                                             d.StartDate.Year == DateTime.Now.Year&& d.AppUserId==user.Id);
+           // var userdayoff = await Get(true, x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender == Gender.Female);
+           var userDayoff= DayOffss.Context.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender == Gender.Female).FirstOrDefault();
+            if (userDayoff != null)
+            {
 
+            }
             float annualDayOffTotalCount = annualDayOffs.Sum(d => d.DayCount);
             dayOffDto.DayCount = annualDayOffTotalCount;
 

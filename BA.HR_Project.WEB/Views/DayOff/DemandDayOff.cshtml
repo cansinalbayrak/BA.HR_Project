@@ -1,4 +1,11 @@
-﻿@model DayOffViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using BA.HR_Project.Domain.Entities
+@using BA.HR_Project.Infrastructure.Services.Concrate
+@inject IDayOffService _dayOffService
+
+@inject UserManager<AppUser> _userManager
+@model DayOffViewModel
+
 @{
     Layout = "_LayoutEmployeeSide";
 }
@@ -31,26 +38,52 @@
         <textarea asp-for="Description" class="form-control custom-select"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Gender" style="color: white;">Gender</label>
-        <select asp-for="Gender" class="form-control custom-select">
-            <option value="@((int)Gender.Male)">Male</option>
-            <option value="@((int)Gender.Female)">Female</option>
-        </select>
-        <span asp-validation-for="Gender" class="text-danger"></span>
-    </div>
+    @{
+        var user = await _userManager.GetUserAsync(User);
+        var DayOffs = await _dayOffService.GetAll();
+        var annualDayOffs = DayOffs.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
+        d.StartDate.Year == DateTime.Now.Year && d.AppUserId == user.Id);
+        // var userdayoff = await Get(true, x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender == Gender.Female);
+        var userDayoff = DayOffs.Context.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender==Gender.Female).FirstOrDefault();
+        if (userDayoff == null)
+        {
+            <div class="form-group">
+                <label asp-for="Gender" style="color: white;">Gender</label>
+                <select asp-for="Gender" class="form-control custom-select">
+                    <option value="@((int)Gender.Male)">Male</option>
+                    <option value="@((int)Gender.Female)">Female</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+        }
+    }
+   
     <div class="form-group">
         <label asp-for="DayOffType" style="color: white;">Day Off Type</label>
         <select asp-for="DayOffType" class="form-control custom-select">
             <option value="@((int)DayOffType.AnnualDayOff)">Annual Day Off</option>
-            <option value="@((int)DayOffType.MaternityDayOff)">Maternity Day Off</option>
-            <option value="@((int)DayOffType.PaternityDayOff)">Paternity Day Off</option>
+            @{
+
+                var userDayoff2 = DayOffs.Context.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Male).FirstOrDefault();
+                if (userDayoff2 != null)
+                {
+                    <option value="@((int)DayOffType.SoldierLeave)">Soldier Leave</option>
+                    <option value="@((int)DayOffType.PaternityDayOff)">Paternity Day Off</option>
+                }
+            }
+            @{
+
+                var userDayoff3 = DayOffs.Context.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Female).FirstOrDefault();
+                if (userDayoff3 != null)
+                {
+                    <option value="@((int)DayOffType.MaternityDayOff)">Maternity Day Off</option>
+                }
+            }
             <option value="@((int)DayOffType.BereavementDayOff)">Bereavement Day Off</option>
             <option value="@((int)DayOffType.JobSearchDayOff)">Job Search Day Off</option>
             <option value="@((int)DayOffType.MarriageDayOff)">Marriage Day Off</option>
             <option value="@((int)DayOffType.ExcuseDayOff)">Excuse Day Off</option>
             <option value="@((int)DayOffType.AccompanyingDayOff)">Accompanying Day Off</option>
-            <option value="@((int)DayOffType.SoldierLeave)">Soldier Leave</option>
         </select>
         <span asp-validation-for="DayOffType" class="text-danger"></span>
     </div>
