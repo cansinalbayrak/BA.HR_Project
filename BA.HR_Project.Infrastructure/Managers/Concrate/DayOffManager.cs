@@ -27,15 +27,6 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         }
         public async Task<Response> RequestDayOff(DayOffDto dayOffDto)
         {
-            //var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
-            //var userId = user.Id;
-            ////var userNewProps = _mapper.Map<DayOff>(dayOffDto);
-            //var annualDayOffs = user.DayOffs.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
-            //                                 d.StartDate.Year == DateTime.Now.Year);
-
-            //// Ardından bu öğelerin DayCount özelliğini toplamak için LINQ sorgusu kullanalım
-            //float annualDayOffTotalCount = annualDayOffs.Sum(d => d.DayCount ?? 0);
-
             if (dayOffDto.DayOffType == DayOffType.AnnualDayOff)
             {
                 return await RequestAnnualDayOff(dayOffDto);
@@ -150,8 +141,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var DayOffs = await GetAll();
             var annualDayOffs = DayOffs.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
                                             d.StartDate.Year == DateTime.Now.Year && d.AppUserId == user.Id);
-            // var userdayoff = await Get(true, x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender == Gender.Female);
-            var userDayoff = DayOffs.Context.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender == Gender.Female).FirstOrDefault();
+         
 
            
             if (user == null)
@@ -192,12 +182,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var DayOffss = await GetAll();
             var annualDayOffs = DayOffss.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
                                             d.StartDate.Year == DateTime.Now.Year&& d.AppUserId==user.Id);
-           // var userdayoff = await Get(true, x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender == Gender.Female);
-           var userDayoff= DayOffss.Context.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender == Gender.Female).FirstOrDefault();
-            if (userDayoff != null)
-            {
-
-            }
+      
             float annualDayOffTotalCount = annualDayOffs.Sum(d => d.DayCount);
             dayOffDto.DayCount = annualDayOffTotalCount;
 
