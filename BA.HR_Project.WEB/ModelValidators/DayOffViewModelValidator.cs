@@ -10,87 +10,56 @@ namespace BA.HR_Project.WEB.ModelValidators
         public DayOffViewModelValidator()
         {
             RuleFor(x => x.FinishDate)
-                .Must((model, finishDate) => ValidateFinishDate(model.DayOffType, model.Gender, finishDate))
-                .WithMessage("Invalid finish date for the selected day off type and gender.");
+           .GreaterThan(x => x.StartDate)
+           .WithMessage("Finish date must be greater than start date.");
 
-            //RuleFor(x => x.StartDate)
-            //    .Must((model, startDate) => ValidateStartDate(model.DayOffType, startDate))
-            //    .WithMessage("Invalid start date for the selected day off type.");
-
-            RuleFor(x => x.FinishDate)
-                .Must((model, finishDate) => ValidateExcuseDayOffFinishDate(model.DayOffType, model.StartDate, finishDate))
-                .WithMessage("Invalid finish date for Excuse Day Off. Finish date cannot be more than 2 days from the start date.");
-            RuleFor(x => x.FinishDate)
-            .Must((model, finishDate) => IsFinishDateValid(model.DayOffType, model.StartDate, finishDate))
-            .WithMessage("Invalid finish date for the selected day off type.");
-
-            //When(x => !string.IsNullOrEmpty(x.FinishDate), () =>
-            //{
-            //    RuleFor(x => x.FinishDate).Custom((finishDate, context) =>
-            //    {
-            //        if (context.ParentContext.InstanceToValidate.DayOffType == "PaternityDayOff")
-            //        {
-            //            context.AddFailure("Finish date should not be specified for Paternity Day Off.");
-            //        }
-            //        Diğer şartları buraya ekleyebilirsiniz
-            //    });
-            //});
-        }
-        private bool IsFinishDateValid(DayOffType dayOffType, DateTime startDate, DateTime? finishDate)
-        {
-            if (finishDate.HasValue)
-            {
-                // PaternityDayOff seçildiyse ve finishDate girildiyse hata ver
-                if (dayOffType == DayOffType.PaternityDayOff)
+            RuleFor(x => x)
+                .Custom((model, context) =>
                 {
-                    return false;
-                }
-            }
+                    if (model.AppUser != null && model.AppUser.StartDate.HasValue)
+                    {
+                        var workTime = (DateTime.Now - model.AppUser.StartDate.Value).TotalDays;
+                        if (workTime < 365)
+                        {
+                            context.AddFailure("Annual leave request not eligible.");
+                        }
+                        else if (workTime >= 365 && workTime < 6 * 365)
+                        {
+                            // 1 ile 6 yıl arası
+                            var maxAllowedFinishDate = model.StartDate.AddDays(14 - model.DayCount ?? 0);
+                            if (model.FinishDate > maxAllowedFinishDate)
+                            {
+                                context.AddFailure($"Finish date cannot exceed {maxAllowedFinishDate:yyyy-MM-dd}.");
+                            }
+                        }
+                        else if (workTime >= 6 * 365)
+                        {
+                            // 6 yıl ve sonrası
+                            var maxAllowedFinishDate = model.StartDate.AddDays(20 - model.DayCount ?? 0);
+                            if (model.FinishDate > maxAllowedFinishDate)
+                            {
+                                context.AddFailure($"Finish date cannot exceed {maxAllowedFinishDate:yyyy-MM-dd}.");
+                            }
+                        }
+                    }
 
-            return true;
-        }
-        private bool ValidateFinishDate(DayOffType dayOffType, Gender gender, DateTime? finishDate)
-        {
-            switch (dayOffType)
-            {
-                case DayOffType.MaternityDayOff:
-                    return gender == Gender.Female && !finishDate.HasValue;
-                case DayOffType.PaternityDayOff:
-                    return gender == Gender.Male && !finishDate.HasValue;
-                case DayOffType.BereavementDayOff:
-                case DayOffType.JobSearchDayOff:
-                case DayOffType.MarriageDayOff:
-                case DayOffType.ExcuseDayOff:
-                    return !finishDate.HasValue;
-                default:
-                    return true;
-            }
-        }
+                    if (model.DayOffType == DayOffType.MaternityDayOff && model.Gender != Gender.Female)
+                    {
+                        context.AddFailure("Gender must be Female for Maternity Day Off.");
+                    }
 
-        //private bool ValidateStartDate(DayOffType dayOffType, DateTime startDate)
-        //{
-        //    switch (dayOffType)
-        //    {
-        //        case DayOffType.MaternityDayOff:
-        //        case DayOffType.PaternityDayOff:
-        //        case DayOffType.BereavementDayOff:
-        //        case DayOffType.JobSearchDayOff:
-        //        case DayOffType.MarriageDayOff:
-        //        case DayOffType.ExcuseDayOff:
-        //            return true; // No specific validation for start date
-        //        default:
-        //            return true;
-        //    }
-        //}
+                    if (model.DayOffType == DayOffType.PaternityDayOff && model.Gender != Gender.Male)
+                    {
+                        context.AddFailure("Gender must be Male for Paternity Day Off.");
+                    }
 
-        private bool ValidateExcuseDayOffFinishDate(DayOffType dayOffType, DateTime startDate, DateTime? finishDate)
-        {
-            if (dayOffType == DayOffType.ExcuseDayOff && finishDate.HasValue)
-            {
-                var maxAllowedFinishDate = startDate.AddDays(2); // 2 days from the start date
-                return finishDate.Value.Date <= maxAllowedFinishDate.Date;
-            }
-            return true;
+                    if (model.DayOffType == DayOffType.BereavementDayOff ||
+                        model.DayOffType == DayOffType.JobSearchDayOff ||
+                        model.DayOffType == DayOffType.MarriageDayOff)
+                    {
+                        context.AddFailure("Finish date should not be specified for this day off type.");
+                    }
+                });
         }
     }
 }

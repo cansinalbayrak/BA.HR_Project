@@ -27,6 +27,15 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         }
         public async Task<Response> RequestDayOff(DayOffDto dayOffDto)
         {
+            //var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
+            //var userId = user.Id;
+            ////var userNewProps = _mapper.Map<DayOff>(dayOffDto);
+            //var annualDayOffs = user.DayOffs.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
+            //                                 d.StartDate.Year == DateTime.Now.Year);
+
+            //// Ardından bu öğelerin DayCount özelliğini toplamak için LINQ sorgusu kullanalım
+            //float annualDayOffTotalCount = annualDayOffs.Sum(d => d.DayCount ?? 0);
+
             if (dayOffDto.DayOffType == DayOffType.AnnualDayOff)
             {
                 return await RequestAnnualDayOff(dayOffDto);
@@ -89,7 +98,6 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 return Response.Failure("User not found.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(90);
-            dayOffDto.DayCount += 90;
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.RequestDate = DateTime.Now;
             dayOffDto.Id = Guid.NewGuid().ToString();
@@ -107,7 +115,6 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 return Response.Failure("User not found.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(7);
-            dayOffDto.DayCount += 7;
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.RequestDate = DateTime.Now;
             dayOffDto.Id = Guid.NewGuid().ToString();
@@ -121,11 +128,9 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var DayOffs = await GetAll();
             if (user == null)
             {
-                dayOffDto.DayCount += 0;
                 return Response.Failure("User not found.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddHours(2);
-            dayOffDto.DayCount += 0.25f;                                  //2 saat dilimi güncelle
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.RequestDate = DateTime.Now;
             dayOffDto.Id = Guid.NewGuid().ToString();
@@ -139,11 +144,9 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var DayOffs = await GetAll();
             if (user == null)
             {
-                dayOffDto.DayCount += 0;
                 return Response.Failure("User not found.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(7);
-            dayOffDto.DayCount += 7;
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.RequestDate = DateTime.Now;
             dayOffDto.Id = Guid.NewGuid().ToString();
@@ -157,11 +160,9 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var DayOffs = await GetAll();
             if (user == null)
             {
-                dayOffDto.DayCount += 0;
                 return Response.Failure("User not found.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(49);
-            dayOffDto.DayCount += 49;
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.RequestDate = DateTime.Now;
             dayOffDto.Id = Guid.NewGuid().ToString();
@@ -176,11 +177,9 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var DayOffs = await GetAll();
             if (user == null)
             {
-                dayOffDto.DayCount += 0;
                 return Response.Failure("User not found.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(49);
-            dayOffDto.DayCount += 7;
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.RequestDate = DateTime.Now;
             dayOffDto.Id = Guid.NewGuid().ToString();
@@ -192,7 +191,12 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         {
 
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
-            var DayOffs = await GetAll();
+            var DayOffss = await GetAll();
+            var annualDayOffs = DayOffss.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
+                                            d.StartDate.Year == DateTime.Now.Year&& d.AppUserId==user.Id);
+
+            float annualDayOffTotalCount = annualDayOffs.Sum(d => d.DayCount);
+            dayOffDto.DayCount = annualDayOffTotalCount;
             //var individualDayOff = DayOffs.Context.Where(x => x.AppUserId == dayOffDto.AppUserId && x.DayOffType == DayOffType.ExcuseDayOff && (x.ConfirmStatus == ConfirmStatus.Waiting || x.ConfirmStatus == ConfirmStatus.Approved));
             //var institutionalDayOffs = DayOffs.Context.Where(x => x.AppUserId == dayOffDto.AppUserId && x.DayOffType == DayOffType.AnnualDayOff && (x.ConfirmStatus == ConfirmStatus.Waiting || x.ConfirmStatus == ConfirmStatus.Approved));
 
@@ -209,28 +213,54 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             // Bir yılı doldurmadıysa izin talep edemez
             if (workTime.TotalDays < 365)
             {
-                // Bir yıl doldurmadı
-                // return Response.Failure("Annual leave request not eligible.");
+
+                return Response.Failure("Annual leave request not eligible.");
             }
             // 1 ile 6 yıl arası ise (14 gün)
             else if (workTime.TotalDays >= 365 && workTime.TotalDays < 6 * 365)
             {
-                dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(14);
-                dayOffDto.DayCount += 14;
+
+
+              
+                if(dayOffDto.FinishDate> dayOffDto.StartDate.AddDays(14))
+                {
+                    return Response.Failure("cannot exceed 14 days.");
+                }
+                else if(dayOffDto.FinishDate <= dayOffDto.StartDate.AddDays(14) && dayOffDto.DayCount<=14)
+                {
+                    float dayDifference = (float)(dayOffDto.FinishDate - dayOffDto.StartDate).TotalDays;
+                    dayOffDto.DayCount += dayDifference;
+
+                }
+                else
+                    return Response.Failure("cannot exceed 14 days.");
             }
             // 6 yıl ve sonrasına 20 gün
             else
             {
-                dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(20);
-                dayOffDto.DayCount += 20;
+                if (dayOffDto.FinishDate > dayOffDto.StartDate.AddDays(20))
+                {
+                    return Response.Failure("cannot exceed 20 days.");
+                }
+                else if (dayOffDto.FinishDate <= dayOffDto.StartDate.AddDays(20) && dayOffDto.DayCount <= 20)
+                {
+                    float dayDifference = (float)(dayOffDto.FinishDate - dayOffDto.StartDate).TotalDays;
+                    dayOffDto.DayCount += dayDifference;
+
+                }
+                else
+                    return Response.Failure("cannot exceed 20 days.");
             }
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.RequestDate = DateTime.Now;
             dayOffDto.Id = Guid.NewGuid().ToString();
+           
             var result = await Insert(dayOffDto);
+            //await _userManager.UpdateAsync(user);
 
             return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert day off.");
         }
+
 
 
         public async Task<List<DayOffDto>> GetAllDayOff(string userId)
