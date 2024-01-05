@@ -6,29 +6,29 @@
     ViewData["Title"] = "DemandDayOff";
 }
 
-<h1>DemandDayOff</h1>
+<h1 class="custom-select">DemandDayOff</h1>
 
 <form asp-controller="DayOff" asp-action="DemandDayOff" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group">
         <label asp-for="StartDate" style="color: white;">Start Date</label>
-        <input asp-for="StartDate" class="form-control" />
+        <input asp-for="StartDate" class="form-control custom-select" />
         <span asp-validation-for="StartDate" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="FinishDate" style="color: white;">Finish Date</label>
-        <input asp-for="FinishDate" class="form-control" />
+        <input asp-for="FinishDate" class="form-control custom-select" />
         <span asp-validation-for="FinishDate" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Description" style="color: white;">Description</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
+        <textarea asp-for="Description" class="form-control custom-select"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Gender" style="color: white;">Gender</label>
-        <select asp-for="Gender" class="form-control">
+        <select asp-for="Gender" class="form-control custom-select">
             <option value="@((int)Gender.Male)">Male</option>
             <option value="@((int)Gender.Female)">Female</option>
         </select>
@@ -36,7 +36,7 @@
     </div>
     <div class="form-group">
         <label asp-for="DayOffType" style="color: white;">Day Off Type</label>
-        <select asp-for="DayOffType" class="form-control">
+        <select asp-for="DayOffType" class="form-control custom-select">
             <option value="@((int)DayOffType.AnnualDayOff)">Annual Day Off</option>
             <option value="@((int)DayOffType.WeeklyDayOff)">Weekly Day Off</option>
             <option value="@((int)DayOffType.MaternityDayOff)">Maternity Day Off</option>

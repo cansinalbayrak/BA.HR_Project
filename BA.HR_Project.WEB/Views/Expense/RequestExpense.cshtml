@@ -9,8 +9,8 @@
 <form asp-controller="Expense" asp-action="RequestExpense" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
-        <label asp-for="ExpenseType">Expense Type</label>
-        <select asp-for="ExpenseType" class="form-control">
+        <label class="custom-select" asp-for="ExpenseType">Expense Type</label>
+        <select asp-for="ExpenseType" class="form-control custom-select">
             <option value="">-- Select Expense Type --</option>
             @if (ViewBag.ExpenseTypes != null)
             {
@@ -21,9 +21,12 @@
             }
         </select>
     </div>
+    
+    <br/>
+    
     <div class="form-group">
-        <label asp-for="Currency">Currency</label>
-        <select asp-for="Currency" class="form-control">
+        <label class="custom-select" asp-for="Currency">Currency</label>
+        <select asp-for="Currency" class="form-control custom-select">
             <option value="@((int)Currency.USD)">USD</option>
             <option value="@((int)Currency.EUR)">EURO</option>
             <option value="@((int)Currency.TRY)">TL</option>
@@ -31,16 +34,23 @@
         <span asp-validation-for="Currency" class="text-danger"></span>
     </div>
     
+    <br/>
+
     <div class="form-group">
-        <label asp-for="RequestPrice">Request Price</label>
-        <input asp-for="RequestPrice" class="form-control" type="number" placeholder="Request Price"></input>
+        <label  class="custom-select" asp-for="RequestPrice">Request Price</label>
+        <input asp-for="RequestPrice" class="form-control custom-select" type="number" placeholder="Request Price"></input>
         <span asp-validation-for="RequestPrice" class="text-danger"></span>
 
     </div>
-    <div style="margin-left:100px">
-        <input accept=".jpeg,.jpg,.png,.pdf" type="file" asp-for="File" class="form-control-file text-light" />
+
+    <br>
+
+    <div>
+        <input accept=".jpeg,.jpg,.png,.pdf" type="file" asp-for="File" class="form-control-file text-light custom-select" />
         <span asp-validation-for="File" class="text-danger"></span>
     </div>
+
+    <br>
 
     <button type="submit" class="btn btn-warning">Request Expense</button>
 

@@ -4,23 +4,7 @@
 }
 @model AdvanceViewModel
 
-<style>
-    .custom-select {
-        background-color: transparent;
-        color: white;
-    }
 
-        .custom-select option {
-            background-color: #1C1F2E;
-            color: white;
-        }
-
-        .custom-select:focus {
-            background-color: #1C1F2E;
-            outline: none;
-            color: white;
-        }
-</style>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -50,12 +34,12 @@
                     </div>
                     <div class="mb-3">
                         <label class="col-form-label" asp-for="Amount" style="color:#FD8D00">Amount</label>
-                        <input asp-for="Amount" class="form-control text-light" type="number" placeholder="Amount" style="background-color:transparent;" />
+                        <input class="form-control text-light custom-select" asp-for="Amount" type="number" placeholder="Amount"/>
                         <span asp-validation-for="Amount" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="Description" class="col-form-label" style="color:#FD8D00"></label>
-                        <textarea asp-for="Description" id="textarea-input" rows="9" placeholder="Please write the reason for your advance request..." style="background-color:transparent;" class="form-control text-light"></textarea>
+                        <textarea class="form-control text-light custom-select" asp-for="Description" id="textarea-input" rows="9" placeholder="Please write the reason for your advance request..."></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <button type="submit" class="btn" style="background-color:#FD8D00">Demand Advance</button>

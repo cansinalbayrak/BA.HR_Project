@@ -26,7 +26,6 @@ body {
     background-color: transparent !important;
     color: white !important;
     transition: background-color 0.3s;
-
     /*position: fixed;*/ /* Navbar'ı üstte sabitler */
     /*top: 0;*/ /* Üst kenara sıfır piksel uzaklıkta olacak */
     /*left: 0;*/ /* Sol kenara sıfır piksel uzaklıkta olacak */
@@ -38,7 +37,6 @@ body {
 .scrolled-navbar {
     background-color: rgb(20,23,38) !important;
     color: white !important;
-
     position: fixed; /* Navbar'ı üstte sabitler */
     top: 0; /* Üst kenara sıfır piksel uzaklıkta olacak */
     left: 0; /* Sol kenara sıfır piksel uzaklıkta olacak */
@@ -48,7 +46,7 @@ body {
 
 .dropboxMenus {
     background-color: rgb(20,23,38) !important;
-    color:white !important;
+    color: white !important;
 }
 
 .customFooter {
@@ -58,4 +56,20 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.custom-select {
+    background-color: transparent;
+    color: white;
+}
+
+.custom-select option {
+    background-color: #1C1F2E;
+    color: white;
+}
+
+.custom-select:focus {
+    background-color: #1C1F2E;
+    outline: none;
+    color: white;
 }
