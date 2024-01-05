@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BA.HR_Project.Persistance.Migrations
 {
-    public partial class fixedentity : Migration
+    public partial class @fixed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -321,19 +321,19 @@ namespace BA.HR_Project.Persistance.Migrations
                 columns: new[] { "Id", "ExpenseMaxPrice", "ExpenseMinPrice", "ExpenseName" },
                 values: new object[,]
                 {
-                    { "515dc056-fbcb-4d47-9a04-dcd3c7c25dd1", 15000m, 10000m, "Education" },
-                    { "51d83cb0-a404-4feb-ae6e-1dfaced9680f", 10000m, 1000m, "Marketing and Advertising Expenditures" },
-                    { "9e7f2dd7-7f70-4ff9-84dd-8a7be03ede06", 5000m, 1000m, "Travel" },
-                    { "a17529cd-8f67-4e67-a1b5-1806eeaf4a4f", 15000m, 1000m, "Accomodation" },
-                    { "be8b53f8-fcce-48dd-b82e-c6a7434f1099", 4000m, 400m, "Food and Drink" },
-                    { "e5661765-bc68-4cdb-8d4f-59fc3477e9a2", 20000m, 1000m, "Research and Devolopment" },
-                    { "ea48fb70-8ceb-4763-8118-a9d3d4438b7b", 1000m, 1m, "Others" }
+                    { "027064cb-444e-44d3-82e5-ef7cdf8dedab", 15000m, 1000m, "Accomodation" },
+                    { "1c8e5553-d53f-41de-839e-1b3a206a4836", 10000m, 1000m, "Marketing and Advertising Expenditures" },
+                    { "7d3a14ee-d61a-40c0-b6c8-2fca7c38593d", 4000m, 400m, "Food and Drink" },
+                    { "89f00d46-a1b7-4a9d-a20a-b397cdfc7f9b", 15000m, 10000m, "Education" },
+                    { "a27a5821-030b-43f3-8f49-db23def4a950", 20000m, 1000m, "Research and Devolopment" },
+                    { "ceb2c93d-8336-4ceb-b1a5-83ce2e2d372f", 1000m, 1m, "Others" },
+                    { "db1a9bd5-fc1f-45cf-82f0-2e5105ffbdf0", 5000m, 1000m, "Travel" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Adress", "BirthDate", "BirthPlace", "CompanyId", "ConcurrencyStamp", "DepartmentId", "Email", "EmailConfirmed", "EndDate", "IdentityNumber", "IsTurkishCitizen", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PassportNumber", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "Salary", "SecondName", "SecondSurname", "SecurityStamp", "StartDate", "Surname", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "4f91f1ef-db8d-4dc1-9ebb-68d1c06e6397", 0, "Ankara", new DateTime(2024, 1, 5, 16, 32, 35, 996, DateTimeKind.Local).AddTicks(9046), null, "SeedCompany1", "66755e66-1dcf-4542-82d0-59f904bb3a81", "SeedDepartment1", "admin.bilgeadam@bilgeadamboost.com", true, null, null, true, false, null, "Admin", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", null, "AQAAAAEAACcQAAAAEP7u+KAL5zwdhB1s1NG7Nz0qI18fSvrkmkDo/I3FifdJr2tvED2VDoF3Iz1Stslyjg==", "0", false, "/mexant/assets/images/Default.jpg", null, null, null, "95193937-4cdb-4742-92b4-42dd56c0f0b6", null, "Bilgeadam", false, "admin.bilgeadam@bilgeadamboost.com" });
+                values: new object[] { "0c0af26c-db2d-4c4b-bfb4-95e0c0f53ca1", 0, "Ankara", new DateTime(2024, 1, 6, 1, 35, 41, 842, DateTimeKind.Local).AddTicks(2913), null, "SeedCompany1", "02d0c6e1-11a9-45ef-9f4d-413fd38bc5e7", "SeedDepartment1", "admin.bilgeadam@bilgeadamboost.com", true, null, null, true, false, null, "Admin", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", null, "AQAAAAEAACcQAAAAEFfsewm7/uIKuQGrOWvXgGc0LZehBCxfKiBOTSr2sCnUdNzz9scbubqtmwegF3GJcA==", "0", false, "/mexant/assets/images/Default.jpg", null, null, null, "afd0fc77-c3d4-45d0-a791-42844e041e0f", null, "Bilgeadam", false, "admin.bilgeadam@bilgeadamboost.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Advances_AppUserId",
@@ -408,8 +408,7 @@ namespace BA.HR_Project.Persistance.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Expenses_ExpenseTypeId",
                 table: "Expenses",
-                column: "ExpenseTypeId",
-                unique: true);
+                column: "ExpenseTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

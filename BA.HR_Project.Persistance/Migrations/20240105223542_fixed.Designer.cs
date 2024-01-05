@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BA.HR_Project.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240105133236_fixedentity")]
-    partial class fixedentity
+    [Migration("20240105223542_fixed")]
+    partial class @fixed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,12 +221,12 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4f91f1ef-db8d-4dc1-9ebb-68d1c06e6397",
+                            Id = "0c0af26c-db2d-4c4b-bfb4-95e0c0f53ca1",
                             AccessFailedCount = 0,
                             Adress = "Ankara",
-                            BirthDate = new DateTime(2024, 1, 5, 16, 32, 35, 996, DateTimeKind.Local).AddTicks(9046),
+                            BirthDate = new DateTime(2024, 1, 6, 1, 35, 41, 842, DateTimeKind.Local).AddTicks(2913),
                             CompanyId = "SeedCompany1",
-                            ConcurrencyStamp = "66755e66-1dcf-4542-82d0-59f904bb3a81",
+                            ConcurrencyStamp = "02d0c6e1-11a9-45ef-9f4d-413fd38bc5e7",
                             DepartmentId = "SeedDepartment1",
                             Email = "admin.bilgeadam@bilgeadamboost.com",
                             EmailConfirmed = true,
@@ -235,11 +235,11 @@ namespace BA.HR_Project.Persistance.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
                             NormalizedUserName = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP7u+KAL5zwdhB1s1NG7Nz0qI18fSvrkmkDo/I3FifdJr2tvED2VDoF3Iz1Stslyjg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFfsewm7/uIKuQGrOWvXgGc0LZehBCxfKiBOTSr2sCnUdNzz9scbubqtmwegF3GJcA==",
                             PhoneNumber = "0",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/mexant/assets/images/Default.jpg",
-                            SecurityStamp = "95193937-4cdb-4742-92b4-42dd56c0f0b6",
+                            SecurityStamp = "afd0fc77-c3d4-45d0-a791-42844e041e0f",
                             Surname = "Bilgeadam",
                             TwoFactorEnabled = false,
                             UserName = "admin.bilgeadam@bilgeadamboost.com"
@@ -382,8 +382,7 @@ namespace BA.HR_Project.Persistance.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("ExpenseTypeId")
-                        .IsUnique();
+                    b.HasIndex("ExpenseTypeId");
 
                     b.ToTable("Expenses");
                 });
@@ -410,49 +409,49 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "51d83cb0-a404-4feb-ae6e-1dfaced9680f",
+                            Id = "1c8e5553-d53f-41de-839e-1b3a206a4836",
                             ExpenseMaxPrice = 10000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Marketing and Advertising Expenditures"
                         },
                         new
                         {
-                            Id = "a17529cd-8f67-4e67-a1b5-1806eeaf4a4f",
+                            Id = "027064cb-444e-44d3-82e5-ef7cdf8dedab",
                             ExpenseMaxPrice = 15000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Accomodation"
                         },
                         new
                         {
-                            Id = "9e7f2dd7-7f70-4ff9-84dd-8a7be03ede06",
+                            Id = "db1a9bd5-fc1f-45cf-82f0-2e5105ffbdf0",
                             ExpenseMaxPrice = 5000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Travel"
                         },
                         new
                         {
-                            Id = "be8b53f8-fcce-48dd-b82e-c6a7434f1099",
+                            Id = "7d3a14ee-d61a-40c0-b6c8-2fca7c38593d",
                             ExpenseMaxPrice = 4000m,
                             ExpenseMinPrice = 400m,
                             ExpenseName = "Food and Drink"
                         },
                         new
                         {
-                            Id = "515dc056-fbcb-4d47-9a04-dcd3c7c25dd1",
+                            Id = "89f00d46-a1b7-4a9d-a20a-b397cdfc7f9b",
                             ExpenseMaxPrice = 15000m,
                             ExpenseMinPrice = 10000m,
                             ExpenseName = "Education"
                         },
                         new
                         {
-                            Id = "e5661765-bc68-4cdb-8d4f-59fc3477e9a2",
+                            Id = "a27a5821-030b-43f3-8f49-db23def4a950",
                             ExpenseMaxPrice = 20000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Research and Devolopment"
                         },
                         new
                         {
-                            Id = "ea48fb70-8ceb-4763-8118-a9d3d4438b7b",
+                            Id = "ceb2c93d-8336-4ceb-b1a5-83ce2e2d372f",
                             ExpenseMaxPrice = 1000m,
                             ExpenseMinPrice = 1m,
                             ExpenseName = "Others"
@@ -615,8 +614,8 @@ namespace BA.HR_Project.Persistance.Migrations
                         .IsRequired();
 
                     b.HasOne("BA.HR_Project.Domain.Entities.ExpenseType", "ExpenseType")
-                        .WithOne("Expense")
-                        .HasForeignKey("BA.HR_Project.Domain.Entities.Expense", "ExpenseTypeId")
+                        .WithMany("Expenses")
+                        .HasForeignKey("ExpenseTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -697,7 +696,7 @@ namespace BA.HR_Project.Persistance.Migrations
 
             modelBuilder.Entity("BA.HR_Project.Domain.Entities.ExpenseType", b =>
                 {
-                    b.Navigation("Expense");
+                    b.Navigation("Expenses");
                 });
 #pragma warning restore 612, 618
         }
