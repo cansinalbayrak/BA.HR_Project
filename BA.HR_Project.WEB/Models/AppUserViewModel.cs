@@ -33,8 +33,12 @@ namespace BA.HR_Project.WEB.Models
 
         public CompanyViewModel Company { get; set; }
         public DepartmentViewModel Department { get; set; }
+
         public string Adress { get; set; }
-        
+
+
+
+        public List<DayOffViewModel> DayOffs { get; set; }
 
     }
 

@@ -58,23 +58,24 @@ namespace BA.HR_Project.WEB.Controllers
 
             var DayOffDto = _mapper.Map<DayOffDto>(dayOffViewModel);
 
-            //var validator = new DayOffViewModelValidator();
-            //var validationResult = await validator.ValidateAsync(dayOffViewModel);
+            var validator = new DayOffViewModelValidator();
+            var validationResult = await validator.ValidateAsync(dayOffViewModel);
 
 
 
-            //if (!validationResult.IsValid)
-            //{
-            //    foreach (var error in validationResult.Errors)
-            //    {
-            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            //    }
-            //    return View(dayOffViewModel);
-            //}
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View(dayOffViewModel);
+            }
 
             var createAction = await _dayOffManager.RequestDayOff(DayOffDto);
             if (createAction.IsSuccess)
             {
+
                 return RedirectToAction("ListDayOff");
             }
             ViewBag.ErrorMessages = createAction.Message;

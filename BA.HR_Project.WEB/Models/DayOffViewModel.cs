@@ -9,7 +9,7 @@ namespace BA.HR_Project.WEB.Models
         public string Id { get; set; }
         public string? Description { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime FinishDate { get; set; }
+        public DateTime? FinishDate { get; set; }
         public DateTime? RequestDate { get; set; }
         public float? DayCount { get; set; }
         public ConfirmStatus ConfirmStatus { get; set; }
