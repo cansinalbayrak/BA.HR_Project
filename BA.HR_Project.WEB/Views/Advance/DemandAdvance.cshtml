@@ -1,58 +1,66 @@
 ﻿@{
-	ViewData["Title"] = "DemandAdvance";
+    ViewData["Title"] = "DemandAdvance";
     Layout = "_LayoutEmployeeSide";
 }
 @model AdvanceViewModel
 
+<style>
+    .custom-select {
+        background-color: transparent;
+        color: white;
+    }
 
-<div>
-    <a asp-action="ListAdvance" asp-controller="Advance" class="btn btn-primary">Back to List Advances</a>
-</div> <br />
+        .custom-select option {
+            background-color: #1C1F2E;
+            color: white;
+        }
 
-
-
-@if (ViewBag.ErrorMessages != null)
-{
-    <div class="alert alert-danger">
-        
-           
-            <p>@ViewBag.ErrorMessages</p>
-         
-        
-    </div>
-}
+        .custom-select:focus {
+            background-color: #1C1F2E;
+            outline: none;
+            color: white;
+        }
+</style>
 
 <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
 
+            <a asp-action="ListAdvance" asp-controller="Advance" class="btn btn-primary" style="margin-left:20px">Back to List Advances</a>
+            <br />
 
-    <form asp-controller="Advance" asp-action="DemandAdvance" method="post">
+            @if (ViewBag.ErrorMessages != null)
+            {
+                <div class="alert alert-danger">
+                    <p>@ViewBag.ErrorMessages</p>
+                </div>
+            }
 
-        <div class="mb-3">
-            <label asp-for="AdvanceType" class="col-form-label text-warning text-light"></label>
-            <select asp-for="AdvanceType" class="form-control" asp-items="@ViewBag.AdvanceType"></select>
-            <span asp-validation-for="AdvanceType" class="text-danger"></span>
+            <div class="container justify-content-center">
+                <form asp-controller="Advance" asp-action="DemandAdvance" method="post">
+                    <div class="mb-3">
+                        <label asp-for="AdvanceType" class="col-form-label" style="color:#FD8D00"></label>
+                        <select asp-for="AdvanceType" class="form-control custom-select" asp-items="@ViewBag.AdvanceType"></select>
+                        <span asp-validation-for="AdvanceType" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Currency" class="control-label" style="color:#FD8D00"></label>
+                        <select asp-for="Currency" class="form-control custom-select" asp-items="@ViewBag.AdvanceCurrency"></select>
+                        <span asp-validation-for="Currency" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label" asp-for="Amount" style="color:#FD8D00">Amount</label>
+                        <input asp-for="Amount" class="form-control text-light" type="number" placeholder="Amount" style="background-color:transparent;" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Description" class="col-form-label" style="color:#FD8D00"></label>
+                        <textarea asp-for="Description" id="textarea-input" rows="9" placeholder="Please write the reason for your advance request..." style="background-color:transparent;" class="form-control text-light"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn" style="background-color:#FD8D00">Demand Advance</button>
+                </form>
+            </div>
         </div>
-
-        <div class="mb-3">
-            <label asp-for="Currency" class="control-label text-light"></label>
-            <select asp-for="Currency" class="form-control" asp-items="@ViewBag.AdvanceCurrency"></select>
-            <span asp-validation-for="Currency" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
-            <label class="col-form-label text-warning text-light" asp-for="Amount">Amount</label>
-            <input asp-for="Amount" class="form-control" type="number" placeholder="Amount" />
-            <span asp-validation-for="Amount" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Description" class="col-form-label text-warning text-light"></label>
-            <textarea asp-for="Description" id="textarea-input" rows="9" placeholder="Please write the reason for your advance request..." class="form-control"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Demand Advance</button>
-    </form>
-
+    </div>
 </div>
-
-
