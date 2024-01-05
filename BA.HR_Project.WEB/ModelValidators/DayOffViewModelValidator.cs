@@ -29,43 +29,43 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .Equal(DateTime.Now.Year)
                 .WithMessage("Finish date must be in the current year.")
                 .When(x => x.FinishDate != null);
-            RuleFor(x => x.DayOffType)
-           .Must((model, dayOffType) =>
-           {
-               if (dayOffType == DayOffType.AnnualDayOff)
-               {
-                   var workTime = (DateTime.Now - model.AppUser.StartDate.Value).TotalDays;
+           // RuleFor(x => x.DayOffType)
+           //.Must((model, dayOffType) =>
+           //{
+           //    if (dayOffType == DayOffType.AnnualDayOff)
+           //    {
+           //        var workTime = (DateTime.Now - model.AppUser.StartDate.Value).TotalDays;
 
-                   if (workTime < 365)
-                   {
-                       model.ErrorMsg = "Annual leave request not eligible.";
-                       return false;
-                   }
-                   else if (workTime >= 365 && workTime < 6 * 365)
-                   {
-                       var maxAllowedFinishDate = model.StartDate.AddDays(14 - model.DayCount ?? 0);
-                       if (model.FinishDate > maxAllowedFinishDate)
-                       {
-                           model.ErrorMsg = $"Finish date cannot exceed {maxAllowedFinishDate:yyyy-MM-dd}.";
-                           return false;
-                       }
-                   }
-                   else if (workTime >= 6 * 365)
-                   {
-                       var maxAllowedFinishDate = model.StartDate.AddDays(20 - model.DayCount ?? 0);
-                       if (model.FinishDate > maxAllowedFinishDate)
-                       {
-                           model.ErrorMsg = $"Finish date cannot exceed {maxAllowedFinishDate:yyyy-MM-dd}.";
-                           return false;
-                       }
-                   }
+           //        if (workTime < 365)
+           //        {
+           //            model.ErrorMsg = "Annual leave request not eligible.";
+           //            return false;
+           //        }
+           //        else if (workTime >= 365 && workTime < 6 * 365)
+           //        {
+           //            var maxAllowedFinishDate = model.StartDate.AddDays(14 - model.DayCount ?? 0);
+           //            if (model.FinishDate > maxAllowedFinishDate)
+           //            {
+           //                model.ErrorMsg = $"Finish date cannot exceed {maxAllowedFinishDate:yyyy-MM-dd}.";
+           //                return false;
+           //            }
+           //        }
+           //        else if (workTime >= 6 * 365)
+           //        {
+           //            var maxAllowedFinishDate = model.StartDate.AddDays(20 - model.DayCount ?? 0);
+           //            if (model.FinishDate > maxAllowedFinishDate)
+           //            {
+           //                model.ErrorMsg = $"Finish date cannot exceed {maxAllowedFinishDate:yyyy-MM-dd}.";
+           //                return false;
+           //            }
+           //        }
 
-                   return true; // Geçerli olduğunu belirtmek için true döndürün.
-               }
+           //        return true; // Geçerli olduğunu belirtmek için true döndürün.
+           //    }
 
-               return true; // MaternityDayOff değilse valid olarak kabul edin.
-           })
-           .WithMessage(x => x.ErrorMsg);
+           //    return true; // MaternityDayOff değilse valid olarak kabul edin.
+           //})
+           //.WithMessage(x => x.ErrorMsg);
 
             RuleFor(x => x.DayOffType)
             .Must((model, dayOffType) =>
