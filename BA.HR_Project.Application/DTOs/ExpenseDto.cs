@@ -22,7 +22,8 @@ namespace BA.HR_Project.Application.DTOs
         public string? FilePath { get; set; }
         public ConfirmStatus ConfirmStatus { get; set; }
         public Currency Currency { get; set; }
-        public ExpenseType? ExpenseType { get; set; }
+        public ExpenseType ExpenseType { get; set; }
+        public string ExpenseTypeId { get; set; }
         public string AppUserId { get; set; }
 
         public AppUserDto AppUser { get; set; }

@@ -15,6 +15,9 @@ namespace BA.HR_Project.Persistance.Configratitions
         {
             builder.HasOne(x => x.AppUser).WithMany(x => x.Expenses)
                 .HasForeignKey(x => x.AppUserId);
+
+            builder.HasOne(x => x.ExpenseType).WithOne(x => x.Expense)
+             .HasForeignKey<Expense>(x => x.ExpenseTypeId);
         }
     }
 }
