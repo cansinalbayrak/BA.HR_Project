@@ -219,12 +219,12 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "019195ca-08a3-44c8-88e5-f5ad5c0b786f",
+                            Id = "4f91f1ef-db8d-4dc1-9ebb-68d1c06e6397",
                             AccessFailedCount = 0,
                             Adress = "Ankara",
-                            BirthDate = new DateTime(2024, 1, 5, 12, 26, 45, 114, DateTimeKind.Local).AddTicks(2639),
+                            BirthDate = new DateTime(2024, 1, 5, 16, 32, 35, 996, DateTimeKind.Local).AddTicks(9046),
                             CompanyId = "SeedCompany1",
-                            ConcurrencyStamp = "55860371-b209-47af-9336-5c0fdd3e8b6a",
+                            ConcurrencyStamp = "66755e66-1dcf-4542-82d0-59f904bb3a81",
                             DepartmentId = "SeedDepartment1",
                             Email = "admin.bilgeadam@bilgeadamboost.com",
                             EmailConfirmed = true,
@@ -233,11 +233,11 @@ namespace BA.HR_Project.Persistance.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
                             NormalizedUserName = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGPPqulnYdRlwg9dLeh99p9VcbEwA7C17zDeQ6A6DiemRbinO8SxJYCrvYODsq799Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP7u+KAL5zwdhB1s1NG7Nz0qI18fSvrkmkDo/I3FifdJr2tvED2VDoF3Iz1Stslyjg==",
                             PhoneNumber = "0",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/mexant/assets/images/Default.jpg",
-                            SecurityStamp = "5770dcf3-d7ba-49bc-91e0-cacd2bdd66ef",
+                            SecurityStamp = "95193937-4cdb-4742-92b4-42dd56c0f0b6",
                             Surname = "Bilgeadam",
                             TwoFactorEnabled = false,
                             UserName = "admin.bilgeadam@bilgeadamboost.com"
@@ -352,6 +352,10 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.Property<int>("Currency")
                         .HasColumnType("int");
 
+                    b.Property<string>("ExpenseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ExpenseTypeId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -404,49 +408,49 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01154ff3-092e-4fb6-8262-e903aad6e27c",
+                            Id = "51d83cb0-a404-4feb-ae6e-1dfaced9680f",
                             ExpenseMaxPrice = 10000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Marketing and Advertising Expenditures"
                         },
                         new
                         {
-                            Id = "81b3c744-c68f-4356-912a-a350acff819f",
+                            Id = "a17529cd-8f67-4e67-a1b5-1806eeaf4a4f",
                             ExpenseMaxPrice = 15000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Accomodation"
                         },
                         new
                         {
-                            Id = "8f6a1d99-01d6-4e29-87aa-7e77f13e2a67",
+                            Id = "9e7f2dd7-7f70-4ff9-84dd-8a7be03ede06",
                             ExpenseMaxPrice = 5000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Travel"
                         },
                         new
                         {
-                            Id = "f5cb3e59-e70d-4934-a906-fb161f5e9a61",
+                            Id = "be8b53f8-fcce-48dd-b82e-c6a7434f1099",
                             ExpenseMaxPrice = 4000m,
                             ExpenseMinPrice = 400m,
                             ExpenseName = "Food and Drink"
                         },
                         new
                         {
-                            Id = "e9800262-60e8-42e5-b827-7cb3461eef22",
+                            Id = "515dc056-fbcb-4d47-9a04-dcd3c7c25dd1",
                             ExpenseMaxPrice = 15000m,
                             ExpenseMinPrice = 10000m,
                             ExpenseName = "Education"
                         },
                         new
                         {
-                            Id = "03dd8e59-258f-4945-9e06-71542c2952f1",
+                            Id = "e5661765-bc68-4cdb-8d4f-59fc3477e9a2",
                             ExpenseMaxPrice = 20000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Research and Devolopment"
                         },
                         new
                         {
-                            Id = "3e18eca1-6ef7-4f1a-99de-ed73cb4078ba",
+                            Id = "ea48fb70-8ceb-4763-8118-a9d3d4438b7b",
                             ExpenseMaxPrice = 1000m,
                             ExpenseMinPrice = 1m,
                             ExpenseName = "Others"
