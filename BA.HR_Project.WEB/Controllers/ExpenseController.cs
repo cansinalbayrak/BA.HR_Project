@@ -80,8 +80,6 @@ namespace BA.HR_Project.WEB.Controllers
 
             var filePath = await HelperMethods.ImageHelper.SaveImageFile(model.File);
             model.FilePath = filePath;
-            var expenseTypeId = model.ExpenseTypeId.Split("/")[1];
-            model.ExpenseTypeId = expenseTypeId;
 
             var ExpenseDto = _mapper.Map<ExpenseDto>(model);
             var ExpenseAction = await _expsenseService.RequestExpense(ExpenseDto);
