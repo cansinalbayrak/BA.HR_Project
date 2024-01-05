@@ -10,14 +10,19 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label class="custom-select" asp-for="ExpenseType">Expense Type</label>
-        <select asp-for="ExpenseType" class="form-control custom-select">
+        <select asp-for="ExpenseTypeId" class="form-control custom-select">
             <option value="">-- Select Expense Type --</option>
             @if (ViewBag.ExpenseTypes != null)
             {
-                foreach (var expenseTypeValue in ViewBag.ExpenseTypes)
-                {
-                    <option value="@expenseTypeValue">@expenseTypeValue</option>
-                }
+                
+                
+                    foreach (var name in ViewBag.ExpenseTypes)
+                    {
+                      
+                        <option value="@name">@name</option>
+                    }
+
+                
             }
         </select>
     </div>
