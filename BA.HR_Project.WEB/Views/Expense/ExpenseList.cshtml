@@ -1,159 +1,190 @@
 ﻿@{
     Layout = "_LayoutEmployeeSide";
 }
- @model List<ExpenseViewModel>
+@model List<ExpenseViewModel>
 
 
-<div>
-    <a asp-action="RequestExpense" asp-controller="Expense" class="btn btn-primary">Request Expense</a>
-    <!-- diğer tüm avansların popupını açacak buton -->
-    <button id="showExpenseListButton" class="btn btn-primary">All Expense</button>
-</div>
-<br />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div>
+                <h2 class="text-white">Expense Requests</h2>
+                <!-- diğer tüm avansların popupını açacak butonlar -->
+                <button id="showExpenseApprovedButton" class="btn btn-success">Approved Expense</button>
+                <button id="showExpenseWaitingButton" class="btn btn-warning">Waiting Expense</button>
+                <button id="showExpenseDeniedButton" class="btn btn-danger">Denied Expense</button>
+            </div> <br />
 
-<table class="table text-light">
-    <thead>
-        <tr>
-            <th>Expense Name</th>
-            <th>Request Price</th>
-            <th>Currency</th>
-            <th>Request Date</th>
-            <th>Response Date</th>
-            <th>Confirm Status</th>
-            <th>Document</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.ExpenseName</td>
-                <td>@item.RequestPrice</td>
-                <td>@item.Currency.ToString()</td>
-                <td>@item.RequestDate</td>
-                <td>@item.ReplyDate</td>
-                <td>@item.ConfirmStatus.ToString()</td>
-                <td>
-                    <img src="@item.FilePath" />
-                </td>
-
-            </tr>
-
-        }
-    </tbody>
-</table>
-
-
-<!-- Popup içeriği -->
-<div id="ExpenseListPopup" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closePopup()">&times;</span>
-
-        <h2>Waiting Expense</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Expense Type</th>
-                    <th>Request Price</th>
-                    <th>Currency</th>
-                    <th>Request Date</th>
-                    <th>Response Date</th>
-                    <th>Confirm Status</th>
-                    <th>Document</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in ViewBag.WaitingExpenses)
-                {
+            <table class="table text-light">
+                <thead>
                     <tr>
-                        <td>@item.ExpenseType</td>
-                        <td>@item.RequestPrice</td>
-                        <td>@item.Currency.ToString()</td>
-                        <td>@item.RequestDate</td>
-                        <td>@item.ReplyDate</td>
-                        <td>@item.ConfirmStatus.ToString()</td>
-                        <td>@item.File</td>
+                        <th>Expense Name</th>
+                        <th>Request Price</th>
+                        <th>Currency</th>
+                        <th>Request Date</th>
+                        <th>Response Date</th>
+                        <th>Confirm Status</th>
                     </tr>
-                 }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ExpenseName</td>
+                            <td>@item.RequestPrice</td>
+                            <td>@item.Currency.ToString()</td>
+                            <td>@item.RequestDate</td>
+                            <td>@item.ReplyDate</td>
+                            <td>@item.ConfirmStatus.ToString()</td>
+                        </tr>
 
-        <h2>Approved Expenses</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Expense Type</th>
-                    <th>Request Price</th>
-                    <th>Currency</th>
-                    <th>Request Date</th>
-                    <th>Response Date</th>
-                    <th>Confirm Status</th>
-                    <th>Document</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in ViewBag.AprroveExpenses)
-                {
-                    <tr>
-                        <td>@item.ExpenseType</td>
-                        <td>@item.RequestPrice</td>
-                        <td>@item.Currency.ToString()</td>
-                        <td>@item.RequestDate</td>
-                        <td>@item.ReplyDate</td>
-                        <td>@item.ConfirmStatus.ToString()</td>
-                        <td>@item.File</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                    }
+                </tbody>
+            </table>
 
-        <h2>Denied Advances</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Advance Type</th>
-                    <th>Amount</th>
-                    <th>Currency</th>
-                    <th>Request Date</th>
-                    <th>Response Date</th>
-                    <th>Description</th>
-                    <th>Confirm Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in ViewBag.DinedExpenses)
-                {
-                    <tr>
-                        <td>@item.ExpenseType</td>
-                        <td>@item.RequestPrice</td>
-                        <td>@item.Currency.ToString()</td>
-                        <td>@item.RequestDate</td>
-                        <td>@item.ReplyDate</td>
-                        <td>@item.ConfirmStatus.ToString()</td>
-                        <td>@item.File</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+
+            <!-- Popup içeriği -->
+
+            @*waitng expense*@
+            <div id="ExpenseWaitingPopup" class="modalC">
+                <div class="modal-contentC">
+                    <span class="closeC" onclick="closePopupWaiting()">&times;</span>
+
+                    <h2 class="text-warning text-center"><u>Waiting Expense</u></h2>
+                    <table class="table text-white">
+                        <thead>
+                            <tr>
+                                <th>Expense Type</th>
+                                <th>Request Price</th>
+                                <th>Currency</th>
+                                <th>Request Date</th>
+                                <th>Response Date</th>
+                                <th>Confirm Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.WaitingExpenses)
+                            {
+                                <tr>
+                                    <td>@item.ExpenseName</td>
+                                    <td>@item.RequestPrice</td>
+                                    <td>@item.Currency.ToString()</td>
+                                    <td>@item.RequestDate</td>
+                                    <td>@item.ReplyDate</td>
+                                    <td>@item.ConfirmStatus.ToString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            @* approved expense *@
+            <div id="ExpenseApprovedPopup" class="modalC">
+                <div class="modal-contentC">
+                    <span class="closeC" onclick="closePopupApproved()">&times;</span>
+
+                    <h2 class="text-success text-center "><u>Approved Expense</u></h2>
+                    <table class="table text-white">
+                        <thead>
+                            <tr>
+                                <th>Expense Type</th>
+                                <th>Request Price</th>
+                                <th>Currency</th>
+                                <th>Request Date</th>
+                                <th>Response Date</th>
+                                <th>Confirm Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.AprroveExpenses)
+                            {
+                                <tr>
+                                    <td>@item.ExpenseName</td>
+                                    <td>@item.RequestPrice</td>
+                                    <td>@item.Currency.ToString()</td>
+                                    <td>@item.RequestDate</td>
+                                    <td>@item.ReplyDate</td>
+                                    <td>@item.ConfirmStatus.ToString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            @*denied expense*@
+            <div id="ExpenseDeniedPopup" class="modalC">
+                <div class="modal-contentC">
+                    <span class="closeC" onclick="closePopupDenied()">&times;</span>
+
+                    <h2 class=" text-center text-danger"><u>Denied Expense</u></h2>
+                    <table class="table text-white">
+                        <thead>
+                            <tr>
+                                <th>Expense Type</th>
+                                <th>Amount</th>
+                                <th>Currency</th>
+                                <th>Request Date</th>
+                                <th>Response Date</th>
+                                <th>Description</th>
+                                <th>Confirm Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.DinedExpenses)
+                            {
+                                <tr>
+                                    <td>@item.ExpenseName</td>
+                                    <td>@item.RequestPrice</td>
+                                    <td>@item.Currency.ToString()</td>
+                                    <td>@item.RequestDate</td>
+                                    <td>@item.ReplyDate</td>
+                                    <td>@item.ConfirmStatus.ToString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-
-
 <script>
-    // Butona tıklandığında popupu açma
-    document.getElementById('showExpenseListButton').onclick = function () {
-        openPopup();
+    // Waiting Expense Popupı
+    document.getElementById('showExpenseWaitingButton').onclick = function () {
+        openPopupWaiting();
     };
-
-    // Popupu açma
-    function openPopup() {
-        document.getElementById('ExpenseListPopup').style.display = 'block';
+    function openPopupWaiting() {
+        document.getElementById('ExpenseWaitingPopup').style.display = 'block';
+    }
+    function closePopupWaiting() {
+        document.getElementById('ExpenseWaitingPopup').style.display = 'none';
     }
 
-    // Popupu kapama
-    function closePopup() {
-        document.getElementById('ExpenseListPopup').style.display = 'none';
+    // Approved Expense Popupı
+    document.getElementById('showExpenseApprovedButton').onclick = function () {
+        openPopupApproved();
+    };
+    function openPopupApproved() {
+        document.getElementById('ExpenseApprovedPopup').style.display = 'block';
     }
+    function closePopupApproved() {
+        document.getElementById('ExpenseApprovedPopup').style.display = 'none';
+    }
+
+    // Denied Expense Popupı
+    document.getElementById('showExpenseDeniedButton').onclick = function () {
+        openPopupDenied();
+    };
+    function openPopupDenied() {
+        document.getElementById('ExpenseDeniedPopup').style.display = 'block';
+    }
+    function closePopupDenied() {
+        document.getElementById('ExpenseDeniedPopup').style.display = 'none';
+    }
+
 </script>
+
 
