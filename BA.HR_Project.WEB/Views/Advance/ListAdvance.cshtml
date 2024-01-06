@@ -5,11 +5,13 @@
 
 @model List<AdvanceViewModel>
 
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div>
-                <a asp-action="DemandAdvance" asp-controller="Advance" class="btn btn-primary">Demand Advances</a>
+                @* <a asp-action="DemandAdvance" asp-controller="Advance" class="btn btn-primary">Demand Advances</a> *@
+                <h2 class="text-white">Advance Requests</h2>
                 <!-- diğer tüm avansların popupını açacak butonlar -->
                 <button id="showAvansApprovedButton" class="btn btn-success">Approved Advances</button>
                 <button id="showAvansWaitingButton" class="btn btn-warning">Waiting Advances</button>
