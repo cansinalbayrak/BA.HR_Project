@@ -92,7 +92,7 @@ namespace BA.HR_Project.WEB.ModelValidators
 
         private bool ContainsTurkishCharacter(string text)
         {
-            return text.Any(char.IsLetter) && text.Any(ch => "İÖÜĞŞÇçüöış".Contains(ch));
+            return text.Any(char.IsLetter) && text.Any(ch => "İÖÜĞŞÇçüöış ".Contains(ch));
         }
 
         private bool BeAtLeast15YearsOld(DateTime? birthDate)
