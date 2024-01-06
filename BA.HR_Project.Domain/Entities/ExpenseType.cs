@@ -19,6 +19,6 @@ namespace BA.HR_Project.Domain.Entities
         public decimal ExpenseMaxPrice { get; set; }
         public decimal ExpenseMinPrice { get; set; }
         
-        public Expense? Expense { get; set; }
+        public IEnumerable<Expense> Expenses { get; set; }
     }
 }

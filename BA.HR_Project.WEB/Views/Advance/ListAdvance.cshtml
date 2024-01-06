@@ -10,8 +10,10 @@
         <div class="col-md-8">
             <div>
                 <a asp-action="DemandAdvance" asp-controller="Advance" class="btn btn-primary">Demand Advances</a>
-                <!-- diğer tüm avansların popupını açacak buton -->
-                <button id="showAvansListButton" class="btn btn-primary">All Advances</button>
+                <!-- diğer tüm avansların popupını açacak butonlar -->
+                <button id="showAvansApprovedButton" class="btn btn-success">Approved Advances</button>
+                <button id="showAvansWaitingButton" class="btn btn-warning">Waiting Advances</button>
+                <button id="showAvansDeniedButton" class="btn btn-danger">Denied Advances</button>
             </div> <br />
 
             <table class="table text-light">
@@ -47,9 +49,10 @@
 
             <!-- Popup içeriği -->
 
-            <div id="avansListPopup" class="modalC">
+            @* waiting advances *@
+            <div id="avansWaitingPopup" class="modalC">
                 <div class="modal-contentC">
-                    <span class="closeC" onclick="closePopup()">&times;</span>
+                    <span class="closeC" onclick="closePopupWaiting()">&times;</span>
 
                     <h2 class="text-warning text-center"><u>Waiting Advances</u></h2>
 
@@ -80,7 +83,14 @@
                             }
                         </tbody>
                     </table>
-                    <br />
+                </div>
+            </div>
+
+            @* approved advances *@
+            <div id="avansApprovedPopup" class="modalC">
+                <div class="modal-contentC">
+                    <span class="closeC" onclick="closePopupApproved()">&times;</span>
+
                     <h2 class="text-success text-center "><u>Approved Advances</u></h2>
 
                     <table class="table text-light">
@@ -110,7 +120,14 @@
                             }
                         </tbody>
                     </table>
-                    <br />
+                </div>
+            </div>
+
+            @* denied advances *@
+            <div id="avansDeniedPopup" class="modalC">
+                <div class="modal-contentC">
+                    <span class="closeC" onclick="closePopupDenied()">&times;</span>
+
                     <h2 class=" text-center text-danger"><u>Denied Advances</u></h2>
                     <table class="table text-light">
                         <thead>
@@ -146,19 +163,39 @@
     </div>
 </div>
 
+
 <script>
-    // Butona tıklandığında popupu açma
-    document.getElementById('showAvansListButton').onclick = function () {
-        openPopup();
+    // Waiting Advances Popupı
+    document.getElementById('showAvansWaitingButton').onclick = function () {
+        openPopupWaiting();
     };
-
-    // Popupu açma
-    function openPopup() {
-        document.getElementById('avansListPopup').style.display = 'block';
+    function openPopupWaiting() {
+        document.getElementById('avansWaitingPopup').style.display = 'block';
+    }
+    function closePopupWaiting() {
+        document.getElementById('avansWaitingPopup').style.display = 'none';
     }
 
-    // Popupu kapama
-    function closePopup() {
-        document.getElementById('avansListPopup').style.display = 'none';
+    // Approved Advances Popupı
+    document.getElementById('showAvansApprovedButton').onclick = function () {
+        openPopupApproved();
+    };
+    function openPopupApproved() {
+        document.getElementById('avansApprovedPopup').style.display = 'block';
     }
+    function closePopupApproved() {
+        document.getElementById('avansApprovedPopup').style.display = 'none';
+    }
+
+    // Denied Advances Popupı
+    document.getElementById('showAvansDeniedButton').onclick = function () {
+        openPopupDenied();
+    };
+    function openPopupDenied() {
+        document.getElementById('avansDeniedPopup').style.display = 'block';
+    }
+    function closePopupDenied() {
+        document.getElementById('avansDeniedPopup').style.display = 'none';
+    }
+
 </script>

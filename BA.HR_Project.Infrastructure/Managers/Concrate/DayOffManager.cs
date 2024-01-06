@@ -27,15 +27,6 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         }
         public async Task<Response> RequestDayOff(DayOffDto dayOffDto)
         {
-            //var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
-            //var userId = user.Id;
-            ////var userNewProps = _mapper.Map<DayOff>(dayOffDto);
-            //var annualDayOffs = user.DayOffs.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
-            //                                 d.StartDate.Year == DateTime.Now.Year);
-
-            //// Ardından bu öğelerin DayCount özelliğini toplamak için LINQ sorgusu kullanalım
-            //float annualDayOffTotalCount = annualDayOffs.Sum(d => d.DayCount ?? 0);
-
             if (dayOffDto.DayOffType == DayOffType.AnnualDayOff)
             {
                 return await RequestAnnualDayOff(dayOffDto);
@@ -148,10 +139,16 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         {
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
             var DayOffs = await GetAll();
+            var annualDayOffs = DayOffs.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
+                                            d.StartDate.Year == DateTime.Now.Year && d.AppUserId == user.Id);
+         
+
+           
             if (user == null)
             {
                 return Response.Failure("User not found.");
             }
+
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(49);
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.RequestDate = DateTime.Now;
@@ -185,7 +182,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var DayOffss = await GetAll();
             var annualDayOffs = DayOffss.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
                                             d.StartDate.Year == DateTime.Now.Year&& d.AppUserId==user.Id);
-
+      
             float annualDayOffTotalCount = annualDayOffs.Sum(d => d.DayCount);
             dayOffDto.DayCount = annualDayOffTotalCount;
 
