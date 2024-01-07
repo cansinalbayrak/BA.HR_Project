@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "ListAdvance";
+    ViewData["Title"] = "ListDayOff";
     Layout = "_LayoutEmployeeSide";
 }
 
@@ -9,13 +9,15 @@
 
 <div>
     <!-- İzin türlerini ayıran butonlar -->
-    <button id="showWaitingDayOffsButton" class="btn btn-primary">Waiting Day Offs</button>
-    <button id="showApprovedDayOffsButton" class="btn btn-primary">Approved Day Offs</button>
-    <button id="showDeniedDayOffsButton" class="btn btn-primary">Denied Day Offs</button>
-</div> <br />
+    <button class="btn btn-primary" onclick="showDayOffs('All')">All Day Offs</button>
+    <button class="btn btn-primary" onclick="showDayOffs('Waiting')">Waiting Day Offs</button>
+    <button class="btn btn-primary" onclick="showDayOffs('Approved')">Approved Day Offs</button>
+    <button class="btn btn-primary" onclick="showDayOffs('Denied')">Denied Day Offs</button>
+</div>
+<br />
 
 <!-- Tüm izinleri listeleyecek tablo -->
-<table class="table text-light">
+<table class="table text-light" id="AllTable">
     <thead>
         <tr>
             <th>Day Off Type</th>
@@ -31,8 +33,8 @@
         {
             <tr>
                 <td>@dayOff.DayOffType.ToString()</td>
-                <td>@dayOff.StartDate</td>
-                <td>@dayOff.FinishDate</td>
+                <td>@dayOff.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@(dayOff.FinishDate.HasValue ? dayOff.FinishDate.Value.ToString("yyyy-MM-dd") : string.Empty)</td>
                 <td>@dayOff.RequestDate</td>
                 <td>@dayOff.DayCount</td>
                 <td>@dayOff.ConfirmStatus.ToString()</td>
@@ -41,126 +43,104 @@
     </tbody>
 </table>
 
-<!-- Popup içeriği -->
-<div id="dayOffListPopup" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closePopup()">&times;</span>
+<!-- Waiting Day Offs -->
+<table class="table text-light" id="WaitingTable">
+    <thead>
+        <tr>
+            <th>Day Off Type</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Request Date</th>
+            <th>Day Count</th>
+            <th>Confirm Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dayOff in ViewBag.WaitingDayOffs)
+        {
+            <tr>
+                <td>@dayOff.DayOffType.ToString()</td>
+                <td>@dayOff.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@dayOff.FinishDate.ToString("yyyy-MM-dd")</td>
+                <td>@dayOff.RequestDate</td>
+                <td>@dayOff.DayCount</td>
+                <td>@dayOff.ConfirmStatus.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-        <!-- Waiting Day Offs -->
-        <h2>Waiting Day Offs</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Day Off Type</th>
-                    <th>Start Date</th>
-                    <th>Finish Date</th>
-                    <th>Request Date</th>
-                    <th>Day Count</th>
-                    <th>Confirm Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var dayOff in ViewBag.WaitingDayOffs)
-                {
-                    <tr>
-                        <td>@dayOff.DayOffType.ToString()</td>
-                        <td>@dayOff.StartDate</td>
-                        <td>@dayOff.FinishDate</td>
-                        <td>@dayOff.RequestDate</td>
-                        <td>@dayOff.DayCount</td>
-                        <td>@dayOff.ConfirmStatus.ToString()</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<!-- Approved Day Offs -->
+<table class="table text-light" id="ApprovedTable">
+    <thead>
+        <tr>
+            <th>Day Off Type</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Request Date</th>
+            <th>Day Count</th>
+            <th>Confirm Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dayOff in ViewBag.ApprovedDayOffs)
+        {
+            <tr>
+                <td>@dayOff.DayOffType.ToString()</td>
+                <td>@dayOff.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@dayOff.FinishDate.ToString("yyyy-MM-dd")</td>
+                <td>@dayOff.RequestDate</td>
+                <td>@dayOff.DayCount</td>
+                <td>@dayOff.ConfirmStatus.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-        <!-- Approved Day Offs -->
-        <h2>Approved Day Offs</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Day Off Type</th>
-                    <th>Start Date</th>
-                    <th>Finish Date</th>
-                    <th>Request Date</th>
-                    <th>Day Count</th>
-                    <th>Confirm Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var dayOff in ViewBag.ApprovedDayOffs)
-                {
-                    <tr>
-                        <td>@dayOff.DayOffType.ToString()</td>
-                        <td>@dayOff.StartDate</td>
-                        <td>@dayOff.FinishDate</td>
-                        <td>@dayOff.RequestDate</td>
-                        <td>@dayOff.DayCount</td>
-                        <td>@dayOff.ConfirmStatus.ToString()</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-        <!-- Denied Day Offs -->
-        <h2>Denied Day Offs</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Day Off Type</th>
-                    <th>Start Date</th>
-                    <th>Finish Date</th>
-                    <th>Request Date</th>
-                    <th>Day Count</th>
-                    <th>Confirm Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var dayOff in ViewBag.DeniedDayOffs)
-                {
-                    <tr>
-                        <td>@dayOff.DayOffType.ToString()</td>
-                        <td>@dayOff.StartDate</td>
-                        <td>@dayOff.FinishDate</td>
-                        <td>@dayOff.RequestDate</td>
-                        <td>@dayOff.DayCount</td>
-                        <td>@dayOff.ConfirmStatus.ToString()</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
-
+<!-- Denied Day Offs -->
+<table class="table text-light" id="DeniedTable">
+    <thead>
+        <tr>
+            <th>Day Off Type</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Request Date</th>
+            <th>Day Count</th>
+            <th>Confirm Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dayOff in ViewBag.DeniedDayOffs)
+        {
+            <tr>
+                <td>@dayOff.DayOffType.ToString()</td>
+                <td>@dayOff.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@dayOff.FinishDate.ToString("yyyy-MM-dd")</td>
+                <td>@dayOff.RequestDate</td>
+                <td>@dayOff.DayCount</td>
+                <td>@dayOff.ConfirmStatus.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
 <script>
-    // İzin türlerini ayıran butonlara tıklama olayları
-    document.getElementById('showWaitingDayOffsButton').onclick = function () {
-        showDayOffs('Waiting');
-    };
-    document.getElementById('showApprovedDayOffsButton').onclick = function () {
-        showDayOffs('Approved');
-    };
-    document.getElementById('showDeniedDayOffsButton').onclick = function () {
-        showDayOffs('Denied');
-    };
-
-    // Popupı açma
-    function openPopup() {
-        document.getElementById('dayOffListPopup').style.display = 'block';
+    // Tabloları gizleme fonksiyonu
+    function hideTables() {
+        document.getElementById('AllTable').style.display = 'none';
+        document.getElementById('WaitingTable').style.display = 'none';
+        document.getElementById('ApprovedTable').style.display = 'none';
+        document.getElementById('DeniedTable').style.display = 'none';
     }
 
-    // Popupı kapatma
-    function closePopup() {
-        document.getElementById('dayOffListPopup').style.display = 'none';
-    }
-
-    // İzin türlerine göre tabloyu güncelleme
+    // İzin türlerine göre tabloyu gösterme
     function showDayOffs(status) {
-        openPopup();
+        hideTables();
+        var tableId = status + 'Table';
+        document.getElementById(tableId).style.display = 'table';
+    }
 
-        // Tüm tabloları gizle
-        document.querySelectorAll('.table').forEach(function (table) {
-            table.style.display = 'none';
-        });
-
-
+    // Sayfa yüklendiğinde default olarak "All Day Offs" tablosunu gösterme
+    document.addEventListener("DOMContentLoaded", function () {
+        showDayOffs('All');
+    });
+</script>

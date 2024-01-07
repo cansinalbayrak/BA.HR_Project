@@ -15,7 +15,7 @@ namespace BA.HR_Project.Domain.Enums
         JobSearchDayOff = 7,              // YeniIsAramaIzni,
         MarriageDayOff = 8,               // EvlilikIzni,
         ExcuseDayOff = 9,                 // MazeretIzni,
-        AccompanyingDayOff = 10,          // RefakatIzni
+        SickDayOff = 10,          // RefakatIzni
         SoldierLeave = 11,
 
     }
