@@ -27,9 +27,13 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         {
             var user = await _userManager.FindByIdAsync(dto.AppUserId);
 
+            var today = DateTime.Now; //mart 2026
+            var userStartDate = user.StartDate ?? DateTime.MinValue; //kasım 2023 2025
+            var lastYearStartDate = userStartDate.AddYears(today.Year - userStartDate.Year - 1); //
+
             var advances = await GetAll();
-            var individualAdvances =  advances.Context.Where(x => x.AppUserId == dto.AppUserId && x.AdvanceType == AdvanceType.Individual && (x.ConfirmStatus == ConfirmStatus.Waiting || x.ConfirmStatus == ConfirmStatus.Approved));
-            var institutionalAdvances = advances.Context.Where(x => x.AppUserId == dto.AppUserId && x.AdvanceType == AdvanceType.Institutional && (x.ConfirmStatus == ConfirmStatus.Waiting || x.ConfirmStatus == ConfirmStatus.Approved));
+            var individualAdvances =  advances.Context.Where(x => x.AppUserId == dto.AppUserId && x.RequestDate >=lastYearStartDate && x.RequestDate <=today && x.AdvanceType == AdvanceType.Individual && (x.ConfirmStatus == ConfirmStatus.Waiting || x.ConfirmStatus == ConfirmStatus.Approved));
+            var institutionalAdvances = advances.Context.Where(x => x.AppUserId == dto.AppUserId && x.RequestDate >= lastYearStartDate && x.RequestDate <= today && x.AdvanceType == AdvanceType.Institutional && (x.ConfirmStatus == ConfirmStatus.Waiting || x.ConfirmStatus == ConfirmStatus.Approved));
             
             if(dto.Amount>0)
             {
