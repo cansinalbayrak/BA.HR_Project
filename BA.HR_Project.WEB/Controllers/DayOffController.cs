@@ -47,16 +47,17 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> DemandDayOff()
         {
-           var user = await _userManager.GetUserAsync(User);
-            var userId = await _userManager.GetUserIdAsync(user);
-            ViewBag.UserId = userId;
+            var userıd = _userManager.GetUserId(User);
+            ViewBag.UserId = userıd;
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> DemandDayOff(DayOffViewModel dayOffViewModel)
         {
+            
             var userıd =  _userManager.GetUserId(User);
+            ViewBag.UserId = userıd;
             dayOffViewModel.AppUserId = userıd;
 
             var DayOffDto = _mapper.Map<DayOffDto>(dayOffViewModel);

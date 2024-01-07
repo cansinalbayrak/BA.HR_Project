@@ -340,12 +340,12 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             {
                 return Response.Failure("User not found.");
             }
-            var GengerDayoff = DayOffs.Context.Where(d => d.AppUserId == user.Id && d.Gender == Gender.Female || d.Gender == Gender.Male).FirstOrDefault();
+            var GengerDayoff = DayOffs.Context.Where(d => d.AppUserId == user.Id && (d.Gender == Gender.Female || d.Gender == Gender.Male)).FirstOrDefault();
             if (GengerDayoff != null)
             {
                 dayOffDto.Gender = GengerDayoff.Gender;
             }
-            var femaleDayOffs = DayOffs.Context.Where(d => d.Gender == Gender.Female);
+            var femaleDayOffs = DayOffs.Context.Where(d => d.AppUserId==user.Id && d.Gender == Gender.Female);
             if (dayOffDto.Gender == Gender.Male && !femaleDayOffs.Any()  )
             {
                 return Response.Failure("Male users are not eligible for Maternity Day Off.");
