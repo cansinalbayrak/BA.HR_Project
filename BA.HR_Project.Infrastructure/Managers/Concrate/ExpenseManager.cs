@@ -52,7 +52,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 }
                 return Response.Success("Success");
             }
-            return Response.Failure("Error");
+            return Response.Failure("You should correct request price value with between maxprice value and minprice value. ");
         }
         public async Task<List<ExpenseDto>> GetAllExpenses(string userId)
         {
