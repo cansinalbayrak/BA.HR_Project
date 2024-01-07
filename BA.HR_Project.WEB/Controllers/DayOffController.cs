@@ -10,6 +10,7 @@ using BA.HR_Project.WEB.Models;
 using BA.HR_Project.WEB.ModelValidators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace BA.HR_Project.WEB.Controllers
@@ -46,7 +47,7 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> DemandDayOff()
         {
-
+           
             return View();
         }
 
@@ -82,6 +83,8 @@ namespace BA.HR_Project.WEB.Controllers
             return View(dayOffViewModel);
 
         }
+
+    
 
     }
 }

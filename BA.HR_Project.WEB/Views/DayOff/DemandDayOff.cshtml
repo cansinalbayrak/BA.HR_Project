@@ -25,14 +25,43 @@
 
     <div class="form-group">
         <label asp-for="StartDate" style="color: white;">Start Date</label>
-        <input asp-for="StartDate" class="form-control custom-select" />
+        <input asp-for="StartDate" type="date" class="form-control custom-select" />
         <span asp-validation-for="StartDate" class="text-danger"></span>
     </div>
-    <div class="form-group">
+
+
+    @*<div class="form-group">
         <label asp-for="FinishDate" style="color: white;">Finish Date</label>
         <input asp-for="FinishDate" class="form-control custom-select" />
         <span asp-validation-for="FinishDate" class="text-danger"></span>
+    </div>*@
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dayOffTypeSelect = document.getElementById('DayOffType');
+            var finishDateDiv = document.getElementById('FinishDateDiv');
+
+            dayOffTypeSelect.addEventListener('change', function () {
+                var selectedDayOffType = parseInt(this.value);
+
+                // Tüm div'leri gizle
+                finishDateDiv.style.display = 'none';
+                // Diğer DayOffType'lara göre kontrol ekleyebilirsiniz
+                if (selectedDayOffType === @((int)DayOffType.AnnualDayOff) ||
+                    selectedDayOffType === @((int)DayOffType.ExcuseDayOff) ||
+                    selectedDayOffType === @((int)DayOffType.SoldierLeave) ||
+                    selectedDayOffType === @((int)DayOffType.SickDayOff)) {
+                    finishDateDiv.style.display = 'block';  // görünür yap
+                }
+            });
+        });
+    </script>
+    <div class="form-group" id="FinishDateDiv" style="display: none;">
+        <label asp-for="FinishDate" style="color: white;">Finish Date</label>
+        <input asp-for="FinishDate" type="date" class="form-control custom-select" />
+        <span asp-validation-for="FinishDate" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="Description" style="color: white;">Description</label>
         <textarea asp-for="Description" class="form-control custom-select"></textarea>
@@ -61,14 +90,14 @@
     <div class="form-group">
         <label asp-for="DayOffType" style="color: white;">Day Off Type</label>
         <select asp-for="DayOffType" class="form-control custom-select">
-            <option value="@((int)DayOffType.AnnualDayOff)">Annual Day Off</option>
+           
             @{
 
                 var userDayoff2 = DayOffs.Context.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Male).FirstOrDefault();
                 if (userDayoff2 != null)
                 {
-                    <option value="@((int)DayOffType.SoldierLeave)">Soldier Leave</option>
                     <option value="@((int)DayOffType.PaternityDayOff)">Paternity Day Off</option>
+                    <option value="@((int)DayOffType.SoldierLeave)">Soldier Leave</option>
                 }
             }
             @{
@@ -79,11 +108,35 @@
                     <option value="@((int)DayOffType.MaternityDayOff)">Maternity Day Off</option>
                 }
             }
-            <option value="@((int)DayOffType.BereavementDayOff)">Bereavement Day Off</option>
-            <option value="@((int)DayOffType.JobSearchDayOff)">Job Search Day Off</option>
-            <option value="@((int)DayOffType.MarriageDayOff)">Marriage Day Off</option>
-            <option value="@((int)DayOffType.ExcuseDayOff)">Excuse Day Off</option>
-            <option value="@((int)DayOffType.AccompanyingDayOff)">Accompanying Day Off</option>
+
+
+            @{
+
+                var userDayoff4 = DayOffs.Context.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Female || x.Gender == Gender.Male).FirstOrDefault();
+                if (userDayoff4 == null)
+                {
+
+                    <option value="@((int)DayOffType.MaternityDayOff)">Maternity Day Off</option>
+                    <option value="@((int)DayOffType.BereavementDayOff)">Bereavement Day Off</option>
+                    <option value="@((int)DayOffType.JobSearchDayOff)">Job Search Day Off</option>
+                    <option value="@((int)DayOffType.MarriageDayOff)">Marriage Day Off</option>
+                    <option value="@((int)DayOffType.ExcuseDayOff)">Excuse Day Off</option>
+                    <option value="@((int)DayOffType.SickDayOff)">Accompanying Day Off</option>
+                    <option value="@((int)DayOffType.SoldierLeave)">Soldier Leave</option>
+                    <option value="@((int)DayOffType.PaternityDayOff)">Paternity Day Off</option>
+                    <option value="@((int)DayOffType.AnnualDayOff)">Annual Day Off</option>
+                }
+                else
+                {
+                    <option value="@((int)DayOffType.BereavementDayOff)">Bereavement Day Off</option>
+                    <option value="@((int)DayOffType.JobSearchDayOff)">Job Search Day Off</option>
+                    <option value="@((int)DayOffType.MarriageDayOff)">Marriage Day Off</option>
+                    <option value="@((int)DayOffType.ExcuseDayOff)">Excuse Day Off</option>
+                    <option value="@((int)DayOffType.SickDayOff)">Accompanying Day Off</option>
+                    <option value="@((int)DayOffType.AnnualDayOff)">Annual Day Off</option>
+                }
+            }
+           
         </select>
         <span asp-validation-for="DayOffType" class="text-danger"></span>
     </div>
