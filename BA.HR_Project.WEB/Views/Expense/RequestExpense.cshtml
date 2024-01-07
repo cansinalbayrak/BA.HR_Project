@@ -13,6 +13,13 @@
     </div>
 }
 
+@if (ViewBag.FileError != null)
+{
+    <div class="alert alert-danger">
+        <p>@ViewBag.FileError </p>
+    </div>
+}
+
 
 <form asp-controller="Expense" asp-action="RequestExpense" method="post" enctype="multipart/form-data">
     @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@

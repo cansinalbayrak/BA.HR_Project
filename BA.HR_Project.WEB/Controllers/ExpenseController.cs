@@ -63,6 +63,14 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> RequestExpense(ExpenseViewModel model)
         {
+            List<ExpenseTypeCustom> allExpenseTypes = _expenseTypeService.GetAllCustomColumn();
+            List<string> expenseNames = new List<string>();
+            for (int i = 0; i < allExpenseTypes.Count; i++)
+            {
+                expenseNames.Add(allExpenseTypes[i].Name + "/" + allExpenseTypes[i].Id);
+            }
+
+            ViewBag.ExpenseTypes = expenseNames;
             var validator = new ExpenseViewModelValidator();
             var validationRsult = await validator.ValidateAsync(model);
 
@@ -73,39 +81,46 @@ namespace BA.HR_Project.WEB.Controllers
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
 
                 }
-                return RedirectToAction("RequestExpense");
+                return View(model);
             }
             var userId = _userManager.GetUserId(User);
             model.AppUserId = userId;
 
             var filePath = await HelperMethods.ImageHelper.SaveImageFile(model.File);
             model.FilePath = filePath;
-            var expenseId= model.ExpenseTypeId.Split('/')[1];
-           
-            var expenseName = model.ExpenseTypeId.Split('/')[0];
-            var expenseName1= expenseName.Split(" ")[0];
-            model.ExpenseName = expenseName1;
-            model.ExpenseTypeId = expenseId;
-
-            var ExpenseDto = _mapper.Map<ExpenseDto>(model);
-            var ExpenseAction = await _expsenseService.RequestExpense(ExpenseDto);
-           
-
-           
-            if (ExpenseAction.IsSuccess)
+            if (filePath.Contains(".jpeg") || filePath.Contains(".jpg") || filePath.Contains(".png") || filePath.Contains(".pdf"))
             {
-                return RedirectToAction("ExpenseList");
-            }
-            //List<ExpenseTypeCustom> allExpenseTypes = _expenseTypeService.GetAllCustomColumn();
-            //var selectedItem = allExpenseTypes.FirstOrDefault();
-            //if (selectedItem != null)
-            //{
-            //    var expenseName = _expenseTypeService.GetName(selectedItem.Id);
-            //    ViewBag.ExpenseName = expenseName;
-            //}
+                var expenseId = model.ExpenseTypeId.Split('/')[1];
 
-            ViewBag.ErrorMassages = ExpenseAction.Message;
-            return RedirectToAction("RequestExpense");
+                var expenseName = model.ExpenseTypeId.Split('/')[0];
+                var expenseName1 = expenseName.Split(" ")[0];
+                model.ExpenseName = expenseName1;
+                model.ExpenseTypeId = expenseId;
+
+                var ExpenseDto = _mapper.Map<ExpenseDto>(model);
+                var ExpenseAction = await _expsenseService.RequestExpense(ExpenseDto);
+                if (ExpenseAction.IsSuccess)
+                {
+                    return RedirectToAction("ExpenseList");
+                }
+                ViewBag.ErrorMassages = ExpenseAction.Message;
+                return View(model);
+
+            }
+            else 
+            {
+                ViewBag.FileError = "File type is not correct";
+                return View(model);
+            }
+            
+          
+           
+
+           
+           
+           
+
+            
         }
         public async Task<IActionResult> ExpenseList() 
         {
