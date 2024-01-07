@@ -29,67 +29,58 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         {
             if (dayOffDto.DayOffType == DayOffType.AnnualDayOff)
             {
-                await Reset(dayOffDto);
                 return await RequestAnnualDayOff(dayOffDto);
             }
         
             else if (dayOffDto.DayOffType == DayOffType.MaternityDayOff)
             {
-                await Reset(dayOffDto);
                 return await RequestMaternityDayOff(dayOffDto);
             }
       
             else if (dayOffDto.DayOffType == DayOffType.PaternityDayOff)
             {
-                await Reset(dayOffDto);
                 return await RequestPaternityDayOff(dayOffDto);
             }
             else if (dayOffDto.DayOffType == DayOffType.BereavementDayOff)
             {
-                await Reset(dayOffDto);
                 return await RequestBereavementDayOff(dayOffDto);
             }
             else if (dayOffDto.DayOffType == DayOffType.JobSearchDayOff)
             {
-                await Reset(dayOffDto);
                 return await RequestJobSearchDayOff(dayOffDto);
             }
             else if (dayOffDto.DayOffType == DayOffType.MarriageDayOff)
             {
-                await Reset(dayOffDto);
                 return await RequestMarriageDayOff(dayOffDto);
             }
             else if (dayOffDto.DayOffType == DayOffType.ExcuseDayOff)
             {
-                await Reset(dayOffDto);
                 return await RequestExcuseDayOff(dayOffDto);
             }
             else if (dayOffDto.DayOffType == DayOffType.SickDayOff)
             {
-                await Reset(dayOffDto);
                 return await RequestSickDayOff(dayOffDto);
             }
             else if (dayOffDto.DayOffType == DayOffType.SoldierLeave)
             {
-                await Reset(dayOffDto);
                 return await RequestSoldierLeave(dayOffDto);
             }
 
 
             return Response.Failure("Invalid day off type.");
         }
-        private async Task<Response> Reset(DayOffDto dayOffDto)
-        {
-            var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
-            var dayOffs = await GetAll();
-            var userDayOffs = dayOffs.Context.Where(d => d.AppUserId == user.Id).ToList();
-            var lastUserDayOff = userDayOffs.OrderByDescending(d => d.Id).FirstOrDefault();
-            if (lastUserDayOff != null && lastUserDayOff.StartDate.Year!=DateTime.Now.Year)
-            {
-                await Delete(dayOffDto);
-            }
-            return Response.Success();
-        }
+        //private async Task<Response> Reset(DayOffDto dayOffDto)
+        //{
+        //    var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
+        //    var dayOffs = await GetAll();
+        //    var userDayOffs = dayOffs.Context.Where(d => d.AppUserId == user.Id).ToList();
+        //    var lastUserDayOff = userDayOffs.OrderByDescending(d => d.Id).FirstOrDefault();
+        //    if (lastUserDayOff != null && lastUserDayOff.StartDate.Year!=DateTime.Now.Year)
+        //    {
+        //        await Delete(dayOffDto);
+        //    }
+        //    return Response.Success();
+        //}
         private async Task<Response> IsEligibleForNewDayOff(DayOffDto dayOffDto)
         {
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
@@ -133,7 +124,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             }
            
             var MaleOffs = DayOffs.Context.Where(d => d.AppUserId == user.Id && d.Gender == Gender.Male);
-            if (!MaleOffs.Any() && dayOffDto.Gender==Gender.Female)
+            if (dayOffDto.Gender == Gender.Female && !MaleOffs.Any() )
             {
                 return Response.Failure("Famale users are not eligible for Maternity Day Off.");
             }
@@ -151,7 +142,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var waitingDayOff = DayOffs.Context.FirstOrDefault(d => d.AppUserId == user.Id && d.ConfirmStatus == ConfirmStatus.Waiting);
             if (waitingDayOff != null)
             {
-                return Response.Failure("You already have a pending day off request. Please wait for confirmation.");
+                return Response.Failure("You already have a pending day off request. Please wait for approved.");
             }
 
             dayOffDto.DayCount = (float)(dayOffDto.FinishDate - dayOffDto.StartDate).TotalDays;
@@ -185,7 +176,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var waitingDayOff = DayOffs.Context.FirstOrDefault(d => d.AppUserId == user.Id && d.ConfirmStatus == ConfirmStatus.Waiting);
             if (waitingDayOff != null)
             {
-                return Response.Failure("You already have a pending day off request. Please wait for confirmation.");
+                return Response.Failure("You already have a pending day off request. Please wait for approved.");
             }
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.DayCount = (float)(dayOffDto.FinishDate - dayOffDto.StartDate).TotalDays;
@@ -218,7 +209,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var waitingDayOff = DayOffs.Context.FirstOrDefault(d => d.AppUserId == user.Id && d.ConfirmStatus == ConfirmStatus.Waiting);
             if (waitingDayOff != null)
             {
-                return Response.Failure("You already have a pending day off request. Please wait for confirmation.");
+                return Response.Failure("You already have a pending day off request. Please wait for approved.");
             }
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.DayCount = (float)(dayOffDto.FinishDate - dayOffDto.StartDate).TotalDays;
@@ -256,7 +247,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var waitingDayOff = DayOffs.Context.FirstOrDefault(d => d.AppUserId == user.Id && d.ConfirmStatus == ConfirmStatus.Waiting);
             if (waitingDayOff != null)
             {
-                return Response.Failure("You already have a pending day off request. Please wait for confirmation.");
+                return Response.Failure("You already have a pending day off request. Please wait for approved.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(7);
             dayOffDto.DayCount = 7;
@@ -289,7 +280,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var waitingDayOff = DayOffs.Context.FirstOrDefault(d => d.AppUserId == user.Id && d.ConfirmStatus == ConfirmStatus.Waiting);
             if (waitingDayOff != null)
             {
-                return Response.Failure("You already have a pending day off request. Please wait for confirmation.");
+                return Response.Failure("You already have a pending day off request. Please wait for approved.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddHours(2);
             dayOffDto.DayCount = 2 / 24;
@@ -325,7 +316,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var waitingDayOff = DayOffs.Context.FirstOrDefault(d => d.AppUserId == user.Id && d.ConfirmStatus == ConfirmStatus.Waiting);
             if (waitingDayOff != null)
             {
-                return Response.Failure("You already have a pending day off request. Please wait for confirmation.");
+                return Response.Failure("You already have a pending day off request. Please wait for approved.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(7);
             dayOffDto.DayCount = 7;
@@ -355,11 +346,11 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 dayOffDto.Gender = GengerDayoff.Gender;
             }
             var femaleDayOffs = DayOffs.Context.Where(d => d.Gender == Gender.Female);
-            if (!femaleDayOffs.Any() && dayOffDto.Gender==Gender.Male)
+            if (dayOffDto.Gender == Gender.Male && !femaleDayOffs.Any()  )
             {
                 return Response.Failure("Male users are not eligible for Maternity Day Off.");
             }
-            var YearList = DayOffs.Context.Where(d => d.StartDate.Year == DateTime.Now.Year && d.DayOffType == DayOffType.MaternityDayOff);
+            var YearList = DayOffs.Context.Where(d => d.AppUserId==user.Id && d.StartDate.Year == DateTime.Now.Year && d.DayOffType == DayOffType.MaternityDayOff);
             if (YearList.Any())
             {
                 return Response.Failure("You cannot take Maternity dayoff twice in the same year.");
@@ -373,7 +364,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var waitingDayOff = DayOffs.Context.FirstOrDefault(d => d.AppUserId == user.Id && d.ConfirmStatus == ConfirmStatus.Waiting);
             if (waitingDayOff != null)
             {
-                return Response.Failure("You already have a pending day off request. Please wait for confirmation.");
+                return Response.Failure("You already have a pending day off request. Please wait for approved.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(49);
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
@@ -394,11 +385,11 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 return Response.Failure("User not found.");
             }
             var MaleOffs = DayOffs.Context.Where(d => d.AppUserId == user.Id && d.Gender == Gender.Male);
-            if (!MaleOffs.Any()&& dayOffDto.Gender==Gender.Female)
+            if (dayOffDto.Gender == Gender.Female && !MaleOffs.Any() )
             {
-                return Response.Failure("Famale users are not eligible for Maternity Day Off.");
+                return Response.Failure("Famale users are not eligible for Paternity Day Off.");
             }
-            var YearList = DayOffs.Context.Where(d => d.StartDate.Year == DateTime.Now.Year && d.DayOffType == DayOffType.PaternityDayOff);
+            var YearList = DayOffs.Context.Where(d => d.AppUserId==user.Id && d.StartDate.Year == DateTime.Now.Year && d.DayOffType == DayOffType.PaternityDayOff);
             if (YearList.Any())
             {
                 return Response.Failure("You cannot take Paternity dayoff twice in the same year.");
@@ -433,6 +424,8 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
            
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
             var DayOffss = await GetAll();
+
+           
             var annualDayOffs = DayOffss.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
                                             d.StartDate.Year == DateTime.Now.Year&& d.AppUserId==user.Id);
       
@@ -444,7 +437,12 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 dayOffDto.DayCount += 0;
                 return Response.Failure("User not found.");
             }
+            var YearList = DayOffss.Context.Where(d => d.AppUserId == user.Id && d.StartDate.Year == DateTime.Now.Year && d.DayOffType == DayOffType.AnnualDayOff);
 
+            if (!(YearList.Any()))
+            {
+                dayOffDto.DayCount = 0;
+            }
             var startWork = user.StartDate ?? DateTime.MinValue;
             var now = DateTime.Now;
             var workTime = now - startWork;
@@ -476,19 +474,19 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                     }
                     else
                     {
-                        return Response.Failure("cannot exceed 14 days.");
+                        return Response.Failure("cannot take annual dayoff for more than 14 days in the same year.");
                     }
 
                 }
                 else
-                    return Response.Failure("cannot exceed 14 days.");
+                    return Response.Failure("cannot take annual dayoff for more than 14 days in the same year.");
             }
             // 6 yıl ve sonrasına 20 gün
             else
             {
                 if (dayOffDto.FinishDate > dayOffDto.StartDate.AddDays(20))
                 {
-                    return Response.Failure("cannot exceed 20 days.");
+                    return Response.Failure("cannot take annual dayoff for more than 20 days in the same year.");
                 }
                 else if (dayOffDto.FinishDate <= dayOffDto.StartDate.AddDays(20) && dayOffDto.DayCount <= 20)
                 {
@@ -500,12 +498,12 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                     }
                     else
                     {
-                        return Response.Failure("cannot exceed 20 days.");
+                        return Response.Failure("cannot take annual dayoff for more than 20 days in the same year.");
                     }
 
                 }
                 else
-                    return Response.Failure("cannot exceed 20 days.");
+                    return Response.Failure("cannot take annual dayoff for more than 20 days in the same year.");
             }
             var DayOffs = await GetAll();
             var GengerDayoff = DayOffs.Context.Where(d => d.AppUserId == user.Id && d.Gender == Gender.Female || d.Gender == Gender.Male).FirstOrDefault();
