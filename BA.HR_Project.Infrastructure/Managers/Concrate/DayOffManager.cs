@@ -419,8 +419,8 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             {
                 return Response.Failure("You already have a pending day off request. Please wait for confirmation.");
             }
-            dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(5);
-            dayOffDto.DayCount = 5;
+            dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(7);
+            dayOffDto.DayCount = 7;
             dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.RequestDate = DateTime.Now;
             dayOffDto.Id = Guid.NewGuid().ToString();
