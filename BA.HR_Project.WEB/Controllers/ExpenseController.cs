@@ -104,7 +104,7 @@ namespace BA.HR_Project.WEB.Controllers
             //    ViewBag.ExpenseName = expenseName;
             //}
 
-
+            ViewBag.ErrorMassages = ExpenseAction.Message;
             return View(model);
         }
         public async Task<IActionResult> ExpenseList() 
