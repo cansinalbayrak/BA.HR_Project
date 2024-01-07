@@ -47,7 +47,9 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> DemandDayOff()
         {
-           
+           var user = await _userManager.GetUserAsync(User);
+            var userId = await _userManager.GetUserIdAsync(user);
+            ViewBag.UserId = userId;
             return View();
         }
 

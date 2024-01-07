@@ -68,12 +68,12 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     @{
-        var user = await _userManager.GetUserAsync(User);
+        var user = await _userManager.FindByIdAsync(ViewBag.UserId);
         var DayOffs = await _dayOffService.GetAll();
         var annualDayOffs = DayOffs.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
         d.StartDate.Year == DateTime.Now.Year && d.AppUserId == user.Id);
         // var userdayoff = await Get(true, x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender == Gender.Female);
-        var userDayoff = DayOffs.Context.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender==Gender.Female).FirstOrDefault();
+        var userDayoff = DayOffs.Context.Where(x => x.AppUserId == user.Id && (x.Gender == Gender.Male || x.Gender==Gender.Female)).FirstOrDefault();
         if (userDayoff == null)
         {
             <div class="form-group">
