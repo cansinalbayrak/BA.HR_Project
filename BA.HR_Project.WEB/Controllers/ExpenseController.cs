@@ -73,7 +73,7 @@ namespace BA.HR_Project.WEB.Controllers
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
 
                 }
-                return View(model);
+                return RedirectToAction("RequestExpense");
             }
             var userId = _userManager.GetUserId(User);
             model.AppUserId = userId;
@@ -105,7 +105,7 @@ namespace BA.HR_Project.WEB.Controllers
             //}
 
             ViewBag.ErrorMassages = ExpenseAction.Message;
-            return View(model);
+            return RedirectToAction("RequestExpense");
         }
         public async Task<IActionResult> ExpenseList() 
         {
