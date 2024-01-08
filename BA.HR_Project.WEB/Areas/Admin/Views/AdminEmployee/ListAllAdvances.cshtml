@@ -10,10 +10,10 @@
         <div class="col-md-8">
             <div>
                 <!-- diğer tüm avansların popupını açacak butonlar -->
-                <button class="btn btn-success" onclick="showDayOffs('Waiting')">Waiting Advances</button>
-                <button class="btn btn-warning" onclick="showDayOffs('Approved')">Approved Advances</button>
-                <button class="btn btn-danger" onclick="showDayOffs('Denied')">Denied Advances</button>
-                <button class="btn btn-danger" onclick="showDayOffs('All')">All Advances</button>
+                <button class="btn btn-warning" onclick="showAdvances('Waiting')">Waiting Advances</button>
+                <button class="btn btn-success" onclick="showAdvances('Approved')">Approved Advances</button>
+                <button class="btn btn-danger" onclick="showAdvances('Denied')">Denied Advances</button>
+                <button class="btn btn-primary" onclick="showAdvances('All')">All Advances</button>
             </div> <br />
 
             <table class="table text-light" id="WaitingTable">
@@ -40,7 +40,10 @@
                             <td>@advance.ResponseDate</td>
                             <td>@advance.Description</td>
                             <td>@advance.ConfirmStatus.ToString()</td>
-                            <td>@advance.ConfirmStatus.ToString()</td>
+                            <td>
+                                <a asp-action="ApprovedAdvance" asp-controller="AdminEmployee" asp-route-id="@advance.Id" class="btn btn-danger">Approve</a>
+                                <a>Reject</a>
+                            </td>
 
                         </tr>
 
@@ -51,12 +54,9 @@
 
             <!-- Popup içeriği -->
             @* approved advances *@
-            <div id="ApprovedTable" class="modalC">
-                <div class="modal-contentC">
+                <div>
 
-                    <h2 class="text-warning text-center"><u>Approved Advances</u></h2>
-
-                    <table class="table text-light">
+                    <table class="table text-light" id="ApprovedTable">
                         <thead>
                             <tr>
                                 <th>Advance Type</th>
@@ -83,16 +83,12 @@
                             }
                         </tbody>
                     </table>
-                </div>
+               
             </div>
 
             @* denied advances *@
-            <div id="DeniedTable" class="modalC">
-                <div class="modal-contentC">
-
-                    <h2 class="text-success text-center "><u>Denied Advances</u></h2>
-
-                    <table class="table text-light">
+            <div>
+                    <table class="table text-light" id="DeniedTable">
                         <thead>
                             <tr>
                                 <th>Advance Type</th>
@@ -120,14 +116,11 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+   
 
             @* all advances *@
-            <div id="AllTable" class="modalC">
-                <div class="modal-contentC">
-
-                    <h2 class=" text-center text-danger"><u>All Advances</u></h2>
-                    <table class="table text-light">
+            <div>
+                    <table class="table text-light" id="AllTable">
                         <thead>
                             <tr>
                                 <th>Advance Type</th>
@@ -159,7 +152,6 @@
 
         </div>
     </div>
-</div>
 
 
 <script>
