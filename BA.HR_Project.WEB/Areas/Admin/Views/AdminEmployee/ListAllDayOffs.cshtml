@@ -1,0 +1,184 @@
+﻿@{
+    ViewData["Title"] = "ListAllDayOffs";
+}
+
+@model List<DayOffViewModel>
+
+
+<div class="container">
+    <div>
+        <!-- diğer tüm popupını açacak butonlar -->
+        <button class="btn btn-warning" onclick="showDayOff('Waiting')">Waiting Day Off</button>
+        <button class="btn btn-success" onclick="showDayOff('Approved')">Approved Day Off</button>
+        <button class="btn btn-danger" onclick="showDayOff('Denied')">Denied Day Off</button>
+        <button class="btn btn-primary" onclick="showDayOff('All')">All Day Off</button>
+    </div> <br />
+
+    <table class="table text-light" id="WaitingTable">
+        <thead>
+            <tr>
+                <th>Day Off Type</th>
+                <th>Start Date</th>
+                <th>Finish Date</th>
+                <th>Request Date</th>
+                <th>Response Date</th>
+                <th>Day Count</th>
+                <th>Confirm Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.DayOffType.ToString()</td>
+                    <td>@item.StartDate</td>
+                    <td>@item.FinishDate</td>
+                    <td>@item.RequestDate</td>
+                    <td>@item.ResponseDate</td>
+                    <td>@item.DayCount</td>
+                    <td>@item.ConfirmStatus.ToString()</td>
+                    <td>
+                        <div style="display:flex">
+                            <a asp-action="ApprovedDayOff" asp-controller="AdminEmployee" asp-route-id="@item.Id" class="btn btn-success" style="margin:5px;">Approve</a>
+                            <a asp-action="RejectDayOff" asp-controller="AdminEmployee" asp-route-id="@item.Id" class="btn btn-danger" style="margin:5px">Reject</a>
+
+                        </div>
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+
+    <!-- Popup içeriği -->
+    @* approved advances *@
+    <div>
+
+        <table class="table text-light" id="ApprovedTable">
+            <thead>
+                <tr>
+                    <th>Day Off Type</th>
+                    <th>Start Date</th>
+                    <th>Finish Date</th>
+                    <th>Request Date</th>
+                    <th>Response Date</th>
+                    <th>Day Count</th>
+                    <th>Confirm Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.ApprovedDayOffs)
+                {
+                    <tr>
+                        <td>@item.DayOffType.ToString()</td>
+                        <td>@item.StartDate</td>
+                        <td>@item.FinishDate</td>
+                        <td>@item.RequestDate</td>
+                        <td>@item.ResponseDate</td>
+                        <td>@item.DayCount</td>
+                        <td>@item.ConfirmStatus.ToString()</td>
+                      
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+    @* denied advances *@
+    <div>
+        <table class="table text-light" id="DeniedTable">
+            <thead>
+                <tr>
+                    <th>Day Off Type</th>
+                    <th>Start Date</th>
+                    <th>Finish Date</th>
+                    <th>Request Date</th>
+                    <th>Response Date</th>
+                    <th>Day Count</th>
+                    <th>Confirm Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.DeniedDayOffs)
+                {
+                    <tr>
+                        <td>@item.DayOffType.ToString()</td>
+                        <td>@item.StartDate</td>
+                        <td>@item.FinishDate</td>
+                        <td>@item.RequestDate</td>
+                        <td>@item.ResponseDate</td>
+                        <td>@item.DayCount</td>
+                        <td>@item.ConfirmStatus.ToString()</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+    @* all advances *@
+    <div>
+        <table class="table text-light" id="AllTable">
+            <thead>
+                <tr>
+                    <th>Day Off Type</th>
+                    <th>Start Date</th>
+                    <th>Finish Date</th>
+                    <th>Request Date</th>
+                    <th>Response Date</th>
+                    <th>Day Count</th>
+                    <th>Confirm Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.AllDayOffs)
+                {
+                    <tr>
+                        <td>@item.DayOffType.ToString()</td>
+                        <td>@item.StartDate</td>
+                        <td>@item.FinishDate</td>
+                        <td>@item.RequestDate</td>
+                        <td>@item.ResponseDate</td>
+                        <td>@item.DayCount</td>
+                        <td>@item.ConfirmStatus.ToString()</td>
+                       
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    // Tabloları gizleme fonksiyonu
+    function hideTables() {
+        document.getElementById('AllTable').style.display = 'none';
+        document.getElementById('WaitingTable').style.display = 'none';
+        document.getElementById('ApprovedTable').style.display = 'none';
+        document.getElementById('DeniedTable').style.display = 'none';
+    }
+
+    // İzin türlerine göre tabloyu gösterme
+    function showDayOff(status) {
+        hideTables();
+        var tableId = status + 'Table';
+        document.getElementById(tableId).style.display = 'table';
+    }
+
+    // Sayfa yüklendiğinde default olarak "Waiting Advances" tablosunu gösterme
+    document.addEventListener("DOMContentLoaded", function () {
+        showDayOff('Waiting');
+    });
+</script>
+

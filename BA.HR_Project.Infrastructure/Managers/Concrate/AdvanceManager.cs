@@ -103,10 +103,23 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         {
             var advanceAction = await GetByIdAsync(id);
             var advance = advanceAction.Context;
-            if(advance != null )
+            if (advance != null)
             {
                 advance.ConfirmStatus = ConfirmStatus.Approved;
-                advance.RequestDate = DateTime.Now;
+                advance.ResponseDate = DateTime.Now;
+                await Update(advance);
+                return Response.Success();
+            }
+            return Response.Failure("Advance not found");
+        }
+        public async Task<Response> RejectAdvance(string id)
+        {
+            var advanceAction = await GetByIdAsync(id);
+            var advance = advanceAction.Context;
+            if (advance != null)
+            {
+                advance.ConfirmStatus = ConfirmStatus.Denied;
+                advance.ResponseDate = DateTime.Now;
                 await Update(advance);
                 return Response.Success();
             }

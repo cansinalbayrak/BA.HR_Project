@@ -496,6 +496,39 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         }
       
 
+
+        public async Task<List<DayOffDto>> AllUserDayOff()
+        {
+            var dayOffAction = await GetAll();
+            var userDayOff = dayOffAction.Context.OrderBy(x => x.RequestDate).ToList();
+            return userDayOff;
+        }
+        public async Task<Response> ApprovedDayOff(string id)
+        {
+            var dayOffAction = await GetByIdAsync(id);
+            var dayOff = dayOffAction.Context;
+            if (dayOff != null)
+            {
+                dayOff.ConfirmStatus = ConfirmStatus.Approved;
+                dayOff.ResponseDate = DateTime.Now;
+                await Update(dayOff);
+                return Response.Success();
+            }
+            return Response.Failure("DayOff not found");
+        }
+        public async Task<Response> RejectDayOff(string id)
+        {
+            var dayOffAction = await GetByIdAsync(id);
+            var dayOff = dayOffAction.Context;
+            if (dayOff != null)
+            {
+                dayOff.ConfirmStatus = ConfirmStatus.Denied;
+                dayOff.ResponseDate = DateTime.Now;
+                await Update(dayOff);
+                return Response.Success();
+            }
+            return Response.Failure("DayOff not found");
+        }
     }
 }
 

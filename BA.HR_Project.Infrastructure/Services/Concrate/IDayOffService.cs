@@ -20,5 +20,8 @@ namespace BA.HR_Project.Infrastructure.Services.Concrate
         public Task<List<DayOffDto>> ApprovedDayOffs(string UserId);
         public Task<List<DayOffDto>> DeniedDayOffs(string UserId);
       
+        Task<List<DayOffDto>> AllUserDayOff();
+        Task<Response> ApprovedDayOff(string id);
+        Task<Response> RejectDayOff(string id);
     }
 }
