@@ -101,7 +101,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         }
         public async Task<Response> ApprovedAdvance(string id)
         {
-            var advanceAction = await Get(true,x=>x.Id == id);
+            var advanceAction = await GetByIdAsync(id);
             var advance = advanceAction.Context;
             if(advance != null )
             {

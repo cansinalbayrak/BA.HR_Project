@@ -153,8 +153,8 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 
                 var departmentId = userdto.DepartmentId;
                 var companyId = userdto.CompanyId;
-                var company = await _companyManager.Get(true, x => x.Id == companyId);
-                var department = await _departmentManager.Get(true, x => x.Id == departmentId);
+                var company = await _companyManager.GetByIdAsync(companyId);
+                var department = await _departmentManager.GetByIdAsync(departmentId);
 
                 var userViewModels = _mapper.Map<ListDetailInfoViewModel>(userdto);
                 ViewBag.DepartmentName = department.Context.Name;

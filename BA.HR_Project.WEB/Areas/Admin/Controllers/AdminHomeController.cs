@@ -30,7 +30,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         {
             var GetUserAction = await _userManager.GetUserAsync(User);
             var companyId = GetUserAction.CompanyId;
-            var companyAction = await _companyManager.Get(true,x=>x.Id==companyId);
+            var companyAction = await _companyManager.GetByIdAsync(companyId);
             var company = companyAction.Context;
             var GetAllUserAction = await _userManager.Users.ToListAsync();
             var departmentsAction = await _departmentManager.GetAll();
