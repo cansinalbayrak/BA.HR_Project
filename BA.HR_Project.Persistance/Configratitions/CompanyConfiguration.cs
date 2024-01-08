@@ -1,4 +1,5 @@
 ﻿using BA.HR_Project.Domain.Entities;
+using BA.HR_Project.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -16,8 +17,21 @@ namespace BA.HR_Project.Persistance.Configurations
             builder.HasData(new
             {
                 Id="SeedCompany1",
+                CompanyTitleEnum = CompanyTitle.LTD,
                 Name = "BilgeAdam",
                 LogoPath = "/images/akademilogo-yatay.webp",
+                Phone = "1234567890",
+                Adress = "Bilkent-Ankara",
+                Mail = "info@bilgeadamboost.com",
+                EmployeeCount = 0,
+                MersisNo = "MersisNo",
+                TaxNo = "TaxNo",
+                TaxOffice = "Bilken Vergi Dairesi",
+                StartUpDate = DateTime.Now,
+                ContractStartDate = DateTime.Now,
+                ContractEndDate = DateTime.Now,
+                ActivtyEnum = Activty.Active,
+                
 
             });
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
