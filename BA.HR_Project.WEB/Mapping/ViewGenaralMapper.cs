@@ -49,6 +49,8 @@ namespace BA.HR_Project.WEB.Mapping
                .ReverseMap();
             CreateMap<ExpenseViewModel, ExpenseDto>() 
                 .ReverseMap();
+            CreateMap<AddManagerDto, AddManagerViewModel>() 
+                .ReverseMap();
         }
     }
 }

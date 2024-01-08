@@ -43,7 +43,8 @@ namespace BA.HR_Project.Application.Mapping
             CreateMap<AppUser, AppUser>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
-            CreateMap<AppUser, AppUserUpdatePasswordDto>().ReverseMap();
+            CreateMap<AppUser, AppUserUpdatePasswordDto>()
+                .ReverseMap();
 
 
 
@@ -55,6 +56,8 @@ namespace BA.HR_Project.Application.Mapping
             CreateMap<AdvanceDto,Advance>()
             .ReverseMap();
             CreateMap<ExpenseDto,Expense>() 
+                .ReverseMap();
+            CreateMap<AddManagerDto,AppUser>() 
                 .ReverseMap();
         }
     }
