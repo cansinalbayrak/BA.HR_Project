@@ -33,9 +33,9 @@ namespace BA.HR_Project.WEB.Controllers
         {
             var UserId = _userManager.GetUserId(User);
             var userDayOffs = await _dayOffManager.GetAllDayOff(UserId);
-            var waitingDayOffs = userDayOffs.Where(x => x.ConfirmStatus == ConfirmStatus.Waiting).OrderBy(x => x.RequestDate).ToList();
-            var approvedDayOffs = userDayOffs.Where(x => x.ConfirmStatus == ConfirmStatus.Approved).OrderBy(x => x.RequestDate).ToList();
-            var deniedDayOffs = userDayOffs.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).OrderBy(x => x.RequestDate).ToList();
+            var waitingDayOffs = await _dayOffManager.WaitingDayOffs(UserId);
+            var approvedDayOffs = await _dayOffManager.ApprovedDayOffs(UserId);
+            var deniedDayOffs = await _dayOffManager.DeniedDayOffs(UserId);
             var DayOffVm = _mapper.Map<List<DayOffViewModel>>(userDayOffs);
             ViewBag.WaitingDayOffs = waitingDayOffs;
             ViewBag.ApprovedDayOffs = approvedDayOffs;
