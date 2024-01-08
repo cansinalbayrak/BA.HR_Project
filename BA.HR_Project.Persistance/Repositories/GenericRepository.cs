@@ -81,7 +81,7 @@ namespace BA.HR_Project.Persistance.Repositories
                 query = query.AsNoTracking();
 
             }
-            var result = await _dbSet.SingleAsync();
+            var result = await _dbSet.SingleOrDefaultAsync();
             return result;
         }
 
