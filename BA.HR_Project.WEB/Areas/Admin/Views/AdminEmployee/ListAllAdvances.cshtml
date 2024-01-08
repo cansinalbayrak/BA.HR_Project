@@ -1,0 +1,186 @@
+﻿@{
+    ViewData["Title"] = "ListAllAdvances";
+}
+
+@model List<AdvanceViewModel>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div>
+                <!-- diğer tüm avansların popupını açacak butonlar -->
+                <button class="btn btn-success" onclick="showDayOffs('Waiting')">Waiting Advances</button>
+                <button class="btn btn-warning" onclick="showDayOffs('Approved')">Approved Advances</button>
+                <button class="btn btn-danger" onclick="showDayOffs('Denied')">Denied Advances</button>
+                <button class="btn btn-danger" onclick="showDayOffs('All')">All Advances</button>
+            </div> <br />
+
+            <table class="table text-light" id="WaitingTable">
+                <thead>
+                    <tr>
+                        <th>Advance Type</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Request Date</th>
+                        <th>Response Date</th>
+                        <th>Description</th>
+                        <th>Confirm Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var advance in Model)
+                    {
+                        <tr>
+                            <td>@advance.AdvanceType.ToString()</td>
+                            <td>@advance.Amount</td>
+                            <td>@advance.Currency.ToString()</td>
+                            <td>@advance.RequestDate</td>
+                            <td>@advance.ResponseDate</td>
+                            <td>@advance.Description</td>
+                            <td>@advance.ConfirmStatus.ToString()</td>
+                            <td>@advance.ConfirmStatus.ToString()</td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+
+            <!-- Popup içeriği -->
+            @* approved advances *@
+            <div id="ApprovedTable" class="modalC">
+                <div class="modal-contentC">
+
+                    <h2 class="text-warning text-center"><u>Approved Advances</u></h2>
+
+                    <table class="table text-light">
+                        <thead>
+                            <tr>
+                                <th>Advance Type</th>
+                                <th>Amount</th>
+                                <th>Currency</th>
+                                <th>Request Date</th>
+                                <th>Response Date</th>
+                                <th>Description</th>
+                                <th>Confirm Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var advance in ViewBag.ApprovedAdvances)
+                            {
+                                <tr>
+                                    <td>@advance.AdvanceType.ToString()</td>
+                                    <td>@advance.Amount</td>
+                                    <td>@advance.Currency.ToString()</td>
+                                    <td>@advance.RequestDate</td>
+                                    <td>@advance.ResponseDate</td>
+                                    <td>@advance.Description</td>
+                                    <td>@advance.ConfirmStatus.ToString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            @* denied advances *@
+            <div id="DeniedTable" class="modalC">
+                <div class="modal-contentC">
+
+                    <h2 class="text-success text-center "><u>Denied Advances</u></h2>
+
+                    <table class="table text-light">
+                        <thead>
+                            <tr>
+                                <th>Advance Type</th>
+                                <th>Amount</th>
+                                <th>Currency</th>
+                                <th>Request Date</th>
+                                <th>Response Date</th>
+                                <th>Description</th>
+                                <th>Confirm Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var advance in ViewBag.DeniedAdvances)
+                            {
+                                <tr>
+                                    <td>@advance.AdvanceType.ToString()</td>
+                                    <td>@advance.Amount</td>
+                                    <td>@advance.Currency.ToString()</td>
+                                    <td>@advance.RequestDate</td>
+                                    <td>@advance.ResponseDate</td>
+                                    <td>@advance.Description</td>
+                                    <td>@advance.ConfirmStatus.ToString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            @* all advances *@
+            <div id="AllTable" class="modalC">
+                <div class="modal-contentC">
+
+                    <h2 class=" text-center text-danger"><u>All Advances</u></h2>
+                    <table class="table text-light">
+                        <thead>
+                            <tr>
+                                <th>Advance Type</th>
+                                <th>Amount</th>
+                                <th>Currency</th>
+                                <th>Request Date</th>
+                                <th>Response Date</th>
+                                <th>Description</th>
+                                <th>Confirm Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var advance in ViewBag.AllAdvances)
+                            {
+                                <tr>
+                                    <td>@advance.AdvanceType.ToString()</td>
+                                    <td>@advance.Amount</td>
+                                    <td>@advance.Currency.ToString()</td>
+                                    <td>@advance.RequestDate</td>
+                                    <td>@advance.ResponseDate</td>
+                                    <td>@advance.Description</td>
+                                    <td>@advance.ConfirmStatus.ToString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Tabloları gizleme fonksiyonu
+    function hideTables() {
+        document.getElementById('AllTable').style.display = 'none';
+        document.getElementById('WaitingTable').style.display = 'none';
+        document.getElementById('ApprovedTable').style.display = 'none';
+        document.getElementById('DeniedTable').style.display = 'none';
+    }
+
+    // İzin türlerine göre tabloyu gösterme
+    function showAdvances(status) {
+        hideTables();
+        var tableId = status + 'Table';
+        document.getElementById(tableId).style.display = 'table';
+    }
+
+    // Sayfa yüklendiğinde default olarak "Waiting Advances" tablosunu gösterme
+    document.addEventListener("DOMContentLoaded", function () {
+        showAdvances('Waiting');
+    });
+</script>
+

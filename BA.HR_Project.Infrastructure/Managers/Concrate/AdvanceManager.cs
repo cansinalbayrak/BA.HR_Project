@@ -93,5 +93,24 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var userAdvances = advancesAction.Context.Where(x=>x.AppUserId == userId).OrderBy(x=>x.RequestDate).ToList();
             return userAdvances;
         }
+        public async Task<List<AdvanceDto>> AllUserAdvance()
+        {
+            var advancesAction = await GetAll();
+            var userAdvances = advancesAction.Context.OrderBy(x => x.RequestDate).ToList();
+            return userAdvances;
+        }
+        public async Task<Response> ApprovedAdvance(string id)
+        {
+            var advanceAction = await Get(true,x=>x.Id == id);
+            var advance = advanceAction.Context;
+            if(advance != null )
+            {
+                advance.ConfirmStatus = ConfirmStatus.Approved;
+                advance.RequestDate = DateTime.Now;
+                await Update(advance);
+                return Response.Success();
+            }
+            return Response.Failure("Advance not found");
+        }
     }
 }
