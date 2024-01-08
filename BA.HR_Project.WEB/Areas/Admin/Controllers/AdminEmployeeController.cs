@@ -184,6 +184,17 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             ViewBag.DeniedAdvances = deniedAdvances;
             return View(advancesVm);
         }
+
+        public async Task<IActionResult> ApprovedAdvance(string id)
+        {
+            await _advanceService.ApprovedAdvance(id);
+            return RedirectToAction("ListAllAdvances");
+        }
+        public async Task<IActionResult> RejectAdvance(string id)
+        {
+            await _advanceService.RejectAdvance(id);
+            return RedirectToAction("ListAllAdvances");
+        }
         public async Task<IActionResult> ListAllExpenses()
         {
             var allExpensesDto = await _expenseService.AllUserExpense();
