@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using NuGet.Packaging.Signing;
 using BA.HR_Project.WEB.HelperMethods;
+using BA.HR_Project.Domain.Enums;
 
 namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 {
@@ -29,14 +30,16 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         private readonly IAppUserService _appUserManager;
         private readonly ICompanyService _companyManager;
         private readonly IDepartmentService _departmentManager;
+        private readonly IAdvanceService _advanceService;
         private readonly IMapper _mapper;
 
-        public AdminEmployeeController(UserManager<AppUser> userManager, IAppUserService appUserManager, ICompanyService companyManager, IDepartmentService departmentManager, IMapper mapper)
+        public AdminEmployeeController(UserManager<AppUser> userManager, IAppUserService appUserManager, ICompanyService companyManager, IDepartmentService departmentManager, IMapper mapper, IAdvanceService advanceService)
         {
             _userManager = userManager;
             _appUserManager = appUserManager;
             _companyManager = companyManager;
             _departmentManager = departmentManager;
+            _advanceService = advanceService;
             _mapper = mapper;
         }
         [HttpGet("/Admin/Employee/Index")]
@@ -162,6 +165,23 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             return RedirectToAction("ListEmployee");
 
         }
+        public async Task<IActionResult> ListAllAdvances()
+        {
+            var allAdvancesDto = await _advanceService.AllUserAdvance();
+            var waitingAdvances = allAdvancesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Waiting).ToList();
+            var approvedAdvances = allAdvancesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Approved).ToList();
+            var deniedAdvances = allAdvancesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();
 
+            var advancesVm = _mapper.Map<List<AdvanceViewModel>>(waitingAdvances);
+            ViewBag.AllAdvances = allAdvancesDto;
+            ViewBag.ApprovedAdvances = approvedAdvances;
+            ViewBag.DeniedAdvances = deniedAdvances;
+            return View(advancesVm);
+        }
+        public async Task<IActionResult> ApprovedAdvance(string id)
+        {
+            await _advanceService.ApprovedAdvance(id);
+            return View();
+        }
     }
 }
