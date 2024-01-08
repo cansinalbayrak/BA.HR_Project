@@ -14,6 +14,7 @@ namespace BA.HR_Project.Infrasturucture.Services.Concrate
     {
         Task<AppUser> AddAppUser(AppUserDto userDto, ClaimsPrincipal User);
         Task<AppUser> UpdateAppUser(AppUser user);
+        Task<AppUser> AddManager(AddManagerDto managerDto);
 
         
     }

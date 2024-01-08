@@ -137,5 +137,40 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             return html;
 
         }
+
+        public async Task<AppUser> AddManager(AddManagerDto managerDto)
+        {
+           var newManager = _mapper.Map<AppUser>(managerDto);
+            string mail = newManager.Name + newManager.SecondName + "." + newManager.Surname + newManager.SecondSurname + "@bilgeadamboost.com";
+            if (await _userManager.FindByEmailAsync(mail) !=null) 
+            {
+              string regulatedMail = newManager.Name[0].ToString().ToLower();
+                newManager.Email = $"{regulatedMail + newManager.SecondName}.{newManager.Surname + newManager.SecondSurname}@bilgeadamboost.com";
+                if (await _userManager.FindByEmailAsync(newManager.Email) != null)
+                {
+                    string regulatedMail2 = newManager.Surname[0].ToString().ToLower();
+                    newManager.Email = $"{newManager.Name + newManager.SecondName}.{regulatedMail2 + newManager.SecondSurname}@bilgeadamboost.com";
+                }
+            
+            }
+            else
+            {
+                newManager.Email = mail;
+            }
+            // company and departmant ıd eklenecek...
+            newManager.PhotoPath = "/mexant/assets/images/Default.jpg";
+            newManager.UserName = newManager.Email;
+            newManager.Id = Guid.NewGuid().ToString();
+                
+                var createManagerAction = await _userManager.CreateAsync(newManager,"Mngr.9876");
+            var addRoleAction = await _userManager.AddToRoleAsync(newManager, "Admin");
+
+            if(createManagerAction.Succeeded && addRoleAction.Succeeded) 
+            {
+                await SendEmail(newManager);
+                return newManager;
+            }
+            return null;
+        }
     }
 }
