@@ -15,5 +15,8 @@ namespace BA.HR_Project.Infrastructure.Services.Concrate
     {
         public Task<Response> RequestDayOff( DayOffDto dayOffDto);
         public  Task<List<DayOffDto>> GetAllDayOff(string userId);
+        Task<List<DayOffDto>> AllUserDayOff();
+        Task<Response> ApprovedDayOff(string id);
+        Task<Response> RejectDayOff(string id);
     }
 }
