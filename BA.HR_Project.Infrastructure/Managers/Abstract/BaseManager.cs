@@ -29,8 +29,8 @@ namespace BA.HR_Project.Infrasturucture.Managers.Abstract
             try
             {
                 var entity = _mapper.Map<T>(dto);
-                _uow.GetRepository<T>().DeleteAsync(entity);
-                _uow.SaveChanges();
+                await _uow.GetRepository<T>().DeleteAsync(entity);
+                await _uow.SaveChanges();
                 return Response.Success("Deletion was successful.");
             }
             catch
@@ -38,6 +38,26 @@ namespace BA.HR_Project.Infrasturucture.Managers.Abstract
                 return Response.Failure("Deletion was unsuccessful");
             }
         }
+
+        public async Task<Response<TDto>> GetByIdAsync(string Id)
+        {
+            try
+            {
+                var data = await _uow.GetRepository<T>().GetByIdAsync(Id);
+                if (data != null)
+                {
+                    var dto = _mapper.Map<TDto>(data);
+                    return Response<TDto>.Success(dto, "Get action is successfull");
+                }
+                return Response<TDto>.Failure("Get action is unsuccessfull");
+            }
+            catch
+            {
+                return Response<TDto>.Failure("Get action is unsuccessfull");
+            }
+  
+        }
+
 
         public async Task<Response<TDto>> Get(bool asNoTracking = true, Expression<Func<T, bool>>? filter = null, params Expression<Func<T, object>>[] includeProperties)
         {
@@ -67,6 +87,8 @@ namespace BA.HR_Project.Infrasturucture.Managers.Abstract
                 return Response<IEnumerable<TDto>>.Failure("Acquirement was unsuccessful");
             }
         }
+
+
 
         public async Task<Response> Insert(TDto dto)
         {
@@ -98,5 +120,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Abstract
                 return Response.Failure("Updating was unsuccessful");
             }
         }
+
+
     }
 }

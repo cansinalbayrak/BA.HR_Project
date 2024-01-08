@@ -37,7 +37,9 @@ namespace BA.HR_Project.WEB.Controllers
 
             var departmentId = userdto.DepartmentId;
             var companyId = userdto.CompanyId;
-            var company = await _companyManager.Get(true, x => x.Id == companyId);
+
+
+            var company = await _companyManager.GetByIdAsync(companyId);
             var department = await _departmentManager.Get(true, x => x.Id == departmentId);
 
             var userViewModels = _mapper.Map<ListSummarInfoViewModel>(userdto);

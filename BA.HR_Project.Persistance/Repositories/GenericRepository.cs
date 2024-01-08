@@ -27,6 +27,12 @@ namespace BA.HR_Project.Persistance.Repositories
             await Task.Run(() => _dbSet.Remove(entity)) ;
         }
 
+        public async Task<T> GetByIdAsync(string Id)
+        {
+            var data = await _dbSet.Where(x => x.Id == Id).FirstOrDefaultAsync();
+            return data;
+        }
+
         public async Task<List<T>> GetAllAsync(bool asNoTracking = true, Expression<Func<T, bool>>? filter = null, params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = _dbSet;
