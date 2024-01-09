@@ -104,6 +104,15 @@ app.UseEndpoints(endpoints =>
     );
     endpoints.MapDefaultControllerRoute();
 });
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapAreaControllerRoute(
+//    name: "Manager",
+//    areaName: "Manager",
+//    pattern: "Manager/{controller=Home}/{action=Index}/{id?}"
+//    );
+//    endpoints.MapDefaultControllerRoute();
+//});
 
 
 
