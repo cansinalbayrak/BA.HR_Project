@@ -94,6 +94,7 @@ app.UseAuthorization();
 //    name: "default",
 //    pattern: "{controller=Home}/{action=Index}/{id?}");
 //app.UseMvc();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapAreaControllerRoute(
@@ -103,6 +104,7 @@ app.UseEndpoints(endpoints =>
     );
     endpoints.MapDefaultControllerRoute();
 });
+
 
 
 app.Run();
