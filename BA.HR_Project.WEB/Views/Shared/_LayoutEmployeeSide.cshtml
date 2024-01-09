@@ -27,52 +27,58 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                               <li class="nav-item dropdown customNavbar">
-                                      <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Advance </a>
-                                      <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
-                                          <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Advance" asp-action="DemandAdvance"> DemandAdvance</a></li>
-                                          <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Advance" asp-action="ListAdvance">ListAdvance</a></li>
-                                      </ul>
-                               </li>
+                                       <li class="nav-item dropdown customNavbar">
+                                              <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Advance </a>
+                                              <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                                  <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Advance" asp-action="DemandAdvance"> DemandAdvance</a></li>
+                                                  <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Advance" asp-action="ListAdvance">ListAdvance</a></li>
+                                              </ul>
+                                       </li>
 
-                               <li class="nav-item dropdown customNavbar">
-                                      <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> DayOff </a>
-                                      <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
-                                           <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="DayOff" asp-action="DemandDayOff"> DemandDayOff</a></li>
-                                           <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="DayOff" asp-action="ListDayOff">ListDayOffs</a></li>
-                                      </ul>
-                               </li>
+                                       <li class="nav-item dropdown customNavbar">
+                                              <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> DayOff </a>
+                                              <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                                   <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="DayOff" asp-action="DemandDayOff"> DemandDayOff</a></li>
+                                                   <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="DayOff" asp-action="ListDayOff">ListDayOffs</a></li>
+                                              </ul>
+                                       </li>
 
-                                <li class="nav-item dropdown customNavbar">
-                                      <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Expense </a>
-                                      <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
-                                            <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Expense" asp-action="RequestExpense">RequestExpense</a></li>
-                                            <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Expense" asp-action="ExpenseList">ExpenseList</a></li>
-                                      </ul>
-                                </li>
+                                        <li class="nav-item dropdown customNavbar">
+                                              <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Expense </a>
+                                              <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Expense" asp-action="RequestExpense">RequestExpense</a></li>
+                                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Expense" asp-action="ExpenseList">ExpenseList</a></li>
+                                              </ul>
+                                        </li>
 
-                                <li class="nav-item dropdown customNavbar">
-                                       <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Profile </a>
-                                       <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
-                                            <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Employee" asp-action="Index"> Profile</a></li>
-                                            <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Employee" asp-action="Detail">Detail Profile</a></li>
-                                            <li class="scroll-to-section"> <a class="customNavbar"asp-area="" asp-controller="Employee" asp-action="Update">Update Profile</a></li>
-                                       </ul>
-                                 </li>
+                                        <li class="nav-item dropdown customNavbar">
+                                               <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Profile </a>
+                                               <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Employee" asp-action="Index"> Profile</a></li>
+                                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Employee" asp-action="Detail">Detail Profile</a></li>
+                                                    <li class="scroll-to-section"> <a class="customNavbar"asp-area="" asp-controller="Employee" asp-action="Update">Update Profile</a></li>
+                                               </ul>
+                                         </li>
 
                             @if (User.IsInRole("Admin"))
                             {
-                                <li class="nav-item dropdown customNavbar">
-                                        <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go to Admin View </a>
-                                        <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
-                                            <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Profile</a></li>
-                                            <li class="scroll-to-section"> <a class="customNavbar"asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
-                                            <li class="scroll-to-section"> <a class="customNavbar"asp-area="Admin"asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
-                                        </ul>
-                                </li>
+                                                <li class="nav-item dropdown customNavbar">
+                                                        <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go to Admin View </a>
+                                                        <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                                            <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Profile</a></li>
+                                                            <li class="scroll-to-section"> <a class="customNavbar"asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
+                                                            <li class="scroll-to-section"> <a class="customNavbar"asp-area="Admin"asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
+                                                            <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllAdvances"> Advance Demands</a></li>
+                                                            <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllExpenses">Expense Demands</a></li>
+                                                            <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllDayOffs">Day Off Demands</a></li>
+
+
+
+                                                        </ul>
+                                                </li>
                             }
-                            <li class="nav-item"><a class="nav-link text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
-                            <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="LogOut" class="nav-link text-light">SignOut</a></li>
+                                    <li class="nav-item"><a class="nav-link text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
+                                    <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="LogOut" class="nav-link text-light">SignOut</a></li>
                         }
                     </ul>
                 </div>
