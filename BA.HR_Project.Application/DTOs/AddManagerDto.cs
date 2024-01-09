@@ -29,11 +29,14 @@ namespace BA.HR_Project.Application.DTOs
         public string? PassportNumber { get; set; }
         public string Adress { get; set; }
 
-       
-        public string CompanyName { get; set; }
-        public string DepartmanName { get; set; }
-
         public string CompanyId { get; set; }
         public string DepartmentId { get; set; }
+
+        public string CompanyName { get; set; }
+        public string DepartmentName { get; set; }
+
+       
+        public CompanyDto Company { get; set; }
+        public DepartmentDto Department { get; set; }
     }
 }

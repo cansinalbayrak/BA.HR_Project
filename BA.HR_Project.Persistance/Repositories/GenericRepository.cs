@@ -29,7 +29,7 @@ namespace BA.HR_Project.Persistance.Repositories
 
         public async Task<T> GetByIdAsync(string Id)
         {
-            var data = await _dbSet.Where(x => x.Id == Id).FirstOrDefaultAsync();
+            var data = await _dbSet.AsNoTracking().Where(x => x.Id == Id).FirstOrDefaultAsync();
             return data;
         }
 
@@ -99,6 +99,7 @@ namespace BA.HR_Project.Persistance.Repositories
         public async Task UpdateAsync(T entity)
         {
             await Task.Run(() => _dbSet.Update(entity));
+            
         }
 
         public void Update(T entity)

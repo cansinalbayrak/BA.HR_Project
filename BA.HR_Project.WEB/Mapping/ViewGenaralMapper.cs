@@ -2,6 +2,7 @@
 using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Entities;
 using BA.HR_Project.WEB.Areas.Admin.Models;
+using BA.HR_Project.WEB.Areas.Manager.Models;
 using BA.HR_Project.WEB.Models;
 using Microsoft.AspNetCore.Components;
 
@@ -49,8 +50,9 @@ namespace BA.HR_Project.WEB.Mapping
                .ReverseMap();
             CreateMap<ExpenseViewModel, ExpenseDto>() 
                 .ReverseMap();
-            CreateMap<AddManagerDto, AddManagerViewModel>() 
+            CreateMap<AddManagerViewModel,AddManagerDto>() 
                 .ReverseMap();
+           
         }
     }
 }

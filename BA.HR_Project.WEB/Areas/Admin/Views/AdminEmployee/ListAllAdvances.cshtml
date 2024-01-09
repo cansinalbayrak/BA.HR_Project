@@ -6,8 +6,6 @@
 
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
             <div>
                 <!-- diğer tüm avansların popupını açacak butonlar -->
                 <button class="btn btn-warning" onclick="showAdvances('Waiting')">Waiting Advances</button>
@@ -41,8 +39,11 @@
                             <td>@advance.Description</td>
                             <td>@advance.ConfirmStatus.ToString()</td>
                             <td>
-                                <a asp-action="ApprovedAdvance" asp-controller="AdminEmployee" asp-route-id="@advance.Id" class="btn btn-danger">Approve</a>
-                                <a>Reject</a>
+                                <div style="display:flex">
+                                <a asp-action="ApprovedAdvance" asp-controller="AdminEmployee" asp-route-id="@advance.Id" class="btn btn-success" style="margin:5px;">Approve</a>
+                                    <a asp-action="RejectAdvance" asp-controller="AdminEmployee" asp-route-id="@advance.Id" class="btn btn-danger" style="margin:5px">Reject</a>
+                                
+                                </div>
                             </td>
 
                         </tr>
@@ -150,9 +151,7 @@
                 </div>
             </div>
 
-        </div>
-    </div>
-
+    
 
 <script>
     // Tabloları gizleme fonksiyonu

@@ -66,5 +66,37 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
 
 
         }
+        public async Task<List<ExpenseDto>> AllUserExpense()
+        {
+            var expensesAction = await GetAll();
+            var userExpenses = expensesAction.Context.OrderBy(x => x.RequestDate).ToList();
+            return userExpenses;
+        }
+        public async Task<Response> ApprovedExpense(string id)
+        {
+            var expenseAction = await GetByIdAsync(id);
+            var expense = expenseAction.Context;
+            if (expense != null)
+            {
+                expense.ConfirmStatus = ConfirmStatus.Approved;
+                expense.ReplyDate = DateTime.Now;
+                await Update(expense);
+                return Response.Success();
+            }
+            return Response.Failure("Expense not found");
+        }
+        public async Task<Response> RejectExpense(string id)
+        {
+            var expenseAction = await GetByIdAsync(id);
+            var expense = expenseAction.Context;
+            if (expense != null)
+            {
+                expense.ConfirmStatus = ConfirmStatus.Denied;
+                expense.ReplyDate = DateTime.Now;
+                await Update(expense);
+                return Response.Success();
+            }
+            return Response.Failure("Expense not found");
+        }
     }
 }

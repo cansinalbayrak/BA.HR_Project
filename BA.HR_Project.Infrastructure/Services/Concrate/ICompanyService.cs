@@ -6,10 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BA.HR_Project.Infrasturucture.RequestResponse;
+using BA.HR_Project.Infrastructure.Managers.Concrate;
+using BA.HR_Project.Infrasturucture.Managers.Concrate;
 
 namespace BA.HR_Project.Infrasturucture.Services.Concrate
 {
     public interface ICompanyService : IService<Company,CompanyDto>
     {
+        List<CompanyCustom> GetAllCompanyCustomColumn();
     }
 }
