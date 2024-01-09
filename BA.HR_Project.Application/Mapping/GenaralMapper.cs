@@ -57,9 +57,9 @@ namespace BA.HR_Project.Application.Mapping
             .ReverseMap();
             CreateMap<ExpenseDto,Expense>() 
                 .ReverseMap();
-
-            CreateMap<AppUser,AddManagerDto>() 
+            CreateMap<ListManagerDto,AppUser>() 
                 .ReverseMap();
+
            
         }
     }

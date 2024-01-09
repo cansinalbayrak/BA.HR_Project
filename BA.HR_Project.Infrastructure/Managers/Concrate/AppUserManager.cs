@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using BA.HR_Project.Infrastructure.Services.Abstract;
 using System.Security.Claims;
+using BA.HR_Project.Persistance.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 {
@@ -26,13 +28,20 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
         private readonly IUrlHelperFactory _urlHelperFactory;
         private readonly IActionContextAccessor _actionContextAccessor;
         private readonly IEmailService _emailService;
-        public AppUserManager(IMapper mapper, IUow uow, UserManager<AppUser> userManager, IEmailService emailService = null, IActionContextAccessor actionContextAccessor = null, IUrlHelperFactory urlHelperFactory = null) : base(mapper, uow)
+        private readonly AppDbContext _appDbContext;
+        public AppUserManager(IMapper mapper, IUow uow, UserManager<AppUser> userManager, IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor, IEmailService emailService, AppDbContext appDbContext) : base(mapper, uow)
         {
             _userManager = userManager;
-             
+
             _actionContextAccessor = actionContextAccessor;
             _urlHelperFactory = urlHelperFactory;
             _emailService = emailService;
+            _appDbContext = appDbContext;
+            _userManager = userManager;
+            _urlHelperFactory = urlHelperFactory;
+            _actionContextAccessor = actionContextAccessor;
+            _emailService = emailService;
+            _appDbContext = appDbContext;
         }
 
         public async Task<AppUser> AddAppUser(AppUserDto userDto, ClaimsPrincipal User)
@@ -138,7 +147,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 
         }
 
-        public async Task<AppUser> AddManager(AddManagerDto managerDto)
+        public async Task<AppUser> AddManager(AppUserDto managerDto)
         {
            var newManager = _mapper.Map<AppUser>(managerDto);
             string mail = newManager.Name + newManager.SecondName + "." + newManager.Surname + newManager.SecondSurname + "@bilgeadamboost.com";
@@ -172,5 +181,8 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             }
             return null;
         }
+
+       
+        
     }
 }
