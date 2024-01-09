@@ -64,8 +64,18 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateCompany(CompanyViewModel vm)
         {
+            var LogoPath = await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
+            vm.LogoPath = LogoPath;
 
-            return View();
+            var CompanyDto = _mapper.Map<CompanyDto>(vm);
+            var updateAction = await _companyManager.Update(CompanyDto);
+
+            if (updateAction.IsSuccess) 
+            {
+                return RedirectToAction("ListCompany");
+            }
+            return View(vm);
+            
         }
 
         [HttpGet]
@@ -78,8 +88,6 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
                 return View(companysVM);
             }
             return View();
-
         }
-
     }
 }
