@@ -41,6 +41,19 @@
                                  <li class="scroll-to-section"> <a class="customNavbar"asp-area="Admin"asp-controller="AdminEmployee" asp-action="ListEmployee">ListEmployee</a></li>
                              </ul>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                                 <li class="nav-item dropdown customNavbar">
+                                          <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> All Demands </a>
+                                          <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                                          <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllAdvances"> Advance Demands</a></li>
+                                                          <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllExpenses">Expense Demands</a></li>
+                                                          <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllDayOffs">Day Off Demands</a></li>
+                                          </ul>
+                                   </li>
+                        }
+                        
+
                         <li class="nav-item dropdown customNavbar">
                             <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go to Employee View </a>
                              <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">

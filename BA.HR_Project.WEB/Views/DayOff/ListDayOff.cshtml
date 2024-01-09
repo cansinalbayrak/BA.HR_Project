@@ -5,18 +5,19 @@
 
 @model List<DayOffViewModel>
 
-
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
 <div>
     <!-- İzin türlerini ayıran butonlar -->
-    <button class="btn btn-primary" onclick="showDayOffs('All')">All Day Offs</button>
-    <button class="btn btn-primary" onclick="showDayOffs('Waiting')">Waiting Day Offs</button>
-    <button class="btn btn-primary" onclick="showDayOffs('Approved')">Approved Day Offs</button>
-    <button class="btn btn-primary" onclick="showDayOffs('Denied')">Denied Day Offs</button>
+                <button class="btn btn-success" id="showDayOffApprovedButton">Approved Day Offs</button>
+                <button class="btn btn-warning" id="showDayOffWaitingButton">Waiting Day Offs</button>
+                <button class="btn btn-danger" id="showDayOffDeniedButton">Denied Day Offs</button>
 </div>
 <br />
 
 <!-- Tüm izinleri listeleyecek tablo -->
-<table class="table text-light" id="AllTable">
+<table class="table text-light">
     <thead>
         <tr>
             <th>Day Off Type</th>
@@ -43,7 +44,12 @@
 </table>
 
 <!-- Waiting Day Offs -->
-<table class="table text-light" id="WaitingTable">
+            <div id="dayOffWaitingPopup" class="modalC">
+                <div class="modal-contentC">
+                    <span class="closeC" onclick="closePopupWaiting()">&times;</span>
+
+                    <h2 class="text-warning text-center"><u>Waiting Day Offs</u></h2>
+<table class="table text-light">
     <thead>
         <tr>
             <th>Day Off Type</th>
@@ -68,9 +74,16 @@
         }
     </tbody>
 </table>
-
+                </div>
+            </div>
 <!-- Approved Day Offs -->
-<table class="table text-light" id="ApprovedTable">
+            <div id="dayOffApprovedPopup" class="modalC">
+                <div class="modal-contentC">
+                    <span class="closeC" onclick="closePopupApproved()">&times;</span>
+
+                    <h2 class="text-success text-center "><u>Approved Day Offs</u></h2>
+
+<table class="table text-light">
     <thead>
         <tr>
             <th>Day Off Type</th>
@@ -95,9 +108,16 @@
         }
     </tbody>
 </table>
-
+                </div>
+            </div>
 <!-- Denied Day Offs -->
-<table class="table text-light" id="DeniedTable">
+            <div id="dayOffDeniedPopup" class="modalC">
+                <div class="modal-contentC">
+                    <span class="closeC" onclick="closePopupDenied()">&times;</span>
+
+                    <h2 class=" text-center text-danger"><u>Denied Day Offs</u></h2>
+
+<table class="table text-light">
     <thead>
         <tr>
             <th>Day Off Type</th>
@@ -122,24 +142,44 @@
         }
     </tbody>
 </table>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
 <script>
-    // Tabloları gizleme fonksiyonu
-    function hideTables() {
-        document.getElementById('AllTable').style.display = 'none';
-        document.getElementById('WaitingTable').style.display = 'none';
-        document.getElementById('ApprovedTable').style.display = 'none';
-        document.getElementById('DeniedTable').style.display = 'none';
+    // Waiting Advances Popupı
+    document.getElementById('showDayOffWaitingButton').onclick = function () {
+        openPopupWaiting();
+    };
+    function openPopupWaiting() {
+        document.getElementById('dayOffWaitingPopup').style.display = 'block';
+    }
+    function closePopupWaiting() {
+        document.getElementById('dayOffWaitingPopup').style.display = 'none';
     }
 
-    // İzin türlerine göre tabloyu gösterme
-    function showDayOffs(status) {
-        hideTables();
-        var tableId = status + 'Table';
-        document.getElementById(tableId).style.display = 'table';
+    // Approved Advances Popupı
+    document.getElementById('showDayOffApprovedButton').onclick = function () {
+        openPopupApproved();
+    };
+    function openPopupApproved() {
+        document.getElementById('dayOffApprovedPopup').style.display = 'block';
+    }
+    function closePopupApproved() {
+        document.getElementById('dayOffApprovedPopup').style.display = 'none';
     }
 
-    // Sayfa yüklendiğinde default olarak "All Day Offs" tablosunu gösterme
-    document.addEventListener("DOMContentLoaded", function () {
-        showDayOffs('All');
-    });
+    // Denied Advances Popupı
+    document.getElementById('showDayOffDeniedButton').onclick = function () {
+        openPopupDenied();
+    };
+    function openPopupDenied() {
+        document.getElementById('dayOffDeniedPopup').style.display = 'block';
+    }
+    function closePopupDenied() {
+        document.getElementById('dayOffDeniedPopup').style.display = 'none';
+    }
+
 </script>
