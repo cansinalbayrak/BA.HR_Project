@@ -8,7 +8,16 @@ namespace BA.HR_Project.WEB.Models
         public string Id { get; set; }
         public CompanyTitle CompanyTitleEnum { get; set; }
         public string Name { get; set; }
+        
+        
         public string LogoPath { get; set; }
+        public IFormFile? Photo { get; set; }
+        public string ExistingPhotoPath { get; set; }
+        public FileDetails ExistingPhoto { get; set; }
+        public bool RemovePhoto { get; set; }
+        public bool UseExistingPhoto { get; set; }
+
+
 
         public string Phone { get; set; }
         public string Adress { get; set; }

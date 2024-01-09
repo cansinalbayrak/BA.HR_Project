@@ -29,6 +29,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AddCompany()
         {
+            ViewBag.Photopath = "/mexant/assets/images/defaultCompanyPhoto.png"; ;
             return View();
         }
         [HttpPost]
