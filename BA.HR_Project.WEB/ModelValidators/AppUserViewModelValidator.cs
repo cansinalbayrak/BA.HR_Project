@@ -1,5 +1,6 @@
 ﻿using BA.HR_Project.WEB.Models;
 using FluentValidation;
+using System.Text.RegularExpressions;
 
 namespace BA.HR_Project.WEB.ModelValidators
 {
@@ -37,9 +38,9 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .Must((model, endDate) => endDate == null || endDate > model.StartDate)
                 .WithMessage("EndDate must be null or greater than StartDate");
 
-    //        RuleFor(x => x.IsTurkishCitizen)
-    //.Must((model, isTurkishCitizen) => !isTurkishCitizen || IsValidTurkishIdentityNumberOrTcNo(model.IdentityNumber, isTurkishCitizen))
-    //.WithMessage("Invalid Turkish Identity Number or T.C. should be true");
+            RuleFor(x => x.IsTurkishCitizen)
+                   .Must((model, isTurkishCitizen) => !isTurkishCitizen || IsValidTurkishIdentityNumberOrTcNo(model.IdentityNumber, isTurkishCitizen))
+                   .WithMessage("Invalid Turkish Identity Number or T.C. should be true");
 
             RuleFor(x => x.PhoneNumber)
     .NotEmpty().WithMessage("PhoneNumber must be provided")
@@ -65,6 +66,19 @@ namespace BA.HR_Project.WEB.ModelValidators
             return !string.IsNullOrEmpty(passportNumber) && passportNumber.Length == 9;
         }
 
+        private bool IsValidBirthDateAndIdentityNumber(DateTime? birthDate, string identityNumber)
+        {
+            if (birthDate == null || string.IsNullOrEmpty(identityNumber) || identityNumber.Length != 11)
+            {
+                return false;
+            }
+
+            int birthYear = birthDate.Value.Year % 100; // Yılın son iki hanesi
+            int identityYear = int.Parse(identityNumber.Substring(0, 2));
+
+            return birthYear == identityYear;
+        }
+
         private bool IsValidTurkishIdentityNumberOrTcNo(string identityNumber, bool isTurkishCitizen)
         {
             if (!isTurkishCitizen)
@@ -72,22 +86,31 @@ namespace BA.HR_Project.WEB.ModelValidators
                 return true;
             }
 
-            if (string.IsNullOrEmpty(identityNumber) || identityNumber.Length != 11)
+            return IsValidKimlikNo(identityNumber);
+        }
+
+        private bool IsValidKimlikNo(string kimlikNo)
+        {
+            if (kimlikNo.Length != 11 || !Regex.IsMatch(kimlikNo, @"^\d+$") || kimlikNo[0] == '0')
             {
                 return false;
             }
 
-            int[] digits = identityNumber.Select(c => int.Parse(c.ToString())).ToArray();
-            int sum = digits.Take(10).Sum();
-            int tenthDigit = sum % 10;
+            int[] digits = kimlikNo.Select(c => Convert.ToInt32(c.ToString())).ToArray();
 
-            if (tenthDigit != digits[9])
+            int oddSum = digits[0] + digits[2] + digits[4] + digits[6] + digits[8];
+            int evenSum = digits[1] + digits[3] + digits[5] + digits[7];
+
+            int total = (oddSum * 7 - evenSum) % 10;
+
+            if (digits[9] != total)
             {
                 return false;
             }
 
-            int eleventhDigit = (sum + digits[10]) % 10;
-            return eleventhDigit == digits[10];
+            int total2 = (oddSum + evenSum + digits[9]) % 10;
+
+            return digits[10] == total2;
         }
 
         private bool ContainsTurkishCharacter(string text)
