@@ -21,11 +21,6 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             _companyManager = companyManager;
             _mapper = mapper;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-
 
         [HttpGet]
         public IActionResult AddCompany()
@@ -51,6 +46,25 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             {
                 return RedirectToAction("ListCompany");
             }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateCompany(string Id)
+        {
+            var GetRelatedCompany = await _companyManager.GetByIdAsync(Id);
+            if (GetRelatedCompany.IsSuccess)
+            {
+                var vm = _mapper.Map<CompanyViewModel>(GetRelatedCompany.Context);
+                return View(vm);
+            }
+            return RedirectToAction("ListCompany");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateCompany(CompanyViewModel vm)
+        {
+
             return View();
         }
 
