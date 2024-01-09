@@ -46,7 +46,7 @@ namespace BA.HR_Project.Application.Mapping
             CreateMap<AppUser, AppUserUpdatePasswordDto>()
                 .ReverseMap();
 
-
+            
 
 
 
