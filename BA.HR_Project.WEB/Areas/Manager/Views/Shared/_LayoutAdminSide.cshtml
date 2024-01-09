@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HR-Admin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/AdminStyle.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BA.HR_Project.WEB.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white box-shadow mb-3 customNavbar"
+
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">
+                    <img src="/images/akademilogo-yatay.webp" alt="Logo" style="height: auto;">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
+@*                         <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">AddEmployee</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">ListEmployee</a>
+                        </li> *@
+                        <li class="nav-item dropdown customNavbar">
+                            <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home/Add Employee/List Employee </a>
+                             <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                 <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Home</a></li>
+                                 <li class="scroll-to-section"> <a class="customNavbar"asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">AddEmployee</a></li>
+                                 <li class="scroll-to-section"> <a class="customNavbar"asp-area="Admin"asp-controller="AdminEmployee" asp-action="ListEmployee">ListEmployee</a></li>
+                             </ul>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                                 <li class="nav-item dropdown customNavbar">
+                                          <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> All Demands </a>
+                                          <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                                          <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllAdvances"> Advance Demands</a></li>
+                                                          <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllExpenses">Expense Demands</a></li>
+                                                          <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllDayOffs">Day Off Demands</a></li>
+                                          </ul>
+                                   </li>
+                        }
+                        
+
+                        <li class="nav-item dropdown customNavbar">
+                            <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go to Employee View </a>
+                             <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                 <li class="scroll-to-section"> <a class="customNavbar" asp-area="" asp-controller="Employee" asp-action="Index">Profile</a></li>
+                                 <li class="scroll-to-section"> <a class="customNavbar"asp-area="" asp-controller="Employee" asp-action="Detail">Detail</a></li>
+                                 <li class="scroll-to-section"> <a class="customNavbar"asp-area=""asp-controller="Employee" asp-action="Update">Update</a></li>
+                             </ul>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                                 <li class="nav-item"><a class="nav-link text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
+                                 <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="LogOut" class="nav-link text-light">SignOut</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted fixed-bottom customFooter"
+        <div class="container">
+            Copyright © 2023 ANK-14 Group-2 All Rights Reserved.
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 50) { // 50px'den fazla kaydırıldığında renk değişecek
+                    document.querySelector('.customNavbar').classList.add('scrolled-navbar');
+                } else {
+                    document.querySelector('.customNavbar').classList.remove('scrolled-navbar');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

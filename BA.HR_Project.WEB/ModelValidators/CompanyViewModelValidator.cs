@@ -32,10 +32,10 @@ namespace BA.HR_Project.WEB.ModelValidators
                
                 return mersisNo.StartsWith("0") &&
                        mersisNo.Length == 16 &&
-                       mersisNo.EndsWith("000") &&
-                       char.IsDigit(mersisNo[15]) && 
-                       char.IsDigit(mersisNo[14]) && 
-                       char.IsDigit(mersisNo[13]);    
+                       (mersisNo.EndsWith("000") ||
+                       mersisNo.EndsWith("013") ||
+                       mersisNo.EndsWith("014") ||
+                       mersisNo.EndsWith("015"));    
             }
             else if (companyTitle == CompanyTitle.KOOP)
             {
@@ -46,4 +46,4 @@ namespace BA.HR_Project.WEB.ModelValidators
         }
     }
 }
-}
+

@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BA.HR_Project.WEB.Areas.Admin.Controllers
+namespace BA.HR_Project.WEB.Areas.Manager.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = ("Admin"))]
+    [Area("Manager")]
+    [Authorize(Roles = "Admin")]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyManager;
@@ -35,7 +35,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var LogoPath = await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
             vm.LogoPath = LogoPath;
 
-            if (vm.LogoPath==null)
+            if (vm.LogoPath == null)
             {
                 vm.LogoPath = "/mexant/assets/images/defaultCompanyPhoto.png";
             }
@@ -67,6 +67,8 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateCompany(string Id)
         {
+
+
             var GetRelatedCompany = await _companyManager.GetByIdAsync(Id);
             if (GetRelatedCompany.IsSuccess)
             {
@@ -82,15 +84,28 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var LogoPath = await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
             vm.LogoPath = LogoPath;
 
+            var validator = new CompanyViewModelValidator();
+            var validationResult = await validator.ValidateAsync(vm);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                return View(vm);
+            }
+
             var CompanyDto = _mapper.Map<CompanyDto>(vm);
             var updateAction = await _companyManager.Update(CompanyDto);
 
-            if (updateAction.IsSuccess) 
+            if (updateAction.IsSuccess)
             {
                 return RedirectToAction("ListCompany");
             }
             return View(vm);
-            
+
         }
 
         [HttpGet]
