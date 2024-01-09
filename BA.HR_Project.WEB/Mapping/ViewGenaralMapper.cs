@@ -50,7 +50,9 @@ namespace BA.HR_Project.WEB.Mapping
                .ReverseMap();
             CreateMap<ExpenseViewModel, ExpenseDto>() 
                 .ReverseMap();
-            CreateMap<AddManagerViewModel,AddManagerDto>() 
+            CreateMap<AddManagerViewModel,AppUserDto>() 
+                .ReverseMap();
+            CreateMap<ListManagerViewModel, ListManagerDto>() 
                 .ReverseMap();
            
         }

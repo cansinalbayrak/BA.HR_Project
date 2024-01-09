@@ -29,8 +29,7 @@ namespace BA.HR_Project.WEB.Areas.Manager.Models
 
         public string CompanyId { get; set; }
         public string DepartmentId { get; set; }
-        public string CompanyName { get; set; }
-        public string DepartmentName { get; set; }
+ 
 
 
         public CompanyViewModel Company { get; set; }
