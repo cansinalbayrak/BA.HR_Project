@@ -105,11 +105,11 @@
             <label class="custom-select" asp-for="Company">Company Name</label>
             <select asp-for="CompanyId" class="form-control custom-select">
                 <option value="CompanytId">-- Select Company Name --</option>
-                @if (ViewBag.CompanyName != null)
+                @if (ViewBag.CompanyNames != null)
                 {
 
 
-                    foreach (var name in ViewBag.CompanyName)
+                    foreach (var name in ViewBag.CompanyNames)
                     {
 
                         <option value="@name">@name.Split("/")[0]</option>
