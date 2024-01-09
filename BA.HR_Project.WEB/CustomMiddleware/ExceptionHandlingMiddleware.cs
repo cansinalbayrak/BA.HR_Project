@@ -22,7 +22,7 @@ namespace BA.HR_Project.WEB.CustomMiddleware
             {
                 HandleException(context, ex);
             }
-        }
+         }
 
         private void HandleException(HttpContext context, Exception ex)
         {

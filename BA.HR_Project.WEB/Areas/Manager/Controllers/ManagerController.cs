@@ -71,7 +71,8 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             var newManager = await _userService.AddManager(managerDto);
             if (newManager != null) 
             {
-              return RedirectToAction("ListManager");
+                await _userManager.AddToRoleAsync(newManager, "Admin");
+                return RedirectToAction("ListManager");
             
             }
             return RedirectToAction("Warning", "Home");
@@ -81,7 +82,7 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
         }
         public async Task<IActionResult> ListManager() 
         {
-            var managers = await _userManager.GetUsersInRoleAsync("Manager");
+            var managers = await _userManager.GetUsersInRoleAsync("Admin");
 
             var listManagerDto = new List<ListManagerDto>();
 
