@@ -27,62 +27,33 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         }
         public async Task<Response> RequestDayOff(DayOffDto dayOffDto)
         {
-            if (dayOffDto.DayOffType == DayOffType.AnnualDayOff)
+            switch (dayOffDto.DayOffType)
             {
-                return await RequestAnnualDayOff(dayOffDto);
+                case DayOffType.AnnualDayOff:
+                    return await RequestAnnualDayOff(dayOffDto);
+                case DayOffType.MaternityDayOff:
+                    return await RequestMaternityDayOff(dayOffDto);
+                case DayOffType.PaternityDayOff:
+                    return await RequestPaternityDayOff(dayOffDto);
+                case DayOffType.BereavementDayOff:
+                    return await RequestBereavementDayOff(dayOffDto);
+                case DayOffType.JobSearchDayOff:
+                    return await RequestJobSearchDayOff(dayOffDto);
+                case DayOffType.MarriageDayOff:
+                    return await RequestMarriageDayOff(dayOffDto);
+                case DayOffType.ExcuseDayOff:
+                    return await RequestExcuseDayOff(dayOffDto);
+                case DayOffType.SickDayOff:
+                    return await RequestSickDayOff(dayOffDto);
+                case DayOffType.SoldierLeave:
+                    return await RequestSoldierLeave(dayOffDto);
+                default:
+                    return Response.Failure("Invalid day off type.");
             }
-        
-            else if (dayOffDto.DayOffType == DayOffType.MaternityDayOff)
-            {
-                return await RequestMaternityDayOff(dayOffDto);
-            }
-      
-            else if (dayOffDto.DayOffType == DayOffType.PaternityDayOff)
-            {
-                return await RequestPaternityDayOff(dayOffDto);
-            }
-            else if (dayOffDto.DayOffType == DayOffType.BereavementDayOff)
-            {
-                return await RequestBereavementDayOff(dayOffDto);
-            }
-            else if (dayOffDto.DayOffType == DayOffType.JobSearchDayOff)
-            {
-                return await RequestJobSearchDayOff(dayOffDto);
-            }
-            else if (dayOffDto.DayOffType == DayOffType.MarriageDayOff)
-            {
-                return await RequestMarriageDayOff(dayOffDto);
-            }
-            else if (dayOffDto.DayOffType == DayOffType.ExcuseDayOff)
-            {
-                return await RequestExcuseDayOff(dayOffDto);
-            }
-            else if (dayOffDto.DayOffType == DayOffType.SickDayOff)
-            {
-                return await RequestSickDayOff(dayOffDto);
-            }
-            else if (dayOffDto.DayOffType == DayOffType.SoldierLeave)
-            {
-                return await RequestSoldierLeave(dayOffDto);
-            }
-
-
-            return Response.Failure("Invalid day off type.");
         }
-        //private async Task<Response> Reset(DayOffDto dayOffDto)
-        //{
-        //    var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
-        //    var dayOffs = await GetAll();
-        //    var userDayOffs = dayOffs.Context.Where(d => d.AppUserId == user.Id).ToList();
-        //    var lastUserDayOff = userDayOffs.OrderByDescending(d => d.Id).FirstOrDefault();
-        //    if (lastUserDayOff != null && lastUserDayOff.StartDate.Year!=DateTime.Now.Year)
-        //    {
-        //        await Delete(dayOffDto);
-        //    }
-        //    return Response.Success();
-        //}
         private async Task<Response> IsEligibleForNewDayOff(DayOffDto dayOffDto)
         {
+            //Sürelerin çakışma durumu
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
             var dayOffs = await GetAll();
 
@@ -112,11 +83,12 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
 
            
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
-            var DayOffs = await GetAll();
+            
             if (user == null)
             {
                 return Response.Failure("User not found.");
             }
+            var DayOffs = await GetAll();
             var GengerDayoff = DayOffs.Context.Where( d => d.AppUserId==user.Id && d.Gender == Gender.Female || d.Gender == Gender.Male).FirstOrDefault();
             if (GengerDayoff != null)
             {
@@ -146,22 +118,17 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             }
 
             dayOffDto.DayCount = (float)(dayOffDto.FinishDate - dayOffDto.StartDate).TotalDays;
-            dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
-            dayOffDto.RequestDate = DateTime.Now;
-            dayOffDto.Id = Guid.NewGuid().ToString();
-            var result = await Insert(dayOffDto);
-
-            return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert day off.");
+            return await InsertDayOff(dayOffDto);
         }
         private async Task<Response> RequestExcuseDayOff(DayOffDto dayOffDto)
         {
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
-            var DayOffs = await GetAll();
+            
             if (user == null)
             {
-                dayOffDto.DayCount += 0;
                 return Response.Failure("User not found.");
             }
+            var DayOffs = await GetAll();
             var GengerDayoff = DayOffs.Context.Where(d => d.AppUserId == user.Id && d.Gender == Gender.Female || d.Gender == Gender.Male).FirstOrDefault();
             if (GengerDayoff != null)
             {
@@ -178,23 +145,18 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             {
                 return Response.Failure("You already have a pending day off request. Please wait for approved.");
             }
-            dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.DayCount = (float)(dayOffDto.FinishDate - dayOffDto.StartDate).TotalDays;
-            dayOffDto.RequestDate = DateTime.Now;
-            dayOffDto.Id = Guid.NewGuid().ToString();
-            var result = await Insert(dayOffDto);
-
-            return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert day off.");
+            return await InsertDayOff(dayOffDto);
         }
         private async Task<Response> RequestSickDayOff(DayOffDto dayOffDto)
         {
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
-            var DayOffs = await GetAll();
+           
             if (user == null)
             {
-                dayOffDto.DayCount += 0;
                 return Response.Failure("User not found.");
             }
+            var DayOffs = await GetAll();
             var GengerDayoff = DayOffs.Context.Where(d => d.AppUserId == user.Id && d.Gender == Gender.Female || d.Gender == Gender.Male).FirstOrDefault();
             if (GengerDayoff != null)
             {
@@ -211,23 +173,18 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             {
                 return Response.Failure("You already have a pending day off request. Please wait for approved.");
             }
-            dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.DayCount = (float)(dayOffDto.FinishDate - dayOffDto.StartDate).TotalDays;
-            dayOffDto.RequestDate = DateTime.Now;
-            dayOffDto.Id = Guid.NewGuid().ToString();
-            var result = await Insert(dayOffDto);
-
-            return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert day off.");
+            return await InsertDayOff(dayOffDto);
         }
+
         private async Task<Response> RequestMarriageDayOff(DayOffDto dayOffDto)
         {
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
-            var DayOffs = await GetAll();
             if (user == null)
             {
-                dayOffDto.DayCount += 0;
                 return Response.Failure("User not found.");
             }
+            var DayOffs = await GetAll();
             var YearList = DayOffs.Context.Where(d => d.AppUserId == user.Id && d.StartDate.Year == DateTime.Now.Year && d.DayOffType == DayOffType.MarriageDayOff);
             if (YearList.Any())
             {
@@ -251,21 +208,17 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(7);
             dayOffDto.DayCount = 7;
-            dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
-            dayOffDto.RequestDate = DateTime.Now;
-            dayOffDto.Id = Guid.NewGuid().ToString();
-            var result = await Insert(dayOffDto);
-
-            return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert day off.");
+            return await InsertDayOff(dayOffDto);
         }
         private async Task<Response> RequestJobSearchDayOff(DayOffDto dayOffDto)
         {
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
-            var DayOffs = await GetAll();
+            
             if (user == null)
             {
                 return Response.Failure("User not found.");
             }
+            var DayOffs = await GetAll();
             var GengerDayoff = DayOffs.Context.Where(d => d.AppUserId == user.Id && d.Gender == Gender.Female || d.Gender == Gender.Male).FirstOrDefault();
             if (GengerDayoff != null)
             {
@@ -284,12 +237,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddHours(2);
             dayOffDto.DayCount = 2 / 24;
-            dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
-            dayOffDto.RequestDate = DateTime.Now;
-            dayOffDto.Id = Guid.NewGuid().ToString();
-            var result = await Insert(dayOffDto);
-
-            return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert day off.");
+            return await InsertDayOff(dayOffDto);
         }
 
         private async Task<Response> RequestBereavementDayOff(DayOffDto dayOffDto)
@@ -320,12 +268,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(7);
             dayOffDto.DayCount = 7;
-            dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
-            dayOffDto.RequestDate = DateTime.Now;
-            dayOffDto.Id = Guid.NewGuid().ToString();
-            var result = await Insert(dayOffDto);
-
-            return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert day off.");
+            return await InsertDayOff(dayOffDto);
         }
         private async Task<Response> RequestMaternityDayOff(DayOffDto dayOffDto)
         {
@@ -367,13 +310,8 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 return Response.Failure("You already have a pending day off request. Please wait for approved.");
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(49);
-            dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
             dayOffDto.DayCount = 49;
-            dayOffDto.RequestDate = DateTime.Now;
-            dayOffDto.Id = Guid.NewGuid().ToString();
-            var result = await Insert(dayOffDto);
-
-            return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert day off.");
+            return await InsertDayOff(dayOffDto);
         }
 
         private async Task<Response> RequestPaternityDayOff(DayOffDto dayOffDto)
@@ -412,21 +350,16 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             }
             dayOffDto.FinishDate = dayOffDto.StartDate.AddDays(7);
             dayOffDto.DayCount = 7;
-            dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
-            dayOffDto.RequestDate = DateTime.Now;
-            dayOffDto.Id = Guid.NewGuid().ToString();
-            var result = await Insert(dayOffDto);
-
-            return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert day off.");
+            return await InsertDayOff(dayOffDto);
         }
         private async Task<Response> RequestAnnualDayOff( DayOffDto dayOffDto)
         {
            
             var user = await _userManager.FindByIdAsync(dayOffDto.AppUserId);
-            var DayOffss = await GetAll();
+            var DayOffs = await GetAll();
 
-           
-            var annualDayOffs = DayOffss.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
+
+            var annualDayOffs = DayOffs.Context.Where(d => d.DayOffType == DayOffType.AnnualDayOff &&
                                             d.StartDate.Year == DateTime.Now.Year&& d.AppUserId==user.Id);
       
             float annualDayOffTotalCount = annualDayOffs.Sum(d => d.DayCount);
@@ -437,7 +370,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 dayOffDto.DayCount += 0;
                 return Response.Failure("User not found.");
             }
-            var YearList = DayOffss.Context.Where(d => d.AppUserId == user.Id && d.StartDate.Year == DateTime.Now.Year && d.DayOffType == DayOffType.AnnualDayOff);
+            var YearList = DayOffs.Context.Where(d => d.AppUserId == user.Id && d.StartDate.Year == DateTime.Now.Year && d.DayOffType == DayOffType.AnnualDayOff);
 
             if (!(YearList.Any()))
             {
@@ -505,7 +438,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                 else
                     return Response.Failure("cannot take annual dayoff for more than 20 days in the same year.");
             }
-            var DayOffs = await GetAll();
+           
             var GengerDayoff = DayOffs.Context.Where(d => d.AppUserId == user.Id && d.Gender == Gender.Female || d.Gender == Gender.Male).FirstOrDefault();
             if (GengerDayoff != null)
             {
@@ -522,14 +455,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             {
                 return Response.Failure("You already have a pending day off request. Please wait for confirmation.");
             }
-            dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
-            dayOffDto.RequestDate = DateTime.Now;
-            dayOffDto.Id = Guid.NewGuid().ToString();
-           
-            var result = await Insert(dayOffDto);
-            //await _userManager.UpdateAsync(user);
-
-            return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert day off.");
+            return await InsertDayOff(dayOffDto);
         }
 
 
@@ -541,8 +467,68 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var userDayOff = DayOff.Context.Where(x => x.AppUserId == userId).OrderBy(x => x.RequestDate).ToList();
             return userDayOff;
         }
+        private async Task<Response> InsertDayOff(DayOffDto dayOffDto)
+        {
+            dayOffDto.ConfirmStatus = ConfirmStatus.Waiting;
+            dayOffDto.RequestDate = DateTime.Now;
+            dayOffDto.Id = Guid.NewGuid().ToString();
+            var result = await Insert(dayOffDto);
+            return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert day off.");
+        }
+
+        public async Task<List<DayOffDto>> WaitingDayOffs(string UserId)
+        {
+            var userDayOffs = await GetAllDayOff(UserId);
+            var waitingDayOffs = userDayOffs.Where(x => x.ConfirmStatus == ConfirmStatus.Waiting).OrderBy(x => x.RequestDate).ToList();
+            return waitingDayOffs;
+        }
+        public async Task<List<DayOffDto>> ApprovedDayOffs(string UserId)
+        {
+            var userDayOffs = await GetAllDayOff(UserId);
+            var approvedDayOffs = userDayOffs.Where(x => x.ConfirmStatus == ConfirmStatus.Approved).OrderBy(x => x.RequestDate).ToList();
+            return approvedDayOffs;
+        }
+        public async Task<List<DayOffDto>> DeniedDayOffs(string UserId)
+        {
+            var userDayOffs = await GetAllDayOff(UserId);
+            var deniedDayOffs = userDayOffs.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).OrderBy(x => x.RequestDate).ToList();
+            return deniedDayOffs;
+        }
+      
 
 
+        public async Task<List<DayOffDto>> AllUserDayOff()
+        {
+            var dayOffAction = await GetAll();
+            var userDayOff = dayOffAction.Context.OrderBy(x => x.RequestDate).ToList();
+            return userDayOff;
+        }
+        public async Task<Response> ApprovedDayOff(string id)
+        {
+            var dayOffAction = await GetByIdAsync(id);
+            var dayOff = dayOffAction.Context;
+            if (dayOff != null)
+            {
+                dayOff.ConfirmStatus = ConfirmStatus.Approved;
+                dayOff.ResponseDate = DateTime.Now;
+                await Update(dayOff);
+                return Response.Success();
+            }
+            return Response.Failure("DayOff not found");
+        }
+        public async Task<Response> RejectDayOff(string id)
+        {
+            var dayOffAction = await GetByIdAsync(id);
+            var dayOff = dayOffAction.Context;
+            if (dayOff != null)
+            {
+                dayOff.ConfirmStatus = ConfirmStatus.Denied;
+                dayOff.ResponseDate = DateTime.Now;
+                await Update(dayOff);
+                return Response.Success();
+            }
+            return Response.Failure("DayOff not found");
+        }
     }
 }
 

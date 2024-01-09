@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore.Query.Internal;
 using NuGet.Packaging.Signing;
 using BA.HR_Project.WEB.HelperMethods;
 using BA.HR_Project.Domain.Enums;
+using BA.HR_Project.Infrastructure.Services.Concrate;
 
 namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 {
@@ -31,16 +32,21 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         private readonly ICompanyService _companyManager;
         private readonly IDepartmentService _departmentManager;
         private readonly IAdvanceService _advanceService;
+        private readonly IExpsenseService _expenseService;
+        private readonly IDayOffService _dayOffService;
         private readonly IMapper _mapper;
 
-        public AdminEmployeeController(UserManager<AppUser> userManager, IAppUserService appUserManager, ICompanyService companyManager, IDepartmentService departmentManager, IMapper mapper, IAdvanceService advanceService)
+        public AdminEmployeeController(UserManager<AppUser> userManager, IAppUserService appUserManager, ICompanyService companyManager, IDepartmentService departmentManager, IMapper mapper, IAdvanceService advanceService, IExpsenseService expenseService, IDayOffService dayOffService)
         {
             _userManager = userManager;
             _appUserManager = appUserManager;
             _companyManager = companyManager;
             _departmentManager = departmentManager;
             _advanceService = advanceService;
+            _expenseService = expenseService;
+            _dayOffService = dayOffService;
             _mapper = mapper;
+            
         }
         [HttpGet("/Admin/Employee/Index")]
         public IActionResult Index()
@@ -178,10 +184,62 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             ViewBag.DeniedAdvances = deniedAdvances;
             return View(advancesVm);
         }
+
         public async Task<IActionResult> ApprovedAdvance(string id)
         {
             await _advanceService.ApprovedAdvance(id);
-            return View();
+            return RedirectToAction("ListAllAdvances");
+        }
+        public async Task<IActionResult> RejectAdvance(string id)
+        {
+            await _advanceService.RejectAdvance(id);
+            return RedirectToAction("ListAllAdvances");
+        }
+        public async Task<IActionResult> ListAllExpenses()
+        {
+            var allExpensesDto = await _expenseService.AllUserExpense();
+            var waiting = allExpensesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Waiting).ToList();
+            var approved = allExpensesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Approved).ToList();
+            var denied = allExpensesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();
+
+            var expensesVm = _mapper.Map<List<ExpenseViewModel>>(waiting);
+            ViewBag.AllExpenses = allExpensesDto;
+            ViewBag.ApprovedExpenses = approved;
+            ViewBag.DeniedExpenses = denied;
+            return View(expensesVm);
+        }
+        public async Task<IActionResult> ApprovedExpense(string id)
+        {
+             await _expenseService.ApprovedExpense(id);
+            return RedirectToAction("ListAllExpenses");
+        }
+        public async Task<IActionResult> RejectExpense(string id)
+        {
+            await _expenseService.RejectExpense(id);
+            return RedirectToAction("ListAllExpenses");
+        }
+        public async Task<IActionResult> ListAllDayOffs()
+        {
+            var allDayOffsDto = await _dayOffService.AllUserDayOff();
+            var waiting = allDayOffsDto.Where(x => x.ConfirmStatus == ConfirmStatus.Waiting).ToList();
+            var approved = allDayOffsDto.Where(x => x.ConfirmStatus == ConfirmStatus.Approved).ToList();
+            var denied = allDayOffsDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();
+
+            var dayOffsVm = _mapper.Map<List<DayOffViewModel>>(waiting);
+            ViewBag.AllDayOffs = allDayOffsDto;
+            ViewBag.ApprovedDayOffs = approved;
+            ViewBag.DeniedDayOffs = denied;
+            return View(dayOffsVm);
+        }
+        public async Task<IActionResult> ApprovedDayOff(string id)
+        {
+            await _dayOffService.ApprovedDayOff(id);
+            return RedirectToAction("ListAllDayOffs");
+        }
+        public async Task<IActionResult> RejectDayOff(string id)
+        {
+            await _dayOffService.RejectDayOff(id);
+            return RedirectToAction("ListAllDayOffs");
         }
     }
 }
