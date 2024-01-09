@@ -1,0 +1,122 @@
+﻿
+@model CompanyViewModel
+
+
+<div class="container">
+
+    <form asp-controller="Company" asp-action="UpdateCompany" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="CompanyTitleEnum">Company Title</label>
+            <select asp-for="CompanyTitleEnum" asp-items="Html.GetEnumSelectList<CompanyTitle>()" class="form-control custom-select">
+                <option value="" disabled selected>Select Company Title</option>
+            </select>
+            <span asp-validation-for="CompanyTitleEnum" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="Name">Name</label>
+            <input asp-for="Name" class="form-control custom-select" type="text" placeholder="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LogoPath" class="col-form-label" style="color:#FD8D00">Photo:</label>
+
+            <div class="mb-3">
+                <div>
+                    <img src="@Model.LogoPath" alt="Current Photo" class="img-thumbnail" style="max-width: 150px; max-height: 150px;" />
+                </div>
+
+                <div>
+                    <label class="form-check-label" style="color: white;">
+                        <input type="checkbox" asp-for="UseExistingPhoto" /> Choose This Photo
+                        <span asp-validation-for="UseExistingPhoto" class="text-danger"></span>
+                    </label>
+                </div>
+                <br />
+
+                <div>
+                    <input accept=".jpeg,.jpg,.png" type="file" asp-for="Photo" class="form-control-file text-light" />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="Phone">Phone</label>
+            <input asp-for="Phone" class="form-control custom-select" type="text" placeholder="Phone" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="Adress">Adress</label>
+            <input asp-for="Adress" class="form-control custom-select" type="text" placeholder="Adress" />
+            <span asp-validation-for="Adress" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="Mail">Mail</label>
+            <input asp-for="Mail" class="form-control custom-select" type="text" placeholder="Mail" />
+            <span asp-validation-for="Mail" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="EmployeeCount">Employee Count</label>
+            <input asp-for="EmployeeCount" class="form-control custom-select" type="number" placeholder="Employee Count" />
+            <span asp-validation-for="EmployeeCount" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="MersisNo">Mersis No</label>
+            <input asp-for="MersisNo" class="form-control custom-select" type="text" placeholder="Mersis No" />
+            <span asp-validation-for="MersisNo" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="TaxNo">Tax No</label>
+            <input asp-for="TaxNo" class="form-control custom-select" type="text" placeholder="Tax No" />
+            <span asp-validation-for="TaxNo" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="TaxOffice">Tax Office</label>
+            <input asp-for="TaxOffice" class="form-control custom-select" type="text" placeholder="Tax Office" />
+            <span asp-validation-for="TaxOffice" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="StartUpDate">Start Up Date</label>
+            <input asp-for="StartUpDate" class="form-control custom-select" type="date" />
+            <span asp-validation-for="StartUpDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="ContractStartDate">Contract Start Date</label>
+            <input asp-for="ContractStartDate" class="form-control custom-select" type="date" />
+            <span asp-validation-for="ContractStartDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="ContractEndDate">Contract End Date</label>
+            <input asp-for="ContractEndDate" class="form-control custom-select" type="date" />
+            <span asp-validation-for="ContractEndDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="ActivtyEnum">Activity Enum</label>
+            <select asp-for="ActivtyEnum" asp-items="Html.GetEnumSelectList<Activty>()" class="form-control custom-select">
+                <option value="" disabled selected>Select Activity</option>
+            </select>
+            <span asp-validation-for="ActivtyEnum" class="text-danger"></span>
+        </div>
+
+
+        <button type="submit" class="btn-warning">Update Company</button>
+    </form>
+
+
+</div>

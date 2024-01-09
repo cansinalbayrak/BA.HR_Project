@@ -25,9 +25,9 @@
                 <td class="text-center align-middle">@company.Phone</td>
                 <td class="text-center align-middle">
                     <div style="display:flex; justify-content: center;">
-                        <a asp-action="ApprovedAdvance" asp-controller="AdminEmployee" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px;">Company Detail</a>
-                        <a asp-action="RejectAdvance" asp-controller="AdminEmployee" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Company Update</a>
-                        <a asp-action="RejectAdvance" asp-controller="AdminEmployee" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Asign Company Manager</a>
+                        <a asp-action="ApprovedAdvance" asp-controller="Company" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px;">Company Detail</a>
+                        <a asp-action="UpdateCompany" asp-controller="Company" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Company Update</a>
+                        <a asp-action="" asp-controller="" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Asign Company Manager</a>
 
                     </div>
                 </td>
