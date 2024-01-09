@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BA.HR_Project.WEB.Areas.Manager.Controllers
 {
+    [Area("Manager")]
     public class ManagerController : Controller
     {
         private readonly IAppUserService _userService;

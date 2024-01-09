@@ -37,10 +37,10 @@ builder.Services.AddInfrastructureDependencies();
 
 builder.Services.Configure<EmailOption>(builder.Configuration.GetSection("EmailOption"));
 builder.Services.AddSingleton<IUrlHelperFactory, UrlHelperFactory>();
-builder.Services.AddSingleton<IActionContextAccessor,ActionContextAccessor>();
+builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
 
-var app = builder.Build(); 
+var app = builder.Build();
 
 
 using (var scope = app.Services.CreateScope())
@@ -50,8 +50,8 @@ using (var scope = app.Services.CreateScope())
     var RoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
 
 
-    await RoleManager.CreateAsync(new() { Id=Guid.NewGuid().ToString() ,Name = "Admin" });
-    await RoleManager.CreateAsync(new() { Id = Guid.NewGuid().ToString(),Name = "Employee" });
+    await RoleManager.CreateAsync(new() { Id = Guid.NewGuid().ToString(), Name = "Admin" });
+    await RoleManager.CreateAsync(new() { Id = Guid.NewGuid().ToString(), Name = "Employee" });
 
 
     var adminUser = await userManager.FindByEmailAsync("admin.bilgeadam@bilgeadamboost.com");
@@ -90,20 +90,23 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
-//app.UseMvc();
+
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapAreaControllerRoute(
-    name: "Admin",
-    areaName: "Admin",
-    pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+        name: "Admin",
+        areaName: "Admin",
+        pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+    );
+    endpoints.MapAreaControllerRoute(
+        name: "Manager",
+        areaName: "Manager",
+        pattern: "Manager/{controller=Home}/{action=Index}/{id?}"
     );
     endpoints.MapDefaultControllerRoute();
 });
+
 //app.UseEndpoints(endpoints =>
 //{
 //    endpoints.MapAreaControllerRoute(
