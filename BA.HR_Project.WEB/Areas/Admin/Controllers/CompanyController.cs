@@ -3,6 +3,7 @@ using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Infrasturucture.Managers.Concrate;
 using BA.HR_Project.Infrasturucture.Services.Concrate;
 using BA.HR_Project.WEB.Models;
+using BA.HR_Project.WEB.ModelValidators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +36,20 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCompany(CompanyViewModel vm)
         {
+
+
+            var validator = new CompanyViewModelValidator();
+            var validationResult = await validator.ValidateAsync(vm);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                return View(vm);
+            }
             vm.Id = Guid.NewGuid().ToString();
             var CompanyDto = _mapper.Map<CompanyDto>(vm);
             var createCompanyAction = await _companyManager.Insert(CompanyDto);
