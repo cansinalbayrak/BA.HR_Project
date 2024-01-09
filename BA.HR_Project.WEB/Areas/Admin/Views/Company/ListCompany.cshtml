@@ -1,1 +1,39 @@
 ﻿
+@model List<CompanyViewModel>
+
+<table class="table text-light" id="WaitingTable">
+    <thead>
+        <tr>
+            <th>Logo</th>
+            <th>Title</th>
+            <th>Name</th>
+            <th>Mail</th>
+            <th>Phone</th>
+            <th>Process</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var company in Model)
+        {
+            <tr>
+                <td class="text-center align-middle">
+                    <img src="@company.LogoPath" style="max-width: 100px; max-height: 100px;" />
+                </td>
+                <td class="text-center align-middle">@company.CompanyTitleEnum.ToString()</td>
+                <td class="text-center align-middle">@company.Name</td>
+                <td class="text-center align-middle">@company.Mail</td>
+                <td class="text-center align-middle">@company.Phone</td>
+                <td class="text-center align-middle">
+                    <div style="display:flex; justify-content: center;">
+                        <a asp-action="ApprovedAdvance" asp-controller="AdminEmployee" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px;">Company Detail</a>
+                        <a asp-action="RejectAdvance" asp-controller="AdminEmployee" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Company Update</a>
+                        <a asp-action="RejectAdvance" asp-controller="AdminEmployee" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Asign Company Manager</a>
+
+                    </div>
+                </td>
+
+            </tr>
+
+        }
+    </tbody>
+</table>
