@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BA.HR_Project.Persistance.Context;
+using BA.HR_Project.Infrasturucture.RequestResponse;
 
 namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 {
@@ -20,8 +21,26 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
         {
             _appDbContext = appDbContext;
         }
+        public async Task<Response> AddCompany(CompanyDto companyDto)
+        {
+            if (IsMersisNoOrTaxNoAvailable(companyDto.MersisNo, companyDto.TaxNo))
+            {
+                return Response.Failure("MersisNo and TaxNo is already in use by another company.");
+            }
+            else
+            {
+                var result= await Insert(companyDto);
+                return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert Company.");
+            }
 
-        
+        }
+        public bool IsMersisNoOrTaxNoAvailable(string mersisNo, string taxNo, string companyId = null)
+        {
+            var existingCompany = _appDbContext.Companies.FirstOrDefault(c => c.Id != companyId && (c.MersisNo == mersisNo && c.TaxNo == taxNo));
+
+            // Eğer existingCompany null değilse, aynı MersisNo veya TaxNo'ya sahip başka bir şirket var demektir
+            return existingCompany == null;
+        }
 
         public List<CompanyCustom> GetAllCompanyCustomColumn()
         {

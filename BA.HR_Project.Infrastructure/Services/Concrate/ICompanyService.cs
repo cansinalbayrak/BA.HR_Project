@@ -15,5 +15,6 @@ namespace BA.HR_Project.Infrasturucture.Services.Concrate
     public interface ICompanyService : IService<Company,CompanyDto>
     {
         List<CompanyCustom> GetAllCompanyCustomColumn();
+        public Task<Response> AddCompany(CompanyDto companyDto);
     }
 }
