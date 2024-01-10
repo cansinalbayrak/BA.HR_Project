@@ -32,7 +32,6 @@ namespace BA.HR_Project.WEB.ModelValidators
 
 
             RuleFor(x => x.IsTurkishCitizen)
-                .NotEmpty().WithMessage("Identity Number must be provided")
                   .Must((model, isTurkishCitizen) => !isTurkishCitizen || IsValidTurkishIdentityNumberOrTcNo(model.IdentityNumber, isTurkishCitizen))
                   .WithMessage("Invalid Turkish Identity Number or T.C. should be true");
 
@@ -76,6 +75,10 @@ namespace BA.HR_Project.WEB.ModelValidators
 
         private bool IsValidKimlikNo(string kimlikNo)
         {
+            if (kimlikNo == null)
+            {
+                return false;
+            }
             if (kimlikNo.Length != 11 || !Regex.IsMatch(kimlikNo, @"^\d+$") || kimlikNo[0] == '0')
             {
                 return false;
