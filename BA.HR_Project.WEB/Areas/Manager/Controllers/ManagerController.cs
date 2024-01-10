@@ -86,6 +86,10 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             var companyId = model.CompanyId.Split("/")[1];
             model.CompanyId = companyId;
 
+         
+
+            var managerDto = _mapper.Map<AppUserDto>(model);
+            var newManager = await _userService.AddManager(managerDto);
             List<CompanyCustom> allCompanies = _companyService.GetAllCompanyCustomColumn();
             List<string> companyNames = new List<string>();
             for (int i = 0; i < allCompanies.Count; i++)
@@ -101,16 +105,13 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
                 departmentName.Add(allDepartments[i].DepartmentName + "/" + allDepartments[i].Id);
             }
             ViewBag.DepartmentName = departmentName;
-
-            var managerDto = _mapper.Map<AppUserDto>(model);
-            var newManager = await _userService.AddManager(managerDto);
             if (newManager.IsSuccess)
             {
                 return RedirectToAction("ListManager");
             }
             ViewBag.ErrorMessages = newManager.Message;
 
-            return View("AddManager");
+            return View(model);
 
 
 

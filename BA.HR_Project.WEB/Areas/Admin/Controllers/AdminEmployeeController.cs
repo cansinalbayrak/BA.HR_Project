@@ -96,7 +96,7 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 
             if (newUser.IsSuccess)
             {
-                return RedirectToAction("AddEmployee");
+                return RedirectToAction("ListEmployee");
             }
             ViewBag.ErrorMessages = newUser.Message;
 
