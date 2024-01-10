@@ -62,6 +62,7 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             {
                 return RedirectToAction("ListCompany");
             }
+            ViewBag.ErrorMessages = createCompanyAction.Message;
             return View();
         }
 
