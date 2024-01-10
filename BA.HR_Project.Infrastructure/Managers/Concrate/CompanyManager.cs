@@ -31,7 +31,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             {
                 return Response.Failure("Mail is already in use by another company.");
             }
-            if (!IsMailAvailable(companyDto.Phone))
+            if (!IsPhoneAvailable(companyDto.Phone))
             {
                 return Response.Failure("Phone is already in use by another company.");
             }
@@ -55,9 +55,9 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
         }
         private bool IsPhoneAvailable(string phone)
         {
-            var existingCompany = _appDbContext.Companies.FirstOrDefault(c => (c.Phone == phone));
+            var existingCompany3 = _appDbContext.Companies.FirstOrDefault(c => (c.Phone == phone));
 
-            if (existingCompany == null)
+            if (existingCompany3 == null)
             {
                 return true;
             }
