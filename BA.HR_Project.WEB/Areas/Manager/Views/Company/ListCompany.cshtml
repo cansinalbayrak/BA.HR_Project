@@ -1,6 +1,5 @@
 ﻿@model List<CompanyViewModel>
 
-
 <table class="table text-light" id="WaitingTable">
     <thead>
         <tr>
@@ -25,11 +24,9 @@
                 <td class="text-center align-middle">@company.Phone</td>
                 <td class="text-center align-middle">
                     <div style="display:flex; justify-content: center;">
-                        <button id="showCompanyDetail" class="btn btn-success" style="margin:5px">Company Detail</button>
+                        <button id="showCompanyDetail@company.Id" class="btn btn-success showCompanyDetail" data-id="@company.Id" style="margin:5px">Company Detail</button>
                         <a asp-action="UpdateCompany" asp-controller="Company" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Company Update</a>
                         <a asp-action="" asp-controller="" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Asign Company Manager</a>
-
-
                     </div>
                 </td>
             </tr>
@@ -76,54 +73,70 @@
             <span id="companyDetailContractEndDate"></span> <br />
             <span id="companyDetailActivtyEnum"></span> <br />
         </div>
-
-
     </div>
 </div>
 
 <script>
     // Waiting Advances Popupı
-    document.getElementById('showCompanyDetail').onclick = function () {
-        openPopupWaiting();
+    var showCompanyDetailButtons = document.getElementsByClassName('showCompanyDetail');
 
-        // Şirket bilgilerini modal içine eklenmesi
+    for (var i = 0; i < showCompanyDetailButtons.length; i++) {
+        showCompanyDetailButtons[i].onclick = function () {
+            openPopupWaiting();
 
-        var companyTitle = '@Model.First().CompanyTitleEnum.ToString()';
-        var companyName = '@Model.First().Name';
-        var companyPhone = '@Model.First().Phone';
-        var companyAdress = '@Model.First().Adress';
-        var companyMail = '@Model.First().Mail';
-        var employeeCount = '@Model.First().EmployeeCount';
-        var mersisNo = '@Model.First().MersisNo';
-        var taxNo = '@Model.First().TaxNo';
-        var taxOffice = '@Model.First().TaxOffice';
-        var startupDate = '@Model.First().StartUpDate';
-        var contractStartDate = '@Model.First().ContractStartDate';
-        var contractEndDate = '@Model.First().ContractEndDate';
-        var activtyEnum = '@Model.First().ActivtyEnum';
+            // data-id özelliğini kullanarak tıklanan butonun şirket ID'sini alın
+            var companyId = this.getAttribute('data-id');
 
+            // JSON modelini JavaScript nesnesine çevirin
+            var companyData = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))');
 
-        document.getElementById('companyDetailTitle').innerText = companyTitle;
-        document.getElementById('companyDetailName').innerText = companyName;
-        document.getElementById('companyDetailPhone').innerText = companyPhone;
-        document.getElementById('companyDetailAdress').innerText = companyAdress;
-        document.getElementById('companyDetailMail').innerText = companyMail;
-        document.getElementById('companyDetailEmployeeCount').innerText = employeeCount;
-        document.getElementById('companyDetailMersisNo').innerText = mersisNo;
-        document.getElementById('companyDetailTaxNo').innerText = taxNo;
-        document.getElementById('companyDetailTaxOffice').innerText = taxOffice;
-        document.getElementById('companyDetailStartupDate').innerText = startupDate;
-        document.getElementById('companyDetailContractStartDate').innerText = contractStartDate;
-        document.getElementById('companyDetailContractEndDate').innerText = contractEndDate;
-        document.getElementById('companyDetailActivtyEnum').innerText = activtyEnum;
+            // Seçilen şirketi bulun
+            var selectedCompany = companyData.find(function (company) {
+                return company.Id === companyId;
+            });
 
-    };
+            if (selectedCompany) {
+                // Şirket bilgilerini modal içine yerleştirme
+                document.getElementById('companyDetailTitle').innerText = selectedCompany.CompanyTitleEnum;
+                document.getElementById('companyDetailName').innerText = selectedCompany.Name;
+                document.getElementById('companyDetailPhone').innerText = selectedCompany.Phone;
+                document.getElementById('companyDetailAdress').innerText = selectedCompany.Adress;
+                document.getElementById('companyDetailMail').innerText = selectedCompany.Mail;
+                document.getElementById('companyDetailEmployeeCount').innerText = selectedCompany.EmployeeCount;
+                document.getElementById('companyDetailMersisNo').innerText = selectedCompany.MersisNo;
+                document.getElementById('companyDetailTaxNo').innerText = selectedCompany.TaxNo;
+                document.getElementById('companyDetailTaxOffice').innerText = selectedCompany.TaxOffice;
+                document.getElementById('companyDetailStartupDate').innerText = selectedCompany.StartUpDate;
+                document.getElementById('companyDetailContractStartDate').innerText = selectedCompany.ContractStartDate;
+                document.getElementById('companyDetailContractEndDate').innerText = selectedCompany.ContractEndDate;
+                document.getElementById('companyDetailActivtyEnum').innerText = selectedCompany.ActivtyEnum;
+            }
+        };
+    }
 
     function openPopupWaiting() {
+        clearPopupDetails();
         document.getElementById('companyDetailPopup').style.display = 'block';
     }
 
+    function clearPopupDetails() {
+        document.getElementById('companyDetailTitle').innerText = '';
+        document.getElementById('companyDetailName').innerText = '';
+        document.getElementById('companyDetailPhone').innerText = '';
+        document.getElementById('companyDetailAdress').innerText = '';
+        document.getElementById('companyDetailMail').innerText = '';
+        document.getElementById('companyDetailEmployeeCount').innerText = '';
+        document.getElementById('companyDetailMersisNo').innerText = '';
+        document.getElementById('companyDetailTaxNo').innerText = '';
+        document.getElementById('companyDetailTaxOffice').innerText = '';
+        document.getElementById('companyDetailStartupDate').innerText = '';
+        document.getElementById('companyDetailContractStartDate').innerText = '';
+        document.getElementById('companyDetailContractEndDate').innerText = '';
+        document.getElementById('companyDetailActivtyEnum').innerText = '';
+    }
+
     function closePopupWaiting() {
+        clearPopupDetails();
         document.getElementById('companyDetailPopup').style.display = 'none';
     }
 </script>
