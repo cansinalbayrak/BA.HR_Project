@@ -25,11 +25,11 @@ namespace BA.HR_Project.WEB.ModelValidators
             RuleFor(x => x.Mail).NotEmpty().NotEmpty().WithMessage("Phone must be provided").EmailAddress().WithMessage("Invalid email format");
             RuleFor(x => x.StartUpDate)
                 .NotEmpty().WithMessage("StartUpDate must be provided")
-                .Must(BeValidDate).WithMessage("StartUpDate must be before ContractStartDate and before current date");
+                .Must(BeValidDate).WithMessage("StartUpDate must be before Current date");
 
             RuleFor(x => x.ContractStartDate)
                 .NotEmpty().WithMessage("ContractStartDate must be provided")
-                .Must((viewModel, contractStartDate) => BeValidDate(contractStartDate) && contractStartDate < viewModel.ContractEndDate && contractStartDate > viewModel.StartUpDate)
+                .Must((viewModel, contractStartDate) => contractStartDate < viewModel.ContractEndDate && contractStartDate > viewModel.StartUpDate)
                 .WithMessage("ContractStartDate must be between StartUpDate and before ContractEndDate");
 
             RuleFor(x => x.ContractEndDate)
@@ -51,7 +51,7 @@ namespace BA.HR_Project.WEB.ModelValidators
         }
         private bool BeValidDate(DateTime date)
         {
-            return date < DateTime.Now && date < DateTime.Now.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+            return date < DateTime.Now;
         }
 
         private bool ValidateMersisNo(CompanyTitle companyTitle, string mersisNo)

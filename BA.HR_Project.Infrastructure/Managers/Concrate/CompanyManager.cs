@@ -23,9 +23,17 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
         }
         public async Task<Response> AddCompany(CompanyDto companyDto)
         {
-            if (IsMersisNoOrTaxNoAvailable(companyDto.MersisNo, companyDto.TaxNo))
+            if (!IsMersisNoOrTaxNoAvailable(companyDto.MersisNo, companyDto.TaxNo))
             {
                 return Response.Failure("MersisNo and TaxNo is already in use by another company.");
+            }
+            if (!IsMailAvailable(companyDto.Mail))
+            {
+                return Response.Failure("Mail is already in use by another company.");
+            }
+            if (!IsMailAvailable(companyDto.Phone))
+            {
+                return Response.Failure("Phone is already in use by another company.");
             }
             else
             {
@@ -33,13 +41,37 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
                 return result.IsSuccess ? Response.Success() : Response.Failure("Failed to insert Company.");
             }
 
-        }
-        public bool IsMersisNoOrTaxNoAvailable(string mersisNo, string taxNo, string companyId = null)
-        {
-            var existingCompany = _appDbContext.Companies.FirstOrDefault(c => c.Id != companyId && (c.MersisNo == mersisNo && c.TaxNo == taxNo));
 
-            // Eğer existingCompany null değilse, aynı MersisNo veya TaxNo'ya sahip başka bir şirket var demektir
-            return existingCompany == null;
+        }
+        private bool IsMersisNoOrTaxNoAvailable(string mersisNo, string taxNo, string companyId = null)
+        {
+            var existingCompany = _appDbContext.Companies.FirstOrDefault(c => (c.MersisNo == mersisNo) || (c.TaxNo == taxNo));
+
+           if(existingCompany == null)
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool IsPhoneAvailable(string phone)
+        {
+            var existingCompany = _appDbContext.Companies.FirstOrDefault(c => (c.Phone == phone));
+
+            if (existingCompany == null)
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool IsMailAvailable(string mail)
+        {
+            var existingCompany2 = _appDbContext.Companies.FirstOrDefault(c => (c.Mail == mail));
+
+            if (existingCompany2 == null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public List<CompanyCustom> GetAllCompanyCustomColumn()

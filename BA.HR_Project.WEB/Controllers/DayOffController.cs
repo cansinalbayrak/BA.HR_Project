@@ -48,16 +48,38 @@ namespace BA.HR_Project.WEB.Controllers
         public async Task<IActionResult> DemandDayOff()
         {
             var userıd = _userManager.GetUserId(User);
-            ViewBag.UserId = userıd;
+            var user = await _userManager.FindByIdAsync(userıd);
+            var DayOffs = await _dayOffManager.GetAll();
+            var annualDayOffs = DayOffs.Context.Where(d => d.StartDate.Year == DateTime.Now.Year && d.AppUserId == user.Id);
+            var userDayoff = annualDayOffs.Where(x => x.AppUserId == user.Id && (x.Gender == Gender.Male || x.Gender == Gender.Female)).FirstOrDefault();
+            var userDayoff2 = annualDayOffs.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Male).FirstOrDefault();
+            var userDayoff3 = annualDayOffs.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Female).FirstOrDefault();
+            var userDayoff4 = annualDayOffs.Where(x => x.AppUserId == user.Id && (x.Gender == Gender.Female || x.Gender == Gender.Male)).FirstOrDefault();
+
+            ViewBag.UserDayOff = userDayoff;
+            ViewBag.UserDayOff2 = userDayoff2;
+            ViewBag.UserDayOff3 = userDayoff3;
+            ViewBag.UserDayOff4 = userDayoff4;
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> DemandDayOff(DayOffViewModel dayOffViewModel)
         {
-            
-            var userıd =  _userManager.GetUserId(User);
-            ViewBag.UserId = userıd;
+
+            var userıd = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(userıd);
+            var DayOffs = await _dayOffManager.GetAll();
+            var annualDayOffs = DayOffs.Context.Where(d => d.StartDate.Year == DateTime.Now.Year && d.AppUserId == user.Id);
+            var userDayoff = annualDayOffs.Where(x => x.AppUserId == user.Id && (x.Gender == Gender.Male || x.Gender == Gender.Female)).FirstOrDefault();
+            var userDayoff2 = annualDayOffs.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Male).FirstOrDefault();
+            var userDayoff3 = annualDayOffs.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Female).FirstOrDefault();
+            var userDayoff4 = annualDayOffs.Where(x => x.AppUserId == user.Id && (x.Gender == Gender.Female || x.Gender == Gender.Male)).FirstOrDefault();
+
+            ViewBag.UserDayOff = userDayoff;
+            ViewBag.UserDayOff2 = userDayoff2;
+            ViewBag.UserDayOff3 = userDayoff3;
+            ViewBag.UserDayOff4 = userDayoff4;
             dayOffViewModel.AppUserId = userıd;
 
             var DayOffDto = _mapper.Map<DayOffDto>(dayOffViewModel);

@@ -29,12 +29,57 @@
                         <a asp-action="ApprovedAdvance" asp-controller="Company" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px;">Company Detail</a>
                         <a asp-action="UpdateCompany" asp-controller="Company" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Company Update</a>
                         <a asp-action="" asp-controller="" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Asign Company Manager</a>
+                        <button id="showCompanyDetail" class="btn btn-success" style="margin:5px">Company Detail</button>
 
                     </div>
                 </td>
-
             </tr>
-
         }
     </tbody>
 </table>
+
+<!-- Popup içeriği -->
+@* Company Detail Pupup *@
+<div id="companyDetailPopup" class="modalC">
+    <div class="modal-contentC">
+        <span class="closeC" onclick="closePopupWaiting()">&times;</span>
+
+        <h2 class="text-warning text-center"><u>Company Detail</u></h2>
+        @* <label> Buraya ilgili compannin proplarını yazdırmak istiyorum</label> *@
+        <label>ID: <span id="companyDetailId"></span></label><br>
+        <label>Title: <span id="companyDetailTitle"></span></label><br>
+        <label>Name: <span id="companyDetailName"></span></label><br>
+        <label>Mail: <span id="companyDetailMail"></span></label><br>
+        <label>Phone: <span id="companyDetailPhone"></span></label><br>
+
+    </div>
+</div>
+
+<script>
+    // Waiting Advances Popupı
+    document.getElementById('showCompanyDetail').onclick = function () {
+        openPopupWaiting();
+
+        // Şirket bilgilerini modal içine ekle
+        var companyId = @Model.First().Id;
+        var companyTitle = @Model.First().CompanyTitleEnum.ToString();
+        var companyName = @Model.First().Name;
+        var companyMail = @Model.First().Mail;
+        var companyPhone = @Model.First().Phone;
+
+        // Diğer CompanyViewModel özelliklerini benzer şekilde ekleyin
+
+        document.getElementById('companyDetailId').innerText = companyId;
+        document.getElementById('companyDetailTitle').innerText = companyTitle;
+        document.getElementById('companyDetailName').innerText = companyName;
+        document.getElementById('companyDetailMail').innerText = companyMail;
+        document.getElementById('companyDetailPhone').innerText = companyPhone;
+        // Diğer CompanyViewModel özelliklerini benzer şekilde ekleyin
+    };
+    function openPopupWaiting() {
+        document.getElementById('companyDetailPopup').style.display = 'block';
+    }
+    function closePopupWaiting() {
+        document.getElementById('companyDetailPopup').style.display = 'none';
+    }
+</script>
