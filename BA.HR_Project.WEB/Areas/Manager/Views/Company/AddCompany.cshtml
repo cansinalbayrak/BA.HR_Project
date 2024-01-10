@@ -1,6 +1,16 @@
 ﻿
 @model CompanyViewModel
 
+
+
+<h1 class="custom-select">DemandCompany</h1>
+@if (ViewBag.ErrorMessages != null)
+{
+    <div class="alert alert-danger">
+        <p>@ViewBag.ErrorMessages</p>
+    </div>
+}
+
 <div class="container">
 
     <form asp-controller="Company" asp-action="AddCompany" method="post" enctype="multipart/form-data">
