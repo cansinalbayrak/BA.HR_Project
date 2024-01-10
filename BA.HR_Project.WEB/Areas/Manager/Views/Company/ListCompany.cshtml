@@ -1,5 +1,4 @@
-﻿
-@model List<CompanyViewModel>
+﻿@model List<CompanyViewModel>
 
 
 <table class="table text-light" id="WaitingTable">
@@ -26,10 +25,10 @@
                 <td class="text-center align-middle">@company.Phone</td>
                 <td class="text-center align-middle">
                     <div style="display:flex; justify-content: center;">
-                        <a asp-action="ApprovedAdvance" asp-controller="Company" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px;">Company Detail</a>
+                        <button id="showCompanyDetail" class="btn btn-success" style="margin:5px">Company Detail</button>
                         <a asp-action="UpdateCompany" asp-controller="Company" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Company Update</a>
                         <a asp-action="" asp-controller="" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Asign Company Manager</a>
-                        <button id="showCompanyDetail" class="btn btn-success" style="margin:5px">Company Detail</button>
+
 
                     </div>
                 </td>
@@ -40,17 +39,44 @@
 
 <!-- Popup içeriği -->
 @* Company Detail Pupup *@
-<div id="companyDetailPopup" class="modalC">
-    <div class="modal-contentC">
-        <span class="closeC" onclick="closePopupWaiting()">&times;</span>
+<div id="companyDetailPopup" class="modalC container">
+    <div class="modal-contentC row">
+        <span class="closeC" style="margin-right:0px;" onclick="closePopupWaiting()">&times;</span>
 
         <h2 class="text-warning text-center"><u>Company Detail</u></h2>
-        @* <label> Buraya ilgili compannin proplarını yazdırmak istiyorum</label> *@
-        <label>ID: <span id="companyDetailId"></span></label><br>
-        <label>Title: <span id="companyDetailTitle"></span></label><br>
-        <label>Name: <span id="companyDetailName"></span></label><br>
-        <label>Mail: <span id="companyDetailMail"></span></label><br>
-        <label>Phone: <span id="companyDetailPhone"></span></label><br>
+
+        <div class="col-3">
+            <label class="text-light">Title: </label><br />
+            <label class="text-light">Name: </label><br />
+            <label class="text-light">Phone: </label><br />
+            <label class="text-light">Address: </label><br />
+            <label class="text-light">Mail: </label><br />
+            <label class="text-light">Employee Count: </label><br />
+            <label class="text-light">Mersis No: </label><br />
+            <label class="text-light">Tax No: </label><br />
+            <label class="text-light">Tax Office: </label><br />
+            <label class="text-light">Start Up Date: </label><br />
+            <label class="text-light">Contract Start Date: </label><br />
+            <label class="text-light">Contract End Date: </label><br />
+            <label class="text-light">Activity: </label><br />
+        </div>
+
+        <div class="col-9">
+            <span id="companyDetailTitle"></span><br />
+            <span id="companyDetailName"></span><br />
+            <span id="companyDetailPhone"></span> <br />
+            <span id="companyDetailAdress"></span> <br />
+            <span id="companyDetailMail"></span> <br />
+            <span id="companyDetailEmployeeCount"></span> <br />
+            <span id="companyDetailMersisNo"></span> <br />
+            <span id="companyDetailTaxNo"></span> <br />
+            <span id="companyDetailTaxOffice"></span> <br />
+            <span id="companyDetailStartupDate"></span> <br />
+            <span id="companyDetailContractStartDate"></span> <br />
+            <span id="companyDetailContractEndDate"></span> <br />
+            <span id="companyDetailActivtyEnum"></span> <br />
+        </div>
+
 
     </div>
 </div>
@@ -60,25 +86,43 @@
     document.getElementById('showCompanyDetail').onclick = function () {
         openPopupWaiting();
 
-        // Şirket bilgilerini modal içine ekle
-        var companyId = @Model.First().Id;
-        var companyTitle = @Model.First().CompanyTitleEnum.ToString();
-        var companyName = @Model.First().Name;
-        var companyMail = @Model.First().Mail;
-        var companyPhone = @Model.First().Phone;
+        // Şirket bilgilerini modal içine eklenmesi
 
-        // Diğer CompanyViewModel özelliklerini benzer şekilde ekleyin
+        var companyTitle = '@Model.First().CompanyTitleEnum.ToString()';
+        var companyName = '@Model.First().Name';
+        var companyPhone = '@Model.First().Phone';
+        var companyAdress = '@Model.First().Adress';
+        var companyMail = '@Model.First().Mail';
+        var employeeCount = '@Model.First().EmployeeCount';
+        var mersisNo = '@Model.First().MersisNo';
+        var taxNo = '@Model.First().TaxNo';
+        var taxOffice = '@Model.First().TaxOffice';
+        var startupDate = '@Model.First().StartUpDate';
+        var contractStartDate = '@Model.First().ContractStartDate';
+        var contractEndDate = '@Model.First().ContractEndDate';
+        var activtyEnum = '@Model.First().ActivtyEnum';
 
-        document.getElementById('companyDetailId').innerText = companyId;
+
         document.getElementById('companyDetailTitle').innerText = companyTitle;
         document.getElementById('companyDetailName').innerText = companyName;
-        document.getElementById('companyDetailMail').innerText = companyMail;
         document.getElementById('companyDetailPhone').innerText = companyPhone;
-        // Diğer CompanyViewModel özelliklerini benzer şekilde ekleyin
+        document.getElementById('companyDetailAdress').innerText = companyAdress;
+        document.getElementById('companyDetailMail').innerText = companyMail;
+        document.getElementById('companyDetailEmployeeCount').innerText = employeeCount;
+        document.getElementById('companyDetailMersisNo').innerText = mersisNo;
+        document.getElementById('companyDetailTaxNo').innerText = taxNo;
+        document.getElementById('companyDetailTaxOffice').innerText = taxOffice;
+        document.getElementById('companyDetailStartupDate').innerText = startupDate;
+        document.getElementById('companyDetailContractStartDate').innerText = contractStartDate;
+        document.getElementById('companyDetailContractEndDate').innerText = contractEndDate;
+        document.getElementById('companyDetailActivtyEnum').innerText = activtyEnum;
+
     };
+
     function openPopupWaiting() {
         document.getElementById('companyDetailPopup').style.display = 'block';
     }
+
     function closePopupWaiting() {
         document.getElementById('companyDetailPopup').style.display = 'none';
     }

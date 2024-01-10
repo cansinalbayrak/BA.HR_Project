@@ -1,5 +1,6 @@
 ﻿using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Enums;
+using System.Text.Json.Serialization;
 
 namespace BA.HR_Project.WEB.Models
 {
@@ -11,8 +12,12 @@ namespace BA.HR_Project.WEB.Models
         
         
         public string LogoPath { get; set; }
+
+        [JsonIgnore]
         public IFormFile? Photo { get; set; }
         public string ExistingPhotoPath { get; set; }
+
+        [JsonIgnore]
         public FileDetails ExistingPhoto { get; set; }
         public bool RemovePhoto { get; set; }
         public bool UseExistingPhoto { get; set; }
@@ -30,6 +35,8 @@ namespace BA.HR_Project.WEB.Models
         public DateTime ContractStartDate { get; set; }
         public DateTime ContractEndDate { get; set; }
         public Activty ActivtyEnum { get; set; }
+
+        [JsonIgnore]
         public List<AppUserViewModel> AppUsers { get; set; }
     }
 }
