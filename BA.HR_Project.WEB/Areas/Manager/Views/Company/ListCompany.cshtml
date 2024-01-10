@@ -77,27 +77,26 @@
 </div>
 
 <script>
-    // Waiting Advances Popupı
+    // Detail Butonları için ilgili fonksiyonlarının dinamik olarak oluşturulması
     var showCompanyDetailButtons = document.getElementsByClassName('showCompanyDetail');
-
     for (var i = 0; i < showCompanyDetailButtons.length; i++) {
         showCompanyDetailButtons[i].onclick = function () {
             openPopupWaiting();
 
-            // data-id özelliğini kullanarak tıklanan butonun şirket ID'sini alın
+            // Company Id'sinin html blogundan alınması
             var companyId = this.getAttribute('data-id');
 
-            // JSON modelini JavaScript nesnesine çevirin
+            // Kullanılan MOdelin serilize edilmesi
             var companyData = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))');
 
-            // Seçilen şirketi bulun
+            // Seçilen şirketin bulunması
             var selectedCompany = companyData.find(function (company) {
                 return company.Id === companyId;
             });
 
             if (selectedCompany) {
                 // Şirket bilgilerini modal içine yerleştirme
-                document.getElementById('companyDetailTitle').innerText = selectedCompany.CompanyTitleEnum;
+                document.getElementById('companyDetailTitle').innerText = getEnumText(selectedCompany.CompanyTitleEnum, 'CompanyTitleEnum');
                 document.getElementById('companyDetailName').innerText = selectedCompany.Name;
                 document.getElementById('companyDetailPhone').innerText = selectedCompany.Phone;
                 document.getElementById('companyDetailAdress').innerText = selectedCompany.Adress;
@@ -109,7 +108,7 @@
                 document.getElementById('companyDetailStartupDate').innerText = selectedCompany.StartUpDate;
                 document.getElementById('companyDetailContractStartDate').innerText = selectedCompany.ContractStartDate;
                 document.getElementById('companyDetailContractEndDate').innerText = selectedCompany.ContractEndDate;
-                document.getElementById('companyDetailActivtyEnum').innerText = selectedCompany.ActivtyEnum;
+                document.getElementById('companyDetailActivtyEnum').innerText = getEnumText(selectedCompany.ActivtyEnum, 'ActivtyEnum');
             }
         };
     }
@@ -138,5 +137,32 @@
     function closePopupWaiting() {
         clearPopupDetails();
         document.getElementById('companyDetailPopup').style.display = 'none';
+    }
+
+    function getEnumText(enumValue, enumType) {
+        switch (enumType) {
+            case 'CompanyTitleEnum':
+                switch (enumValue) {
+                    case 1:
+                        return 'LTD';
+                    case 2:
+                        return 'AS';
+                    case 3:
+                        return 'KOOP';
+                    default:
+                        return 'Unknown';
+                }
+            case 'ActivtyEnum':
+                switch (enumValue) {
+                    case 0:
+                        return 'Pasive';
+                    case 1:
+                        return 'Active';
+                    default:
+                        return 'Unknown';
+                }
+            default:
+                return 'Unknown';
+        }
     }
 </script>
