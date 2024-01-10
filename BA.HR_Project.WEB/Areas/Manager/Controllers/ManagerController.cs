@@ -131,7 +131,7 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             {
                 var managerDto = _mapper.Map<UpdateManagerDto>(manager);
                 var managerVm = _mapper.Map<UpdateManagerViewModelcs>(managerDto);
-                ViewBag.IsTurkish = manager.IsTurkishCitizen;
+                
                 return View(managerVm);
             
             }
