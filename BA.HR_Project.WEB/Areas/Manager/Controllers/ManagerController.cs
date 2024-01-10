@@ -71,6 +71,19 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
 
                 return View(model);
             }
+           
+
+
+
+            if (model.PhotoPath == null)
+            {
+                model.PhotoPath = "/mexant/assets/images/Default.jpg";
+            }
+            var departmentId = model.DepartmentId.Split("/")[1];
+            model.DepartmentId = departmentId;
+            var companyId = model.CompanyId.Split("/")[1];
+            model.CompanyId = companyId;
+
             List<CompanyCustom> allCompanies = _companyService.GetAllCompanyCustomColumn();
             List<string> companyNames = new List<string>();
             for (int i = 0; i < allCompanies.Count; i++)
@@ -86,17 +99,6 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
                 departmentName.Add(allDepartments[i].DepartmentName + "/" + allDepartments[i].Id);
             }
             ViewBag.DepartmentName = departmentName;
-
-
-
-            if (model.PhotoPath == null)
-            {
-                model.PhotoPath = "/mexant/assets/images/Default.jpg";
-            }
-            var departmentId = model.DepartmentId.Split("/")[1];
-            model.DepartmentId = departmentId;
-            var companyId = model.CompanyId.Split("/")[1];
-            model.CompanyId = companyId;
 
             var managerDto = _mapper.Map<AppUserDto>(model);
             var newManager = await _userService.AddManager(managerDto);
