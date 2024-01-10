@@ -68,13 +68,8 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     @{
-        var user = await _userManager.FindByIdAsync(ViewBag.UserId);
-        var DayOffs = await _dayOffService.GetAll();
-        var annualDayOffs = DayOffs.Context.Where(d =>  d.StartDate.Year == DateTime.Now.Year && d.AppUserId == user.Id );
-      
-        // var userdayoff = await Get(true, x => x.AppUserId == user.Id && x.Gender == Gender.Male || x.Gender == Gender.Female);
-        var userDayoff = annualDayOffs.Where(x => x.AppUserId == user.Id && (x.Gender == Gender.Male || x.Gender == Gender.Female)).FirstOrDefault();
-        if (userDayoff == null)
+
+        if (ViewBag.UserDayOff == null)
         {
             <div class="form-group">
                 <label asp-for="Gender" style="color: white;">Gender</label>
@@ -93,8 +88,8 @@
            
             @{
 
-                var userDayoff2 = annualDayOffs.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Male).FirstOrDefault();
-                if (userDayoff2 != null)
+
+                if (ViewBag.UserDayOff2 != null)
                 {
                     <option value="@((int)DayOffType.PaternityDayOff)">Paternity Day Off</option>
                     <option value="@((int)DayOffType.SoldierLeave)">Soldier Leave</option>
@@ -102,8 +97,8 @@
             }
             @{
 
-                var userDayoff3 = annualDayOffs.Where(x => x.AppUserId == user.Id && x.Gender == Gender.Female).FirstOrDefault();
-                if (userDayoff3 != null)
+
+                if (ViewBag.UserDayOff3 != null)
                 {
                     <option value="@((int)DayOffType.MaternityDayOff)">Maternity Day Off</option>
                 }
@@ -112,8 +107,7 @@
 
             @{
 
-                var userDayoff4 = annualDayOffs.Where(x => x.AppUserId == user.Id && (x.Gender == Gender.Female || x.Gender == Gender.Male)).FirstOrDefault();
-                if (userDayoff4 == null)
+                if (ViewBag.UserDayOff4 == null)
                 {
 
                     <option value="@((int)DayOffType.MaternityDayOff)">Maternity Day Off</option>
