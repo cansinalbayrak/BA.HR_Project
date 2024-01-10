@@ -71,6 +71,22 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
 
                 return View(model);
             }
+            List<CompanyCustom> allCompanies = _companyService.GetAllCompanyCustomColumn();
+            List<string> companyNames = new List<string>();
+            for (int i = 0; i < allCompanies.Count; i++)
+            {
+                companyNames.Add(allCompanies[i].CompanyName + "/" + allCompanies[i].Id);
+            }
+            ViewBag.CompanyNames = companyNames;
+
+            List<DepartmentCustom> allDepartments = _departmentService.GetAllDepartmentCustomColumn();
+            List<string> departmentName = new List<string>();
+            for (int i = 0; i < allDepartments.Count; i++)
+            {
+                departmentName.Add(allDepartments[i].DepartmentName + "/" + allDepartments[i].Id);
+            }
+            ViewBag.DepartmentName = departmentName;
+
 
 
             if (model.PhotoPath == null)
