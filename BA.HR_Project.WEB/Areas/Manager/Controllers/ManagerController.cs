@@ -108,5 +108,50 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             var listManagerVm = _mapper.Map<List<ListManagerViewModel>>(listManagerDto);
             return View(listManagerVm);
         }
+        [HttpGet]
+        public async Task<IActionResult> Update(string id) 
+        {
+            List<CompanyCustom> allCompanies = _companyService.GetAllCompanyCustomColumn();
+            List<string> companyNames = new List<string>();
+            for (int i = 0; i < allCompanies.Count; i++)
+            {
+                companyNames.Add(allCompanies[i].CompanyName + "/" + allCompanies[i].Id);
+            }
+            ViewBag.CompanyNames = companyNames;
+
+            List<DepartmentCustom> allDepartments = _departmentService.GetAllDepartmentCustomColumn();
+            List<string> departmentName = new List<string>();
+            for (int i = 0; i < allDepartments.Count; i++)
+            {
+                departmentName.Add(allDepartments[i].DepartmentName + "/" + allDepartments[i].Id);
+            }
+            ViewBag.DepartmentName = departmentName;
+            var manager = await _userManager.FindByIdAsync(id);
+            if (manager != null) 
+            {
+                var managerDto = _mapper.Map<UpdateManagerDto>(manager);
+                var managerVm = _mapper.Map<UpdateManagerViewModelcs>(managerDto);
+                ViewBag.IsTurkish = manager.IsTurkishCitizen;
+                return View(managerVm);
+            
+            }
+            return RedirectToAction("ListManager");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateManagerViewModelcs model) 
+        {
+            var photo = await HelperMethods.ImageHelper.SaveImageFile(model.Photo);
+            model.PhotoPath = photo;
+            var managerDto = _mapper.Map<UpdateManagerDto>(model);
+            var manager = _mapper.Map<AppUser>(managerDto);
+            
+            var managerAction = await _userManager.UpdateAsync(manager);
+            if (managerAction.Succeeded) 
+            {
+                return RedirectToAction("ListManager");
+            }
+            return View(model);
+        
+        }
     }
 }

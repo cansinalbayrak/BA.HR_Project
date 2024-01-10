@@ -54,6 +54,8 @@ namespace BA.HR_Project.WEB.Mapping
                 .ReverseMap();
             CreateMap<ListManagerViewModel, ListManagerDto>() 
                 .ReverseMap();
+            CreateMap<UpdateManagerViewModelcs, UpdateManagerDto>()
+                .ReverseMap();
            
         }
     }

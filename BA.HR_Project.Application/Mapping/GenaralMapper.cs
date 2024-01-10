@@ -59,6 +59,8 @@ namespace BA.HR_Project.Application.Mapping
                 .ReverseMap();
             CreateMap<ListManagerDto,AppUser>() 
                 .ReverseMap();
+            CreateMap<UpdateManagerDto, AppUser>()
+                .ReverseMap();
 
            
         }
