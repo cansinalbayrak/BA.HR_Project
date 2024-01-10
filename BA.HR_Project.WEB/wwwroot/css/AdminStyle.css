@@ -88,6 +88,19 @@ POPUP İÇERİĞİ DÜZENLEME CSSLERİ*/
     height: 100%;
 }
 
+
+.modal-contentC label {
+    display:contents;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    color:white;
+}
+
+    .modal-contentC span {
+        color:white;
+    }
+
 .modal-contentC {
     max-width: 900px;
     width: 90%;
