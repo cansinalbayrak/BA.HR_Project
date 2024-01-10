@@ -63,7 +63,7 @@
                             @if (User.IsInRole("Admin"))
                             {
                                                 <li class="nav-item dropdown customNavbar">
-                                                        <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go to Admin View </a>
+                                                        <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go to Admin Side </a>
                                                         <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
                                                             <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Profile</a></li>
                                                             <li class="scroll-to-section"> <a class="customNavbar"asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
@@ -77,7 +77,7 @@
                                                         </ul>
                                                 </li>
                             }
-                                    <li class="nav-item"><a class="nav-link text-light" style="background-color:transparent;">💻 @User.Identity.Name</a></li>
+                                        <li class="nav-item"><a class="nav-link text-light" style="background-color:transparent;">💻 @User.Identity.Name.Split('.')[0]</a></li>
                                     <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="LogOut" class="nav-link text-light">SignOut</a></li>
                         }
                     </ul>
