@@ -4,6 +4,7 @@ using BA.HR_Project.Domain.Entities;
 using BA.HR_Project.Infrasturucture.Managers.Concrate;
 using BA.HR_Project.Infrasturucture.Services.Concrate;
 using BA.HR_Project.WEB.Areas.Manager.Models;
+using BA.HR_Project.WEB.ModelValidators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,20 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
         [HttpPost]
         public async Task<IActionResult>AddManager(AddManagerViewModel model) 
         {
+            var validator = new AddManagerViewModelValidator();
+            var validationResult = await validator.ValidateAsync(model);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                return View(model);
+            }
+
+
             if (model.PhotoPath == null)
             {
                 model.PhotoPath = "/mexant/assets/images/Default.jpg";
