@@ -93,6 +93,7 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             
             if (newManager.IsSuccess)
             {
+                
                 return RedirectToAction("ListManager");
             }
             ViewBag.ErrorMessages = newManager.Message;
