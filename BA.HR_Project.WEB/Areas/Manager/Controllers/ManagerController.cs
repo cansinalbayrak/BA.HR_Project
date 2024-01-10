@@ -4,7 +4,9 @@ using BA.HR_Project.Domain.Entities;
 using BA.HR_Project.Infrasturucture.Managers.Concrate;
 using BA.HR_Project.Infrasturucture.Services.Concrate;
 using BA.HR_Project.WEB.Areas.Manager.Models;
+using BA.HR_Project.WEB.Models;
 using BA.HR_Project.WEB.ModelValidators;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -102,16 +104,16 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
 
             var managerDto = _mapper.Map<AppUserDto>(model);
             var newManager = await _userService.AddManager(managerDto);
-            if (newManager != null) 
+            if (newManager.IsSuccess)
             {
-                await _userManager.AddToRoleAsync(newManager, "Admin");
                 return RedirectToAction("ListManager");
-            
             }
-            return RedirectToAction("Warning", "Home");
+            ViewBag.ErrorMessages = newManager.Message;
+
+            return View("AddManager");
 
 
-           
+
         }
         public async Task<IActionResult> ListManager() 
         {
@@ -173,6 +175,19 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateManager(UpdateManagerViewModelcs model) 
         {
+            var validator = new UpdateManagerValidator();
+            var validationResult = await validator.ValidateAsync(model);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                return View(model);
+            }
+
             var photo = await HelperMethods.ImageHelper.SaveImageFile(model.Photo);
             model.PhotoPath = photo;
             if (model.PhotoPath.Contains(".jpg") || model.PhotoPath.Contains(".jpeg") || model.PhotoPath.Contains(".png")) 

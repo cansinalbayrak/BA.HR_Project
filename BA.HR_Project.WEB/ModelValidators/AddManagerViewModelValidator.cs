@@ -23,19 +23,16 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .MaximumLength(30).WithMessage("Name cannot be more than 30 characters");
 
             RuleFor(x => x.SecondName)
-               .NotEmpty().WithMessage("Name must be provided")
-               .Must(name => !string.IsNullOrWhiteSpace(name) && !ContainsTurkishCharacter(name))
-               .WithMessage("Name cannot be empty and cannot contain Turkish characters")
-               .MaximumLength(30).WithMessage("Name cannot be more than 30 characters");
+                .Must(SecondName => string.IsNullOrWhiteSpace(SecondName) || ContainsTurkishCharacter(SecondName))
+                .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
 
             RuleFor(x => x.SecondSurname)
-                .NotEmpty().WithMessage("Surname must be provided")
-                .Must(surname => !string.IsNullOrWhiteSpace(surname) && !ContainsTurkishCharacter(surname))
-                .WithMessage("Surname cannot be empty and cannot contain Turkish characters")
-                .MaximumLength(30).WithMessage("Name cannot be more than 30 characters");
+                .Must(SecondSurname => string.IsNullOrWhiteSpace(SecondSurname) || ContainsTurkishCharacter(SecondSurname))
+                .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
 
-        
+
             RuleFor(x => x.IsTurkishCitizen)
+                .NotEmpty().WithMessage("Identity Number must be provided")
                   .Must((model, isTurkishCitizen) => !isTurkishCitizen || IsValidTurkishIdentityNumberOrTcNo(model.IdentityNumber, isTurkishCitizen))
                   .WithMessage("Invalid Turkish Identity Number or T.C. should be true");
 

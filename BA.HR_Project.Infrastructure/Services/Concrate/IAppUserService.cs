@@ -1,5 +1,6 @@
 ﻿using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.Domain.Entities;
+using BA.HR_Project.Infrasturucture.RequestResponse;
 using BA.HR_Project.Infrasturucture.Services.Abstract;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ namespace BA.HR_Project.Infrasturucture.Services.Concrate
 {
     public interface IAppUserService : IService<AppUser,IDTO>
     {
-        Task<AppUser> AddAppUser(AppUserDto userDto, ClaimsPrincipal User);
-        Task<AppUser> UpdateAppUser(AppUser user);
-        Task<AppUser> AddManager(AppUserDto managerDto);
+        public Task<Response> AddAppUser(AppUserDto userDto, ClaimsPrincipal User);
+        public Task<Response> UpdateAppUser(AppUser userNewProps);
+         Task<Response> AddManager(AppUserDto managerDto);
         
 
         

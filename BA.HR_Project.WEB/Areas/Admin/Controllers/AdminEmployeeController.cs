@@ -94,11 +94,13 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var userDto = _mapper.Map<AppUserDto>(vm);
             var newUser = await _appUserManager.AddAppUser(userDto, User);
 
-            if (newUser != null)
+            if (newUser.IsSuccess)
             {
-                return RedirectToAction("ListEmployee");
+                return RedirectToAction("AddEmployee");
             }
-            return RedirectToAction("Warning", "Home");
+            ViewBag.ErrorMessages = newUser.Message;
+
+            return View(vm);
         }
 
         public async Task<IActionResult> UpdateEmployee(string Id)
@@ -141,12 +143,13 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var data = await _appUserManager.UpdateAppUser(userNewProps);
 
 
-            if (data != null)
+            if (data.IsSuccess)
             {
-                return RedirectToAction("ListEmployee");
+                return RedirectToAction("AddEmployee");
             }
+            ViewBag.ErrorMessages = data.Message;
 
-            return View();
+            return View(vm);
         }
 
         public async Task<IActionResult> DetailsEmployee(string id)

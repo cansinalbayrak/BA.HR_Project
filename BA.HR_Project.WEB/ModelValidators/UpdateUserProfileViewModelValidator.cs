@@ -27,6 +27,9 @@ namespace BA.HR_Project.WEB.ModelValidators
             return !string.IsNullOrWhiteSpace(model.ExistingPhotoPath);
         })
         .WithMessage("Photo must be in .jpeg, .jpg, or .png format");
+
         }
+
+
     }
 }

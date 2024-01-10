@@ -19,6 +19,7 @@ using BA.HR_Project.Infrastructure.Services.Abstract;
 using System.Security.Claims;
 using BA.HR_Project.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
+using BA.HR_Project.Infrasturucture.RequestResponse;
 
 namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 {
@@ -44,7 +45,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             _appDbContext = appDbContext;
         }
 
-        public async Task<AppUser> AddAppUser(AppUserDto userDto, ClaimsPrincipal User)
+        public async Task<Response> AddAppUser(AppUserDto userDto, ClaimsPrincipal User)
         {
             var newUser = _mapper.Map<AppUser>(userDto);
 
@@ -71,25 +72,69 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
                 newUser.Email = mail;
             }
 
+            if (!IsPhoneAvailable(userDto.PhoneNumber))
+            {
+                return Response.Failure("Phone Number is already in use by another company.");
+            }
+            if (!IsEmailAvailable(userDto.Email))
+            {
+                return Response.Failure("Email is already in use by another company.");
+            }
+            if (!IsIdentityNumberAvailable(userDto.IdentityNumber))
+            {
+                return Response.Failure("Identity No is already in use by another company.");
+            }
+
+
             newUser.PhotoPath = "/mexant/assets/images/Default.jpg";
             newUser.UserName = newUser.Email;
             newUser.Id = Guid.NewGuid().ToString();
 
 
+
+
             var createUserAction = await _userManager.CreateAsync(newUser, "Pw.1234");
             var AddRoleAction = await _userManager.AddToRoleAsync(newUser, "Employee");
-                    
+
             if (createUserAction.Succeeded && AddRoleAction.Succeeded)
             {
                 await SendEmail(newUser);
-                return newUser;
+                return Response.Success("User added successfully");
             }
-            return null;
+
+            return Response.Failure("Failed to insert User.");
         }
 
+        private bool IsPhoneAvailable(string phone)
+        {
+            var existingUser = _userManager.Users.FirstOrDefault(u => u.PhoneNumber == phone);
 
+            if (existingUser == null)
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool IsEmailAvailable(string email)
+        {
+            var existingUser = _userManager.Users.FirstOrDefault(u => u.Email == email);
+            if (existingUser == null)
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool IsIdentityNumberAvailable(string identityNumber)
+        {
+            var existingUser = _userManager.Users.FirstOrDefault(u => u.IdentityNumber == identityNumber);
+            if (existingUser == null)
+            {
+                return true;
+            }
+            return false;
+        }
 
-        public async Task<AppUser> UpdateAppUser(AppUser userNewProps)
+        public async Task<Response> UpdateAppUser(AppUser userNewProps)
         {
             var oldUser = await _userManager.FindByIdAsync(userNewProps.Id);
             _mapper.Map(userNewProps, oldUser);
@@ -100,14 +145,26 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 
             oldUser.UserName = oldUser.Email;
             oldUser.NormalizedUserName = (oldUser.UserName).ToUpper();
-            
 
-            var updateAction = await _userManager.UpdateAsync(oldUser);
-            if (updateAction.Succeeded)
+            if (!IsPhoneAvailable(userNewProps.PhoneNumber))
             {
-                return oldUser;
+                return Response.Failure("Phone Number is already in use by another company.");
             }
-            return null;
+            if (!IsEmailAvailable(userNewProps.Email))
+            {
+                return Response.Failure("Email is already in use by another company.");
+            }
+            if (!IsIdentityNumberAvailable(userNewProps.IdentityNumber))
+            {
+                return Response.Failure("Identity No is already in use by another company.");
+            }
+            var updateAction = await _userManager.UpdateAsync(oldUser);
+            if (updateAction.Succeeded )
+            {
+                return Response.Success("User Update successfully");
+            }
+
+            return Response.Failure("Failed to insert User.");
         }
 
         private async Task SendEmail(AppUser newUser)
@@ -147,7 +204,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 
         }
 
-        public async Task<AppUser> AddManager(AppUserDto managerDto)
+        public async Task<Response> AddManager(AppUserDto managerDto)
         {
            var newManager = _mapper.Map<AppUser>(managerDto);
             string mail = newManager.Name + newManager.SecondName + "." + newManager.Surname + newManager.SecondSurname + "@bilgeadamboost.com";
@@ -170,16 +227,30 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             newManager.PhotoPath = "/mexant/assets/images/Default.jpg";
             newManager.UserName = newManager.Email;
             newManager.Id = Guid.NewGuid().ToString();
-                
-                var createManagerAction = await _userManager.CreateAsync(newManager,"Mngr.9876");
+
+            if (!IsPhoneAvailable(managerDto.PhoneNumber))
+            {
+                return Response.Failure("Phone Number is already in use by another company.");
+            }
+            if (!IsEmailAvailable(managerDto.Email))
+            {
+                return Response.Failure("Email is already in use by another company.");
+            }
+            if (!IsIdentityNumberAvailable(managerDto.IdentityNumber))
+            {
+                return Response.Failure("Identity No is already in use by another company.");
+            }
+
+            var createManagerAction = await _userManager.CreateAsync(newManager,"Mngr.9876");
             var addRoleAction = await _userManager.AddToRoleAsync(newManager, "Admin");
 
-            if(createManagerAction.Succeeded && addRoleAction.Succeeded) 
+            if (createManagerAction.Succeeded && addRoleAction.Succeeded)
             {
                 await SendEmail(newManager);
-                return newManager;
+                return Response.Success("Manager added successfully");
             }
-            return null;
+
+            return Response.Failure("Failed to insert manager.");
         }
 
        
