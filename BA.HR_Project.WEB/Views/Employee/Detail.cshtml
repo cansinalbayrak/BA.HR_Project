@@ -6,52 +6,55 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="card" style="width: 40rem;height:40rem;background-color:transparent; border: 1px none #96CBFF  ">
-            <label class="col-sm-9"><img style="float: inherit; margin-top: 15px; margin-left: 150px; max-width: 50%; height: auto; " src="@Model.PhotoPath"></label>
-            <br>
+        <div class="card text-center" style="width: 40rem;height:auto;background-color:transparent; border: 1px none #96CBFF  ">
+            <div>
+                <img style="max-width: 40%; height: auto;" src="@Model.PhotoPath">
+            </div>
             <div class="card-body" style="border-block-end: 3px solid #FF6910;">
                 <h5 class="card-title text-light"><strong>User Detail Information</strong></h5>
             </div>
 
-
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">
-                    Name: <label>
+                    <strong>Name: </strong> <label>
                         @Model.Name
-
                         @if (Model.SecondName != null)
                         {
-                                @Model.SecondName
+                            @Model.SecondName
                         }
-                </label></li>
+                       
+                    </label>
+                </li>
                 <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">
-                    SurName: <label>
+                    <strong>Surname: </strong> <label>
                         @Model.Surname
                         @if (Model.SecondSurname != null)
                         {
                             @Model.SecondSurname
                         }
-                </label></li>
-                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">BirthDate: <label>@Model.BirthDate</label></li>
-                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">JobStartDate: <label>@Model.StartDate</label></li>
+                       
+                    </label>
+                </li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF "><strong>Birth Date: </strong> <label>@Model.BirthDate</label></li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF "><strong>Job Start Date: </strong> <label>@Model.StartDate</label></li>
                 @if (Model.EndDate != null && Model.EndDate < DateTime.Now)
                 {
-                    <li style="background-color:transparent; border-block-end: 1px solid #96CBFF ">JobEndDate:  <label>@Model.EndDate</label></li>
+                    <li style="background-color:transparent; border-block-end: 1px solid #96CBFF "><strong>Job End Date: </strong>  <label>@Model.EndDate</label></li>
                 }
-                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">CurrentWorking:  <label>@Model.IsActive</label></li>
-                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">IsTurksh: <label>@Model.IsTurkishCitizen</label></li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF "><strong>Current Working: </strong>  <label>@Model.IsActive</label></li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF "><strong>Is Turkish Citizien: </strong> <label>@Model.IsTurkishCitizen</label></li>
                 @if (Model.IsTurkishCitizen == true)
                 {
-                    <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">IdentityNo: <label>@Model.IdentityNumber</label></li>
+                    <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF "><strong>Identity No: </strong> <label>@Model.IdentityNumber</label></li>
                 }
                 @if (Model.IsTurkishCitizen != true)
                 {
-                    <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">PasaportNo:  <label>@Model.PassportNumber</label></li>
+                    <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF "><strong>Passport No: </strong>  <label>@Model.PassportNumber</label></li>
                 }
-                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">ComanyName: <label>@ViewBag.CompanyName</label></li>
-                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">DepartmanName: <label>@ViewBag.DepartmentName</label></li>
-                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF ">Adress: <label>@Model.Adress</label></li>
-           
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF "><strong>Company Name: </strong> <label>@ViewBag.CompanyName</label></li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF "><strong>Department Name: </strong> <label>@ViewBag.DepartmentName</label></li>
+                <li class="list-group-item text-light" style="background-color:transparent; border-block-end: 1px solid #96CBFF "><strong>Adress: </strong> <label>@Model.Adress</label></li>
+                </ul>
         </div>
     </div>
 </div>
