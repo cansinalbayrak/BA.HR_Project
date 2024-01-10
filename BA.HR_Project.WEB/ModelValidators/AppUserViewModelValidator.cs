@@ -20,7 +20,13 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .Must(surname => !string.IsNullOrWhiteSpace(surname) && !ContainsTurkishCharacter(surname))
                 .WithMessage("Surname cannot be empty and cannot contain Turkish characters")
                 .MaximumLength(30).WithMessage("Name cannot be more than 30 characters");
+            RuleFor(x => x.SecondName)
+              .Must(SecondName => string.IsNullOrWhiteSpace(SecondName) || ContainsTurkishCharacter(SecondName))
+              .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
 
+            RuleFor(x => x.SecondSurname)
+                .Must(SecondSurname => string.IsNullOrWhiteSpace(SecondSurname) || ContainsTurkishCharacter(SecondSurname))
+                .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
             RuleFor(x => x.PhotoPath)
                 .NotEmpty().WithMessage("PhotoPath must be provided");
 
@@ -39,6 +45,7 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .WithMessage("EndDate must be null or greater than StartDate");
 
             RuleFor(x => x.IsTurkishCitizen)
+                 .NotEmpty().WithMessage("Identity Number must be provided")
                    .Must((model, isTurkishCitizen) => !isTurkishCitizen || IsValidTurkishIdentityNumberOrTcNo(model.IdentityNumber, isTurkishCitizen))
                    .WithMessage("Invalid Turkish Identity Number or T.C. should be true");
 
