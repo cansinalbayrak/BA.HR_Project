@@ -109,7 +109,7 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             return View(listManagerVm);
         }
         [HttpGet]
-        public async Task<IActionResult> Update(string id) 
+        public async Task<IActionResult> UpdateManager() 
         {
             List<CompanyCustom> allCompanies = _companyService.GetAllCompanyCustomColumn();
             List<string> companyNames = new List<string>();
@@ -126,7 +126,7 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
                 departmentName.Add(allDepartments[i].DepartmentName + "/" + allDepartments[i].Id);
             }
             ViewBag.DepartmentName = departmentName;
-            var manager = await _userManager.FindByIdAsync(id);
+            var manager = await _userManager.GetUserAsync(User);
             if (manager != null) 
             {
                 var managerDto = _mapper.Map<UpdateManagerDto>(manager);
@@ -138,20 +138,29 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             return RedirectToAction("ListManager");
         }
         [HttpPost]
-        public async Task<IActionResult> Update(UpdateManagerViewModelcs model) 
+        public async Task<IActionResult> UpdateManager(UpdateManagerViewModelcs model) 
         {
             var photo = await HelperMethods.ImageHelper.SaveImageFile(model.Photo);
             model.PhotoPath = photo;
-            var managerDto = _mapper.Map<UpdateManagerDto>(model);
-            var manager = _mapper.Map<AppUser>(managerDto);
-            
-            var managerAction = await _userManager.UpdateAsync(manager);
-            if (managerAction.Succeeded) 
+            if (model.PhotoPath.Contains(".jpg") || model.PhotoPath.Contains(".jpeg") || model.PhotoPath.Contains(".png")) 
             {
-                return RedirectToAction("ListManager");
+                var departmentId = model.DepartmentId.Split("/")[1];
+                model.DepartmentId = departmentId;
+                var companyId = model.CompanyId.Split("/")[1];
+                model.CompanyId = companyId;
+                var managerDto = _mapper.Map<UpdateManagerDto>(model);
+                var manager = _mapper.Map<AppUser>(managerDto);
+
+                var managerAction = await _userService.UpdateAppUser(manager);
+                if (managerAction != null)
+                {
+                    return RedirectToAction("ListManager");
+                }
+                return View(model);
             }
+
             return View(model);
-        
         }
     }
 }
+
