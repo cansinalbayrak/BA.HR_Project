@@ -98,13 +98,6 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             }
             ViewBag.CompanyNames = companyNames;
 
-            List<DepartmentCustom> allDepartments = _departmentService.GetAllDepartmentCustomColumn();
-            List<string> departmentName = new List<string>();
-            for (int i = 0; i < allDepartments.Count; i++)
-            {
-                departmentName.Add(allDepartments[i].DepartmentName + "/" + allDepartments[i].Id);
-            }
-            ViewBag.DepartmentName = departmentName;
             if (newManager.IsSuccess)
             {
                 return RedirectToAction("ListManager");
