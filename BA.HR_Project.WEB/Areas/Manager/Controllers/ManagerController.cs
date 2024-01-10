@@ -90,14 +90,7 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
 
             var managerDto = _mapper.Map<AppUserDto>(model);
             var newManager = await _userService.AddManager(managerDto);
-            List<CompanyCustom> allCompanies = _companyService.GetAllCompanyCustomColumn();
-            List<string> companyNames = new List<string>();
-            for (int i = 0; i < allCompanies.Count; i++)
-            {
-                companyNames.Add(allCompanies[i].CompanyName + "/" + allCompanies[i].Id);
-            }
-            ViewBag.CompanyNames = companyNames;
-
+            
             if (newManager.IsSuccess)
             {
                 return RedirectToAction("ListManager");
