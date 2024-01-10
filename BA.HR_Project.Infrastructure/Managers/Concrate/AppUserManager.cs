@@ -139,25 +139,25 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             var oldUser = await _userManager.FindByIdAsync(userNewProps.Id);
             _mapper.Map(userNewProps, oldUser);
 
-            oldUser.Email = oldUser.Name + oldUser.SecondName + "." + oldUser.Surname + oldUser.SecondSurname + "@bilgeadamboost.com";
+            //oldUser.Email = oldUser.Name + oldUser.SecondName + "." + oldUser.Surname + oldUser.SecondSurname + "@bilgeadamboost.com";
 
-            oldUser.NormalizedEmail = (oldUser.Email).ToUpper();
+            //oldUser.NormalizedEmail = (oldUser.Email).ToUpper();
 
-            oldUser.UserName = oldUser.Email;
-            oldUser.NormalizedUserName = (oldUser.UserName).ToUpper();
+            //oldUser.UserName = oldUser.Email;
+            //oldUser.NormalizedUserName = (oldUser.UserName).ToUpper();
 
-            if (!IsPhoneAvailable(userNewProps.PhoneNumber))
-            {
-                return Response.Failure("Phone Number is already in use by another company.");
-            }
-            if (!IsEmailAvailable(userNewProps.Email))
-            {
-                return Response.Failure("Email is already in use by another company.");
-            }
-            if (!IsIdentityNumberAvailable(userNewProps.IdentityNumber))
-            {
-                return Response.Failure("Identity No is already in use by another company.");
-            }
+            //if (!IsPhoneAvailable(userNewProps.PhoneNumber))
+            //{
+            //    return Response.Failure("Phone Number is already in use by another company.");
+            //}
+            //if (!IsEmailAvailable(userNewProps.Email))
+            //{
+            //    return Response.Failure("Email is already in use by another company.");
+            //}
+            //if (!IsIdentityNumberAvailable(userNewProps.IdentityNumber))
+            //{
+            //    return Response.Failure("Identity No is already in use by another company.");
+            //}
             var updateAction = await _userManager.UpdateAsync(oldUser);
             if (updateAction.Succeeded )
             {
