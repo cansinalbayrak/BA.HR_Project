@@ -56,7 +56,8 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             }
             vm.Id = Guid.NewGuid().ToString();
             var CompanyDto = _mapper.Map<CompanyDto>(vm);
-            var createCompanyAction = await _companyManager.Insert(CompanyDto);
+            //var createCompanyAction = await _companyManager.Insert(CompanyDto);
+            var createCompanyAction = await _companyManager.AddCompany(CompanyDto);
             if (createCompanyAction.IsSuccess)
             {
                 return RedirectToAction("ListCompany");
