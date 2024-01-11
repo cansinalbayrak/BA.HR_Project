@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BA.HR_Project.Persistance.Migrations
 {
-    public partial class @fixed : Migration
+    public partial class MigInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,8 +28,20 @@ namespace BA.HR_Project.Persistance.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CompanyTitleEnum = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LogoPath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    LogoPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Adress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmployeeCount = table.Column<int>(type: "int", nullable: false),
+                    MersisNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TaxNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TaxOffice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartUpDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ContractStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ContractEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ActivtyEnum = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -308,8 +320,8 @@ namespace BA.HR_Project.Persistance.Migrations
 
             migrationBuilder.InsertData(
                 table: "Companies",
-                columns: new[] { "Id", "LogoPath", "Name" },
-                values: new object[] { "SeedCompany1", "/images/akademilogo-yatay.webp", "BilgeAdam" });
+                columns: new[] { "Id", "ActivtyEnum", "Adress", "CompanyTitleEnum", "ContractEndDate", "ContractStartDate", "EmployeeCount", "LogoPath", "Mail", "MersisNo", "Name", "Phone", "StartUpDate", "TaxNo", "TaxOffice" },
+                values: new object[] { "SeedCompany1", 1, "Bilkent-Ankara", 1, new DateTime(2024, 1, 11, 13, 6, 24, 584, DateTimeKind.Local).AddTicks(3528), new DateTime(2024, 1, 11, 13, 6, 24, 584, DateTimeKind.Local).AddTicks(3527), 0, "/images/akademilogo-yatay.webp", "info@bilgeadamboost.com", "MersisNo", "BilgeAdam", "1234567890", new DateTime(2024, 1, 11, 13, 6, 24, 584, DateTimeKind.Local).AddTicks(3525), "TaxNo", "Bilken Vergi Dairesi" });
 
             migrationBuilder.InsertData(
                 table: "Departments",
@@ -321,19 +333,19 @@ namespace BA.HR_Project.Persistance.Migrations
                 columns: new[] { "Id", "ExpenseMaxPrice", "ExpenseMinPrice", "ExpenseName" },
                 values: new object[,]
                 {
-                    { "027064cb-444e-44d3-82e5-ef7cdf8dedab", 15000m, 1000m, "Accomodation" },
-                    { "1c8e5553-d53f-41de-839e-1b3a206a4836", 10000m, 1000m, "Marketing and Advertising Expenditures" },
-                    { "7d3a14ee-d61a-40c0-b6c8-2fca7c38593d", 4000m, 400m, "Food and Drink" },
-                    { "89f00d46-a1b7-4a9d-a20a-b397cdfc7f9b", 15000m, 10000m, "Education" },
-                    { "a27a5821-030b-43f3-8f49-db23def4a950", 20000m, 1000m, "Research and Devolopment" },
-                    { "ceb2c93d-8336-4ceb-b1a5-83ce2e2d372f", 1000m, 1m, "Others" },
-                    { "db1a9bd5-fc1f-45cf-82f0-2e5105ffbdf0", 5000m, 1000m, "Travel" }
+                    { "3c6df95a-28b4-42e6-ad58-e1cae290fb42", 4000m, 400m, "Food and Drink" },
+                    { "81b39fcb-3a44-4185-9307-5a649853935a", 15000m, 10000m, "Education" },
+                    { "84dd2daa-b84b-4e11-895b-ea03b418d431", 15000m, 1000m, "Accomodation" },
+                    { "c073e4d1-70a3-4af7-8907-980554d30822", 1000m, 1m, "Others" },
+                    { "d7978880-174e-4f4e-b77c-f8731f309a62", 5000m, 1000m, "Travel" },
+                    { "dbe70316-699d-4983-9afa-20fcb7679944", 20000m, 1000m, "Research and Devolopment" },
+                    { "de30c0e1-398a-45b7-a3c0-f5049e0830d5", 10000m, 1000m, "Marketing and Advertising Expenditures" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Adress", "BirthDate", "BirthPlace", "CompanyId", "ConcurrencyStamp", "DepartmentId", "Email", "EmailConfirmed", "EndDate", "IdentityNumber", "IsTurkishCitizen", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PassportNumber", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "Salary", "SecondName", "SecondSurname", "SecurityStamp", "StartDate", "Surname", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "0c0af26c-db2d-4c4b-bfb4-95e0c0f53ca1", 0, "Ankara", new DateTime(2024, 1, 6, 1, 35, 41, 842, DateTimeKind.Local).AddTicks(2913), null, "SeedCompany1", "02d0c6e1-11a9-45ef-9f4d-413fd38bc5e7", "SeedDepartment1", "admin.bilgeadam@bilgeadamboost.com", true, null, null, true, false, null, "Admin", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", null, "AQAAAAEAACcQAAAAEFfsewm7/uIKuQGrOWvXgGc0LZehBCxfKiBOTSr2sCnUdNzz9scbubqtmwegF3GJcA==", "0", false, "/mexant/assets/images/Default.jpg", null, null, null, "afd0fc77-c3d4-45d0-a791-42844e041e0f", null, "Bilgeadam", false, "admin.bilgeadam@bilgeadamboost.com" });
+                values: new object[] { "ab02e92d-d11e-467d-ae01-ae2f7621285d", 0, "Ankara", new DateTime(2024, 1, 11, 13, 6, 24, 582, DateTimeKind.Local).AddTicks(9572), null, "SeedCompany1", "c9aa8baa-be9b-420d-9d3a-f690afa8639c", "SeedDepartment1", "admin.bilgeadam@bilgeadamboost.com", true, null, null, true, false, null, "Admin", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", "ADMIN.BILGEADAM@BILGEADAMBOOST.COM", null, "AQAAAAEAACcQAAAAEGNQs00PI5DND1AZbUHk4Yzd/T2XbiAt/TGjSV8zsRYwS2UyLXCycQ7hg2hpI+V0ew==", "0", false, "/mexant/assets/images/Default.jpg", null, null, null, "35e8b9d9-b978-48e1-9367-6aeea5240993", null, "Bilgeadam", false, "admin.bilgeadam@bilgeadamboost.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Advances_AppUserId",

@@ -219,12 +219,12 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "29f95c48-9b2e-40be-bae4-fe255cff0f47",
+                            Id = "ab02e92d-d11e-467d-ae01-ae2f7621285d",
                             AccessFailedCount = 0,
                             Adress = "Ankara",
-                            BirthDate = new DateTime(2024, 1, 8, 16, 19, 19, 575, DateTimeKind.Local).AddTicks(8620),
+                            BirthDate = new DateTime(2024, 1, 11, 13, 6, 24, 582, DateTimeKind.Local).AddTicks(9572),
                             CompanyId = "SeedCompany1",
-                            ConcurrencyStamp = "d28e442a-ccf9-40a0-b723-bf217ac36ad9",
+                            ConcurrencyStamp = "c9aa8baa-be9b-420d-9d3a-f690afa8639c",
                             DepartmentId = "SeedDepartment1",
                             Email = "admin.bilgeadam@bilgeadamboost.com",
                             EmailConfirmed = true,
@@ -233,11 +233,11 @@ namespace BA.HR_Project.Persistance.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
                             NormalizedUserName = "ADMIN.BILGEADAM@BILGEADAMBOOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO0su3oS42E6zcGAzDduQmUxjlu0iqRWxD/cg16j+j8SXL8kvhwPDZ8uNbGERR9E3g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGNQs00PI5DND1AZbUHk4Yzd/T2XbiAt/TGjSV8zsRYwS2UyLXCycQ7hg2hpI+V0ew==",
                             PhoneNumber = "0",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/mexant/assets/images/Default.jpg",
-                            SecurityStamp = "d18acbc1-c558-45ff-a01a-78edd921d099",
+                            SecurityStamp = "35e8b9d9-b978-48e1-9367-6aeea5240993",
                             Surname = "Bilgeadam",
                             TwoFactorEnabled = false,
                             UserName = "admin.bilgeadam@bilgeadamboost.com"
@@ -311,15 +311,15 @@ namespace BA.HR_Project.Persistance.Migrations
                             ActivtyEnum = 1,
                             Adress = "Bilkent-Ankara",
                             CompanyTitleEnum = 1,
-                            ContractEndDate = new DateTime(2024, 1, 8, 16, 19, 19, 577, DateTimeKind.Local).AddTicks(5149),
-                            ContractStartDate = new DateTime(2024, 1, 8, 16, 19, 19, 577, DateTimeKind.Local).AddTicks(5149),
+                            ContractEndDate = new DateTime(2024, 1, 11, 13, 6, 24, 584, DateTimeKind.Local).AddTicks(3528),
+                            ContractStartDate = new DateTime(2024, 1, 11, 13, 6, 24, 584, DateTimeKind.Local).AddTicks(3527),
                             EmployeeCount = 0,
                             LogoPath = "/images/akademilogo-yatay.webp",
                             Mail = "info@bilgeadamboost.com",
                             MersisNo = "MersisNo",
                             Name = "BilgeAdam",
                             Phone = "1234567890",
-                            StartUpDate = new DateTime(2024, 1, 8, 16, 19, 19, 577, DateTimeKind.Local).AddTicks(5131),
+                            StartUpDate = new DateTime(2024, 1, 11, 13, 6, 24, 584, DateTimeKind.Local).AddTicks(3525),
                             TaxNo = "TaxNo",
                             TaxOffice = "Bilken Vergi Dairesi"
                         });
@@ -461,49 +461,49 @@ namespace BA.HR_Project.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9effc68b-af09-447d-9c0d-8bb9f2f462bb",
+                            Id = "de30c0e1-398a-45b7-a3c0-f5049e0830d5",
                             ExpenseMaxPrice = 10000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Marketing and Advertising Expenditures"
                         },
                         new
                         {
-                            Id = "0c805842-9de7-4939-806a-05d6392bc55f",
+                            Id = "84dd2daa-b84b-4e11-895b-ea03b418d431",
                             ExpenseMaxPrice = 15000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Accomodation"
                         },
                         new
                         {
-                            Id = "f01f0120-82bd-4e07-aca8-8042b3d2c2fb",
+                            Id = "d7978880-174e-4f4e-b77c-f8731f309a62",
                             ExpenseMaxPrice = 5000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Travel"
                         },
                         new
                         {
-                            Id = "058417cb-87e5-4dae-9b3b-e5e5b9c889dd",
+                            Id = "3c6df95a-28b4-42e6-ad58-e1cae290fb42",
                             ExpenseMaxPrice = 4000m,
                             ExpenseMinPrice = 400m,
                             ExpenseName = "Food and Drink"
                         },
                         new
                         {
-                            Id = "6bebe374-af61-47f2-9435-c8b68b9e6c83",
+                            Id = "81b39fcb-3a44-4185-9307-5a649853935a",
                             ExpenseMaxPrice = 15000m,
                             ExpenseMinPrice = 10000m,
                             ExpenseName = "Education"
                         },
                         new
                         {
-                            Id = "86902496-1a48-466e-94f4-d3301b674a1a",
+                            Id = "dbe70316-699d-4983-9afa-20fcb7679944",
                             ExpenseMaxPrice = 20000m,
                             ExpenseMinPrice = 1000m,
                             ExpenseName = "Research and Devolopment"
                         },
                         new
                         {
-                            Id = "0b43aa87-5fa2-4f93-b35e-729e04ebf818",
+                            Id = "c073e4d1-70a3-4af7-8907-980554d30822",
                             ExpenseMaxPrice = 1000m,
                             ExpenseMinPrice = 1m,
                             ExpenseName = "Others"
