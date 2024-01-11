@@ -4,8 +4,7 @@ using BA.HR_Project.WEB.CustomMiddleware;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
-using BA.HR_Project.Domain.Entities;
-using BA.HR_Project.Persistance.Context;
+
 using BA.HR_Project.Persistance.Extensions;
 using BA.HR_Project.Infrastructure.Extension;
 using BA.HR_Project.Application.Extentios;
@@ -21,14 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddDbContext<AppDbContext>(options =>
-//{
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConn"));
-//});
-//builder.Services.AddIdentity<AppUser, AppRole>(options =>
-//{
 
-//}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 
 builder.Services.AddCoreDepecenies(Assembly.GetExecutingAssembly());
@@ -107,15 +99,6 @@ app.UseEndpoints(endpoints =>
     endpoints.MapDefaultControllerRoute();
 });
 
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapAreaControllerRoute(
-//    name: "Manager",
-//    areaName: "Manager",
-//    pattern: "Manager/{controller=Home}/{action=Index}/{id?}"
-//    );
-//    endpoints.MapDefaultControllerRoute();
-//});
 
 
 
