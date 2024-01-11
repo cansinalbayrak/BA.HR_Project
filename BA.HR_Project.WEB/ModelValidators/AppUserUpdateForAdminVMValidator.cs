@@ -21,11 +21,11 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .WithMessage("Surname cannot be empty and cannot contain Turkish characters")
                 .MaximumLength(30).WithMessage("Name cannot be more than 30 characters");
             RuleFor(x => x.SecondName)
-              .Must(SecondName => string.IsNullOrWhiteSpace(SecondName) || ContainsTurkishCharacter(SecondName))
+              .Must(SecondName => string.IsNullOrWhiteSpace(SecondName) || !ContainsTurkishCharacter(SecondName))
               .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
 
             RuleFor(x => x.SecondSurname)
-                .Must(SecondSurname => string.IsNullOrWhiteSpace(SecondSurname) || ContainsTurkishCharacter(SecondSurname))
+                .Must(SecondSurname => string.IsNullOrWhiteSpace(SecondSurname) || !ContainsTurkishCharacter(SecondSurname))
                 .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
             //       RuleFor(x => x.Email)
             //.NotEmpty().WithMessage("Email must be provided")
@@ -51,9 +51,11 @@ namespace BA.HR_Project.WEB.ModelValidators
             RuleFor(x => x.Salary).NotEmpty().WithMessage("Salary must be provided");
             RuleFor(x => x.BirthPlace)
                .NotEmpty().WithMessage("BirthPlace must be provided");
-            RuleFor(x => x.EndDate)
-               .Must((model, endDate) => endDate == null || endDate > model.StartDate)
-               .WithMessage("EndDate must be null or greater than StartDate");
+            //RuleFor(x => x.EndDate)
+            //   .Must((model, endDate) => endDate == null || endDate > model.StartDate)
+            //   .WithMessage("EndDate must be null or greater than StartDate");
+            RuleFor(x => x.StartDate)
+                .NotEmpty().WithMessage("Start date must be provided");
 
         }
         private bool IsValidTurkishIdentityNumberOrTcNo(string identityNumber, bool isTurkishCitizen)

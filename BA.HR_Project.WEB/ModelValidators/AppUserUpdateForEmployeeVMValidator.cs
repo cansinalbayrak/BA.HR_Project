@@ -25,6 +25,7 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .WithMessage("Invalid file format. Please choose a valid image file (jpeg or jpg).")
                 .When(x => !x.UseExistingPhoto);
 
+           
 
         }
         private bool IsAllowedImageFile(IFormFile file)

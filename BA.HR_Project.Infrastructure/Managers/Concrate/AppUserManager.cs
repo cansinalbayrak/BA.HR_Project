@@ -80,7 +80,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             {
                 return Response.Failure("Email is already in use by another company.");
             }
-            if (!IsIdentityNumberAvailable(userDto.IdentityNumber))
+            if (!(userDto.IdentityNumber==null) && !IsIdentityNumberAvailable(userDto.IdentityNumber))
             {
                 return Response.Failure("Identity No is already in use by another company.");
             }
@@ -134,10 +134,10 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             return false;
         }
 
-        public async Task<Response> UpdateAppUser(AppUser userNewProps)
+        public async Task<Response<AppUser>> UpdateAppUser(AppUser userNewProps)
         {
             var oldUser = await _userManager.FindByIdAsync(userNewProps.Id);
-            _mapper.Map(userNewProps, oldUser);
+            
 
             //oldUser.Email = oldUser.Name + oldUser.SecondName + "." + oldUser.Surname + oldUser.SecondSurname + "@bilgeadamboost.com";
 
@@ -146,25 +146,27 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             //oldUser.UserName = oldUser.Email;
             //oldUser.NormalizedUserName = (oldUser.UserName).ToUpper();
 
-            //if (!IsPhoneAvailable(userNewProps.PhoneNumber))
-            //{
-            //    return Response.Failure("Phone Number is already in use by another company.");
-            //}
-            //if (!IsEmailAvailable(userNewProps.Email))
-            //{
-            //    return Response.Failure("Email is already in use by another company.");
-            //}
-            //if (!IsIdentityNumberAvailable(userNewProps.IdentityNumber))
-            //{
-            //    return Response.Failure("Identity No is already in use by another company.");
-            //}
-            var updateAction = await _userManager.UpdateAsync(oldUser);
-            if (updateAction.Succeeded )
+
+            if (!(oldUser.PhoneNumber == userNewProps.PhoneNumber) && !IsPhoneAvailable(userNewProps.PhoneNumber))
             {
-                return Response.Success("User Update successfully");
+                return Response<AppUser>.Failure("Phone Number is already in use by another company.");
+            }
+            ////if (!IsEmailAvailable(userNewProps.Email))
+            ////{
+            ////    return Response.Failure("Email is already in use by another company.");
+            ////}
+            if (!(oldUser.IdentityNumber == userNewProps.IdentityNumber) && userNewProps.IsTurkishCitizen == true && !IsIdentityNumberAvailable(userNewProps.IdentityNumber))
+            {
+                return Response<AppUser>.Failure("Identity No is already in use by another company.");
+            }
+            _mapper.Map(userNewProps, oldUser);
+            var updateAction = await _userManager.UpdateAsync(oldUser);
+            if (updateAction != null && updateAction.Succeeded)
+            {
+                return Response<AppUser>.Success(oldUser, "User Update successfully");
             }
 
-            return Response.Failure("Failed to insert User.");
+            return Response<AppUser>.Failure("Failed to update User.");
         }
 
         private async Task SendEmail(AppUser newUser)
@@ -253,7 +255,29 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             return Response.Failure("Failed to insert manager.");
         }
 
-       
-        
+        public async Task<Response<AppUser>> UpdateForManager(AppUser userNewProps)
+        {
+            var oldUser = await _userManager.FindByIdAsync(userNewProps.Id);
+
+
+            if (!(oldUser.PhoneNumber == userNewProps.PhoneNumber) && !IsPhoneAvailable(userNewProps.PhoneNumber))
+            {
+                return Response<AppUser>.Failure("Phone Number is already in use by another company.");
+            }
+
+            if (!(oldUser.IdentityNumber == userNewProps.IdentityNumber) && userNewProps.IsTurkishCitizen == true && !IsIdentityNumberAvailable(userNewProps.IdentityNumber))
+            {
+                return Response<AppUser>.Failure("Identity No is already in use by another company.");
+            }
+            _mapper.Map(userNewProps, oldUser);
+            var updateAction = await _userManager.UpdateAsync(oldUser);
+            if (updateAction != null && updateAction.Succeeded)
+            {
+                return Response<AppUser>.Success(oldUser, "Manager Update successfully");
+            }
+
+            return Response<AppUser>.Failure("Manager to update User.");
+        }
+
     }
 }
