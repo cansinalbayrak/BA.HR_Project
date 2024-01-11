@@ -26,14 +26,15 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
     public class AppUserManager : BaseManager<AppUser, IDTO>, IAppUserService
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly ICompanyService _companyService;
         private readonly IUrlHelperFactory _urlHelperFactory;
         private readonly IActionContextAccessor _actionContextAccessor;
         private readonly IEmailService _emailService;
         private readonly AppDbContext _appDbContext;
-        public AppUserManager(IMapper mapper, IUow uow, UserManager<AppUser> userManager, IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor, IEmailService emailService, AppDbContext appDbContext) : base(mapper, uow)
+        public AppUserManager(IMapper mapper, IUow uow, UserManager<AppUser> userManager, ICompanyService companyService, IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor, IEmailService emailService, AppDbContext appDbContext) : base(mapper, uow)
         {
             _userManager = userManager;
-
+            _companyService = companyService;
             _actionContextAccessor = actionContextAccessor;
             _urlHelperFactory = urlHelperFactory;
             _emailService = emailService;
@@ -98,11 +99,16 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 
             if (createUserAction.Succeeded && AddRoleAction.Succeeded)
             {
-                await SendEmail(newUser);
-                return Response.Success("User added successfully");
+                var data = await _companyService.IncreaseCompanyEmployeeCount(newUser.CompanyId);
+                if (data.IsSuccess)
+                {
+                    await SendEmail(newUser);
+                    return Response<AppUser>.Success(newUser,"User added successfully and Company Employee Count Increased");
+                }
+                
             }
 
-            return Response.Failure("Failed to insert User.");
+            return Response<AppUser>.Failure("Failed to insert User.");
         }
 
         private bool IsPhoneAvailable(string phone)
@@ -243,13 +249,18 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
                 return Response.Failure("Identity No is already in use by another company.");
             }
 
-            var createManagerAction = await _userManager.CreateAsync(newManager,"Mngr.9876");
+            var createManagerAction = await _userManager.CreateAsync(newManager,"Pw.1234");
             var addRoleAction = await _userManager.AddToRoleAsync(newManager, "Admin");
 
             if (createManagerAction.Succeeded && addRoleAction.Succeeded)
             {
-                await SendEmail(newManager);
-                return Response.Success("Manager added successfully");
+                var data = await _companyService.IncreaseCompanyEmployeeCount(newManager.CompanyId);
+                if (data.IsSuccess)
+                {
+                    await SendEmail(newManager);
+                    return Response.Success("Manager added successfully");
+                }
+                
             }
 
             return Response.Failure("Failed to insert manager.");
