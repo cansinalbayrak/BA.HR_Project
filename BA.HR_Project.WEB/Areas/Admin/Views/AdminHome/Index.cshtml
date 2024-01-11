@@ -1,81 +1,74 @@
-﻿
-<style>
-    .customTransparanClass{
-        background-color: rgba(255,255,255,0);
-        color: white;
-    }
-</style>
-
-<div class="container">
-
-    <div class="row">
-
-    <div class ="col" >
-
-            <h1 class="text-light" style="margin-top:50%">
-            Welcome @ViewBag.Welcome !!!
-        </h1>
-
+﻿<main>
+    <div class="intro">
+        <h1>Welcome @ViewBag.Welcome !</h1>
+        <p>This is where you can keep all employee processes of the company under control.</p>
+        <a href="#comp">Company Info</a>
     </div>
-
-
-    <div class="col">
-
-
-        <div class="card customTransparanClass" style="width: 18rem;">
-            <img class="card-img-top" src="@ViewBag.Company.LogoPath" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">General Info</h5>
-                <p class="card-text">
-                    General information about the company and employee lists are given here.
-                    Please click the "List" button to see the employee list.
-                </p>
-            </div>
-
-                <ul class="list-group list-group-flush customTransparanClass">
-                    <li class="list-group-item customTransparanClass">Employee Count: @ViewBag.UserCount</li>
-                <p>Company:</p>
-                    <li class="list-group-item customTransparanClass">
-
-                    @if (ViewBag.Company != null)
-                    {
-                        <p>@ViewBag.Company.Name</p>
-                    }
-                    else
-                    {
-                        <p>No company available</p>
-                    }
-
-                </li>
-                <p>Departments:</p>
-                    <li class="list-group-item customTransparanClass">
-
-                    @if (ViewBag.Departments != null)
-                    {
-                        <ul>
-                            @foreach (var department in ViewBag.Departments)
-                            {
-                                <li>@department.Name</li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <p>No departments available</p>
-                    }
-
-                </li>
-
-            </ul>
-            
+    <div class="achievements">
+        <div class="work">
+            <i class="fas fa-atom"></i>
+            <p class="work-heading">Control</p>
+            <p class="work-text">
+                You can upload your employees to the system, view and update their information. At the same time, you can control all expenses, advances and leave transactions of the company.
+            </p>
         </div>
-
+        <div class="work">
+            <i class="fas fa-skiing"></i>
+            <p class="work-heading">Accessibility</p>
+            <p class="work-text">
+                Thanks to the human resources management system, you can easily manage your work and take control of your time.
+            </p>
+        </div>
+        <div class="work">
+            <i class="fas fa-ethernet"></i>
+            <p class="work-heading">Productivity</p>
+            <p class="work-text">
+                Everything is at your fingertips. Control is in your hands without experiencing loss of time or forgetfulness problems like old systems.
+            </p>
+        </div>
     </div>
 
-
-
+    <div class="comp" id="comp">
+        <div class="comp-text">
+            <div class="container">
+                <div class="row">
+                    <div class="col-5">
+                        <img src="@ViewBag.Company.LogoPath" alt="Company Logo">
+                    </div>
+                    <div class="col-7">
+                        <ul class="list-group list-group-flush customTransparanClass">
+                            <p> Employee Count: </p>
+                            <li class="list-group-item customTransparanClass"> @ViewBag.UserCount</li>
+                            <p>Company:</p>
+                            <li class="list-group-item customTransparanClass">
+                                @if (ViewBag.Company != null)
+                                {
+                                    @ViewBag.Company.Name
+                                }
+                                else
+                                {
+                                    <p>No company available</p>
+                                }
+                            </li>
+                            <p>Departments:</p>
+                            <li class="list-group-item customTransparanClass">
+                                @if (ViewBag.Departments != null)
+                                {
+                                    @foreach (var department in ViewBag.Departments)
+                                    {
+                                        @department.Name
+                                    }
+                                }
+                                else
+                                {
+                                    <p>No departments available</p>
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-
-</div>
+</main>
 
