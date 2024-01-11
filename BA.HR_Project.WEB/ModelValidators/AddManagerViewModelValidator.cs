@@ -23,12 +23,12 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .MaximumLength(30).WithMessage("Name cannot be more than 30 characters");
 
             RuleFor(x => x.SecondName)
-                .Must(SecondName => string.IsNullOrWhiteSpace(SecondName) || ContainsTurkishCharacter(SecondName))
-                .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
+            .Must(SecondName => string.IsNullOrWhiteSpace(SecondName) || !ContainsTurkishCharacter(SecondName))
+            .WithMessage("Surname can be empty, but if provided, it must not contain Turkish characters");
 
             RuleFor(x => x.SecondSurname)
-                .Must(SecondSurname => string.IsNullOrWhiteSpace(SecondSurname) || ContainsTurkishCharacter(SecondSurname))
-                .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
+                .Must(SecondSurname => string.IsNullOrWhiteSpace(SecondSurname) || !ContainsTurkishCharacter(SecondSurname))
+                .WithMessage("Surname can be empty, but if provided, it must not contain Turkish characters");
 
 
             RuleFor(x => x.IsTurkishCitizen)
@@ -61,6 +61,8 @@ namespace BA.HR_Project.WEB.ModelValidators
             RuleFor(x => x.EndDate)
                .Must((model, endDate) => endDate == null || endDate > model.StartDate)
                .WithMessage("EndDate must be null or greater than StartDate");
+            RuleFor(x => x.StartDate)
+                .NotEmpty().WithMessage("Start date must be provided");
 
         }
         private bool IsValidTurkishIdentityNumberOrTcNo(string identityNumber, bool isTurkishCitizen)

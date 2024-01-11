@@ -14,10 +14,12 @@ namespace BA.HR_Project.Infrasturucture.Services.Concrate
     public interface IAppUserService : IService<AppUser,IDTO>
     {
         public Task<Response> AddAppUser(AppUserDto userDto, ClaimsPrincipal User);
-        public Task<Response> UpdateAppUser(AppUser userNewProps);
+        public Task<Response<AppUser>> UpdateAppUser(AppUser userNewProps);
          Task<Response> AddManager(AppUserDto managerDto);
-        
+        public Task<Response<AppUser>> UpdateForManager(AppUser userNewProps);
 
-        
+
+
+
     }
 }
