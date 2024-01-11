@@ -20,6 +20,7 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .Must(surname => !string.IsNullOrWhiteSpace(surname) && !ContainsTurkishCharacter(surname))
                 .WithMessage("Surname cannot be empty and cannot contain Turkish characters")
                 .MaximumLength(30).WithMessage("Name cannot be more than 30 characters");
+
             RuleFor(x => x.SecondName)
               .Must(SecondName => string.IsNullOrWhiteSpace(SecondName) || !ContainsTurkishCharacter(SecondName))
               .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
@@ -107,13 +108,10 @@ namespace BA.HR_Project.WEB.ModelValidators
 
             return age >= 15;
         }
-        private bool BeValidEmail(string email)
-        {
-            return email?.ToLowerInvariant().EndsWith("@bilgeadamboost.com") == true;
-        }
+
         private bool ContainsTurkishCharacter(string text)
         {
-            return text.Any(ch => "çğıiİıöşüÇĞİIÖŞÜ".Contains(ch));
+            return text.Any(char.IsLetter) && text.Any(ch => "İÖÜĞŞÇçüöış ".Contains(ch));
         }
     }
 }

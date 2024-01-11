@@ -69,24 +69,6 @@ namespace BA.HR_Project.WEB.ModelValidators
 
         }
 
-        private bool BeValidPassportNo(string passportNumber)
-        {
-            return !string.IsNullOrEmpty(passportNumber) && passportNumber.Length == 9;
-        }
-
-        private bool IsValidBirthDateAndIdentityNumber(DateTime? birthDate, string identityNumber)
-        {
-            if (birthDate == null || string.IsNullOrEmpty(identityNumber) || identityNumber.Length != 11)
-            {
-                return false;
-            }
-
-            int birthYear = birthDate.Value.Year % 100; // Yılın son iki hanesi
-            int identityYear = int.Parse(identityNumber.Substring(0, 2));
-
-            return birthYear == identityYear;
-        }
-
         private bool IsValidTurkishIdentityNumberOrTcNo(string identityNumber, bool isTurkishCitizen)
         {
             if (!isTurkishCitizen)

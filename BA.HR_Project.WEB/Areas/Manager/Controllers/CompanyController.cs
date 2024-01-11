@@ -32,15 +32,16 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCompany(CompanyViewModel vm)
         {
-            var LogoPath = await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
-            vm.LogoPath = LogoPath;
 
             if (vm.LogoPath == null)
             {
-                vm.LogoPath = "/mexant/assets/images/defaultCompanyPhoto.png";
+                vm.LogoPath  = "/mexant/assets/images/defaultCompanyPhoto.png";
             }
 
-
+            if (vm.Photo != null)
+            {
+                vm.LogoPath = await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
+            }
 
             var validator = new CompanyViewModelValidator();
             var validationResult = await validator.ValidateAsync(vm);
@@ -92,8 +93,26 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateCompany(CompanyViewModel vm)
         {
-            var LogoPath = await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
-            vm.LogoPath = LogoPath;
+            if (vm.LogoPath == null)
+            {
+                var GetCompany = await _companyManager.GetByIdAsync(vm.Id);
+                if (GetCompany.IsSuccess)
+                {
+                    vm.LogoPath = GetCompany.Context.LogoPath;
+                }
+                else
+                {
+                    vm.LogoPath = "/mexant/assets/images/defaultCompanyPhoto.png";
+                }
+            }
+
+            if (vm.Photo != null)
+            {
+                vm.LogoPath = await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
+                
+            }
+            
+            
 
             var validator = new CompanyViewModelValidator();
             var validationResult = await validator.ValidateAsync(vm);

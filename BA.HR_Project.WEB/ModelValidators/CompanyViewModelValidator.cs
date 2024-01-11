@@ -9,10 +9,6 @@ namespace BA.HR_Project.WEB.ModelValidators
         public CompanyViewModelValidator()
         {
 			RuleFor(x => x.Name).NotEmpty().WithMessage("Name must be provided");
-            RuleFor(x => x.Photo)
-             .Must((model, file) => file != null || model.UseExistingPhoto)
-             .WithMessage("File must be provided or Choose This Photo")
-             .When(x => !x.UseExistingPhoto);
 
             RuleFor(x => x.Photo)
                 .Must(file => file == null || IsAllowedImageFile(file))
@@ -45,7 +41,7 @@ namespace BA.HR_Project.WEB.ModelValidators
         }
         private bool IsAllowedImageFile(IFormFile file)
         {
-            var allowedExtensions = new[] { ".jpg", ".jpeg" };
+            var allowedExtensions = new[] { ".jpg", ".jpeg" , ".png" };
             var extension = Path.GetExtension(file.FileName)?.ToLowerInvariant();
             return !string.IsNullOrEmpty(extension) && allowedExtensions.Contains(extension);
         }

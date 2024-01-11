@@ -8,6 +8,7 @@ namespace BA.HR_Project.Application.DTOs
 {
     public class ListManagerDto : IDTO
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string? SecondName { get; set; }
         public string SurName { get; set; }

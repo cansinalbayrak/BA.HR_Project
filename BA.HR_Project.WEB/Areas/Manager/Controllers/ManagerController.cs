@@ -109,34 +109,50 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
         }
         public async Task<IActionResult> ListManager() 
         {
+            //var managers = await _userManager.GetUsersInRoleAsync("Admin");
+
+            //var listManagerDto = new List<ListManagerDto>();
+
+            //foreach (var manager in managers)
+            //{
+            //    var company = await _companyService.GetByIdAsync(manager.CompanyId);
+
+            //    var managerDto = new ListManagerDto
+            //    {
+
+            //        Name = manager.Name+" "+manager.SecondName,
+            //        SurName = manager.Surname+" "+manager.SecondSurname,
+            //        CompanyName = company.Context.Name,
+            //        PhotoPath = manager.PhotoPath,
+            //        PhoneNumber = manager.PhoneNumber,
+            //        Email = manager.Email,
+
+            //    };
+
+            //    listManagerDto.Add(managerDto);
+            //}
             var managers = await _userManager.GetUsersInRoleAsync("Admin");
 
-            var listManagerDto = new List<ListManagerDto>();
-
-            foreach (var manager in managers)
+            if (managers != null)
             {
-                var company = await _companyService.GetByIdAsync(manager.CompanyId);
+                var managerDtos = _mapper.Map<List<ListManagerDto>>(managers);
+                var listManagerVm = _mapper.Map<List<ListManagerViewModel>>(managerDtos);
 
-                var managerDto = new ListManagerDto
+                for (int i = 0; i < managers.Count; i++)
                 {
-                    
-                    Name = manager.Name+" "+manager.SecondName,
-                    SurName = manager.Surname+" "+manager.SecondSurname,
-                    CompanyName = company.Context.Name,
-                    PhotoPath = manager.PhotoPath,
-                    PhoneNumber = manager.PhoneNumber,
-                    Email = manager.Email,
-                                                        
-                };
-
-                listManagerDto.Add(managerDto);
+                    var GetrelatedCompanyName = await _companyService.GetByIdAsync(managers[i].CompanyId);
+                    if (GetrelatedCompanyName.IsSuccess)
+                    {
+                        listManagerVm[i].CompanyName = GetrelatedCompanyName.Context.Name;
+                    }
+                }
+                return View(listManagerVm);
             }
+            return View();
 
-            var listManagerVm = _mapper.Map<List<ListManagerViewModel>>(listManagerDto);
-            return View(listManagerVm);
         }
         [HttpGet]
-        public async Task<IActionResult> UpdateManager() 
+        public async Task<IActionResult> UpdateManager(string Id) 
         {
             List<CompanyCustom> allCompanies = _companyService.GetAllCompanyCustomColumn();
             List<string> companyNames = new List<string>();
@@ -146,20 +162,38 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             }
             ViewBag.CompanyNames = companyNames;
 
-            var manager = await _userManager.GetUserAsync(User);
+            var manager = await _userManager.FindByIdAsync(Id);
             if (manager != null) 
             {
                 var managerDto = _mapper.Map<UpdateManagerDto>(manager);
                 var managerVm = _mapper.Map<UpdateManagerViewModelcs>(managerDto);
-                
-                return View(managerVm);
-            
+
+                var getCompanyName = await _companyService.GetByIdAsync(managerVm.CompanyId);
+                if (getCompanyName.IsSuccess)
+                {
+                    ViewBag.RelatedCompanyName = getCompanyName.Context.Name;
+                    return View(managerVm);
+                }
+
             }
             return RedirectToAction("ListManager");
         }
         [HttpPost]
         public async Task<IActionResult> UpdateManager(UpdateManagerViewModelcs model) 
         {
+            if (model.PhotoPath == null)
+            {
+                var getUser = await _userManager.FindByIdAsync(model.Id);
+                if (getUser != null) 
+                {
+                    model.PhotoPath = getUser.PhotoPath;
+                //    model.Photo;
+                }
+                else
+                {
+                    model.PhotoPath = "/mexant/assets/images/Default.jpg";
+                }
+            }
 
             List<CompanyCustom> allCompanies = _companyService.GetAllCompanyCustomColumn();
             List<string> companyNames = new List<string>();
@@ -183,9 +217,12 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
                 return View(model);
             }
 
+            if (model.Photo != null)
+            {
+                model.PhotoPath = await HelperMethods.ImageHelper.SaveImageFile(model.Photo);
+            }
+            
 
-            var photo = await HelperMethods.ImageHelper.SaveImageFile(model.Photo);
-            model.PhotoPath = photo;
             if (model.PhotoPath.Contains(".jpg") || model.PhotoPath.Contains(".jpeg") || model.PhotoPath.Contains(".png")) 
             {
               

@@ -30,6 +30,25 @@
 
         </div>
 
+
+        <div class="mb-3">
+            <label asp-for="PhotoPath" class="col-form-label" style="color:#FD8D00">Photo:</label>
+
+            <div class="mb-3">
+                <div>
+                    <img src="@Model.PhotoPath" alt="Current Photo" class="img-thumbnail" style="max-width: 150px; max-height: 150px;" />
+                </div>
+
+                <br />
+
+                <div>
+                    <input accept=".jpeg,.jpg,.png" type="file" asp-for="Photo" class="form-control-file text-light" />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+
         <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="PhoneNumber">Phone Number</label>
             <input asp-for="PhoneNumber" class="form-control custom-select" type="text" placeholder="Phone Number" />
@@ -103,7 +122,7 @@
         <div class="form-group">
             <label class="custom-select" asp-for="CompanyId">Company Name</label>
             <select asp-for="CompanyId" class="form-control custom-select">
-                <option value="CompanytId">-- Select Company Name --</option>
+                @* <option value="@Model.CompanyId">@ViewBag.RelatedCompanyName</option> *@
                 @if (ViewBag.CompanyNames != null)
                 {
 
@@ -119,12 +138,6 @@
             </select>
         </div>
 
-     
-        
-        <div>
-            <input accept=".jpeg,.jpg,.png" type="file" asp-for="Photo" class="form-control-file text-light" />
-            <span asp-validation-for="Photo" class="text-danger"></span>
-        </div>
 
 
         <button type="submit" class="btn-warning">Update</button>

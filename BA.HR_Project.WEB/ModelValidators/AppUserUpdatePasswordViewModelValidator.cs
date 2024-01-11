@@ -7,7 +7,10 @@ namespace BA.HR_Project.WEB.ModelValidators
     {
         public AppUserUpdatePasswordViewModelValidator()
         {
-            RuleFor(x => x.OldPassword).NotEmpty().WithMessage("Old password is required.");
+            RuleFor(x => x.OldPassword)
+                    .NotEmpty().WithMessage("Old password is required.")
+                    .Equal("Pw.1234").WithMessage("Wrong Old Pasword");
+
             RuleFor(x => x.NewPassword).NotEmpty().WithMessage("New password is required.");
             RuleFor(x => x.ConfirmPassword)
                 .NotEmpty().WithMessage("Confirm password is required.")

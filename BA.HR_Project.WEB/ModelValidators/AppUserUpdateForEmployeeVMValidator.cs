@@ -22,7 +22,7 @@ namespace BA.HR_Project.WEB.ModelValidators
 
             RuleFor(x => x.Photo)
                 .Must(file => file == null || IsAllowedImageFile(file))
-                .WithMessage("Invalid file format. Please choose a valid image file (jpeg or jpg).")
+                .WithMessage("Invalid file format. Please choose a valid image file (jpeg , jpg or png).")
                 .When(x => !x.UseExistingPhoto);
 
            
@@ -30,7 +30,7 @@ namespace BA.HR_Project.WEB.ModelValidators
         }
         private bool IsAllowedImageFile(IFormFile file)
         {
-            var allowedExtensions = new[] { ".jpg", ".jpeg" };
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
             var extension = Path.GetExtension(file.FileName)?.ToLowerInvariant();
             return !string.IsNullOrEmpty(extension) && allowedExtensions.Contains(extension);
         }
