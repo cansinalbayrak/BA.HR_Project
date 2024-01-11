@@ -81,7 +81,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             {
                 return Response.Failure("Email is already in use by another company.");
             }
-            if (!(userDto.IdentityNumber==null) && !IsIdentityNumberAvailable(userDto.IdentityNumber))
+            if (!(userDto.IdentityNumber == userDto.IdentityNumber) && userDto.IsTurkishCitizen == true &&!(userDto.IdentityNumber==null) && !IsIdentityNumberAvailable(userDto.IdentityNumber))
             {
                 return Response.Failure("Identity No is already in use by another company.");
             }
@@ -244,7 +244,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             {
                 return Response.Failure("Email is already in use by another company.");
             }
-            if (!IsIdentityNumberAvailable(managerDto.IdentityNumber))
+            if (!(managerDto.IdentityNumber == managerDto.IdentityNumber) && managerDto.IsTurkishCitizen == true && !IsIdentityNumberAvailable(managerDto.IdentityNumber))
             {
                 return Response.Failure("Identity No is already in use by another company.");
             }
