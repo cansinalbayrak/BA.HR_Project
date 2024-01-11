@@ -75,6 +75,10 @@ namespace BA.HR_Project.WEB.Controllers
                     return RedirectToAction("Index", "AdminHome", new { area = "Admin" });
 
                 }
+                else if(userRoles.Contains("Manager"))
+                {
+                    return RedirectToAction("ListManager", "Manager", new { area = "Manager" });
+                }
                 else
                 {
                     return RedirectToAction("Index", "Home");
