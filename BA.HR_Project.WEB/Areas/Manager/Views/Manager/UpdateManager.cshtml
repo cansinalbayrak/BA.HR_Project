@@ -36,9 +36,74 @@
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="col-form-label text-warning" asp-for="Email">Phone Number</label>
-            <input asp-for="Email" class="form-control custom-select" type="text" placeholder="Phone Number" />
-            <span asp-validation-for="Email" class="text-danger"></span>
+            <label class="col-form-label text-warning" asp-for="BirthDate">Birth Date</label>
+            <input asp-for="BirthDate" class="form-control custom-select" type="date" placeholder="Birth Date" />
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="BirthPlace">Birth Place</label>
+            <input asp-for="BirthPlace" class="form-control custom-select" type="text" placeholder="Birth Place" />
+            <span asp-validation-for="BirthPlace" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="StartDate">Start Date</label>
+            <input asp-for="StartDate" class="form-control custom-select" type="date" placeholder="Start Date" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="EndDate">End Daate</label>
+            <input asp-for="EndDate" class="form-control custom-select" type="date" placeholder="End Data" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="Salary">Salary</label>
+            <input asp-for="Salary" class="form-control custom-select" type="number" placeholder="Salary" />
+            <span asp-validation-for="Salary" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="IsActive">WorkingStatus</label>
+            <input asp-for="IsActive" type="checkbox" placeholder="WorkingStatus" />
+            <span asp-validation-for="IsActive" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="IsTurkishCitizen">IsTurkishCitizen</label>
+            <input asp-for="IsTurkishCitizen" type="checkbox" placeholder="IsTurkishCitizen" />
+            <span asp-validation-for="IsTurkishCitizen" class="text-danger"></span>
+        </div>
+        @{
+            if (ViewBag.Citizien == true)
+            {
+                <div class="mb-3">
+                    <label class="col-form-label text-warning" asp-for="IdentityNumber">Identity Number</label>
+                    <input asp-for="IdentityNumber" class="form-control custom-select" type="text" placeholder="Identity Number" />
+                    <span asp-validation-for="IdentityNumber" class="text-danger"></span>
+                </div>
+            }
+            if (ViewBag.Citizien != true)
+            {
+                <div class="mb-3">
+                    <label class="col-form-label text-warning" asp-for="PassportNumber">Passport Number</label>
+                    <input asp-for="PassportNumber" class="form-control custom-select" type="text" placeholder="Passport Number" />
+                    <span asp-validation-for="PassportNumber" class="text-danger"></span>
+                </div>
+
+            }
+
+        }
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="PhoneNumber">Phone Number</label>
+            <input asp-for="PhoneNumber" class="form-control custom-select" type="text" placeholder="Phone Number" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="col-form-label text-warning" asp-for="Adress">Adress</label>
+            <input asp-for="Adress" class="form-control custom-select" type="text" placeholder="Adress" />
+            <span asp-validation-for="Adress" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label class="custom-select" asp-for="CompanyId">Company Name</label>

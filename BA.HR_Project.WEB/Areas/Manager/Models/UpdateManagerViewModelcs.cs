@@ -11,8 +11,18 @@
         public IFormFile Photo { get; set; }
         public string? PhotoPath { get; set; }
         public string PhoneNumber { get; set; }
-        public bool UseExistingPhoto { get; set; }
+        public DateTime BirthDate { get; set; }
 
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public int? Salary { get; set; }
+        public bool IsActive { get; set; }
+        public string? BirthPlace { get; set; }
+        public bool IsTurkishCitizen { get; set; }
+        public string? IdentityNumber { get; set; }
+
+        public string? PassportNumber { get; set; }
+        public string Adress { get; set; }
         public string CompanyId { get; set; }
         public string DepartmentId { get; set; }
        
