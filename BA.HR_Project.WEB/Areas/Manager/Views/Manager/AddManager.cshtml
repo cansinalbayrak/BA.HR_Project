@@ -128,24 +128,7 @@
             </select>
         </div>
        
-        <div class="form-group">
-            <label class="custom-select" asp-for="Department">Departmant Name</label>
-            <select asp-for="DepartmentId" class="form-control custom-select">
-                <option value="DepartmentId">-- Select Department Name --</option>
-                @if (ViewBag.DepartmentName != null)
-                {
-
-
-                    foreach (var name in ViewBag.DepartmentName)
-                    {
-
-                        <option value="@name">@name.Split("/")[0]</option>
-                    }
-
-
-                }
-            </select>
-        </div>
+       
 
         <button type="submit" class="btn btn-success">Register</button>
     </form>
