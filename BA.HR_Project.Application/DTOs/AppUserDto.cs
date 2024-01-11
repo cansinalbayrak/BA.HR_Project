@@ -31,7 +31,7 @@ namespace BA.HR_Project.Application.DTOs
         public string Adress { get; set; }
 
         public string CompanyId { get; set; }
-        public string DepartmentId { get; set; }
+        public string? DepartmentId { get; set; }
 
         #region NavProp
         public CompanyDto Company { get; set; }

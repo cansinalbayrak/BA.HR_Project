@@ -83,8 +83,7 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             {
                 model.PhotoPath = "/mexant/assets/images/Default.jpg";
             }
-            var departmentId = model.DepartmentId.Split("/")[1];
-            model.DepartmentId = departmentId;
+            
             var companyId = model.CompanyId.Split("/")[1];
             model.CompanyId = companyId;
 

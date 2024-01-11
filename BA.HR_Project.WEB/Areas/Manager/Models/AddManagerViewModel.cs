@@ -28,7 +28,7 @@ namespace BA.HR_Project.WEB.Areas.Manager.Models
         public string? PassportNumber { get; set; }
 
         public string CompanyId { get; set; }
-        public string DepartmentId { get; set; }
+      
  
 
 
