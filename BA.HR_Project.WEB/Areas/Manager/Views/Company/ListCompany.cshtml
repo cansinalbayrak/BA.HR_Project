@@ -26,7 +26,7 @@
                     <div style="display:flex; justify-content: center;">
                         <button id="showCompanyDetail@company.Id" class="btn btn-success showCompanyDetail" data-id="@company.Id" style="margin:5px">Company Detail</button>
                         <a asp-action="UpdateCompany" asp-controller="Company" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Company Update</a>
-                        <a asp-action="" asp-controller="" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Asign Company Manager</a>
+                        <a asp-area="Manager" asp-action="AddManager" asp-controller="Manager" asp-route-id="@company.Id" class="btn btn-success" style="margin:5px">Asign Company Manager</a>
                     </div>
                 </td>
             </tr>

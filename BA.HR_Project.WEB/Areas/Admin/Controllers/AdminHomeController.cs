@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = ("Admin"))]
     public class AdminHomeController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

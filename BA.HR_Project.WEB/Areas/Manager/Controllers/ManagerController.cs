@@ -7,6 +7,7 @@ using BA.HR_Project.WEB.Areas.Manager.Models;
 using BA.HR_Project.WEB.Models;
 using BA.HR_Project.WEB.ModelValidators;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BA.HR_Project.WEB.Areas.Manager.Controllers
 {
     [Area("Manager")]
+    [Authorize(Roles = "Manager")]
     public class ManagerController : Controller
     {
         private readonly IAppUserService _userService;
