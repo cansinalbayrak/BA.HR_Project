@@ -23,6 +23,7 @@
 
         public string? PassportNumber { get; set; }
         public string Adress { get; set; }
+        public bool UseExistingPhoto { get; set; }
         public string CompanyId { get; set; }
         public string DepartmentId { get; set; }
        
