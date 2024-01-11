@@ -31,7 +31,7 @@ namespace BA.HR_Project.Application.DTOs
         public bool UseExistingPhoto { get; set; }
 
         public string CompanyId { get; set; }
-        public string DepartmentId { get; set; }
+        
       
     }
 }

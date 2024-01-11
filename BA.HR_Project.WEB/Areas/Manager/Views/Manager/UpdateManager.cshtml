@@ -75,31 +75,26 @@
             <input asp-for="IsTurkishCitizen" type="checkbox" placeholder="IsTurkishCitizen" />
             <span asp-validation-for="IsTurkishCitizen" class="text-danger"></span>
         </div>
-        @{
-            if (ViewBag.Citizien == true)
-            {
+       
+            
                 <div class="mb-3">
                     <label class="col-form-label text-warning" asp-for="IdentityNumber">Identity Number</label>
                     <input asp-for="IdentityNumber" class="form-control custom-select" type="text" placeholder="Identity Number" />
                     <span asp-validation-for="IdentityNumber" class="text-danger"></span>
                 </div>
-            }
-            if (ViewBag.Citizien != true)
-            {
+            
+            
+            
                 <div class="mb-3">
                     <label class="col-form-label text-warning" asp-for="PassportNumber">Passport Number</label>
                     <input asp-for="PassportNumber" class="form-control custom-select" type="text" placeholder="Passport Number" />
                     <span asp-validation-for="PassportNumber" class="text-danger"></span>
                 </div>
 
-            }
+            
 
-        }
-        <div class="mb-3">
-            <label class="col-form-label text-warning" asp-for="PhoneNumber">Phone Number</label>
-            <input asp-for="PhoneNumber" class="form-control custom-select" type="text" placeholder="Phone Number" />
-            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-        </div>
+        
+       
         <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="Adress">Adress</label>
             <input asp-for="Adress" class="form-control custom-select" type="text" placeholder="Adress" />
@@ -124,24 +119,8 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label class="custom-select" asp-for="DepartmentId">Departmant Name</label>
-            <select asp-for="DepartmentId" class="form-control custom-select">
-                <option value="DepartmentId">-- Select Department Name --</option>
-                @if (ViewBag.DepartmentName != null)
-                {
-
-
-                    foreach (var name in ViewBag.DepartmentName)
-                    {
-
-                        <option value="@name">@name.Split("/")[0]</option>
-                    }
-
-
-                }
-            </select>
-        </div>
+     
+        
         <div>
             <input accept=".jpeg,.jpg,.png" type="file" asp-for="Photo" class="form-control-file text-light" />
             <span asp-validation-for="Photo" class="text-danger"></span>
