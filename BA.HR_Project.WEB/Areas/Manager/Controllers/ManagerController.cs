@@ -232,10 +232,12 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
                 var manager = _mapper.Map<AppUser>(managerDto);
 
                 var managerAction = await _userService.UpdateForManager(manager);
-                if (managerAction != null)
+
+                if (managerAction.IsSuccess)
                 {
                     return RedirectToAction("ListManager");
                 }
+                ViewBag.ErrorMessages = managerAction.Message ;
                 return View(model);
             }
 

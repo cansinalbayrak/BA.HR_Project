@@ -8,9 +8,11 @@ using BA.HR_Project.WEB.Models;
 using BA.HR_Project.WEB.HelperMethods;
 using BA.HR_Project.WEB.ModelValidators;
 using BA.HR_Project.WEB.Areas.Manager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BA.HR_Project.WEB.Controllers
 {
+    [Authorize(Roles = ("Employee,Admin"))]
     public class EmployeeController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

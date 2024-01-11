@@ -6,12 +6,14 @@ using BA.HR_Project.Infrastructure.Services.Abstract;
 using BA.HR_Project.Infrasturucture.RequestResponse;
 using BA.HR_Project.WEB.Models;
 using BA.HR_Project.WEB.ModelValidators;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BA.HR_Project.WEB.Controllers
 {
+    [Authorize(Roles = ("Employee,Admin"))]
     public class AdvanceController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

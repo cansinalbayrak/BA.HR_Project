@@ -6,12 +6,14 @@ using BA.HR_Project.Infrastructure.Managers.Concrate;
 using BA.HR_Project.Infrastructure.Services.Concrate;
 using BA.HR_Project.WEB.Models;
 using BA.HR_Project.WEB.ModelValidators;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BA.HR_Project.WEB.Controllers
 {
+    [Authorize(Roles = ("Employee,Admin"))]
     public class ExpenseController : Controller
     {
         private readonly IExpenseTypeService _expenseTypeService;

@@ -71,14 +71,13 @@ namespace BA.HR_Project.WEB.Controllers
             {
                 IList<string> userRoles = await _userManager.GetRolesAsync(user);
 
-                if (userRoles.Contains("Admin"))
-                {
-                    return RedirectToAction("Index", "AdminHome", new { area = "Admin" });
-
-                }
-                else if(userRoles.Contains("Manager"))
+                if (userRoles.Contains("Manager"))
                 {
                     return RedirectToAction("ListManager", "Manager", new { area = "Manager" });
+                }
+                else if (userRoles.Contains("Admin"))
+                {
+                    return RedirectToAction("Index", "AdminHome", new { area = "Admin" });
                 }
                 else
                 {
