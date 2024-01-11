@@ -48,13 +48,7 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             }
             ViewBag.CompanyNames = companyNames;
 
-            List<DepartmentCustom> allDepartments = _departmentService.GetAllDepartmentCustomColumn();
-            List<string> departmentName = new List<string>();
-            for (int i = 0; i < allDepartments.Count; i++)
-            {
-                departmentName.Add(allDepartments[i].DepartmentName + "/" + allDepartments[i].Id);
-            }
-            ViewBag.DepartmentName = departmentName;
+            
           
 
 
@@ -63,6 +57,15 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
         [HttpPost]
         public async Task<IActionResult>AddManager(AddManagerViewModel model) 
         {
+            List<CompanyCustom> allCompanies = _companyService.GetAllCompanyCustomColumn();
+            List<string> companyNames = new List<string>();
+            for (int i = 0; i < allCompanies.Count; i++)
+            {
+                companyNames.Add(allCompanies[i].CompanyName + "/" + allCompanies[i].Id);
+            }
+            ViewBag.CompanyNames = companyNames;
+
+           
             var validator = new AddManagerViewModelValidator();
             var validationResult = await validator.ValidateAsync(model);
 
