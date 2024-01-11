@@ -14,11 +14,11 @@
     <link rel="stylesheet" href="~/mexant/assets/css/owl.css">
     <link rel="stylesheet" href="~/mexant/assets/css/animate.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
-     <style>
+    <style>
         body {
             padding-top: 115px;
         }
-       </style>
+    </style>
 </head>
 <!--
 
@@ -31,22 +31,22 @@
             <div class="col-12">
                 <nav class="main-nav">
 
-                    
+
                     <!-- ***** Logo Start ***** -->
                     <a asp-controller="Home" asp-action="Index" class="logo">
                         <img src="~/mexant/assets/images/logo.png" alt="" width="60" height="60">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
-                  
+
                     <ul class="nav">
-                            @if(!User.Identity.IsAuthenticated)
+                            @if (!User.Identity.IsAuthenticated)
                             {
-                            <li class="scroll-to-section" ><a asp-controller="Home" asp-action="Index" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a asp-controller="Home" asp-action="Index" class="active">Home</a></li>
                             }
 
 
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Employee"))
                             {
                             <li class="scroll-to-section" style="margin-top:9px"><a asp-controller="Home" asp-action="Index" class="active">Home</a></li>
                             <li class="nav-item dropdown customNavbar">
@@ -88,39 +88,58 @@
                                     </li>
                                 </ul>
                             </li>
+                            }
 
 
 
+                            @if (User.IsInRole("Admin"))
+                            {
+                            <li class="nav-item dropdown customNavbar">
+                                <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go Admin Side </a>
+                                <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Profile</a></li>
+                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
+                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
 
-                                @if (User.IsInRole("Admin"))
-                                {
-                                <li class="nav-item dropdown customNavbar">
-                                    <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go Admin Side </a>
-                                    <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
-                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Profile</a></li>
-                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
-                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
-                                       
- 
-                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllAdvances">Advance Demands</a></li>
-                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllExpenses">Expense Demands</a></li>
-                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllDayOffs">Day Off Demands</a></li>
- 
-                                    </ul>
-                                </li>
-                                }
-                            <li class="nav-item"><a class="nav-link text-light" style="background-color:transparent;">💻 @User.Identity.Name.Split('.')[0]</a></li>
-                            <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="LogOut" class="nav-link text-light">SignOut</a></li>
+
+                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllAdvances">Advance Demands</a></li>
+                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllExpenses">Expense Demands</a></li>
+                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllDayOffs">Day Off Demands</a></li>
+
+                                </ul>
+                            </li>
+                            }
+
+                            @if (User.IsInRole("Manager"))
+                            {
+                            <li class="nav-item dropdown customNavbar">
+                                <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go Manager Side </a>
+                                <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Manager" asp-action="AddManager">Add Manager</a></li>
+                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Manager" asp-action="ListManager">List Manager</a></li>
+                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Company" asp-action="AddCompany">Add Company</a></li>
+                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Company" asp-action="ListCompany">List Company</a></li>
+
+                                </ul>
+                            </li>
+                            }
+
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item"><a class="nav-link text-light" style="background-color:transparent;">💻 @User.Identity.Name.Split('.')[0]</a></li>
+                                <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="LogOut" class="nav-link text-light">SignOut</a></li>
                             }
                             
-                            @if(!User.Identity.IsAuthenticated)
+
+                            @if (!User.Identity.IsAuthenticated)
                             {
                             <li class="scroll-to-section"><a asp-controller="Account" asp-action="LogIn">SignIn</a></li>
                             }
-                            
-            
+
+
                     </ul>
-                   
+
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
@@ -162,7 +181,7 @@
                                     </div>
                                     }
 
-                               
+
                             </div>
                         </div>
                     </div>
