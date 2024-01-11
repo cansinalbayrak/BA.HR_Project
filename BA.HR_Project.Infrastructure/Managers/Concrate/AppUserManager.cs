@@ -249,6 +249,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
                 return Response.Failure("Identity No is already in use by another company.");
             }
 
+            newManager.DepartmentId = "SeedDepartment1";
             var createManagerAction = await _userManager.CreateAsync(newManager,"Pw.1234");
             var addRoleAction = await _userManager.AddToRoleAsync(newManager, "Admin");
 

@@ -55,8 +55,17 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
                 return View(vm);
             }
             vm.Id = Guid.NewGuid().ToString();
+            vm.EmployeeCount = 0;
+            if (vm.ContractStartDate<=DateTime.Now && vm.ContractEndDate>=DateTime.Now)
+            {
+                vm.ActivtyEnum = Domain.Enums.Activty.Active;
+            }
+            else
+            {
+                vm.ActivtyEnum = Domain.Enums.Activty.Pasive;
+            }
+
             var CompanyDto = _mapper.Map<CompanyDto>(vm);
-            //var createCompanyAction = await _companyManager.Insert(CompanyDto);
             var createCompanyAction = await _companyManager.AddCompany(CompanyDto);
             if (createCompanyAction.IsSuccess)
             {
@@ -99,6 +108,14 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
                 return View(vm);
             }
 
+            if (vm.ContractStartDate <= DateTime.Now && vm.ContractEndDate >= DateTime.Now)
+            {
+                vm.ActivtyEnum = Domain.Enums.Activty.Active;
+            }
+            else
+            {
+                vm.ActivtyEnum = Domain.Enums.Activty.Pasive;
+            }
             var CompanyDto = _mapper.Map<CompanyDto>(vm);
             var updateAction = await _companyManager.Update(CompanyDto);
 

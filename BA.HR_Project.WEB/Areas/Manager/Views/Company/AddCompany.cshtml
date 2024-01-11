@@ -72,12 +72,6 @@
         </div>
 
         <div class="mb-3">
-            <label class="col-form-label text-warning" asp-for="EmployeeCount">Employee Count</label>
-            <input asp-for="EmployeeCount" class="form-control custom-select" type="number" placeholder="Employee Count" />
-            <span asp-validation-for="EmployeeCount" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
             <label class="col-form-label text-warning" asp-for="MersisNo">Mersis No</label>
             <input asp-for="MersisNo" class="form-control custom-select" type="text" placeholder="Mersis No" />
             <span asp-validation-for="MersisNo" class="text-danger"></span>
@@ -113,13 +107,6 @@
             <span asp-validation-for="ContractEndDate" class="text-danger"></span>
         </div>
 
-        <div class="mb-3">
-            <label class="col-form-label text-warning" asp-for="ActivtyEnum">Activity Enum</label>
-            <select asp-for="ActivtyEnum" asp-items="Html.GetEnumSelectList<Activty>()" class="form-control custom-select">
-                <option value="" disabled selected>Select Activity</option>
-            </select>
-            <span asp-validation-for="ActivtyEnum" class="text-danger"></span>
-        </div>
 
 
         <button type="submit" class="btn-warning">Add Company</button>

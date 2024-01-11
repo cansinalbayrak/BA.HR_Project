@@ -8,6 +8,8 @@
             <th>Name</th>
             <th>Mail</th>
             <th>Phone</th>
+            <th>EmployeCount</th>
+            <th>Activity</th>
             <th>Process</th>
         </tr>
     </thead>
@@ -22,6 +24,9 @@
                 <td class="text-center align-middle">@company.Name</td>
                 <td class="text-center align-middle">@company.Mail</td>
                 <td class="text-center align-middle">@company.Phone</td>
+                <td class="text-center align-middle">@company.EmployeeCount.ToString()</td>
+                <td class="text-center align-middle">@company.ActivtyEnum.ToString()</td>
+
                 <td class="text-center align-middle">
                     <div style="display:flex; justify-content: center;">
                         <button id="showCompanyDetail@company.Id" class="btn btn-success showCompanyDetail" data-id="@company.Id" style="margin:5px">Company Detail</button>

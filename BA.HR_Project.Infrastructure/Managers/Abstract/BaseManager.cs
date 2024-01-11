@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BA.HR_Project.Application.DTOs;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace BA.HR_Project.Infrasturucture.Managers.Abstract
 {
@@ -111,6 +112,8 @@ namespace BA.HR_Project.Infrasturucture.Managers.Abstract
             {
                 var entity = _mapper.Map<T>(dto);
                 //await _uow.GetRepository<T>().UpdateAsync(entity);
+
+                
                 _uow.GetRepository<T>().Update(entity);
                 await _uow.SaveChanges();
                  return Response.Success("Updating was successful.");

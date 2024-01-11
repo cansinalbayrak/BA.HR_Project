@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BA.HR_Project.Persistance.Context;
 using BA.HR_Project.Infrasturucture.RequestResponse;
+using Microsoft.EntityFrameworkCore;
 
 namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 {
@@ -50,8 +51,14 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             if (relatedCompany != null) 
             {
                 relatedCompany.EmployeeCount ++;
-                await _uow.GetRepository<Company>().UpdateAsync(relatedCompany);
-                return Response.Success("Update is sucsess");
+                var CompanyDto = _mapper.Map<CompanyDto>(relatedCompany);
+                var updateAction = await Update(CompanyDto);
+                if (updateAction.IsSuccess)
+                {
+                    return Response.Success("Update is sucsess");
+                }
+                
+                
             }
             return Response.Failure("Company can not found!");
         }
@@ -88,10 +95,13 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 
         public List<CompanyCustom> GetAllCompanyCustomColumn()
         {
-            return _appDbContext.Companies
-                        .AsEnumerable() 
+            var data = _appDbContext.Companies
+                        .AsNoTracking()
+                        .AsEnumerable()
                         .Select(c => new CompanyCustom { Id = c.Id.ToString(), CompanyName = c.Name })
                         .ToList();
+            
+            return data;
         }
 
         

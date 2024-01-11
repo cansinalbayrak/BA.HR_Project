@@ -146,8 +146,6 @@ namespace BA.HR_Project.WEB.Areas.Manager.Controllers
             }
             ViewBag.CompanyNames = companyNames;
 
-            
-            
             var manager = await _userManager.GetUserAsync(User);
             if (manager != null) 
             {
