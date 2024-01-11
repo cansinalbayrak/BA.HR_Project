@@ -43,6 +43,18 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 
 
         }
+
+        public async Task<Response> IncreaseCompanyEmployeeCount(string CompanyId)
+        {
+            var relatedCompany = await _uow.GetRepository<Company>().GetByIdAsync(CompanyId);
+            if (relatedCompany != null) 
+            {
+                relatedCompany.EmployeeCount ++;
+                await _uow.GetRepository<Company>().UpdateAsync(relatedCompany);
+                return Response.Success("Update is sucsess");
+            }
+            return Response.Failure("Company can not found!");
+        }
         private bool IsMersisNoOrTaxNoAvailable(string mersisNo, string taxNo, string companyId = null)
         {
             var existingCompany = _appDbContext.Companies.FirstOrDefault(c => (c.MersisNo == mersisNo) || (c.TaxNo == taxNo));

@@ -49,13 +49,13 @@ using (var scope = app.Services.CreateScope())
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
     var RoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
 
-
+    await RoleManager.CreateAsync(new() { Id = Guid.NewGuid().ToString(), Name = "Manager" });
     await RoleManager.CreateAsync(new() { Id = Guid.NewGuid().ToString(), Name = "Admin" });
     await RoleManager.CreateAsync(new() { Id = Guid.NewGuid().ToString(), Name = "Employee" });
 
 
     var adminUser = await userManager.FindByEmailAsync("admin.bilgeadam@bilgeadamboost.com");
-    await userManager.AddToRoleAsync(adminUser, "Admin");
+    await userManager.AddToRoleAsync(adminUser, "Manager");
 }
 
 
@@ -67,7 +67,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection(); 
 
 app.UseExceptionHandler(errorApp =>
 {

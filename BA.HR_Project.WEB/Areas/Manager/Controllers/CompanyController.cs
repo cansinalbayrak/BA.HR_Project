@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BA.HR_Project.WEB.Areas.Manager.Controllers
 {
     [Area("Manager")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Manger")]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyManager;

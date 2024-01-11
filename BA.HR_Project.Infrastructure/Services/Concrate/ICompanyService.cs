@@ -16,5 +16,6 @@ namespace BA.HR_Project.Infrasturucture.Services.Concrate
     {
         List<CompanyCustom> GetAllCompanyCustomColumn();
         public Task<Response> AddCompany(CompanyDto companyDto);
+        public Task<Response> IncreaseCompanyEmployeeCount(string CompanyId);
     }
 }
