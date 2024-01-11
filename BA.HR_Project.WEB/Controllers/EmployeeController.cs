@@ -7,6 +7,7 @@ using BA.HR_Project.Application.DTOs;
 using BA.HR_Project.WEB.Models;
 using BA.HR_Project.WEB.HelperMethods;
 using BA.HR_Project.WEB.ModelValidators;
+using BA.HR_Project.WEB.Areas.Manager.Models;
 
 namespace BA.HR_Project.WEB.Controllers
 {
@@ -111,6 +112,46 @@ namespace BA.HR_Project.WEB.Controllers
                 return RedirectToAction("Index", "Employee");
             }
             return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> MyManager()
+        {
+            var GetEmployee = await _userManager.GetUserAsync(User);
+            List<AppUser> RelatedManagers = new List<AppUser>();
+
+            if (GetEmployee != null)
+            {
+                var AllManagers = await _userManager.GetUsersInRoleAsync("Admin");
+                
+                foreach (var manager in AllManagers) 
+                {
+                    if (manager.CompanyId == GetEmployee.CompanyId)
+                    {
+                        RelatedManagers.Add(manager);
+                    }
+                }
+
+                if (RelatedManagers != null)
+                {
+                    var managerDtos = _mapper.Map<List<ListManagerDto>>(RelatedManagers);
+                    var listManagerVm = _mapper.Map<List<ListManagerViewModel>>(managerDtos);
+
+                    for (int i = 0; i < RelatedManagers.Count; i++)
+                    {
+                        var GetrelatedCompanyName = await _companyManager.GetByIdAsync(RelatedManagers[i].CompanyId);
+                        if (GetrelatedCompanyName.IsSuccess)
+                        {
+                            listManagerVm[i].CompanyName = GetrelatedCompanyName.Context.Name;
+                        }
+                    }
+                    return View(listManagerVm);
+                }
+                return View();
+            }
+            return View();
+
+            
         }
 
 

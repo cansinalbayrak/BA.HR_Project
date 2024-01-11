@@ -17,6 +17,7 @@ namespace BA.HR_Project.WEB.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
 
+        
         public AccountController(IAccountService accountService, UserManager<AppUser> userManager, IMapper mapper)
         {
             _mapper = mapper;

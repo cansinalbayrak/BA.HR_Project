@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "_LayoutEmployeeSide";
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<BA.HR_Project.WEB.Areas.Manager.Models.ListManagerViewModel>
+
+<div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+    @foreach (var item in Model)
+    {
+
+        <div class="row justify-content-center">
+            <div class="card text-center" style="width: 25rem; height: auto; background-color: transparent; border: 1px none #96CBFF;">
+
+
+                <div style="margin-top: 15px;">
+                    <img style="max-width: 100px; max-height: 100px;" src="@item.PhotoPath" alt="User Photo">
+                </div>
+
+                <div class="card-body" style="border-block-end: 3px solid #FF6910;">
+                    <li style="background-color: transparent; border-block-end: 1px solid #96CBFF" class="list-group-item text-light"><label><strong>Company Name:</strong></label> @item.CompanyName</li>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    <li style="background-color: transparent; border-block-end: 1px solid #96CBFF" class="list-group-item text-light"><label><strong>Name:</strong></label> @item.Name @item.SecondName</li>
+                    <li style="background-color: transparent; border-block-end: 1px solid #96CBFF" class="list-group-item text-light"><label><strong>Surname:</strong></label> @item.SurName @item.SecondSurName</li>
+                    <li style="background-color: transparent; border-block-end: 1px solid #96CBFF" class="list-group-item text-light"><label><strong>Email :</strong></label> @item.Email</li>
+                    <li style="background-color: transparent; border-block-end: 1px solid #96CBFF" class="list-group-item text-light"><label><strong>Phone number:</strong></label> @item.PhoneNumber</li>
+
+                </ul>
+
+            </div>
+        </div>
+
+    }
+</div>
+
+
+

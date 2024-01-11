@@ -53,6 +53,7 @@
                                 <a class="nav-link dropdown-toggle customNavbar" href="#" id="operationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Operations </a>
                                 <ul class="dropdown-menu dropboxMenus" aria-labelledby="operationsDropdown">
 
+                                    <li class="scroll-to-section"><a class="customNavbar" asp-area="" asp-controller="Employee" asp-action="MyManager">My Manager</a></li>
 
                                     <li class="nav-item dropdown customNavbar">
                                         <a class="nav-link dropdown-toggle customNavbar" href="#" id="advanceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Advance </a>
@@ -90,46 +91,44 @@
                             </li>
                             }
 
-
-
-                            @if (User.IsInRole("Admin"))
-                            {
-                            <li class="nav-item dropdown customNavbar">
-                                <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go Admin Side </a>
-                                <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
-                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Profile</a></li>
-                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
-                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
-
-
-                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllAdvances">Advance Demands</a></li>
-                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllExpenses">Expense Demands</a></li>
-                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllDayOffs">Day Off Demands</a></li>
-
-                                </ul>
-                            </li>
-                            }
-
-                            @if (User.IsInRole("Manager"))
-                            {
-                            <li class="nav-item dropdown customNavbar">
-                                <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go Manager Side </a>
-                                <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
-                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Manager" asp-action="AddManager">Add Manager</a></li>
-                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Manager" asp-action="ListManager">List Manager</a></li>
-                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Company" asp-action="AddCompany">Add Company</a></li>
-                                    <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Company" asp-action="ListCompany">List Company</a></li>
-
-                                </ul>
-                            </li>
-                            }
-
-
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <li class="nav-item"><a class="nav-link text-light" style="background-color:transparent;">💻 @User.Identity.Name.Split('.')[0]</a></li>
-                                <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="LogOut" class="nav-link text-light">SignOut</a></li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                <li class="nav-item dropdown customNavbar">
+                                    <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go Admin Side </a>
+                                    <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Profile</a></li>
+                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="AddEmployee">Add Employee</a></li>
+                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListEmployee">List Employee</a></li>
+
+
+                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllAdvances">Advance Demands</a></li>
+                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllExpenses">Expense Demands</a></li>
+                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Admin" asp-controller="AdminEmployee" asp-action="ListAllDayOffs">Day Off Demands</a></li>
+
+                                    </ul>
+                                </li>
+                                }
+
+                                @if (User.IsInRole("Manager"))
+                                {
+                                <li class="nav-item dropdown customNavbar">
+                                    <a class="nav-link dropdown-toggle customNavbar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Go Manager Side </a>
+                                    <ul class="dropdown-menu dropboxMenus" aria-labelledby="navbarDropdown">
+                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Manager" asp-action="AddManager">Add Manager</a></li>
+                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Manager" asp-action="ListManager">List Manager</a></li>
+                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Company" asp-action="AddCompany">Add Company</a></li>
+                                        <li class="scroll-to-section"> <a class="customNavbar" asp-area="Manager" asp-controller="Company" asp-action="ListCompany">List Company</a></li>
+
+                                    </ul>
+                                </li>
+                                }
+
+                            <li class="nav-item"><a class="nav-link text-light" style="background-color:transparent;">💻 @User.Identity.Name.Split('.')[0]</a></li>
+                            <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="LogOut" class="nav-link text-light">SignOut</a></li>
                             }
+
                             
 
                             @if (!User.Identity.IsAuthenticated)
