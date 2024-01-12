@@ -9,6 +9,7 @@ namespace BA.HR_Project.WEB.ModelValidators
         {
             RuleFor(e=>e.RequestPrice).NotEmpty().WithMessage("Request price field is required")
                 .GreaterThanOrEqualTo(0).WithMessage("Amount cannot be negative");
+
         }
     }
 }

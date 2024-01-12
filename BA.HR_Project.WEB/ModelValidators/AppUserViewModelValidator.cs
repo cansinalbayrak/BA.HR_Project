@@ -22,11 +22,13 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .MaximumLength(30).WithMessage("Name cannot be more than 30 characters");
             RuleFor(x => x.SecondName)
               .Must(SecondName => string.IsNullOrWhiteSpace(SecondName) || !ContainsTurkishCharacter(SecondName))
-              .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
+              .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters")
+              .MaximumLength(30).WithMessage("SecondName cannot be more than 30 characters");
 
             RuleFor(x => x.SecondSurname)
                 .Must(SecondSurname => string.IsNullOrWhiteSpace(SecondSurname) || !ContainsTurkishCharacter(SecondSurname))
-                .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
+                .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters")
+                .MaximumLength(30).WithMessage("SecondSurname cannot be more than 30 characters");
             RuleFor(x => x.PhotoPath)
                 .NotEmpty().WithMessage("PhotoPath must be provided");
 

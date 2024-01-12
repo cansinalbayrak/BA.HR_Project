@@ -81,9 +81,13 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             {
                 return Response.Failure("Email is already in use by another company.");
             }
-            if (!(userDto.IdentityNumber == userDto.IdentityNumber) && userDto.IsTurkishCitizen == true &&!(userDto.IdentityNumber==null) && !IsIdentityNumberAvailable(userDto.IdentityNumber))
+            if (userDto.IdentityNumber != null && !IsIdentityNumberValid(userDto.IdentityNumber))
             {
-                return Response.Failure("Identity No is already in use by another company.");
+                return Response.Failure("Identity No should 11 digit.");
+            }
+            if (userDto.IdentityNumber != null && !IsIdentityNumberAvailable(userDto.IdentityNumber))
+            {
+                return Response.Failure("Identity No is already in use by another company ");
             }
 
 
@@ -153,15 +157,12 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             //oldUser.NormalizedUserName = (oldUser.UserName).ToUpper();
 
 
-            if (!(oldUser.PhoneNumber == userNewProps.PhoneNumber) && !IsPhoneAvailable(userNewProps.PhoneNumber))
+            if ((oldUser.PhoneNumber != userNewProps.PhoneNumber) && !IsPhoneAvailable(userNewProps.PhoneNumber))
             {
                 return Response<AppUser>.Failure("Phone Number is already in use by another company.");
             }
-            ////if (!IsEmailAvailable(userNewProps.Email))
-            ////{
-            ////    return Response.Failure("Email is already in use by another company.");
-            ////}
-            if (!(oldUser.IdentityNumber == userNewProps.IdentityNumber) && userNewProps.IsTurkishCitizen == true && !IsIdentityNumberAvailable(userNewProps.IdentityNumber))
+
+            if ((oldUser.IdentityNumber != userNewProps.IdentityNumber) && !IsIdentityNumberAvailable(userNewProps.IdentityNumber))
             {
                 return Response<AppUser>.Failure("Identity No is already in use by another company.");
             }
@@ -211,7 +212,10 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             return html;
 
         }
-
+        private bool IsIdentityNumberValid(string identityNumber)
+        {
+            return identityNumber.Length == 11 && identityNumber.All(char.IsDigit);
+        }
         public async Task<Response> AddManager(AppUserDto managerDto)
         {
            var newManager = _mapper.Map<AppUser>(managerDto);
@@ -236,17 +240,22 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             newManager.UserName = newManager.Email;
             newManager.Id = Guid.NewGuid().ToString();
 
+
             if (!IsPhoneAvailable(managerDto.PhoneNumber))
             {
                 return Response.Failure("Phone Number is already in use by another company.");
             }
             if (!IsEmailAvailable(managerDto.Email))
             {
-                return Response.Failure("Email is already in use by another company.");
+                return Response.Failure("Email is already in use by another company. Enter other Name or Surname");
             }
-            if (!(managerDto.IdentityNumber == managerDto.IdentityNumber) && managerDto.IsTurkishCitizen == true && !IsIdentityNumberAvailable(managerDto.IdentityNumber))
+            if (managerDto.IdentityNumber != null && !IsIdentityNumberValid(managerDto.IdentityNumber))
             {
-                return Response.Failure("Identity No is already in use by another company.");
+                return Response.Failure("Identity No should 11 digit.");
+            }
+            if (managerDto.IdentityNumber!=null && !IsIdentityNumberAvailable(managerDto.IdentityNumber))
+            {
+                return Response.Failure("Identity No is already in use by another company ");
             }
 
             newManager.DepartmentId = "SeedDepartment1";
@@ -272,12 +281,17 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             var oldUser = await _userManager.FindByIdAsync(userNewProps.Id);
 
 
-            if (!(oldUser.PhoneNumber == userNewProps.PhoneNumber) && !IsPhoneAvailable(userNewProps.PhoneNumber))
+            if ((oldUser.PhoneNumber != userNewProps.PhoneNumber) && !IsPhoneAvailable(userNewProps.PhoneNumber))
             {
                 return Response<AppUser>.Failure("Phone Number is already in use by another company.");
             }
 
-            if (!(oldUser.IdentityNumber == userNewProps.IdentityNumber) && userNewProps.IsTurkishCitizen == true && !IsIdentityNumberAvailable(userNewProps.IdentityNumber))
+            if (userNewProps.IdentityNumber != null && !IsIdentityNumberValid(userNewProps.IdentityNumber))
+            {
+                return Response< AppUser >.Failure("Identity No should 11 digit.");
+            }
+
+            if ((oldUser.IdentityNumber != userNewProps.IdentityNumber)  && !IsIdentityNumberAvailable(userNewProps.IdentityNumber))
             {
                 return Response<AppUser>.Failure("Identity No is already in use by another company.");
             }
