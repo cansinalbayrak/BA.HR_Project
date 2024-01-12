@@ -182,6 +182,13 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var deniedAdvances = allAdvancesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();
 
             var advancesVm = _mapper.Map<List<AdvanceViewModel>>(waitingAdvances);
+            foreach (var item in advancesVm)
+            {
+                var user = await _userManager.FindByIdAsync(item.AppUserId);
+                var userName = user.Name + " " + user.Surname;
+                ViewBag.UserName = userName;
+            }
+            
             ViewBag.AllAdvances = allAdvancesDto;
             ViewBag.ApprovedAdvances = approvedAdvances;
             ViewBag.DeniedAdvances = deniedAdvances;
@@ -206,6 +213,12 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var denied = allExpensesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();
 
             var expensesVm = _mapper.Map<List<ExpenseViewModel>>(waiting);
+            foreach (var item in expensesVm)
+            {
+                var user = await _userManager.FindByIdAsync(item.AppUserId);
+                var userName = user.Name + " " + user.Surname;
+                ViewBag.UserName = userName;
+            }
             ViewBag.AllExpenses = allExpensesDto;
             ViewBag.ApprovedExpenses = approved;
             ViewBag.DeniedExpenses = denied;
@@ -229,6 +242,12 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var denied = allDayOffsDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();
 
             var dayOffsVm = _mapper.Map<List<DayOffViewModel>>(waiting);
+            foreach (var item in dayOffsVm)
+            {
+                var user = await _userManager.FindByIdAsync(item.AppUserId);
+                var userName = user.Name + " " + user.Surname;
+                ViewBag.UserName = userName;
+            }
             ViewBag.AllDayOffs = allDayOffsDto;
             ViewBag.ApprovedDayOffs = approved;
             ViewBag.DeniedDayOffs = denied;

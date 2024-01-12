@@ -17,6 +17,7 @@
     <table class="table text-light" id="WaitingTable">
         <thead>
             <tr>
+                <th>Employee Name</th>
                 <th>Day Off Type</th>
                 <th>Start Date</th>
                 <th>Finish Date</th>
@@ -30,6 +31,7 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>@ViewBag.UserName</td>
                     <td>@item.DayOffType.ToString()</td>
                     <td>@item.StartDate</td>
                     <td>@item.FinishDate</td>
@@ -58,6 +60,7 @@
         <table class="table text-light" id="ApprovedTable">
             <thead>
                 <tr>
+                    <th>Employee Name</th>
                     <th>Day Off Type</th>
                     <th>Start Date</th>
                     <th>Finish Date</th>
@@ -71,6 +74,7 @@
                 @foreach (var item in ViewBag.ApprovedDayOffs)
                 {
                     <tr>
+                        <td>@ViewBag.UserName</td>
                         <td>@item.DayOffType.ToString()</td>
                         <td>@item.StartDate</td>
                         <td>@item.FinishDate</td>
@@ -92,6 +96,7 @@
         <table class="table text-light" id="DeniedTable">
             <thead>
                 <tr>
+                    <th>Employee Name</th>
                     <th>Day Off Type</th>
                     <th>Start Date</th>
                     <th>Finish Date</th>
@@ -106,6 +111,7 @@
                 @foreach (var item in ViewBag.DeniedDayOffs)
                 {
                     <tr>
+                        <td>@ViewBag.UserName</td>
                         <td>@item.DayOffType.ToString()</td>
                         <td>@item.StartDate</td>
                         <td>@item.FinishDate</td>
@@ -126,6 +132,7 @@
         <table class="table text-light" id="AllTable">
             <thead>
                 <tr>
+                    <th>Employee Name</th>
                     <th>Day Off Type</th>
                     <th>Start Date</th>
                     <th>Finish Date</th>
@@ -140,6 +147,7 @@
                 @foreach (var item in ViewBag.AllDayOffs)
                 {
                     <tr>
+                        <td>@ViewBag.UserName</td>
                         <td>@item.DayOffType.ToString()</td>
                         <td>@item.StartDate</td>
                         <td>@item.FinishDate</td>
