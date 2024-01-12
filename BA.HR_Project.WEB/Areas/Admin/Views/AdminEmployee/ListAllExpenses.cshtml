@@ -21,7 +21,6 @@
                 <th>Request Price</th>
                 <th>Currency</th>
                 <th>Request Date</th>
-                <th>Response Date</th>
                 <th>File</th>
                 <th>Confirm Status</th>
                 <th>Actions</th>
@@ -35,8 +34,9 @@
                     <td>@item.RequestPrice</td>
                     <td>@item.Currency.ToString()</td>
                     <td>@item.RequestDate</td>
-                    <td>@item.ReplyDate</td>
-                    <td><img src="@item.FilePath" width="50" height="50"/></td>
+                    <td>
+                        <a href="@Url.Content(item.FilePath)" target="_blank">View File</a>
+                    </td>
                     <td>@item.ConfirmStatus.ToString()</td>
                     <td>
                         <div style="display:flex">
@@ -78,7 +78,7 @@
                         <td>@item.Currency.ToString()</td>
                         <td>@item.RequestDate</td>
                         <td>@item.ReplyDate</td>
-                        <td><img src="@item.FilePath" width="50" height="50"  /></td>
+                        <td> <a href="@Url.Content(item.FilePath)" target="_blank">View File</a></td>
                         <td>@item.ConfirmStatus.ToString()</td>
                         
 
@@ -113,7 +113,7 @@
                         <td>@item.Currency.ToString()</td>
                         <td>@item.RequestDate</td>
                         <td>@item.ReplyDate</td>
-                        <td><img src="@item.FilePath" width="50" height="50" /></td>
+                        <td> <a href="@Url.Content(item.FilePath)" target="_blank">View File</a></td>
                         <td>@item.ConfirmStatus.ToString()</td>
                        
                     </tr>
@@ -147,10 +147,8 @@
                         <td>@item.Currency.ToString()</td>
                         <td>@item.RequestDate</td>
                         <td>@item.ReplyDate</td>
-                        <td><img src="@item.FilePath" width="50" height="50" /></td>
+                        <td> <a href="@Url.Content(item.FilePath)" target="_blank">View File</a></td>
                         <td>@item.ConfirmStatus.ToString()</td>
-                       
-
                     </tr>
 
                 }
@@ -181,7 +179,5 @@
     document.addEventListener("DOMContentLoaded", function () {
         showExpenses('Waiting');
     });
-
-   
 </script>
 
