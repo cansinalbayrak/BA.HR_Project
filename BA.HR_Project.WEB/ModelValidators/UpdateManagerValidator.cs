@@ -1,5 +1,6 @@
 ﻿using BA.HR_Project.WEB.Areas.Manager.Models;
 using FluentValidation;
+using System.Text.RegularExpressions;
 
 namespace BA.HR_Project.WEB.ModelValidators
 {
@@ -41,6 +42,46 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .Must(file => file == null || IsAllowedImageFile(file))
                 .WithMessage("Invalid file format. Please choose a valid image file (jpeg, jpg or png).")
                 .When(x => !x.UseExistingPhoto);
+            RuleFor(x => x.IsTurkishCitizen)
+                 .Must((model, isTurkishCitizen) => !isTurkishCitizen || IsValidTurkishIdentityNumberOrTcNo(model.IdentityNumber, isTurkishCitizen))
+                 .WithMessage("Invalid Turkish Identity Number or T.C. should be true");
+        }
+        private bool IsValidTurkishIdentityNumberOrTcNo(string identityNumber, bool isTurkishCitizen)
+        {
+            if (!isTurkishCitizen)
+            {
+                return true;
+            }
+
+            return IsValidKimlikNo(identityNumber);
+        }
+
+        private bool IsValidKimlikNo(string kimlikNo)
+        {
+            if (kimlikNo == null)
+            {
+                return false;
+            }
+            if (kimlikNo.Length != 11 || !Regex.IsMatch(kimlikNo, @"^\d+$") || kimlikNo[0] == '0')
+            {
+                return false;
+            }
+
+            int[] digits = kimlikNo.Select(c => Convert.ToInt32(c.ToString())).ToArray();
+
+            int oddSum = digits[0] + digits[2] + digits[4] + digits[6] + digits[8];
+            int evenSum = digits[1] + digits[3] + digits[5] + digits[7];
+
+            int total = (oddSum * 7 - evenSum) % 10;
+
+            if (digits[9] != total)
+            {
+                return false;
+            }
+
+            int total2 = (oddSum + evenSum + digits[9]) % 10;
+
+            return digits[10] == total2;
         }
         private bool IsAllowedImageFile(IFormFile file)
         {
