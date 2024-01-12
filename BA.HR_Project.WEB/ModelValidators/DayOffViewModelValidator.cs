@@ -21,6 +21,9 @@ namespace BA.HR_Project.WEB.ModelValidators
                 .GreaterThan(x => x.StartDate)
                 .WithMessage("Finish date must be greater than start date.")
                 .When(x => x.StartDate != null);  // FinishDate sadece StartDate dolu olduğunda kontrol edilsin.
+            RuleFor(x => x.Description)
+                .NotEmpty().WithMessage("Description field is required")
+                .MaximumLength(80).WithMessage("Description cannot be more than 80 characters");
         }
 
         private bool BeInCurrentYear(DateTime startDate)
