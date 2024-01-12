@@ -11,9 +11,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BA.HR_Project.WEB.Controllers
+namespace BA.HR_Project.WEB.Areas.Employee.Controllers
 {
-    [Authorize(Roles = ("Employee,Admin"))]
+    [Area("Employee")]
+    [Authorize(Roles = "Employee,Admin")]
     public class AdvanceController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -46,7 +47,7 @@ namespace BA.HR_Project.WEB.Controllers
             var validator = new AdvanceViewModelValidator();
             var validationResult = await validator.ValidateAsync(vm);
 
-            
+
 
             if (!validationResult.IsValid)
             {
@@ -72,9 +73,9 @@ namespace BA.HR_Project.WEB.Controllers
         {
             var userId = _userManager.GetUserId(User);
             var allAdvancesDto = await _advanceService.GetAllAvance(userId);
-            var waitingAdvances = allAdvancesDto.Where(x=>x.ConfirmStatus == ConfirmStatus.Waiting).OrderBy(x => x.RequestDate).ToList();
-            var approvedAdvances = allAdvancesDto.Where(x=>x.ConfirmStatus == ConfirmStatus.Approved).OrderBy(x => x.RequestDate).ToList();
-            var deniedAdvances = allAdvancesDto.Where(x=>x.ConfirmStatus == ConfirmStatus.Denied).OrderBy(x => x.RequestDate).ToList();
+            var waitingAdvances = allAdvancesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Waiting).OrderBy(x => x.RequestDate).ToList();
+            var approvedAdvances = allAdvancesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Approved).OrderBy(x => x.RequestDate).ToList();
+            var deniedAdvances = allAdvancesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).OrderBy(x => x.RequestDate).ToList();
 
             var advancesVm = _mapper.Map<List<AdvanceViewModel>>(allAdvancesDto);
             ViewBag.WaitingAdvances = waitingAdvances;

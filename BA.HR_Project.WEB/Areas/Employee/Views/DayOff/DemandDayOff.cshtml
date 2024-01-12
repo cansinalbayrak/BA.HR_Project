@@ -20,7 +20,7 @@
         <p>@ViewBag.ErrorMessages</p>
     </div>
 }
-<form asp-controller="DayOff" asp-action="DemandDayOff" method="post">
+<form asp-area="Employee" asp-controller="DayOff" asp-action="DemandDayOff" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group">

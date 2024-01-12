@@ -14,9 +14,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
-namespace BA.HR_Project.WEB.Controllers
+namespace BA.HR_Project.WEB.Areas.Employee.Controllers
 {
-    [Authorize(Roles = ("Employee,Admin"))]
+    [Area("Employee")]
+    [Authorize(Roles = "Employee,Admin")]
     public class DayOffController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -111,7 +112,7 @@ namespace BA.HR_Project.WEB.Controllers
 
         }
 
-    
+
 
     }
 }

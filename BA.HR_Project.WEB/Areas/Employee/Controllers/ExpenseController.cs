@@ -11,9 +11,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BA.HR_Project.WEB.Controllers
+namespace BA.HR_Project.WEB.Areas.Employee.Controllers
 {
-    [Authorize(Roles = ("Employee,Admin"))]
+    [Area("Employee")]
+    [Authorize(Roles = "Employee,Admin")]
     public class ExpenseController : Controller
     {
         private readonly IExpenseTypeService _expenseTypeService;
@@ -38,15 +39,15 @@ namespace BA.HR_Project.WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> RequestExpense()
         {
-            List<ExpenseTypeCustom>  allExpenseTypes = _expenseTypeService.GetAllCustomColumn();
+            List<ExpenseTypeCustom> allExpenseTypes = _expenseTypeService.GetAllCustomColumn();
             List<string> expenseNames = new List<string>();
             for (int i = 0; i < allExpenseTypes.Count; i++)
             {
-                expenseNames.Add(allExpenseTypes[i].Name+ "/" + allExpenseTypes[i].Id);
+                expenseNames.Add(allExpenseTypes[i].Name + "/" + allExpenseTypes[i].Id);
             }
 
             ViewBag.ExpenseTypes = expenseNames;
-           
+
 
             //var selectedItem = allExpenseTypes.FirstOrDefault();
             //if (selectedItem != null)
@@ -109,37 +110,37 @@ namespace BA.HR_Project.WEB.Controllers
                 return View(model);
 
             }
-            else 
+            else
             {
                 ViewBag.FileError = "File type is not correct";
                 return View(model);
             }
-            
-          
-           
 
-           
-           
-           
 
-            
+
+
+
+
+
+
+
         }
-        public async Task<IActionResult> ExpenseList() 
+        public async Task<IActionResult> ExpenseList()
         {
             var userId = _userManager.GetUserId(User);
             var AllExpenseDto = await _expsenseService.GetAllExpenses(userId);
-            var waitingExpenses = AllExpenseDto.Where(e=>e.ConfirmStatus==ConfirmStatus.Waiting).OrderBy(e=>e.RequestDate).ToList();
-            var dinedExpenses = AllExpenseDto.Where(e=>e.ConfirmStatus==ConfirmStatus.Denied).OrderBy(e=>e.RequestDate).ToList();
-            var approvedExpenses = AllExpenseDto.Where(e=>e.ConfirmStatus==ConfirmStatus.Approved).OrderBy(e=>e.RequestDate).ToList();
+            var waitingExpenses = AllExpenseDto.Where(e => e.ConfirmStatus == ConfirmStatus.Waiting).OrderBy(e => e.RequestDate).ToList();
+            var dinedExpenses = AllExpenseDto.Where(e => e.ConfirmStatus == ConfirmStatus.Denied).OrderBy(e => e.RequestDate).ToList();
+            var approvedExpenses = AllExpenseDto.Where(e => e.ConfirmStatus == ConfirmStatus.Approved).OrderBy(e => e.RequestDate).ToList();
 
 
             var expenseVm = _mapper.Map<List<ExpenseViewModel>>(AllExpenseDto);
-            ViewBag.WaitingExpenses= waitingExpenses;
-            ViewBag.DinedExpenses= dinedExpenses;
-            ViewBag.AprroveExpenses= approvedExpenses;
+            ViewBag.WaitingExpenses = waitingExpenses;
+            ViewBag.DinedExpenses = dinedExpenses;
+            ViewBag.AprroveExpenses = approvedExpenses;
             return View(expenseVm);
-        
-        
+
+
         }
 
 
