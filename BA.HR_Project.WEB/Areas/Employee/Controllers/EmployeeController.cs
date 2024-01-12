@@ -10,9 +10,10 @@ using BA.HR_Project.WEB.ModelValidators;
 using BA.HR_Project.WEB.Areas.Manager.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace BA.HR_Project.WEB.Controllers
+namespace BA.HR_Project.WEB.Areas.Employee.Controllers
 {
-    [Authorize(Roles = ("Employee,Admin"))]
+    [Area("Employee")]
+    [Authorize(Roles = "Employee,Admin")]
     public class EmployeeController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -97,18 +98,18 @@ namespace BA.HR_Project.WEB.Controllers
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
                 var us = await _userManager.GetUserAsync(User);
-                vm.PhotoPath = us.PhotoPath;  
+                vm.PhotoPath = us.PhotoPath;
                 return View(vm);
             }
 
-            var photoPath = await HelperMethods.ImageHelper.SaveImageFile(vm.Photo);
+            var photoPath = await ImageHelper.SaveImageFile(vm.Photo);
             vm.PhotoPath = photoPath;
 
             var userNewPropsDto = _mapper.Map<AppUserUpdateForEmployeeDto>(vm);
             var userNewProps = _mapper.Map<AppUser>(userNewPropsDto);
 
             var newUser = await _appUserManager.UpdateAppUser(userNewProps);
-            
+
             if (newUser != null)
             {
                 return RedirectToAction("Index", "Employee");
@@ -125,8 +126,8 @@ namespace BA.HR_Project.WEB.Controllers
             if (GetEmployee != null)
             {
                 var AllManagers = await _userManager.GetUsersInRoleAsync("Admin");
-                
-                foreach (var manager in AllManagers) 
+
+                foreach (var manager in AllManagers)
                 {
                     if (manager.CompanyId == GetEmployee.CompanyId)
                     {
@@ -153,7 +154,7 @@ namespace BA.HR_Project.WEB.Controllers
             }
             return View();
 
-            
+
         }
 
 
