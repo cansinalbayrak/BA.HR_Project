@@ -60,7 +60,7 @@
 
     <div class="form-group">
         <label class="custom-select" asp-for="RequestPrice">Request Price</label>
-        <input asp-for="RequestPrice" class="form-control custom-select" type="number" placeholder="Request Price"></input>
+        <input asp-for="RequestPrice" class="form-control custom-select" type="number" step="0,01" placeholder="Request Price"></input>
         <span asp-validation-for="RequestPrice" class="text-danger"></span>
 
     </div>

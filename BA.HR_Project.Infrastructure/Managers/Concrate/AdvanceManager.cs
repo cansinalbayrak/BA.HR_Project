@@ -49,7 +49,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                     }
                     else
                     {
-                        return Response.Failure("The individual advance amount has exceeded the upper limit. Please note that the individual advance amount cannot exceed 3 salaries and the corporate advance amount has an upper limit.");
+                        return Response.Failure("The advance amount has exceeded the upper limit. Please note that the  advance amount cannot exceed 3 salaries and the corporate advance amount has an upper limit.");
                     }
                 }
                 else if(dto.Currency == Currency.USD)
@@ -64,7 +64,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                     }
                     else
                     {
-                        return Response.Failure("The individual advance amount has exceeded the upper limit. Please note that the amount of an individual advance cannot exceed the amount of 3 salaries and the corporate advance amount has an upper limit.");
+                        return Response.Failure("The advance amount has exceeded the upper limit. Please note that the amount of an  advance cannot exceed the amount of 3 salaries and the corporate advance amount has an upper limit.");
                     }
                 }
                 else if (dto.Currency == Currency.EUR)
@@ -79,7 +79,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
                     }
                     else
                     {
-                        return Response.Failure("The individual advance amount has exceeded the upper limit. Please note that the amount of an individual advance cannot exceed the amount of 3 salaries and the corporate advance amount has an upper limit.");
+                        return Response.Failure("The advance amount has exceeded the upper limit. Please note that the amount of an  advance cannot exceed the amount of 3 salaries and the corporate advance amount has an upper limit.");
                     }
                 }
             }
