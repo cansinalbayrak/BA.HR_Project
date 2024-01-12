@@ -23,11 +23,13 @@ namespace BA.HR_Project.WEB.ModelValidators
 
             RuleFor(x => x.SecondName)
               .Must(SecondName => string.IsNullOrWhiteSpace(SecondName) || !ContainsTurkishCharacter(SecondName))
-              .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
+              .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters")
+              .MaximumLength(30).WithMessage("SecondName cannot be more than 30 characters");
 
             RuleFor(x => x.SecondSurname)
                 .Must(SecondSurname => string.IsNullOrWhiteSpace(SecondSurname) || !ContainsTurkishCharacter(SecondSurname))
-                .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters");
+                .WithMessage("Surname can be empty, but if provided, it must contain Turkish characters")
+                .MaximumLength(30).WithMessage("SecondSurname cannot be more than 30 characters");
             //       RuleFor(x => x.Email)
             //.NotEmpty().WithMessage("Email must be provided")
             //.Must(BeValidEmail).WithMessage("Invalid email address format. It should end with @bilgeadamboost.com");

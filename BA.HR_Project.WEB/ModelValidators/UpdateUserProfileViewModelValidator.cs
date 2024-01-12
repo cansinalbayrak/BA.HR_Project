@@ -12,7 +12,8 @@ namespace BA.HR_Project.WEB.ModelValidators
            .Matches("^[0-9]{10}$").WithMessage("PhoneNumber must be a 10-digit numeric value");
 
             RuleFor(x => x.Adress)
-                .NotEmpty().WithMessage("Address must be provided");
+                .NotEmpty().WithMessage("Address must be provided")
+                .MaximumLength(80).WithMessage("Adress cannot be more than 80 characters");
 
             RuleFor(x => x.Photo)
         .Must((model, photo) =>
