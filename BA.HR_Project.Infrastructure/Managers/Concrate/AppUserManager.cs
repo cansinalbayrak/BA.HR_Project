@@ -75,11 +75,11 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 
             if (!IsPhoneAvailable(userDto.PhoneNumber))
             {
-                return Response.Failure("Phone Number is already in use by another company.");
+                return Response.Failure("Phone Number is already in use by another User.");
             }
             if (!IsEmailAvailable(userDto.Email))
             {
-                return Response.Failure("Email is already in use by another company.");
+                return Response.Failure("Email is already in use by another User.");
             }
             if (userDto.IdentityNumber != null && !IsIdentityNumberValid(userDto.IdentityNumber))
             {
@@ -87,7 +87,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             }
             if (userDto.IdentityNumber != null && !IsIdentityNumberAvailable(userDto.IdentityNumber))
             {
-                return Response.Failure("Identity No is already in use by another company ");
+                return Response.Failure("Identity No is already in use by another User ");
             }
 
 
@@ -159,12 +159,16 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 
             if ((oldUser.PhoneNumber != userNewProps.PhoneNumber) && !IsPhoneAvailable(userNewProps.PhoneNumber))
             {
-                return Response<AppUser>.Failure("Phone Number is already in use by another company.");
+                return Response<AppUser>.Failure("Phone Number is already in use by another User.");
             }
 
             if ((oldUser.IdentityNumber != userNewProps.IdentityNumber) && !IsIdentityNumberAvailable(userNewProps.IdentityNumber))
             {
-                return Response<AppUser>.Failure("Identity No is already in use by another company.");
+                return Response<AppUser>.Failure("Identity No is already in use by another User.");
+            }
+            if (userNewProps.IdentityNumber != null && !IsIdentityNumberValid(userNewProps.IdentityNumber))
+            {
+                return Response<AppUser>.Failure("Identity No should 11 digit.");
             }
             _mapper.Map(userNewProps, oldUser);
             var updateAction = await _userManager.UpdateAsync(oldUser);
@@ -243,11 +247,11 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 
             if (!IsPhoneAvailable(managerDto.PhoneNumber))
             {
-                return Response.Failure("Phone Number is already in use by another company.");
+                return Response.Failure("Phone Number is already in use by another Manager.");
             }
             if (!IsEmailAvailable(managerDto.Email))
             {
-                return Response.Failure("Email is already in use by another company. Enter other Name or Surname");
+                return Response.Failure("Email is already in use by another Manager. Enter other Name or Surname");
             }
             if (managerDto.IdentityNumber != null && !IsIdentityNumberValid(managerDto.IdentityNumber))
             {
@@ -255,7 +259,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
             }
             if (managerDto.IdentityNumber!=null && !IsIdentityNumberAvailable(managerDto.IdentityNumber))
             {
-                return Response.Failure("Identity No is already in use by another company ");
+                return Response.Failure("Identity No is already in use by another Personal ");
             }
 
             newManager.DepartmentId = "SeedDepartment1";
@@ -283,7 +287,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 
             if ((oldUser.PhoneNumber != userNewProps.PhoneNumber) && !IsPhoneAvailable(userNewProps.PhoneNumber))
             {
-                return Response<AppUser>.Failure("Phone Number is already in use by another company.");
+                return Response<AppUser>.Failure("Phone Number is already in use by another Personal.");
             }
 
             if (userNewProps.IdentityNumber != null && !IsIdentityNumberValid(userNewProps.IdentityNumber))
@@ -293,7 +297,7 @@ namespace BA.HR_Project.Infrasturucture.Managers.Concrate
 
             if ((oldUser.IdentityNumber != userNewProps.IdentityNumber)  && !IsIdentityNumberAvailable(userNewProps.IdentityNumber))
             {
-                return Response<AppUser>.Failure("Identity No is already in use by another company.");
+                return Response<AppUser>.Failure("Identity No is already in use by another Personal.");
             }
             _mapper.Map(userNewProps, oldUser);
             var updateAction = await _userManager.UpdateAsync(oldUser);
