@@ -31,7 +31,7 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@ViewBag.UserName</td>
+                    <td>@ViewBag.NameForWaiting[Model.IndexOf(item)]</td>
                     <td>@item.ExpenseName</td>
                     <td>@item.RequestPrice</td>
                     <td>@item.Currency.ToString()</td>
@@ -76,7 +76,7 @@
                 @foreach (var item in ViewBag.ApprovedExpenses)
                 {
                     <tr>
-                        <td>@ViewBag.UserName</td>
+                        <td>@ViewBag.NameForApproved[ViewBag.ApprovedExpenses.IndexOf(item)]</td>
                         <td>@item.ExpenseName</td>
                         <td>@item.RequestPrice</td>
                         <td>@item.Currency.ToString()</td>
@@ -113,7 +113,7 @@
                 @foreach (var item in ViewBag.DeniedExpenses)
                 {
                     <tr>
-                        <td>@ViewBag.UserName</td>
+                        <td>@ViewBag.NameForDenied[ViewBag.DeniedExpenses.IndexOf(item)]</td>
                         <td>@item.ExpenseName</td>
                         <td>@item.RequestPrice</td>
                         <td>@item.Currency.ToString()</td>
@@ -149,7 +149,7 @@
                 @foreach (var item in ViewBag.AllExpenses)
                 {
                     <tr>
-                        <td>@ViewBag.UserName</td>
+                        <td>@ViewBag.NameForAll[ViewBag.AllExpenses.IndexOf(item)]</td>
                         <td>@item.ExpenseName</td>
                         <td>@item.RequestPrice</td>
                         <td>@item.Currency.ToString()</td>

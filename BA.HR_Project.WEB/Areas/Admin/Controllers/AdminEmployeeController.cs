@@ -18,6 +18,7 @@ using NuGet.Packaging.Signing;
 using BA.HR_Project.WEB.HelperMethods;
 using BA.HR_Project.Domain.Enums;
 using BA.HR_Project.Infrastructure.Services.Concrate;
+using System.Xml.Linq;
 
 namespace BA.HR_Project.WEB.Areas.Admin.Controllers
 {
@@ -182,13 +183,47 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var deniedAdvances = allAdvancesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();
 
             var advancesVm = _mapper.Map<List<AdvanceViewModel>>(waitingAdvances);
-            foreach (var item in advancesVm)
+
+            List<string> userNamesDenied = new List<string>();
+            foreach (var expenseDto in deniedAdvances)
             {
-                var user = await _userManager.FindByIdAsync(item.AppUserId);
-                var userName = user.Name + " " + user.Surname;
-                ViewBag.UserName = userName;
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForDenied = user?.Name + " " + user?.Surname;
+                userNamesDenied.Add(nameForDenied);
+
             }
-            
+            ViewBag.NameForDenied = userNamesDenied;
+
+            List<string> userNamesApproved = new List<string>();
+            foreach (var expenseDto in approvedAdvances)
+            {
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForApproved = user?.Name + " " + user?.Surname;
+                userNamesApproved.Add(nameForApproved);
+
+            }
+            ViewBag.NameForApproved = userNamesApproved;
+
+            List<string> userNamesWaiting = new List<string>();
+            foreach (var expenseDto in waitingAdvances)
+            {
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForWaiting = user?.Name + " " + user?.Surname;
+                userNamesWaiting.Add(nameForWaiting);
+
+            }
+            ViewBag.NameForWaiting = userNamesWaiting;
+
+            List<string> userNamesAll = new List<string>();
+            foreach (var expenseDto in allAdvancesDto)
+            {
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForAll = user?.Name + " " + user?.Surname;
+                userNamesAll.Add(nameForAll);
+
+            }
+            ViewBag.NameForAll = userNamesAll;
+
             ViewBag.AllAdvances = allAdvancesDto;
             ViewBag.ApprovedAdvances = approvedAdvances;
             ViewBag.DeniedAdvances = deniedAdvances;
@@ -213,12 +248,47 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var denied = allExpensesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();
 
             var expensesVm = _mapper.Map<List<ExpenseViewModel>>(waiting);
-            foreach (var item in expensesVm)
+
+            List<string> userNamesDenied = new List<string>();
+            foreach (var expenseDto in denied)
             {
-                var user = await _userManager.FindByIdAsync(item.AppUserId);
-                var userName = user.Name + " " + user.Surname;
-                ViewBag.UserName = userName;
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForDenied = user?.Name + " " + user?.Surname;
+                userNamesDenied.Add(nameForDenied);
+                
             }
+            ViewBag.NameForDenied = userNamesDenied;
+
+            List<string> userNamesApproved = new List<string>();
+            foreach (var expenseDto in approved)
+            {
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForApproved = user?.Name + " " + user?.Surname;
+                userNamesApproved.Add(nameForApproved);
+
+            }
+            ViewBag.NameForApproved = userNamesApproved;
+
+            List<string> userNamesWaiting = new List<string>();
+            foreach (var expenseDto in waiting)
+            {
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForWaiting = user?.Name + " " + user?.Surname;
+                userNamesWaiting.Add(nameForWaiting);
+
+            }
+            ViewBag.NameForWaiting = userNamesWaiting;
+
+            List<string> userNamesAll = new List<string>();
+            foreach (var expenseDto in allExpensesDto)
+            {
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForAll = user?.Name + " " + user?.Surname;
+                userNamesAll.Add(nameForAll);
+
+            }
+            ViewBag.NameForAll = userNamesAll;
+
             ViewBag.AllExpenses = allExpensesDto;
             ViewBag.ApprovedExpenses = approved;
             ViewBag.DeniedExpenses = denied;
@@ -242,12 +312,47 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
             var denied = allDayOffsDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();
 
             var dayOffsVm = _mapper.Map<List<DayOffViewModel>>(waiting);
-            foreach (var item in dayOffsVm)
+
+            List<string> userNamesDenied = new List<string>();
+            foreach (var expenseDto in denied)
             {
-                var user = await _userManager.FindByIdAsync(item.AppUserId);
-                var userName = user.Name + " " + user.Surname;
-                ViewBag.UserName = userName;
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForDenied = user?.Name + " " + user?.Surname;
+                userNamesDenied.Add(nameForDenied);
+
             }
+            ViewBag.NameForDenied = userNamesDenied;
+
+            List<string> userNamesApproved = new List<string>();
+            foreach (var expenseDto in approved)
+            {
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForApproved = user?.Name + " " + user?.Surname;
+                userNamesApproved.Add(nameForApproved);
+
+            }
+            ViewBag.NameForApproved = userNamesApproved;
+
+            List<string> userNamesWaiting = new List<string>();
+            foreach (var expenseDto in waiting)
+            {
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForWaiting = user?.Name + " " + user?.Surname;
+                userNamesWaiting.Add(nameForWaiting);
+
+            }
+            ViewBag.NameForWaiting = userNamesWaiting;
+
+            List<string> userNamesAll = new List<string>();
+            foreach (var expenseDto in allDayOffsDto)
+            {
+                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
+                var nameForAll = user?.Name + " " + user?.Surname;
+                userNamesAll.Add(nameForAll);
+
+            }
+            ViewBag.NameForAll = userNamesAll;
+
             ViewBag.AllDayOffs = allDayOffsDto;
             ViewBag.ApprovedDayOffs = approved;
             ViewBag.DeniedDayOffs = denied;
