@@ -66,11 +66,16 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
 
 
         }
-        public async Task<List<ExpenseDto>> AllUserExpense()
+        public async Task<List<ExpenseDto>> AllUserExpense(string userId)
         {
-            var expensesAction = await GetAll();
-            var userExpenses = expensesAction.Context.OrderBy(x => x.RequestDate).ToList();
-            return userExpenses;
+            var managerUser = await _userManager.FindByIdAsync(userId);
+            var managerCompanyId = managerUser.CompanyId;
+
+            var expenses = await _uow.GetRepository<Expense>().GetAllAsync(true, x => x.AppUser.CompanyId == managerCompanyId, x => x.AppUser);
+            var orderedExpenses = expenses.OrderBy(x => x.RequestDate).ToList();
+            var expenseDtos = _mapper.Map<List<ExpenseDto>>(orderedExpenses);
+
+            return expenseDtos;
         }
         public async Task<Response> ApprovedExpense(string id)
         {

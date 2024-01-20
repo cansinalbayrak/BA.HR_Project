@@ -31,7 +31,7 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@ViewBag.NameForWaiting[Model.IndexOf(item)]</td>
+                    <td>@item.AppUser.Name @item.AppUser.Surname</td>
                     <td>@item.DayOffType.ToString()</td>
                     <td>@item.StartDate</td>
                     <td>@item.FinishDate</td>
@@ -74,7 +74,7 @@
                 @foreach (var item in ViewBag.ApprovedDayOffs)
                 {
                     <tr>
-                        <td>@ViewBag.NameForApproved[ViewBag.ApprovedDayOffs.IndexOf(item)]</td>
+                        <td>@item.AppUser.Name @item.AppUser.Surname</td>
                         <td>@item.DayOffType.ToString()</td>
                         <td>@item.StartDate</td>
                         <td>@item.FinishDate</td>
@@ -111,7 +111,7 @@
                 @foreach (var item in ViewBag.DeniedDayOffs)
                 {
                     <tr>
-                        <td>@ViewBag.NameForDenied[ViewBag.DeniedDayOffs.IndexOf(item)]</td>
+                        <td>@item.AppUser.Name @item.AppUser.Surname</td>
                         <td>@item.DayOffType.ToString()</td>
                         <td>@item.StartDate</td>
                         <td>@item.FinishDate</td>
@@ -147,7 +147,7 @@
                 @foreach (var item in ViewBag.AllDayOffs)
                 {
                     <tr>
-                        <td>@ViewBag.NameForAll[ViewBag.AllDayOffs.IndexOf(item)]</td>
+                        <td>@item.AppUser.Name @item.AppUser.Surname</td>
                         <td>@item.DayOffType.ToString()</td>
                         <td>@item.StartDate</td>
                         <td>@item.FinishDate</td>

@@ -6,7 +6,9 @@ using BA.HR_Project.Domain.Enums;
 using BA.HR_Project.Infrastructure.Services.Abstract;
 using BA.HR_Project.Infrasturucture.Managers.Abstract;
 using BA.HR_Project.Infrasturucture.RequestResponse;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,7 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
         public AdvanceManager(IMapper mapper, IUow uow, UserManager<AppUser> userManager) : base(mapper, uow)
         {
             _userManager = userManager;
+            
         }
 
         public async Task<Response> CreateAvance(AdvanceDto dto)
@@ -93,11 +96,16 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
             var userAdvances = advancesAction.Context.Where(x=>x.AppUserId == userId).OrderBy(x=>x.RequestDate).ToList();
             return userAdvances;
         }
-        public async Task<List<AdvanceDto>> AllUserAdvance()
+        public async Task<List<AdvanceDto>> AllUserAdvance(string userId)
         {
-            var advancesAction = await GetAll();
-            var userAdvances = advancesAction.Context.OrderBy(x => x.RequestDate).ToList();
-            return userAdvances;
+            var managerUser = await _userManager.FindByIdAsync(userId);
+            var managerCompanyId = managerUser.CompanyId;
+
+            var advances = await _uow.GetRepository<Advance>().GetAllAsync(true, x => x.AppUser.CompanyId == managerCompanyId, x=>x.AppUser);
+            var orderedAdvances = advances.OrderBy(x => x.RequestDate).ToList();
+            var advanceDtos = _mapper.Map<List<AdvanceDto>>(orderedAdvances);
+
+            return advanceDtos;
         }
         public async Task<Response> ApprovedAdvance(string id)
         {

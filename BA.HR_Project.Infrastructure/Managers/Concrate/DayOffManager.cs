@@ -497,11 +497,16 @@ namespace BA.HR_Project.Infrastructure.Managers.Concrate
       
 
 
-        public async Task<List<DayOffDto>> AllUserDayOff()
+        public async Task<List<DayOffDto>> AllUserDayOff(string userId)
         {
-            var dayOffAction = await GetAll();
-            var userDayOff = dayOffAction.Context.OrderBy(x => x.RequestDate).ToList();
-            return userDayOff;
+            var managerUser = await _userManager.FindByIdAsync(userId);
+            var managerCompanyId = managerUser.CompanyId;
+
+            var dayoffs = await _uow.GetRepository<DayOff>().GetAllAsync(true, x => x.AppUser.CompanyId == managerCompanyId, x => x.AppUser);
+            var orderedDayOffs = dayoffs.OrderBy(x => x.RequestDate).ToList();
+            var dayoffDtos = _mapper.Map<List<DayOffDto>>(orderedDayOffs);
+
+            return dayoffDtos;
         }
         public async Task<Response> ApprovedDayOff(string id)
         {

@@ -15,7 +15,7 @@ namespace BA.HR_Project.Infrastructure.Services.Abstract
     {
         Task<Response> CreateAvance(AdvanceDto dto);
         Task<List<AdvanceDto>> GetAllAvance(string userId);
-        Task<List<AdvanceDto>> AllUserAdvance();
+        Task<List<AdvanceDto>> AllUserAdvance(string userId);
         Task<Response> ApprovedAdvance(string id);
         Task<Response> RejectAdvance(string id);
     }

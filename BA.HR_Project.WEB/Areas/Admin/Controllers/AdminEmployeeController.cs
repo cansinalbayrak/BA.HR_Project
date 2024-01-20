@@ -59,7 +59,9 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         [HttpGet()]
         public async Task<IActionResult> ListEmployee()
         {
-            var users = await _userManager.Users.Include(x => x.Company).Include(x => x.Department).ToListAsync();
+            var manager = await _userManager.GetUserAsync(User);
+            var managerId = manager.CompanyId;
+            var users = await _userManager.Users.Include(x => x.Company).Include(x => x.Department).Where(x=>x.CompanyId==managerId).ToListAsync();
             var usersDto = _mapper.Map<List<AppUserDto>>(users);
             var usersvm = _mapper.Map<List<ListEmployeeViewModel>>(usersDto);
 
@@ -177,52 +179,14 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         }
         public async Task<IActionResult> ListAllAdvances()
         {
-            var allAdvancesDto = await _advanceService.AllUserAdvance();
+            var manager = await _userManager.GetUserAsync(User);
+            var managerId = manager.Id;
+            var allAdvancesDto = await _advanceService.AllUserAdvance(managerId);
             var waitingAdvances = allAdvancesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Waiting).ToList();
             var approvedAdvances = allAdvancesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Approved).ToList();
             var deniedAdvances = allAdvancesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();
 
             var advancesVm = _mapper.Map<List<AdvanceViewModel>>(waitingAdvances);
-
-            List<string> userNamesDenied = new List<string>();
-            foreach (var expenseDto in deniedAdvances)
-            {
-                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
-                var nameForDenied = user?.Name + " " + user?.Surname;
-                userNamesDenied.Add(nameForDenied);
-
-            }
-            ViewBag.NameForDenied = userNamesDenied;
-
-            List<string> userNamesApproved = new List<string>();
-            foreach (var expenseDto in approvedAdvances)
-            {
-                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
-                var nameForApproved = user?.Name + " " + user?.Surname;
-                userNamesApproved.Add(nameForApproved);
-
-            }
-            ViewBag.NameForApproved = userNamesApproved;
-
-            List<string> userNamesWaiting = new List<string>();
-            foreach (var expenseDto in waitingAdvances)
-            {
-                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
-                var nameForWaiting = user?.Name + " " + user?.Surname;
-                userNamesWaiting.Add(nameForWaiting);
-
-            }
-            ViewBag.NameForWaiting = userNamesWaiting;
-
-            List<string> userNamesAll = new List<string>();
-            foreach (var expenseDto in allAdvancesDto)
-            {
-                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
-                var nameForAll = user?.Name + " " + user?.Surname;
-                userNamesAll.Add(nameForAll);
-
-            }
-            ViewBag.NameForAll = userNamesAll;
 
             ViewBag.AllAdvances = allAdvancesDto;
             ViewBag.ApprovedAdvances = approvedAdvances;
@@ -242,52 +206,14 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         }
         public async Task<IActionResult> ListAllExpenses()
         {
-            var allExpensesDto = await _expenseService.AllUserExpense();
+            var manager = await _userManager.GetUserAsync(User);
+            var managerId = manager.Id;
+            var allExpensesDto = await _expenseService.AllUserExpense(managerId);
             var waiting = allExpensesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Waiting).ToList();
             var approved = allExpensesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Approved).ToList();
             var denied = allExpensesDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();
 
             var expensesVm = _mapper.Map<List<ExpenseViewModel>>(waiting);
-
-            List<string> userNamesDenied = new List<string>();
-            foreach (var expenseDto in denied)
-            {
-                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
-                var nameForDenied = user?.Name + " " + user?.Surname;
-                userNamesDenied.Add(nameForDenied);
-                
-            }
-            ViewBag.NameForDenied = userNamesDenied;
-
-            List<string> userNamesApproved = new List<string>();
-            foreach (var expenseDto in approved)
-            {
-                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
-                var nameForApproved = user?.Name + " " + user?.Surname;
-                userNamesApproved.Add(nameForApproved);
-
-            }
-            ViewBag.NameForApproved = userNamesApproved;
-
-            List<string> userNamesWaiting = new List<string>();
-            foreach (var expenseDto in waiting)
-            {
-                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
-                var nameForWaiting = user?.Name + " " + user?.Surname;
-                userNamesWaiting.Add(nameForWaiting);
-
-            }
-            ViewBag.NameForWaiting = userNamesWaiting;
-
-            List<string> userNamesAll = new List<string>();
-            foreach (var expenseDto in allExpensesDto)
-            {
-                var user = await _userManager.FindByIdAsync(expenseDto.AppUserId);
-                var nameForAll = user?.Name + " " + user?.Surname;
-                userNamesAll.Add(nameForAll);
-
-            }
-            ViewBag.NameForAll = userNamesAll;
 
             ViewBag.AllExpenses = allExpensesDto;
             ViewBag.ApprovedExpenses = approved;
@@ -306,7 +232,9 @@ namespace BA.HR_Project.WEB.Areas.Admin.Controllers
         }
         public async Task<IActionResult> ListAllDayOffs()
         {
-            var allDayOffsDto = await _dayOffService.AllUserDayOff();
+            var manager = await _userManager.GetUserAsync(User);
+            var managerId = manager.Id;
+            var allDayOffsDto = await _dayOffService.AllUserDayOff(managerId);
             var waiting = allDayOffsDto.Where(x => x.ConfirmStatus == ConfirmStatus.Waiting).ToList();
             var approved = allDayOffsDto.Where(x => x.ConfirmStatus == ConfirmStatus.Approved).ToList();
             var denied = allDayOffsDto.Where(x => x.ConfirmStatus == ConfirmStatus.Denied).ToList();

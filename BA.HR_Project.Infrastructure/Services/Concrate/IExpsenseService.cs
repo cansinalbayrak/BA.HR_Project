@@ -16,7 +16,7 @@ namespace BA.HR_Project.Infrastructure.Services.Concrate
         Task<List<ExpenseDto>> GetAllExpenses(string userId);
          Task<Response> RejectExpense(string id);
         Task<Response> ApprovedExpense(string id);
-        Task<List<ExpenseDto>> AllUserExpense();
+        Task<List<ExpenseDto>> AllUserExpense(string userId);
 
     }
 }

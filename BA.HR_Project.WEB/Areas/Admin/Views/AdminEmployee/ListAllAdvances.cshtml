@@ -31,7 +31,9 @@
                     @foreach (var advance in Model)
                     {
                         <tr>
-                            <td>@ViewBag.NameForWaiting[Model.IndexOf(advance)]</td>
+                            @* <td>@ViewBag.NameForWaiting[Model.IndexOf(advance)]</td> *@
+
+                            <td>@advance.AppUser.Name @advance.AppUser.Surname</td>
                             <td>@advance.AdvanceType.ToString()</td>
                             <td>@advance.Amount</td>
                             <td>@advance.Currency.ToString()</td>
@@ -74,7 +76,8 @@
                             @foreach (var advance in ViewBag.ApprovedAdvances)
                             {
                                 <tr>
-                                    <td>@ViewBag.NameForApproved[ViewBag.ApprovedAdvances.IndexOf(advance)]</td>
+                                   @*  <td>@ViewBag.NameForApproved[ViewBag.ApprovedAdvances.IndexOf(advance)]</td> *@
+                                    <td>@advance.AppUser.Name @advance.AppUser.Surname</td>
                                     <td>@advance.AdvanceType.ToString()</td>
                                     <td>@advance.Amount</td>
                                     <td>@advance.Currency.ToString()</td>
@@ -108,7 +111,7 @@
                             @foreach (var advance in ViewBag.DeniedAdvances)
                             {
                                 <tr>
-                                    <td>@ViewBag.NameForDenied[ViewBag.DeniedAdvances.IndexOf(advance)]</td>
+                                    <td>@advance.AppUser.Name @advance.AppUser.Surname</td>
                                     <td>@advance.AdvanceType.ToString()</td>
                                     <td>@advance.Amount</td>
                                     <td>@advance.Currency.ToString()</td>
@@ -142,7 +145,7 @@
                             @foreach (var advance in ViewBag.AllAdvances)
                             {
                                 <tr>
-                                    <td>@ViewBag.NameForAll[ViewBag.AllAdvances.IndexOf(advance)]</td>
+                                    <td>@advance.AppUser.Name @advance.AppUser.Surname</td>
                                     <td>@advance.AdvanceType.ToString()</td>
                                     <td>@advance.Amount</td>
                                     <td>@advance.Currency.ToString()</td>
